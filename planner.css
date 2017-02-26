@@ -1,11 +1,21 @@
 
+#pane {
+  display: flex;
+}
+
+#sidebar {
+  height: 500px;
+  width: 150px;
+  background-color: grey;
+  font-size: 300%;
+  text-align: center;
+}
+
 #graph-view{
-  position: absolute;
+  position: relative;
   width: 500px;
   height: 500px;
-  background-color: blue;
-  top: 10px;
-  left: 10px;
+  background-color: darkgrey;
 }
 
 .graph-node {
@@ -13,17 +23,21 @@
   font-size: 80%;
   font-weight: bold;
   position: absolute;
-  height: 50px;
-  width: 50px;
-  background-color: red;
+  height: 52px;
+  width: 52px;
+  background-color: blue;
+  text-align: center;
 }
 
 .graph-node.unavailable {
+  color: white;
   background-color: red;
 }
 .graph-node.available {
-  background-color: blue;
+  color: black;
+  background-color: yellow;
 }
 .graph-node.selected {
+  color: white;
   background-color: green;
 }
