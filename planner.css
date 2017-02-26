@@ -1,0 +1,29 @@
+
+#graph-view{
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  background-color: blue;
+  top: 10px;
+  left: 10px;
+}
+
+.graph-node {
+  color: white;
+  font-size: 80%;
+  font-weight: bold;
+  position: absolute;
+  height: 50px;
+  width: 50px;
+  background-color: red;
+}
+
+.graph-node.unavailable {
+  background-color: red;
+}
+.graph-node.available {
+  background-color: blue;
+}
+.graph-node.selected {
+  background-color: green;
+}
