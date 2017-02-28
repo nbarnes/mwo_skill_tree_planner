@@ -1,4 +1,4 @@
-http://mwo-skill-tree-planner.aerobatic.com
+https://nbarnes.github.io/mwo_skill_tree_planner/
 =================================
 
 Mechwarrior Online Skill Tree Planner
@@ -10,7 +10,7 @@ Javascript, HTML, and CSS.  Everything it needs, nothing it doesn't. No jQuery!
 
 WHERE
 =====
-Live builds of Pixel Paisan can be found at http://mwo-skill-tree-planner.aerobatic.com. The github repo is at https://github.com/nbarnes/mwo_skill_tree_planner.
+Live builds of the MWO Skill Tree Planner can be found at https://nbarnes.github.io/mwo_skill_tree_planner/. The github repo is at https://github.com/nbarnes/mwo_skill_tree_planner.
 
 CONTRIBUTOR COVENANT
 ====================
@@ -20,7 +20,7 @@ Read more about the Contributor Covenant Code of Conduct at http://contributor-c
 
 ABOUT ME
 ========
-My name is Nathaniel Barnes, and I am a software developer living in Seattle, WA with four family members, four horses, four cats, and six chickens. I enjoy making software tools, drinking chai, and watching chickens. I can be reached at nbarnes@gmail.com, found on Twitter as @foxbarnes, or at my professional portfolio site www.alightsabermind.com.
+My name is Nathaniel Barnes, and I am a software developer living in Seattle, WA with four family members, four horses, four cats, and six chickens. I enjoy making software tools, drinking chai, watching chickens, and playing Mechwarrior Online. I can be reached at nbarnes@gmail.com, found on Twitter as @foxbarnes, or at my professional portfolio site www.alightsabermind.com.
 
 LICENSE
 =======

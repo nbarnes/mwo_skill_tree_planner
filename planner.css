@@ -3,19 +3,52 @@
   display: flex;
 }
 
-#sidebar {
+#left-sidebar {
+  position: relative;
+  border-width: 1px 0px 1px 1px;
+  border-color: black;
+  border-style: solid;
   height: 500px;
   width: 150px;
   background-color: grey;
   font-size: 300%;
+  line-height: 50px;
   text-align: center;
 }
 
-#graph-view{
+.tab {
+  font-size: 16px;
+  line-height: 20px;
+  position: absolute;
+  border-width: 1px 0px 1px 0px;
+  border-color: black;
+  border-style: solid;
+  height: 40px;
+  width: 150px;
+  background-color: darkgrey;
+}
+
+.tab.selected {
+  z-index: 2;
+  border-width: 1px 1px 1px 0px;
+  border-right-color: lightgrey;
+  background-color: lightgrey;
+}
+
+#skill-trees-pane {
+  border: 1px solid black;
   position: relative;
   width: 500px;
   height: 500px;
-  background-color: darkgrey;
+  background-color: lightgrey;
+}
+
+.skill-tree {
+  border: 1px solid black;
+  position: relative;
+  width: 500px;
+  height: 500px;
+  background-color: lightgrey;
 }
 
 .graph-node {

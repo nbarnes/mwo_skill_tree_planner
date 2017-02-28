@@ -2,108 +2,191 @@
 
 document.addEventListener("DOMContentLoaded", function() {
 
-  let treeSource = {
-    treeName: "Firepower",
-    nodes: [
-      [
-        {},
-        {
-          name: "Weapon Cooldown 2",
-          attributeValue: 0.05
-        }, {
-          name: "Weapon Cooldown 1",
-          attributeValue: 0.05
-        }, {
-          name: "Heat Dissipation 1",
-          attributeValue: 0.05
-        },
-        {}
-      ], [
-        {
-          name: "SRM Spread 1",
-          attributeValue: 0.05
-        },
-        {
-          name: "Weapon Cooldown 3",
-          attributeValue: 0.05
-        },
-        {
-          name: "Armor Penetration 1",
-          attributeValue: 0.05
-        },
-        {
-          name: "Heat Dissipation 2",
-          attributeValue: 0.05
-        },
-        {
-          name: "Heat Containment 1",
-          attributeValue: 0.05
-        }
-      ], [
-        {},
-        {},
-        {},
-        {},
-        {}
-      ], [
-        {},
-        {},
-        {},
-        {},
-        {}
-      ], [
-        {},
-        {},
-        {},
-        {},
-        {}
+  let treeSource = [
+    {
+      name: "Firepower",
+      nodes: [
+        [
+          {},
+          {
+            name: "Weapon Cooldown 2",
+            attributeValue: 0.05
+          }, {
+            name: "Weapon Cooldown 1",
+            attributeValue: 0.05
+          }, {
+            name: "Heat Dissipation 1",
+            attributeValue: 0.05
+          },
+          {}
+        ], [
+          {
+            name: "SRM Spread 1",
+            attributeValue: 0.05
+          },
+          {
+            name: "Weapon Cooldown 3",
+            attributeValue: 0.05
+          },
+          {
+            name: "Armor Penetration 1",
+            attributeValue: 0.05
+          },
+          {
+            name: "Heat Dissipation 2",
+            attributeValue: 0.05
+          },
+          {
+            name: "Heat Containment 1",
+            attributeValue: 0.05
+          }
+        ], [
+          {},
+          {},
+          {},
+          {},
+          {}
+        ], [
+          {},
+          {},
+          {},
+          {},
+          {}
+        ], [
+          {},
+          {},
+          {},
+          {},
+          {}
+        ]
       ]
-    ]
-  }
+    },
+
+    {
+      name: "Durability",
+      nodes: [
+        [
+          {},
+          {
+            name: "Structural Resilience 1",
+            attributeValue: 0.05
+          }, {
+            name: "Armor Hardening 1",
+            attributeValue: 0.05
+          }, {
+            name: "Armor Hardening 2",
+            attributeValue: 0.05
+          },
+          {}
+        ], [
+          {
+            name: "Structural Resilience 2",
+            attributeValue: 0.05
+          },
+          {
+            name: "Armor Hardening 3",
+            attributeValue: 0.05
+          },
+          {
+            name: "Ammo Explosion Mitigation",
+            attributeValue: 0.05
+          },
+          {
+            name: "Structural Resilience 3",
+            attributeValue: 0.05
+          },
+          {
+            name: "Shock Absorbance 1",
+            attributeValue: 0.05
+          }
+        ], [
+          {},
+          {},
+          {},
+          {},
+          {}
+        ], [
+          {},
+          {},
+          {},
+          {},
+          {}
+        ], [
+          {},
+          {},
+          {},
+          {},
+          {}
+        ]
+      ]
+    },
+
+  ]
 
   let SkillTree = (function() {
 
-    let treeName = treeSource.treeName;
-    let nodesMatrix = buildNodeMatrix(treeSource.nodes);
+    var activeTreeName = treeSource[0].name;
+    let skillTrees = buildSkillTrees(treeSource);
 
-    function getNodeLocation(node) {
-      for (var y = 0; y < nodesMatrix.length; y++) {
-        for (var x = 0; x < nodesMatrix[y].length; x++) {
-          if (nodesMatrix[y][x] == node) {
-            return [x, y];
+    function buildSkillTrees(treeSource) {
+      var skillTrees = [];
+      for (let treeDef of treeSource) {
+        var skillTree = {}
+        skillTree.name = treeDef.name;
+        skillTree.matrix = [];
+        for (let nodeRowSource of treeDef.nodes) {
+          var nodeRow = [];
+          for (let nodeDef of nodeRowSource) {
+            var newNode = undefined;
+            if (nodeDef !== undefined && nodeDef.name !== undefined) {
+              newNode = new Node(nodeDef.name, nodeDef.attributeValue);
+            }
+            nodeRow.push(newNode);
+          }
+          skillTree.matrix.push(nodeRow)
+        }
+        skillTrees.push(skillTree);
+      }
+
+      return skillTrees;
+    }
+
+    function setActiveTreeName(newName) {
+      activeTreeName = newName;
+    }
+
+    function getTreeMatrix(skillTreeName) {
+      if (skillTreeName == undefined) {
+        return getTreeMatrix(activeTreeName);
+      } else {
+        for (let skillTree of skillTrees) {
+          if (skillTree.name == skillTreeName) {
+            return skillTree.matrix;
           }
         }
       }
     }
 
-    function getNode(name) {
-      let nodeLocation = getNodeLocation(name);
-      return nodeAt(nodeLocation[1], nodeLocation[0]);
+    function getNodeLocation(node) {
+      for (let skillTree of skillTrees) {
+        for (var y = 0; y < skillTree.matrix.length; y++) {
+          for (var x = 0; x < skillTree.matrix[y].length; x++) {
+            if (skillTree.matrix[y][x] == node) {
+              return [x, y];
+            }
+          }
+        }
+      }
     }
 
-    function nodeAt(x, y) {
+    function nodeAt(x, y, skillTreeName) {
+      let matrix = getTreeMatrix(skillTreeName);
       var node = undefined;
-      let row = nodesMatrix[y];
+      let row = matrix[y];
       if (row !== undefined) {
         node = row[x];
       }
       return node;
-    }
-
-    function buildNodeMatrix(nodeDefs) {
-      var nodeMatrix = [];
-      for (let nodeSourceRow of nodeDefs) {
-        var nodeRow = [];
-        nodeMatrix.push(nodeRow);
-        for (let nodeDef of nodeSourceRow) {
-          var newNode = undefined;
-          if (nodeDef !== undefined && nodeDef.name !== undefined) {
-            newNode = new Node(nodeDef.name, nodeDef.attributeValue);
-          }
-          nodeRow.push(newNode);
-        }
-      }
-      return nodeMatrix;
     }
 
     function getTreeName() {
@@ -116,11 +199,13 @@ document.addEventListener("DOMContentLoaded", function() {
 
     function nodeCount() {
       var nodeCount = 0;
-      for (var y = 0; y < nodesMatrix.length; y++) {
-        for (var x = 0; x < nodesMatrix[y].length; x++) {
-          let node = nodeAt(x, y);
-          if (node != undefined) {
-            nodeCount = nodeCount + 1;
+      for (let skillTree of skillTrees) {
+        for (var y = 0; y < skillTree.matrix.length; y++) {
+          for (var x = 0; x < skillTree.matrix[y].length; x++) {
+            let node = nodeAt(x, y, skillTree.name);
+            if (node != undefined) {
+              nodeCount = nodeCount + 1;
+            }
           }
         }
       }
@@ -129,11 +214,13 @@ document.addEventListener("DOMContentLoaded", function() {
 
     function nodesSelected() {
       var selectedCount = 0;
-      for (var y = 0; y < nodesMatrix.length; y++) {
-        for (var x = 0; x < nodesMatrix[y].length; x++) {
-          let node = nodeAt(x, y);
-          if (node != undefined && node.selected) {
-            selectedCount = selectedCount + 1;
+      for (let skillTree of skillTrees) {
+        for (var y = 0; y < skillTree.matrix.length; y++) {
+          for (var x = 0; x < skillTree.matrix[y].length; x++) {
+            let node = nodeAt(x, y, skillTree.name);
+            if (node != undefined && node.selected) {
+              selectedCount = selectedCount + 1;
+            }
           }
         }
       }
@@ -145,37 +232,21 @@ document.addEventListener("DOMContentLoaded", function() {
       let parentX = node.x();
       let parentY = node.y();
 
-      // console.log("parent node "" + node.name + "" at " + parentX + ", " + parentY);
       if (parentX === 0) {
-        // console.log ("child A at " + parentX + ", " + (parentY + 1) + ", named: " + nodeAt(parentX, parentY + 1).name);
-        pushNodeIfNodeExists(childNodes, nodeAt(parentX, parentY + 1));
-
-        // console.log ("child B at " + (parentX + 1) + ", " + parentY + ", named: " + nodeAt(parentX + 1, parentY).name);
-        pushNodeIfNodeExists(childNodes, nodeAt(parentX + 1, parentY));
+        pushNodeIfNodeExists(childNodes, nodeAt(parentX, parentY + 1, activeTreeName));
+        pushNodeIfNodeExists(childNodes, nodeAt(parentX + 1, parentY, activeTreeName));
       }
-
       if ((parentX) == 1 || (parentX == 3)) {
-        // console.log ("child A at " + (parentX - 1) + ", " + parentY + ", named: " + nodeAt(parentX - 1, parentY + 1).name);
-        pushNodeIfNodeExists(childNodes, nodeAt(parentX - 1, parentY + 1));
-
-        // console.log ("child B at " + (parentX + 1) + ", " + parentY + ", named: " + nodeAt(parentX, parentY + 1).name);
-        pushNodeIfNodeExists(childNodes, nodeAt(parentX, parentY + 1));
-
-        // console.log ("child C at " + parentX + ", " + (parentY + 1) + ", named: " + nodeAt(parentX + 1, parentY + 1).name);
-        pushNodeIfNodeExists(childNodes, nodeAt(parentX + 1, parentY + 1));
+        pushNodeIfNodeExists(childNodes, nodeAt(parentX - 1, parentY + 1, activeTreeName));
+        pushNodeIfNodeExists(childNodes, nodeAt(parentX, parentY + 1, activeTreeName));
+        pushNodeIfNodeExists(childNodes, nodeAt(parentX + 1, parentY + 1, activeTreeName));
       }
-
       if (parentX == 2) {
-        // console.log ("child A at " + (parentX - 1) + ", " + parentY + ", named: " + nodeAt(parentX - 1, parentY).name);
-        pushNodeIfNodeExists(childNodes, nodeAt(parentX - 1, parentY));
-
-        // console.log ("child B at " + (parentX + 1) + ", " + parentY + ", named: " + nodeAt(parentX + 1, parentY).name);
-        pushNodeIfNodeExists(childNodes, nodeAt(parentX + 1, parentY));
+        pushNodeIfNodeExists(childNodes, nodeAt(parentX - 1, parentY, activeTreeName));
+        pushNodeIfNodeExists(childNodes, nodeAt(parentX + 1, parentY, activeTreeName));
       }
-
       if (parentX == 4) {
-        // console.log ("child A at " + (parentX - 1) + ", " + parentY + ", named: " + nodeAt(parentX - 1, parentY).name);
-        pushNodeIfNodeExists(childNodes, nodeAt(parentX - 1, parentY));
+        pushNodeIfNodeExists(childNodes, nodeAt(parentX - 1, parentY, activeTreeName));
       }
 
       return childNodes;
@@ -189,23 +260,23 @@ document.addEventListener("DOMContentLoaded", function() {
       // console.log("child node "" + nodeName + "" at " + childX + ", " + childY);
 
       if (childX == 0) {
-        pushNodeIfNodeExists(parentNodes, nodeAt(childX, childY - 1));
-        pushNodeIfNodeExists(parentNodes, nodeAt(childX + 1, childY - 1));
+        pushNodeIfNodeExists(parentNodes, nodeAt(childX, childY - 1, activeTreeName));
+        pushNodeIfNodeExists(parentNodes, nodeAt(childX + 1, childY - 1, activeTreeName));
       }
 
       if ((childX) == 1 || (childX == 3)) {
-        pushNodeIfNodeExists(parentNodes, nodeAt(childX - 1, childY));
-        pushNodeIfNodeExists(parentNodes, nodeAt(childX, childY - 1));
-        pushNodeIfNodeExists(parentNodes, nodeAt(childX + 1, childY));
+        pushNodeIfNodeExists(parentNodes, nodeAt(childX - 1, childY, activeTreeName));
+        pushNodeIfNodeExists(parentNodes, nodeAt(childX, childY - 1, activeTreeName));
+        pushNodeIfNodeExists(parentNodes, nodeAt(childX + 1, childY, activeTreeName));
       }
 
       if (childX == 2) {
-        pushNodeIfNodeExists(parentNodes, nodeAt(childX - 1, childY - 1));
-        pushNodeIfNodeExists(parentNodes, nodeAt(childX + 1, childY - 1));
+        pushNodeIfNodeExists(parentNodes, nodeAt(childX - 1, childY - 1, activeTreeName));
+        pushNodeIfNodeExists(parentNodes, nodeAt(childX + 1, childY - 1, activeTreeName));
       }
 
       if (childX == 4) {
-        pushNodeIfNodeExists(parentNodes, nodeAt(childX - 1, childY - 1));
+        pushNodeIfNodeExists(parentNodes, nodeAt(childX - 1, childY - 1, activeTreeName));
       }
 
       return parentNodes;
@@ -219,8 +290,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // public interface
     return {
-      getTreeName: getTreeName,
-      getNode: getNode,
+      getActiveTreeName: activeTreeName,
+      setActiveTreeName: setActiveTreeName,
       getNodeLocation: getNodeLocation,
       nodeAt: nodeAt,
       toggleNodeSelection: toggleNodeSelection,
@@ -260,38 +331,69 @@ document.addEventListener("DOMContentLoaded", function() {
     };
   }
 
-  function buildUI(nodesMatrix) {
-    let allXOffset = 85;
-    let allYOffset = 30;
-    let offset = 60;
-    let oddOffset = 30;
-    for (var y = 0; y < nodesMatrix.length; y++) {
-      for (var x = 0; x < nodesMatrix[y].length; x++) {
-        let nodeX = x, nodeY = y;
-        let node = SkillTree.nodeAt(nodeX, nodeY);
-        if (node !== undefined) {
-          let element = document.createElement("div");
-          element.classList.add("graph-node");
-          element.style.top = ( (nodeY * offset) + (nodeX % 2 * oddOffset) + allYOffset ) + "px";
-          element.style.left = ((nodeX * offset) + allXOffset) + "px";
-          element.id = nodeNameToId(node.name);
-          element.textContent = node.name;
-          if (x == 2 && y === 0) {  // (2, 0) is the root node for all skill trees
-            element.classList.add("available");
-          } else {
-            element.classList.add("unavailable");
+  function buildUI(treeSource) {
+
+    treeSource.forEach(function(skillTree, index) {
+      let topOffset = 50;
+      let tabElement = document.createElement("div");
+      tabElement.id = skillTree.name.toLowerCase() + '-tab';
+      tabElement.classList.add("tab");
+      tabElement.style.top = (40 * index) + 50 + "px";
+      tabElement.style.left = 0;
+      tabElement.textContent = skillTree.name;
+      tabElement.addEventListener("click", function() {
+        document.querySelectorAll('.tab').forEach(function (el) {
+          el.classList.remove('selected');
+        });
+        tabElement.classList.add('selected');
+        changeSkillTree(skillTree.name);
+      });
+      document.getElementById("left-sidebar").appendChild(tabElement);
+
+      let treeElement = document.createElement("div");
+      treeElement.id = nodeNameToId(skillTree.name.toLowerCase() + '-skill-tree');
+      treeElement.classList.add('skill-tree');
+      treeElement.classList.add('hide');
+      document.getElementById("graph-view").appendChild(treeElement);
+
+      for (var y = 0; y < skillTree.nodes.length; y++) {
+        for (var x = 0; x < skillTree.nodes[y].length; x++) {
+
+          let allXOffset = 40;
+          let allYOffset = 30;
+          let offset = 60;
+          let oddOffset = 30;
+
+          let nodeX = x, nodeY = y;
+          let node = SkillTree.nodeAt(nodeX, nodeY, skillTree.name);
+          if (node !== undefined) {
+            let nodeElement = document.createElement("div");
+            nodeElement.classList.add("graph-node");
+            nodeElement.style.top = ( (nodeY * offset) + (nodeX % 2 * oddOffset) + allYOffset ) + "px";
+            nodeElement.style.left = ((nodeX * offset) + allXOffset) + "px";
+            nodeElement.id = nodeNameToId(node.name);
+            nodeElement.textContent = node.name;
+            if (x == 2 && y === 0) {  // (2, 0) is the root node for all skill trees
+              nodeElement.classList.add("available");
+            } else {
+              nodeElement.classList.add("unavailable");
+            }
+            nodeElement.addEventListener("click", function() {
+              node.toggleSelection();
+            });
+            treeElement.appendChild(nodeElement);
           }
-          document.getElementById("graph-view").appendChild(element);
-          element.addEventListener("click", function() {
-            node.toggleSelection();
-          });
         }
       }
-    }
+
+    });
+
     updateNodeCounter();
     document.getElementById('node-total').textContent = SkillTree.nodeCount();
+    document.getElementById(treeSource[0].name.toLowerCase() + '-tab').click();
   }
-  buildUI(treeSource.nodes);
+  buildUI(treeSource);
+
 
   function nodeSelectionChanged(node) {
     if (node.selected) {
@@ -356,6 +458,13 @@ document.addEventListener("DOMContentLoaded", function() {
     document.getElementById('node-selection-counter').textContent = SkillTree.nodesSelected();
   }
 
+  function changeSkillTree(treeName) {
+    SkillTree.setActiveTreeName(treeName);
+    document.querySelectorAll('.skill-tree').forEach(function (el) {
+      el.classList.add('hide');
+    });
+    document.getElementById(treeName.toLowerCase() + '-skill-tree').classList.remove('hide');
+  }
 
   function nodeNameToId(nodeName) {
     return nodeName.replace(/ /g, "_").toLowerCase();
