@@ -2,126 +2,7 @@
 
 document.addEventListener("DOMContentLoaded", function() {
 
-  let treeSource = [
-    {
-      name: "Firepower",
-      nodes: [
-        [
-          {},
-          {
-            name: "Weapon Cooldown 2",
-            attributeValue: 0.05
-          }, {
-            name: "Weapon Cooldown 1",
-            attributeValue: 0.05
-          }, {
-            name: "Heat Dissipation 1",
-            attributeValue: 0.05
-          },
-          {}
-        ], [
-          {
-            name: "SRM Spread 1",
-            attributeValue: 0.05
-          },
-          {
-            name: "Weapon Cooldown 3",
-            attributeValue: 0.05
-          },
-          {
-            name: "Armor Penetration 1",
-            attributeValue: 0.05
-          },
-          {
-            name: "Heat Dissipation 2",
-            attributeValue: 0.05
-          },
-          {
-            name: "Heat Containment 1",
-            attributeValue: 0.05
-          }
-        ], [
-          {},
-          {},
-          {},
-          {},
-          {}
-        ], [
-          {},
-          {},
-          {},
-          {},
-          {}
-        ], [
-          {},
-          {},
-          {},
-          {},
-          {}
-        ]
-      ]
-    },
-
-    {
-      name: "Durability",
-      nodes: [
-        [
-          {},
-          {
-            name: "Structural Resilience 1",
-            attributeValue: 0.05
-          }, {
-            name: "Armor Hardening 1",
-            attributeValue: 0.05
-          }, {
-            name: "Armor Hardening 2",
-            attributeValue: 0.05
-          },
-          {}
-        ], [
-          {
-            name: "Structural Resilience 2",
-            attributeValue: 0.05
-          },
-          {
-            name: "Armor Hardening 3",
-            attributeValue: 0.05
-          },
-          {
-            name: "Ammo Explosion Mitigation",
-            attributeValue: 0.05
-          },
-          {
-            name: "Structural Resilience 3",
-            attributeValue: 0.05
-          },
-          {
-            name: "Shock Absorbance 1",
-            attributeValue: 0.05
-          }
-        ], [
-          {},
-          {},
-          {},
-          {},
-          {}
-        ], [
-          {},
-          {},
-          {},
-          {},
-          {}
-        ], [
-          {},
-          {},
-          {},
-          {},
-          {}
-        ]
-      ]
-    },
-
-  ]
+  let maxSkillNodes = 92;
 
   let SkillTree = (function() {
 
@@ -155,12 +36,16 @@ document.addEventListener("DOMContentLoaded", function() {
       activeTreeName = newName;
     }
 
-    function getTreeMatrix(skillTreeName) {
-      if (skillTreeName == undefined) {
+    function getActiveTreeName() {
+      return activeTreeName;
+    }
+
+    function getTreeMatrix(treeName) {
+      if (treeName == undefined) {
         return getTreeMatrix(activeTreeName);
       } else {
         for (let skillTree of skillTrees) {
-          if (skillTree.name == skillTreeName) {
+          if (skillTree.name == treeName) {
             return skillTree.matrix;
           }
         }
@@ -197,33 +82,56 @@ document.addEventListener("DOMContentLoaded", function() {
       node.toggleSelection();
     }
 
-    function nodeCount() {
+    function nodeCount(treeName) {
       var nodeCount = 0;
-      for (let skillTree of skillTrees) {
-        for (var y = 0; y < skillTree.matrix.length; y++) {
-          for (var x = 0; x < skillTree.matrix[y].length; x++) {
-            let node = nodeAt(x, y, skillTree.name);
-            if (node != undefined) {
-              nodeCount = nodeCount + 1;
-            }
-          }
+      if (treeName != undefined) {
+        return treeNodeCount(treeName);
+      } else {
+        for (let skillTree of skillTrees) {
+          nodeCount = nodeCount + treeNodeCount(treeName);
         }
       }
       return nodeCount;
     }
 
-    function nodesSelected() {
+    function treeNodeCount(treeName) {
+      let matrix = getTreeMatrix(treeName);
+      var nodeCount = 0;
+        for (var y = 0; y < matrix.length; y++) {
+          for (var x = 0; x < matrix[y].length; x++) {
+            let node = nodeAt(x, y, treeName);
+            if (node != undefined) {
+              nodeCount = nodeCount + 1;
+            }
+          }
+        }
+      return nodeCount;
+    }
+
+    function nodesSelected(treeName) {
       var selectedCount = 0;
-      for (let skillTree of skillTrees) {
-        for (var y = 0; y < skillTree.matrix.length; y++) {
-          for (var x = 0; x < skillTree.matrix[y].length; x++) {
-            let node = nodeAt(x, y, skillTree.name);
+      if (treeName != undefined) {
+        return treeNodesSelected(treeName);
+      } else {
+        for (let skillTree of skillTrees) {
+          selectedCount = selectedCount + treeNodesSelected(skillTree.name);
+        }
+      }
+      return selectedCount;
+    }
+
+    function treeNodesSelected(treeName) {
+      let matrix = getTreeMatrix(treeName);
+      var selectedCount = 0;
+        for (var y = 0; y < matrix.length; y++) {
+          for (var x = 0; x < matrix[y].length; x++) {
+            let node = nodeAt(x, y, treeName);
             if (node != undefined && node.selected) {
               selectedCount = selectedCount + 1;
             }
           }
         }
-      }
+      console.log(selectedCount)
       return selectedCount;
     }
 
@@ -290,7 +198,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // public interface
     return {
-      getActiveTreeName: activeTreeName,
+      getActiveTreeName: getActiveTreeName,
       setActiveTreeName: setActiveTreeName,
       getNodeLocation: getNodeLocation,
       nodeAt: nodeAt,
@@ -332,67 +240,79 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 
   function buildUI(treeSource) {
-
-    treeSource.forEach(function(skillTree, index) {
-      let topOffset = 50;
-      let tabElement = document.createElement("div");
-      tabElement.id = skillTree.name.toLowerCase() + '-tab';
-      tabElement.classList.add("tab");
-      tabElement.style.top = (40 * index) + 50 + "px";
-      tabElement.style.left = 0;
-      tabElement.textContent = skillTree.name;
-      tabElement.addEventListener("click", function() {
-        document.querySelectorAll('.tab').forEach(function (el) {
-          el.classList.remove('selected');
-        });
-        tabElement.classList.add('selected');
-        changeSkillTree(skillTree.name);
-      });
-      document.getElementById("left-sidebar").appendChild(tabElement);
-
-      let treeElement = document.createElement("div");
-      treeElement.id = nodeNameToId(skillTree.name.toLowerCase() + '-skill-tree');
-      treeElement.classList.add('skill-tree');
-      treeElement.classList.add('hide');
-      document.getElementById("graph-view").appendChild(treeElement);
-
-      for (var y = 0; y < skillTree.nodes.length; y++) {
-        for (var x = 0; x < skillTree.nodes[y].length; x++) {
-
-          let allXOffset = 40;
-          let allYOffset = 30;
-          let offset = 60;
-          let oddOffset = 30;
-
-          let nodeX = x, nodeY = y;
-          let node = SkillTree.nodeAt(nodeX, nodeY, skillTree.name);
-          if (node !== undefined) {
-            let nodeElement = document.createElement("div");
-            nodeElement.classList.add("graph-node");
-            nodeElement.style.top = ( (nodeY * offset) + (nodeX % 2 * oddOffset) + allYOffset ) + "px";
-            nodeElement.style.left = ((nodeX * offset) + allXOffset) + "px";
-            nodeElement.id = nodeNameToId(node.name);
-            nodeElement.textContent = node.name;
-            if (x == 2 && y === 0) {  // (2, 0) is the root node for all skill trees
-              nodeElement.classList.add("available");
-            } else {
-              nodeElement.classList.add("unavailable");
-            }
-            nodeElement.addEventListener("click", function() {
-              node.toggleSelection();
-            });
-            treeElement.appendChild(nodeElement);
-          }
-        }
-      }
-
+    treeSource.forEach(function(tree, index) {
+      buildTab(tree, index);
+      buildTreeDisplay(tree);
     });
-
-    updateNodeCounter();
-    document.getElementById('node-total').textContent = SkillTree.nodeCount();
+    updateNodeCounters();
+    document.getElementById('node-total').textContent = maxSkillNodes;
     document.getElementById(treeSource[0].name.toLowerCase() + '-tab').click();
   }
   buildUI(treeSource);
+
+  function buildTab(tree, position) {
+    let topOffset = 50;
+    let tabElement = document.createElement("div");
+    tabElement.id = tree.name.toLowerCase() + '-tab';
+    tabElement.classList.add("tab");
+    tabElement.style.top = (40 * position) + 50 + "px";
+    tabElement.style.left = 0;
+    tabElement.textContent = tree.name;
+
+    let counterElement = document.createElement("div");
+    counterElement.id = tree.name.toLowerCase() + '-tab-counter';
+    counterElement.classList.add("tab-counter");
+    counterElement.textContent = '0 / ' + SkillTree.nodeCount(tree.name);
+    tabElement.appendChild(counterElement);
+
+    tabElement.addEventListener("click", function() {
+      document.querySelectorAll('.tab').forEach(function (el) {
+        el.classList.remove('selected');
+      });
+      tabElement.classList.add('selected');
+      changeSkillTree(tree.name);
+    });
+    document.getElementById("left-sidebar").appendChild(tabElement);
+  }
+
+  function buildTreeDisplay(tree) {
+    let treeElement = document.createElement("div");
+    treeElement.id = nodeNameToId(tree.name.toLowerCase() + '-skill-tree');
+    treeElement.classList.add('skill-tree');
+    treeElement.classList.add('hide');
+    document.getElementById("graph-view").appendChild(treeElement);
+
+    for (var y = 0; y < tree.nodes.length; y++) {
+      for (var x = 0; x < tree.nodes[y].length; x++) {
+
+        let allXOffset = 40;
+        let allYOffset = 30;
+        let offset = 60;
+        let oddOffset = 30;
+
+        let nodeX = x, nodeY = y;
+        let node = SkillTree.nodeAt(nodeX, nodeY, tree.name);
+        if (node !== undefined) {
+          let nodeElement = document.createElement("div");
+          nodeElement.classList.add("graph-node");
+          nodeElement.style.top = ( (nodeY * offset) + (nodeX % 2 * oddOffset) + allYOffset ) + "px";
+          nodeElement.style.left = ((nodeX * offset) + allXOffset) + "px";
+          nodeElement.id = nodeNameToId(node.name);
+          nodeElement.textContent = node.name;
+          if (x == 2 && y === 0) {  // (2, 0) is the root node for all skill trees
+            nodeElement.classList.add("available");
+          } else {
+            nodeElement.classList.add("unavailable");
+          }
+          nodeElement.addEventListener("click", function() {
+            node.toggleSelection();
+          });
+          treeElement.appendChild(nodeElement);
+        }
+      }
+    }
+
+  }
 
 
   function nodeSelectionChanged(node) {
@@ -406,7 +326,7 @@ document.addEventListener("DOMContentLoaded", function() {
         }
       }
     } else {
-      if (nodeAvailableForSelection(node)) {
+      if (nodeAvailableForSelection(node) && (SkillTree.nodesSelected() < maxSkillNodes)) {
         node.selected = true;
         setNodeColorBasedOnSelectionStatus(node, "selected");
       }
@@ -422,7 +342,8 @@ document.addEventListener("DOMContentLoaded", function() {
         setNodeColorBasedOnSelectionStatus(child, "unavailable");
       }
     }
-    updateNodeCounter();
+    updateNodeCounters();
+
   }
 
   function nodeAvailableForSelection(node) {
@@ -454,8 +375,15 @@ document.addEventListener("DOMContentLoaded", function() {
     nodeElement.classList.add(selectionStatus);
   }
 
-  function updateNodeCounter() {
+  function updateNodeCounters() {
+    console.log(SkillTree.nodesSelected());
     document.getElementById('node-selection-counter').textContent = SkillTree.nodesSelected();
+
+    let activeTree = SkillTree.getActiveTreeName();
+    let activeTabCounter = document.getElementById(activeTree.toLowerCase() + '-tab-counter');
+    let nodesSelected = SkillTree.nodesSelected(activeTree);
+    let nodesTotal = SkillTree.nodeCount(activeTree);
+    activeTabCounter.textContent = nodesSelected + ' / ' + nodesTotal;
   }
 
   function changeSkillTree(treeName) {
