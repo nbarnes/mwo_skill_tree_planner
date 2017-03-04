@@ -212,21 +212,23 @@ document.addEventListener("DOMContentLoaded", function() {
     // and add the children of that node to a queue to be the next loaded
 
     let xOffset = 55;
-    let yOffset = 30;
+    let yOffset = 32;
     var leftmostNodeElement = 0;
     var rightmostNodeElement = 0;
 
     for (let node of tree.nodes) {
-      let nodeElement = document.createElement("div");
-      nodeElement.classList.add("graph-node");
-      nodeElement.id = node.id;
-      nodeElement.textContent = node.name;
+
+      let nodeFrameElement = buildNodeElement(node);
 
       // the first element in nodes is the root node, so it starts available
       if (node == tree.nodes[0])
-        nodeElement.classList.add("available");
+        nodeFrameElement.querySelectorAll('.node-element').forEach(function(element) {
+          element.classList.add("available");
+        });
       else {
-        nodeElement.classList.add("unavailable");
+        nodeFrameElement.querySelectorAll('.node-element').forEach(function(element) {
+          element.classList.add("unavailable");
+        });
       }
 
       let parent = node.parents()[0];
@@ -236,21 +238,21 @@ document.addEventListener("DOMContentLoaded", function() {
         let parentTop = dimensionAsNumber(parentElement.style.top);
         let parentLeft = dimensionAsNumber(parentElement.style.left);
         if (relativeChildPostiion == 'left') {
-          nodeElement.style.top = parentTop + yOffset + 'px';
-          nodeElement.style.left = parentLeft - xOffset + 'px';
+          nodeFrameElement.style.top = parentTop + yOffset + 'px';
+          nodeFrameElement.style.left = parentLeft - xOffset + 'px';
         } else if (relativeChildPostiion == 'right') {
-          nodeElement.style.top = parentTop + yOffset + 'px';
-          nodeElement.style.left = parentLeft + xOffset + 'px';
+          nodeFrameElement.style.top = parentTop + yOffset + 'px';
+          nodeFrameElement.style.left = parentLeft + xOffset + 'px';
         } else {
-          nodeElement.style.top = parentTop + (yOffset * 2) + 'px';
-          nodeElement.style.left = parentLeft + 'px';
+          nodeFrameElement.style.top = parentTop + (yOffset * 2) + 'px';
+          nodeFrameElement.style.left = parentLeft + 'px';
         }
       } else {
-        nodeElement.style.top = '25px';
-        nodeElement.style.left = '26px';
+        nodeFrameElement.style.top = '25px';
+        nodeFrameElement.style.left = '26px';
       }
 
-      let leftPosition = dimensionAsNumber(nodeElement.style.left);
+      let leftPosition = dimensionAsNumber(nodeFrameElement.style.left);
       if (leftPosition < leftmostNodeElement) {
         leftmostNodeElement = leftPosition;
       }
@@ -258,8 +260,9 @@ document.addEventListener("DOMContentLoaded", function() {
         rightmostNodeElement = leftPosition;
       }
 
-      treeElement.appendChild(nodeElement);
-      nodeElement.addEventListener("click", function() {
+      treeElement.appendChild(nodeFrameElement);
+      nodeFrameElement.addEventListener("click", function() {
+        console.log(node.name);
         nodeSelectionChanged(node);
       });
     }
@@ -273,6 +276,35 @@ document.addEventListener("DOMContentLoaded", function() {
       el.style.left = newLeft;
     });
 
+  }
+
+  function buildNodeElement(node) {
+      let nodeFrameElement = document.createElement("div");
+      let hexTopElement = document.createElement("div");
+      let nodeTextElement = document.createElement("div");
+      let hexBottomElement = document.createElement("div");
+
+      nodeFrameElement.classList.add('node-element');
+      hexTopElement.classList.add('node-element');
+      nodeTextElement.classList.add('node-element');
+      hexBottomElement.classList.add('node-element');
+
+      nodeFrameElement.classList.add("graph-node");
+      nodeFrameElement.id = node.id;
+
+      hexTopElement.classList.add('hex-top');
+      hexTopElement.classList.add('hex-component');
+      nodeTextElement.classList.add('hex-text');
+      hexBottomElement.classList.add('hex-bottom');
+      hexBottomElement.classList.add('hex-component');
+
+      nodeTextElement.textContent = node.name;
+
+      nodeFrameElement.append(hexTopElement);
+      nodeFrameElement.append(nodeTextElement);
+      nodeFrameElement.append(hexBottomElement);
+
+      return nodeFrameElement;
   }
 
   function getRelativeChildPosition(parent, childId) {
@@ -340,9 +372,10 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 
   function setNodeColorBasedOnSelectionStatus(node, selectionStatus) {
-    let nodeElement = document.getElementById(node.id);
-    removeNodeClasses(nodeElement);
-    nodeElement.classList.add(selectionStatus);
+    document.getElementById(node.id).querySelectorAll('.node-element').forEach(function(element) {
+      removeNodeClasses(element);
+      element.classList.add(selectionStatus);
+    });
   }
 
   function updateNodeCounters() {

@@ -3,6 +3,7 @@ body {
   color: #333;
   font-size: 13px;
   line-height: 18px;
+  font-family: 'PT Sans Narrow', sans-serif;
 }
 
 p, ol, ul, td {
