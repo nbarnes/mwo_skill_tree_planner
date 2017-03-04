@@ -112,5 +112,27 @@ let treeSource = [
         rightChildId: "gauss-charge-3"
       }
     ]
+  }, {
+    name: 'Survival',
+    nodes: [
+      { name: "Reinforced Casing 1",
+        attribute: "Armor",
+        value: "1",
+        leftChildId: "ams-overload-1",
+        rightChildId: "shock-absorbance-1"
+      },
+      { name: "AMS Overload 1",
+        attribute: "AMS Rate of Fire",
+        value: "1.25",
+        centerChildId: "shock-absorbance-1",
+        leftChildId: "skeletal-density-1"
+      },
+      { name: "Shock Absorbance 1",
+        attribute: "Recoil Reduction",
+        value: "10",
+        leftChildId: "skeletal-density-1",
+        centerChildId: "reinforced-casing-2"
+      }
+    ]
   }
 ]

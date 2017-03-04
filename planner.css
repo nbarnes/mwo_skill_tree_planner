@@ -16,6 +16,19 @@
   text-align: center;
 }
 
+#right-sidebar {
+  position: relative;
+  border-width: 1px 1px 1px 0px;
+  border-color: black;
+  border-style: solid;
+  height: 500px;
+  width: 150px;
+  background-color: grey;
+  font-size: 300%;
+  line-height: 50px;
+  text-align: center;
+}
+
 .tab {
   font-size: 16px;
   line-height: 20px;
@@ -40,7 +53,7 @@
 
 .skill-tree {
   border: 1px solid black;
-  position: relative;
+  position: absolute;
   width: 500px;
   height: 500px;
   background-color: lightgrey;

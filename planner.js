@@ -173,12 +173,12 @@ document.addEventListener("DOMContentLoaded", function() {
 
   buildUI(SkillTree.getTrees());
 
-  function buildTab(tree, position) {
+  function buildTab(tree, index) {
     let topOffset = 50;
     let tabElement = document.createElement("div");
     tabElement.id = tree.name.toLowerCase() + '-tab';
     tabElement.classList.add("tab");
-    tabElement.style.top = (40 * position) + 50 + "px";
+    tabElement.style.top = (40 * index) + 50 + "px";
     tabElement.style.left = 0;
     tabElement.textContent = tree.name;
 
@@ -210,12 +210,10 @@ document.addEventListener("DOMContentLoaded", function() {
 
     let xOffset = 55;
     let yOffset = 30;
-
     var leftmostNodeElement = 0;
     var rightmostNodeElement = 0;
 
     for (let node of tree.nodes) {
-
       let nodeElement = document.createElement("div");
       nodeElement.classList.add("graph-node");
       nodeElement.id = node.id;
@@ -229,14 +227,11 @@ document.addEventListener("DOMContentLoaded", function() {
       }
 
       let parent = node.parents()[0];
-
       if (parent != undefined) {
-
         let relativeChildPostiion = getRelativeChildPosition(parent, node.id);
         let parentElement = document.getElementById(parent.id);
         let parentTop = dimensionAsNumber(parentElement.style.top);
         let parentLeft = dimensionAsNumber(parentElement.style.left);
-
         if (relativeChildPostiion == 'left') {
           nodeElement.style.top = parentTop + yOffset + 'px';
           nodeElement.style.left = parentLeft - xOffset + 'px';
@@ -247,7 +242,6 @@ document.addEventListener("DOMContentLoaded", function() {
           nodeElement.style.top = parentTop + (yOffset * 2) + 'px';
           nodeElement.style.left = parentLeft + 'px';
         }
-
       } else {
         nodeElement.style.top = '25px';
         nodeElement.style.left = '26px';
@@ -257,25 +251,21 @@ document.addEventListener("DOMContentLoaded", function() {
       if (leftPosition < leftmostNodeElement) {
         leftmostNodeElement = leftPosition;
       }
-
       if (leftPosition > rightmostNodeElement) {
         rightmostNodeElement = leftPosition;
       }
 
       treeElement.appendChild(nodeElement);
-
       nodeElement.addEventListener("click", function() {
         nodeSelectionChanged(node);
       });
-
     }
 
     let nodeWidth = 52; // width of a graph node, per planner.css
     let padding = 25; // 'padding' here rather than in css because 'absolute' positioning of the
                       // node elements throws off alignment of css padding
     treeElement.style.width = rightmostNodeElement - leftmostNodeElement + nodeWidth + (padding * 2) + 'px';
-
-    document.querySelectorAll('.graph-node').forEach(function (el) {
+    document.getElementById(treeNameToId(tree.name)).querySelectorAll('.graph-node').forEach(function (el) {
       let newLeft = dimensionAsNumber(el.style.left) + (-leftmostNodeElement) + padding + 'px';
       el.style.left = newLeft;
     });
@@ -309,7 +299,6 @@ document.addEventListener("DOMContentLoaded", function() {
         setNodeColorBasedOnSelectionStatus(node, "selected");
       }
     }
-
     // update children
     for (let child of node.children()) {
       if (child.selected) {
@@ -321,7 +310,6 @@ document.addEventListener("DOMContentLoaded", function() {
       }
     }
     updateNodeCounters();
-
   }
 
   function nodeAvailableForSelection(node) {
@@ -355,7 +343,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
   function updateNodeCounters() {
     document.getElementById('node-selection-counter').textContent = SkillTree.nodesSelected();
-
     let activeTree = SkillTree.getActiveTreeName();
     let activeTabCounter = document.getElementById(activeTree.toLowerCase() + '-tab-counter');
     let nodesSelected = SkillTree.nodesSelected(activeTree);
