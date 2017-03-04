@@ -38,14 +38,6 @@
 .tab-counter {
 }
 
-#skill-trees-pane {
-  border: 1px solid black;
-  position: relative;
-  width: 500px;
-  height: 500px;
-  background-color: lightgrey;
-}
-
 .skill-tree {
   border: 1px solid black;
   position: relative;

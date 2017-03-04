@@ -1,120 +1,116 @@
+// First element of the nodes array MUST be the root node of the skll graph
+
 let treeSource = [
   {
-    name: "Firepower",
+    name: "Weapons",
     nodes: [
-      [
-        {},
-        {
-          name: "Weapon Cooldown 2",
-          attributeValue: 0.05
-        }, {
-          name: "Weapon Cooldown 1",
-          attributeValue: 0.05
-        }, {
-          name: "Heat Dissipation 1",
-          attributeValue: 0.05
-        },
-        {}
-      ], [
-        {
-          name: "SRM Spread 1",
-          attributeValue: 0.05
-        },
-        {
-          name: "Weapon Cooldown 3",
-          attributeValue: 0.05
-        },
-        {
-          name: "Armor Penetration 1",
-          attributeValue: 0.05
-        },
-        {
-          name: "Heat Dissipation 2",
-          attributeValue: 0.05
-        },
-        {
-          name: "Heat Containment 1",
-          attributeValue: 0.05
-        }
-      ], [
-        {},
-        {},
-        {},
-        {},
-        {}
-      ], [
-        {},
-        {},
-        {},
-        {},
-        {}
-      ], [
-        {},
-        {},
-        {},
-        {},
-        {}
-      ]
+      { name: "Range 1",
+        attribute: "Weapon Optimal Range",
+        value: "1.5",
+        leftChildId: "laser-duration-1",
+        rightChildId: "velocity-1"
+      },
+      { name: "Laser Duration 1",
+        attribute: "Laser Duration",
+        value: "1.5",
+        leftChildId: "laser-duration-2",
+        rightChildId: "range-2"
+      },
+      { name: "Velocity 1",
+        attribute: "Shot Velocity",
+        value: "4",
+        leftChildId: "range-2",
+        rightChildId: "velocity-2"
+      },
+      { name: "Laser Duration 2",
+        attribute: "Laser Duration",
+        value: "1.5",
+        leftChildId: "range-3",
+        centerChildId: "laser-duration-3"
+      },
+      { name: "Range 2",
+        attribute: "Weapon Optimal Range",
+        value: "1.5",
+        centerChildId: "high-explosive-1"
+      },
+      { name: "Velocity 2",
+        attribute: "Shot Velocity",
+        value: "4",
+        centerChildId: "velocity-3",
+        rightChildId: "cooldown-1"
+      },
+      { name: "Range 3",
+        attribute: "Weapon Optimal Range",
+        value: "1.5",
+        leftChildId: "cooldown-2"
+      },
+      { name: "Cooldown 1",
+        attribute: "Weapons Cooldown",
+        value: "0.8",
+        leftChildId: "velocity-3",
+        rightChildId: "gauss-charge-1"
+      },
+      { name: "Cooldown 2",
+        attribute: "Weapons Cooldown",
+        value: "0.8",
+        leftChildId: "heat-gen-1"
+      },
+      { name: "Laser Duration 3",
+        attribute: "Laser Duration",
+        value: "1.5",
+        leftChildId: "cooldown-3",
+        rightChildId: "cooldown-4"
+      },
+      { name: "High Explosive 1",
+        attribute: "High Explosive",
+        value: "3",
+        leftChildId: "cooldown-4",
+        rightChildId: "velocity-4"
+      },
+      { name: "Velocity 3",
+        attribute: "Shot Velocity",
+        value: "4",
+        leftChildId: "velocity-4",
+        rightChildId: "cooldown-5"
+      },
+      { name: "Gauss Charge 1",
+        attribute: "Gauss Charge",
+        value: "0.25",
+        rightChildId: "gauss-charge-2"
+      },
+      { name: "Heat Gen 1",
+        attribute: "Weapons Heat Generation",
+        value: "1",
+      },
+      { name: "Cooldown 3",
+        attribute: "Weapons Cooldown",
+        value: "0.8",
+        leftChildId: "heat-gen-2"
+      },
+      { name: "Cooldown 4",
+        attribute: "Weapons Cooldown",
+        value: "0.8",
+        leftChildId: "laser-duration-4",
+        rightChildId: "missile-rack-1"
+      },
+      { name: "Velocity 4",
+        attribute: "Shot Velocity",
+        value: "4",
+        leftChildId: "missile-rack-1",
+        rightChildId: "heat-gen-3"
+      },
+      { name: "Cooldown 5",
+        attribute: "Weapons Cooldown",
+        value: "0.8",
+        leftChildId: "heat-gen-3",
+        rightChildId: "magazine-capacity-1"
+      },
+      { name: "Gauss Charge 2",
+        attribute: "Shot Velocity",
+        value: "4",
+        leftChildId: "missile-rack-1",
+        rightChildId: "gauss-charge-3"
+      }
     ]
-  },
-
-  {
-    name: "Durability",
-    nodes: [
-      [
-        {},
-        {
-          name: "Structural Resilience 1",
-          attributeValue: 0.05
-        }, {
-          name: "Armor Hardening 1",
-          attributeValue: 0.05
-        }, {
-          name: "Armor Hardening 2",
-          attributeValue: 0.05
-        },
-        {}
-      ], [
-        {
-          name: "Structural Resilience 2",
-          attributeValue: 0.05
-        },
-        {
-          name: "Armor Hardening 3",
-          attributeValue: 0.05
-        },
-        {
-          name: "Ammo Explosion Mitigation",
-          attributeValue: 0.05
-        },
-        {
-          name: "Structural Resilience 3",
-          attributeValue: 0.05
-        },
-        {
-          name: "Shock Absorbance 1",
-          attributeValue: 0.05
-        }
-      ], [
-        {},
-        {},
-        {},
-        {},
-        {}
-      ], [
-        {},
-        {},
-        {},
-        {},
-        {}
-      ], [
-        {},
-        {},
-        {},
-        {},
-        {}
-      ]
-    ]
-  },
-
+  }
 ]
