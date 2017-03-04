@@ -404,11 +404,11 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 
   function treeNameToId(treeName) {
-    return treeName.replace(/ /g, "_").toLowerCase() + '-skill-tree';
+    return treeName.replace(/ /g, "-").toLowerCase() + '-skill-tree';
   }
 
   function bonusAttributeToId(attribute) {
-    return attribute.replace(/ /g, "_").toLowerCase() + '-bonus-display';
+    return attribute.replace(/ /g, "-").toLowerCase() + '-bonus-display';
   }
 
   // strips the 'px' off the end of a CSS dimension, returns the number value
