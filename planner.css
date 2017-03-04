@@ -29,6 +29,17 @@
   text-align: center;
 }
 
+#bonuses-header {
+  text-decoration: underline
+}
+
+.bonus-display{
+  padding: 5px 10px 5px 10px;
+  text-align: left;
+  font-size: 15px;
+  line-height: 15px;
+}
+
 .tab {
   font-size: 16px;
   line-height: 20px;
@@ -53,7 +64,7 @@
 
 .skill-tree {
   border: 1px solid black;
-  position: absolute;
+  position: relative;
   width: 500px;
   height: 500px;
   background-color: lightgrey;

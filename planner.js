@@ -10,15 +10,16 @@ document.addEventListener("DOMContentLoaded", function() {
     let skillTrees = buildSkillTrees(treeSource);
 
     function buildSkillTrees(treeSource) {
-      var skillTrees = [];
+      let skillTrees = [];
       for (let treeDef of treeSource) {
-        var skillTree = {}
+        let skillTree = {}
         skillTree.name = treeDef.name;
         skillTree.nodes = [];
         for (let nodeDef of treeDef.nodes) {
           skillTree.nodes.push(new Node(nodeDef.name,
                                         nodeDef.attribute,
-                                        nodeDef.value,
+                                        parseFloat(nodeDef.value),
+                                        nodeDef.valueTemplate,
                                         nodeNameToId(nodeDef.name),
                                         nodeDef.leftChildId,
                                         nodeDef.centerChildId,
@@ -80,24 +81,25 @@ document.addEventListener("DOMContentLoaded", function() {
       return nodeCount;
     }
 
-    function nodesSelected(treeName) {
-      var selectedCount = 0;
+    function getSelectedNodes(treeName) {
+      let selectedNodes = [];
+
       if (treeName != undefined) {
         for (let node of getTree(treeName).nodes) {
           if (node.selected) {
-            selectedCount++;
+            selectedNodes.push(node);
           }
         }
       } else {
         for (let skillTree of skillTrees) {
-          selectedCount = selectedCount + nodesSelected(skillTree.name);
+          selectedNodes = selectedNodes.concat(getSelectedNodes(skillTree.name));
         }
       }
-      return selectedCount;
+      return selectedNodes;
     }
 
     function childrenOf(node) {
-      var childNodes = [];
+      let childNodes = [];
       pushIfDefined(childNodes, getNode(node.leftChildId));
       pushIfDefined(childNodes, getNode(node.centerChildId));
       pushIfDefined(childNodes, getNode(node.rightChildId));
@@ -105,7 +107,7 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     function parentsOf(node) {
-      var parentNodes = [];
+      let parentNodes = [];
       for (let tree of skillTrees) {
         for (let potentialParent of tree.nodes) {
           if (potentialParent.leftChildId == node.id || potentialParent.centerChildId == node.id || potentialParent.rightChildId == node.id) {
@@ -129,19 +131,20 @@ document.addEventListener("DOMContentLoaded", function() {
       getTrees: getTrees,
       getNode: getNode,
       getNodeCount: getNodeCount,
-      nodesSelected: nodesSelected,
+      getSelectedNodes: getSelectedNodes,
       parentsOf: parentsOf,
       childrenOf: childrenOf
     }
 
   })();
 
-  function Node(newName, newAttribute, newAttributeValue, newId, newLeftChildId, newCenterChildId, newRightCenterChildId) {
+  function Node(newName, newAttribute, newValue, newValueTemplate, newId, newLeftChildId, newCenterChildId, newRightCenterChildId) {
     var selected = false;
 
     this.name = newName;
     this.attribute = newAttribute;
-    this.attributeValue = newAttributeValue;
+    this.value = newValue;
+    this.valueTemplate = newValueTemplate
     this.id = newId;
 
     this.leftChildId = newLeftChildId,
@@ -294,7 +297,7 @@ document.addEventListener("DOMContentLoaded", function() {
         }
       }
     } else {
-      if (nodeAvailableForSelection(node) && (SkillTree.nodesSelected() < maxSkillNodes)) {
+      if (nodeAvailableForSelection(node) && (SkillTree.getSelectedNodes().length < maxSkillNodes)) {
         node.selected = true;
         setNodeColorBasedOnSelectionStatus(node, "selected");
       }
@@ -310,6 +313,7 @@ document.addEventListener("DOMContentLoaded", function() {
       }
     }
     updateNodeCounters();
+    updateBonuses();
   }
 
   function nodeAvailableForSelection(node) {
@@ -342,12 +346,53 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 
   function updateNodeCounters() {
-    document.getElementById('node-selection-counter').textContent = SkillTree.nodesSelected();
+    document.getElementById('node-selection-counter').textContent = SkillTree.getSelectedNodes().length;
     let activeTree = SkillTree.getActiveTreeName();
     let activeTabCounter = document.getElementById(activeTree.toLowerCase() + '-tab-counter');
-    let nodesSelected = SkillTree.nodesSelected(activeTree);
+    let nodesSelected = SkillTree.getSelectedNodes(activeTree).length;
     let nodesTotal = SkillTree.getNodeCount(activeTree);
     activeTabCounter.textContent = nodesSelected + ' / ' + nodesTotal;
+  }
+
+  function updateBonuses() {
+    let bonuses = [];
+    let nodes = SkillTree.getSelectedNodes();
+    for (let node of nodes) {
+      let bonusForAttribute = getBonusForAttribute(bonuses, node.attribute);
+      if (bonusForAttribute != undefined) {
+        bonusForAttribute.value = bonusForAttribute.value + node.value;
+      } else {
+        bonuses.push({attribute: node.attribute, value: node.value, valueTemplate: node.valueTemplate});
+      }
+    }
+    document.getElementById("bonuses-display").innerHTML = null;
+
+    bonuses.forEach(function(bonus, index) {
+
+      let bonusDisplayElement = document.createElement("div");
+      bonusDisplayElement.id = bonusAttributeToId(bonus.attribute);
+      bonusDisplayElement.classList.add("bonus-display");
+      bonusDisplayElement.textContent = bonus.attribute + ' ' + getValueTemplate(bonus.attribute)[0] + bonus.value + getValueTemplate(bonus.attribute)[1];
+
+      document.getElementById("bonuses-display").append(bonusDisplayElement);
+
+    });
+  }
+
+  function getBonusForAttribute(bonuses, attribute) {
+    for (let bonus of bonuses) {
+      if (bonus.attribute == attribute) {
+        return bonus;
+      }
+    }
+  }
+
+  function getValueTemplate(attribute) {
+    for (let mapping of attributeTemplateMap) {
+      if (mapping.attribute == attribute) {
+        return [ mapping.template.split('{}')[0], mapping.template.split('{}')[1] ];
+      }
+    }
   }
 
   function changeSkillTree(treeName) {
@@ -360,6 +405,10 @@ document.addEventListener("DOMContentLoaded", function() {
 
   function treeNameToId(treeName) {
     return treeName.replace(/ /g, "_").toLowerCase() + '-skill-tree';
+  }
+
+  function bonusAttributeToId(attribute) {
+    return attribute.replace(/ /g, "_").toLowerCase() + '-bonus-display';
   }
 
   // strips the 'px' off the end of a CSS dimension, returns the number value

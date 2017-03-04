@@ -80,7 +80,7 @@ let treeSource = [
       },
       { name: "Heat Gen 1",
         attribute: "Weapons Heat Generation",
-        value: "1",
+        value: "1"
       },
       { name: "Cooldown 3",
         attribute: "Weapons Cooldown",
@@ -106,8 +106,8 @@ let treeSource = [
         rightChildId: "magazine-capacity-1"
       },
       { name: "Gauss Charge 2",
-        attribute: "Shot Velocity",
-        value: "4",
+        attribute: "Gauss Charge",
+        value: "0.25",
         leftChildId: "missile-rack-1",
         rightChildId: "gauss-charge-3"
       }
@@ -122,7 +122,7 @@ let treeSource = [
         rightChildId: "shock-absorbance-1"
       },
       { name: "AMS Overload 1",
-        attribute: "AMS Rate of Fire",
+        attribute: "AMS Effectiveness",
         value: "1.25",
         centerChildId: "shock-absorbance-1",
         leftChildId: "skeletal-density-1"
@@ -135,4 +135,35 @@ let treeSource = [
       }
     ]
   }
+]
+
+let attributeTemplateMap = [
+  { attribute: "Weapon Optimal Range",
+    template: "+{}%"
+  },
+  { attribute: "Laser Duration",
+    template: "-{}%"
+  },
+  { attribute: "Shot Velocity",
+    template: "+{}%"
+  },
+  { attribute: "Weapons Cooldown",
+    template: "-{}%"
+  },
+  { attribute: "High Explosive",
+    template: "+{}%"
+  },
+  { attribute: "Gauss Charge",
+    template: "-{} sec."
+  },
+  { attribute: "Armor",
+    template: "+{}%"
+  },
+  { attribute: "AMS Effectiveness",
+    template: "+{}%"
+  },
+  { attribute: "Recoil Reduction",
+    template: "-{}%"
+  }
+
 ]
