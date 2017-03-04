@@ -411,19 +411,19 @@ document.addEventListener("DOMContentLoaded", function() {
     return attribute.replace(/ /g, "-").toLowerCase() + '-bonus-display';
   }
 
+  function nodeNameToId(nodeName) {
+    return nodeName.replace(/ /g, "-").toLowerCase();
+  }
+
   // strips the 'px' off the end of a CSS dimension, returns the number value
   function dimensionAsNumber(dimension) {
-    return parseInt(dimension.slice(0, -2));
+    return parseFloat(dimension.slice(0, -2));
   }
 
   function removeNodeClasses(nodeElement) {
     nodeElement.classList.remove("selected");
     nodeElement.classList.remove("available");
     nodeElement.classList.remove("unavailable");
-  }
-
-  function nodeNameToId(nodeName) {
-    return nodeName.replace(/ /g, "-").toLowerCase();
   }
 
 });
