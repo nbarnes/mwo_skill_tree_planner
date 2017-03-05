@@ -142,3 +142,11 @@
 .hex-text.unavailable {
   color: white;
 }
+
+.node-connect-line {
+  position: absolute;
+  height: 2px;
+  background: black;
+  z-index: 0;
+  transform-origin: 0 100%;
+}

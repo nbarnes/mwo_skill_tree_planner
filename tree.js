@@ -317,7 +317,7 @@ let treeSource = [
         attribute: "Weapon Optimal Range",
         value: "1.5",
         centerChildId: "high-explosive-5",
-        rightChildId: "missle-spread-5"
+        rightChildId: "missile-spread-5"
       },
       { name: "LBX Spread 3",
         attribute: "LBX Spread",
@@ -420,7 +420,7 @@ let treeSource = [
       }
     ]
   }, {
-    name: 'Survival',
+    name: 'Durability',
     nodes: [
       { name: "Reinforced Casing 1",
         attribute: "Armor",
@@ -432,7 +432,7 @@ let treeSource = [
         attribute: "AMS Effectiveness",
         value: "1.25",
         centerChildId: "shock-absorbance-1",
-        leftChildId: "skeletal-density-1"
+        rightChildId: "skeletal-density-1"
       },
       { name: "Shock Absorbance 1",
         attribute: "Recoil Reduction",

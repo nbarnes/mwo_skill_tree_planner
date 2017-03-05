@@ -275,6 +275,33 @@ document.addEventListener("DOMContentLoaded", function() {
       el.style.left = newLeft;
     });
 
+    for (let node of tree.nodes) {
+      let parentElement = document.getElementById(node.id);
+      if (node.leftChildId != undefined) {
+        let leftChildElement = document.getElementById(node.leftChildId);
+        if (leftChildElement == null) {
+          console.log('left child id results in null = ' + node.leftChildId);
+        } else {
+          drawLineBetweenNodes(parentElement, leftChildElement, treeElement);
+        }
+      }
+      if (node.centerChildId != undefined) {
+        let centerChildElement = document.getElementById(node.centerChildId);
+        if (centerChildElement == null) {
+          console.log('center child id results in null = ' + node.centerChildId);
+        } else {
+          drawLineBetweenNodes(parentElement, centerChildElement, treeElement);
+        }
+      }
+      if (node.rightChildId != undefined) {
+        let rightChildElement = document.getElementById(node.rightChildId);
+        if (rightChildElement == null) {
+          console.log('right child id results in null = ' + node.rightChildId);
+        } else {
+          drawLineBetweenNodes(parentElement, rightChildElement, treeElement);
+        }
+      }
+    }
   }
 
   function buildNodeElement(node) {
@@ -310,6 +337,33 @@ document.addEventListener("DOMContentLoaded", function() {
       nodeFrameElement.append(hexBottomElement);
 
       return nodeFrameElement;
+  }
+
+  function drawLineBetweenNodes(parentElement, childElement, treeElement) {
+    let lineElement = document.createElement("div");
+    lineElement.classList.add("node-connect-line");
+
+    let parentX = dimensionAsNumber(parentElement.style.left);
+    let parentY = dimensionAsNumber(parentElement.style.top);
+    let childX = dimensionAsNumber(childElement.style.left);
+    let childY = dimensionAsNumber(childElement.style.top);
+
+    lineElement.style.width = childY - parentY + 15 + 'px';
+
+    let midX = (parentX + childX) / 2;
+    let midY = (parentY + childY) / 2;
+
+    let angle  = Math.atan2(parentY - childY, parentX - childX) * 180 / Math.PI;
+    let transform = 'rotate(' + (angle + 180) + 'deg)';
+
+    lineElement.style.transform = transform;
+    lineElement.style.top = (parentY + 26) + 'px';
+    lineElement.style.left = (parentX + 26) + 'px';
+
+
+    treeElement.appendChild(lineElement);
+
+
   }
 
   function getRelativeChildPosition(parent, childId) {
@@ -404,16 +458,12 @@ document.addEventListener("DOMContentLoaded", function() {
       }
     }
     document.getElementById("bonuses-display").innerHTML = null;
-
     bonuses.forEach(function(bonus, index) {
-
       let bonusDisplayElement = document.createElement("div");
       bonusDisplayElement.id = bonusAttributeToId(bonus.attribute);
       bonusDisplayElement.classList.add("bonus-display");
       bonusDisplayElement.textContent = bonus.attribute + " " + getValueTemplate(bonus.attribute)[0] + bonus.value + getValueTemplate(bonus.attribute)[1];
-
       document.getElementById("bonuses-display").append(bonusDisplayElement);
-
     });
   }
 
