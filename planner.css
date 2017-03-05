@@ -1,6 +1,7 @@
 
 #pane {
   display: flex;
+  height: 570px;
 }
 
 #left-sidebar {
@@ -8,7 +9,6 @@
   border-width: 1px 0px 1px 1px;
   border-color: black;
   border-style: solid;
-  height: 500px;
   width: 150px;
   background-color: grey;
   font-size: 300%;
@@ -21,7 +21,6 @@
   border-width: 1px 1px 1px 0px;
   border-color: black;
   border-style: solid;
-  height: 500px;
   width: 150px;
   background-color: grey;
   font-size: 300%;
@@ -63,7 +62,7 @@
   border: 1px solid black;
   position: relative;
   width: 500px;
-  height: 500px;
+  height: 568px;
   background-color: lightgrey;
 }
 
