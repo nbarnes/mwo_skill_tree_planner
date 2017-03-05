@@ -2,6 +2,11 @@
 
 let treeSource = [
   {
+  /*
+  ==========================================
+                   WEAPONS
+  ==========================================
+  */
     name: "Weapons",
     nodes: [
       { name: "Range 1",
@@ -419,11 +424,17 @@ let treeSource = [
         value: "1"
       }
     ]
-  }, {
-    name: 'Durability',
+  },
+  /*
+  ==========================================
+                  SURVIVAL
+  ==========================================
+  */
+  {
+    name: 'Survival',
     nodes: [
       { name: "Reinforced Casing 1",
-        attribute: "Armor",
+        attribute: "Reinforced Casing",
         value: "1",
         leftChildId: "ams-overload-1",
         rightChildId: "shock-absorbance-1"
@@ -431,14 +442,222 @@ let treeSource = [
       { name: "AMS Overload 1",
         attribute: "AMS Effectiveness",
         value: "1.25",
-        centerChildId: "shock-absorbance-1",
+        centerChildId: "shock-absorbance-2",
         rightChildId: "skeletal-density-1"
       },
       { name: "Shock Absorbance 1",
-        attribute: "Recoil Reduction",
+        attribute: "Impact Reduction",
         value: "10",
         leftChildId: "skeletal-density-1",
         centerChildId: "reinforced-casing-2"
+      },
+      { name: "Skeletal Density 1",
+        attribute: "Internal Structure",
+        value: "5.2",
+        centerChildId: "shock-absorbance-2",
+        rightChildId: "reinforced-casing-2"
+      },
+      { name: "Shock Absorbance 2",
+        attribute: "Impact Reduction",
+        value: "10",
+        leftChildId: "shock-absorbance-3",
+        centerChildId: "reinforced-casing-3"
+      },
+      { name: "Reinforced Casing 2",
+        attribute: "Reinforced Casing",
+        value: "1",
+        centerChildId: "ams-overload-2",
+        rightChildId: "skeletal-density-2"
+      },
+      { name: "Shock Absorbance 3",
+        attribute: "Impact Reduction",
+        value: "10",
+        leftChildId: "armor-hardening-1",
+        centerChildId: "skeletal-density-3",
+        rightChildId: "reinforced-casing-3"
+      },
+      { name: "Skeletal Density 2",
+        attribute: "Recoil Reduction",
+        value: "5.2",
+        leftChildId: "ams-overload-2",
+        centerChildId: "reinforced-casing-4",
+        rightChildId: "armor-hardening-2"
+      },
+      { name: "Armor Hardening 1",
+        attribute: "Armor",
+        value: "3.2",
+        rightChildId: "skeletal-density-3"
+      },
+      { name: "Reinforced Casing 3",
+        attribute: "Reinforced Casing",
+        value: "1",
+        leftChildId: "skeletal-density-3",
+        centerChildId: "shock-absorbance-4",
+        rightChildId: "armor-hardening-3"
+      },
+      { name: "AMS Overload 2",
+        attribute: "AMS Effectiveness",
+        value: "1.25",
+        leftChildId: "armor-hardening-3",
+        centerChildId: "shock-absorbance-5",
+        rightChildId: "reinforced-casing-4"
+      },
+      { name: "Armor Hardening 2",
+        attribute: "Armor",
+        value: "3.2",
+        leftChildId: "reinforced-casing-4"
+      },
+      { name: "Skeletal Density 3",
+        attribute: "Internal Structure",
+        value: "5.2",
+        rightChildId: "shock-absorbance-4"
+      },
+      { name: "Armor Hardening 3",
+        attribute: "Armor",
+        value: "3.2",
+        leftChildId: "shock-absorbance-4",
+        rightChildId: "shock-absorbance-5"
+      },
+      { name: "Reinforced Casing 4",
+        attribute: "Armor",
+        value: "1",
+        leftChildId: "shock-absorbance-5"
+      },
+      { name: "Shock Absorbance 4",
+        attribute: "Impact Reduction",
+        value: "10",
+        leftChildId: "skeletal-density-4",
+        rightChildId: "reinforced-casing-5"
+      },
+      { name: "Shock Absorbance 5",
+        attribute: "Impact Reduction",
+        value: "10",
+        leftChildId: "reinforced-casing-5",
+        rightChildId: "skeletal-density-5"
+      },
+      { name: "Skeletal Density 4",
+        attribute: "Internal Structure",
+        value: "5.2"
+      },
+      { name: "Reinforced Casing 5",
+        attribute: "Reinforced Casing",
+        value: "1",
+        leftChildId: "armor-hardening-4",
+        rightChildId: "armor-hardening-5"
+      },
+      { name: "Skeletal Density 5",
+        attribute: "Internal Structure",
+        value: "5.2"
+      },
+      { name: "Armor Hardening 4",
+        attribute: "Armor",
+        value: "3.2"
+      },
+      { name: "Armor Hardening 5",
+        attribute: "Armor",
+        value: "3.2"
+      }
+    ]
+  },
+  /*
+  ==========================================
+                    MOBiLITY
+  ==========================================
+  */
+  {
+    name: 'Mobility',
+    nodes: [
+      { name: "Kinetic Burst 1",
+        attribute: "Acceleration",
+        value: "10",
+        leftChildId: "torso-pitch-1",
+        rightChildId: "torso-pitch-2"
+      },
+      { name: "Torso Pitch 1",
+        attribute: "Max Torso Inclination",
+        value: "2",
+        leftChildId: "arm-pitch-1",
+        rightChildId: "hard-brake-1"
+      },
+      { name: "Torso Pitch 2",
+        attribute: "Max Torso Inclination",
+        value: "2",
+        leftChildId: "hard-brake-1",
+        rightChildId: "arm-pitch-2"
+      },
+      { name: "Arm Pitch 1",
+        attribute: "Max Arm Inclination",
+        value: "6",
+        leftChildId: "torso-speed-1",
+        rightChildId: "torso-yaw-1"
+      },
+      { name: "Hard Brake 1",
+        attribute: "Deceleration",
+        value: "10",
+        leftChildId: "torso-yaw-1",
+        rightChildId: "kinetic-burst-2"
+      },
+      { name: "Arm Pitch 2",
+        attribute: "Max Arm Inclination",
+        value: "6",
+        leftChildId: "kinetic-burst-2",
+        rightChildId: "anchor-turn-1"
+      },
+      { name: "Torso Speed 1",
+        attribute: "Torso Twist Speed",
+        value: "4",
+        rightChildId: "kinetic-burst-3"
+      },
+      { name: "Torso Yaw 1",
+        attribute: "Max Torso Twist",
+        value: "2",
+        leftChildId: "kinetic-burst-3"
+      },
+      { name: "Kinetic Burst 2",
+        attribute: "Acceleration",
+        value: "10",
+        rightChildId: "torso-yaw-2"
+      },
+      { name: "Anchor Turn 1",
+        attribute: "Turn Speed",
+        value: "6",
+        leftChildId: "torso-yaw-2"
+      },
+      { name: "Kinetic Burst 3",
+        attribute: "Acceleration",
+        value: "10",
+        leftChildId: "torso-yaw-3",
+        rightChildId: "hard-brake-2"
+      },
+      { name: "Torso Yaw 2",
+        attribute: "Max Torso Twist",
+        value: "2",
+        leftChildId: "hard-brake-3",
+        rightChildId: "hard-brake-4"
+      },
+      { name: "Torso Yaw 3",
+        attribute: "Max Torso Twist",
+        value: "2",
+        leftChildId: "torso-speed-2",
+        rightChildId: "torso-speed-3"
+      },
+      { name: "Hard Brake 2",
+        attribute: "Deceleration",
+        value: "10",
+        leftChildId: "torso-speed-3",
+        rightChildId: "arm-pitch-3"
+      },
+      { name: "Hard Brake 3",
+        attribute: "Deceleration",
+        value: "10",
+        leftChildId: "arm-pitch-3",
+        rightChildId: "kinetic-burst-4"
+      },
+      { name: "Hard Brake 4",
+        attribute: "Deceleration",
+        value: "10",
+        leftChildId: "kinetic-burst-4",
+        rightChildId: "anchor-turn-2"
       }
     ]
   }
@@ -489,6 +708,35 @@ let attributeTemplateMap = [
   },
   { attribute: "UAC Jam Chance",
     template: "-{}%"
+  },
+  { attribute: "Reinforced Casing",
+    template: "-{}%"
+  },
+  { attribute: "Impact Reduction",
+    template: "-{}%"
+  },
+  { attribute: "Internal Structure",
+    template: "+{}%"
+  },
+  { attribute: "Acceleration",
+    template: "+{}%"
+  },
+  { attribute: "Deceleration",
+    template: "+{}%"
+  },
+  { attribute: "Max Torso Inclination",
+    template: "+{}%"
+  },
+  { attribute: "Max Arm Inclination",
+    template: "+{}%"
+  },
+  { attribute: "Torso Twist Speed",
+    template: "+{}%"
+  },
+  { attribute: "Max Torso Twist",
+    template: "+{}%"
+  },
+  { attribute: "Turn Speed",
+    template: "+{}%"
   }
-
 ]

@@ -211,8 +211,8 @@ document.addEventListener("DOMContentLoaded", function() {
     // need to do something here to sort the node array.  Probably search it each time you add a node
     // and add the children of that node to a queue to be the next loaded
 
-    let xOffset = 55;
-    let yOffset = 32;
+    let xOffset = 65;
+    let yOffset = 38;
     var leftmostNodeElement = 0;
     var rightmostNodeElement = 0;
 
@@ -353,8 +353,8 @@ document.addEventListener("DOMContentLoaded", function() {
     let midX = (parentX + childX) / 2;
     let midY = (parentY + childY) / 2;
 
-    let angle  = Math.atan2(parentY - childY, parentX - childX) * 180 / Math.PI;
-    let transform = 'rotate(' + (angle + 180) + 'deg)';
+    let angle  = (Math.atan2(parentY - childY, parentX - childX) * 180 / Math.PI) + 180;
+    let transform = 'rotate(' + (angle) + 'deg)';
 
     lineElement.style.transform = transform;
     lineElement.style.top = (parentY + 26) + 'px';
