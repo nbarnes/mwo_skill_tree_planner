@@ -658,6 +658,130 @@ let treeSource = [
         value: "10",
         leftChildId: "kinetic-burst-4",
         rightChildId: "anchor-turn-2"
+      },
+      { name: "Torso Speed 2",
+        attribute: "Torso Twist Speed",
+        value: "4",
+        rightChildId: "torso-yaw-4"
+      },
+      { name: "Torso Speed 3",
+        attribute: "Torso Twist Speed",
+        value: "4",
+        rightChildId: "torso-pitch-3"
+      },
+      { name: "Arm Pitch 3",
+        attribute: "Max Arm Inclination",
+        value: "6",
+        leftChildId: "torso-pitch-3",
+        rightChildId: "torso-pitch-4"
+      },
+      { name: "Kinetic Burst 4",
+        attribute: "Acceleration",
+        value: "10",
+        leftChildId: "torso-pitch-4"
+      },
+      { name: "Anchor Turn 2",
+        attribute: "Turn Speed",
+        value: "6",
+        leftChildId: "torso-speed-4"
+      },
+      { name: "Torso Yaw 4",
+        attribute: "Max Torso Twist",
+        value: "2",
+        rightChildId: "torso-pitch-5"
+      },
+      { name: "Torso Pitch 3",
+        attribute: "Max Torso Inclination",
+        value: "2",
+        leftChildId: "torso-pitch-5"
+      },
+      { name: "Torso Pitch 4",
+        attribute: "Max Torso Inclination",
+        value: "2",
+        rightChildId: "hard-brake-5"
+      },
+      { name: "Torso Speed 4",
+        attribute: "Torso Twist Speed",
+        value: "4",
+        leftChildId: "hard-brake-5"
+      },
+      { name: "Torso Pitch 5",
+        attribute: "Max Torso Inclination",
+        value: "2",
+        leftChildId: "anchor-turn-3",
+        rightChildId: "torso-yaw-5"
+      },
+      { name: "Hard Brake 5",
+        attribute: "Deceleration",
+        value: "10",
+        leftChildId: "kinetic-burst-5",
+        rightChildId: "anchor-turn-4"
+      },
+      { name: "Anchor Turn 3",
+        attribute: "Turn Speed",
+        value: "6",
+        rightChildId: "arm-pitch-4"
+      },
+      { name: "Torso Yaw 5",
+        attribute: "Max Torso Twist",
+        value: "2",
+        leftChildId: "arm-pitch-4"
+      },
+      { name: "Kinetic Burst 5",
+        attribute: "Acceleration",
+        value: "10",
+        rightChildId: "arm-pitch-5"
+      },
+      { name: "Anchor Turn 4",
+        attribute: "Turn Speed",
+        value: "6",
+        leftChildId: "arm-pitch-5"
+      },
+      { name: "Arm Pitch 4",
+        attribute: "Max Arm Inclination",
+        value: "6",
+        leftChildId: "speed-tweak-1",
+        centerChildId: "torso-speed-5"
+      },
+      { name: "Arm Pitch 5",
+        attribute: "Max Arm Inclination",
+        value: "6",
+        centerChildId: "anchor-turn-5",
+        rightChildId: "speed-tweak-2"
+      },
+      { name: "Speed Tweak 1",
+        attribute: "Max Speed",
+        value: "1.5",
+        rightChildId: "torso-speed-5"
+      },
+      { name: "Speed Tweak 2",
+        attribute: "Max Speed",
+        value: "1.5",
+        leftChildId: "anchor-turn-5"
+      },
+      { name: "Torso Speed 5",
+        attribute: "Torso Twist Speed",
+        value: "4",
+        rightChildId: "speed-tweak-3"
+      },
+      { name: "Anchor Turn 5",
+        attribute: "Turn Speed",
+        value: "6",
+        leftChildId: "speed-tweak-4"
+      },
+      { name: "Speed Tweak 3",
+        attribute: "Max Speed",
+        value: "1.5",
+        rightChildId: "speed-tweak-5"
+      },
+      { name: "Speed Tweak 4",
+        attribute: "Max Speed",
+        value: "1.5",
+        leftChildId: "speed-tweak-5"
+      },
+      { name: "Speed Tweak 5",
+        attribute: "Max Speed",
+        value: "1.5"
       }
     ]
   }
@@ -737,6 +861,9 @@ let attributeTemplateMap = [
     template: "+{}%"
   },
   { attribute: "Turn Speed",
+    template: "+{}%"
+  },
+  { attribute: "Max Speed",
     template: "+{}%"
   }
 ]
