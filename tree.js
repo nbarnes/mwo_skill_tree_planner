@@ -784,6 +784,132 @@ let treeSource = [
         value: "1.5"
       }
     ]
+  },
+  /*
+  ==========================================
+                  JUMP JETS
+  ==========================================
+  */
+  {
+    name: "Jump Jets",
+    nodes: [
+      { name: "Heat Shielding 1",
+        attribute: "Jump Jet Heat Reduction",
+        value: "6",
+        leftChildId: "vent-calibration-1",
+        rightChildId: "vectoring-1"
+      },
+      { name: "Vent Calibration 1",
+        attribute: "Jump Jet Energy",
+        value: "3",
+        centerChildId: "vent-calibration-2",
+        rightChildId: "heat-shielding-2"
+      },
+      { name: "Vectoring 1",
+        attribute: "Jump Jet Forward Thrust",
+        value: "25",
+        leftChildId: "heat-shielding-2",
+        centerChildId: "vectoring-2",
+        rightChildId: "lift-speed-1"
+      },
+      { name: "Heat Shielding 2",
+        attribute: "Jump Jet Heat Reduction",
+        value: "6",
+        leftChildId: "vent-calibration-2",
+        rightChildId: "vectoring-2"
+      },
+      { name: "Lift Speed 1",
+        attribute: "Jump Jet Vertical Thrust",
+        value: "3",
+        leftChildId: "vectoring-2"
+      },
+      { name: "Vent Calibration 2",
+        attribute: "Jump Jet Energy",
+        value: "3",
+        centerChildId: "vent-calibration-3",
+        rightChildId: "heat-shielding-3"
+      },
+      { name: "Vectoring 2",
+        attribute: "Jump Jet Forward Thrust",
+        value: "25",
+        leftChildId: "heat-shielding-3",
+        centerChildId: "vectoring-3",
+        rightChildId: "lift-speed-2"
+      },
+      { name: "Heat Shielding 3",
+        attribute: "Jump Jet Heat Reduction",
+        value: "6",
+        leftChildId: "vent-calibration-3",
+        rightChildId: "vectoring-3"
+      },
+      { name: "Lift Speed 2",
+        attribute: "Jump Jet Vertical Thrust",
+        value: "3",
+        leftChildId: "vectoring-3"
+      },
+      { name: "Vent Calibration 3",
+        attribute: "Jump Jet Energy",
+        value: "3",
+        leftChildId: "lift-speed-3",
+        centerChildId: "vent-calibration-4",
+        rightChildId: "heat-shielding-4"
+      },
+      { name: "Vectoring 3",
+        attribute: "Jump Jet Forward Thrust",
+        value: "25",
+        leftChildId: "heat-shielding-4",
+        centerChildId: "vectoring-4"
+      },
+      { name: "Lift Speed 3",
+        attribute: "Jump Jet Vertical Thrust",
+        value: "3",
+        rightChildId: "vent-calibration-4"
+      },
+      { name: "Heat Shielding 4",
+        attribute: "Jump Jet Heat Reduction",
+        value: "6",
+        leftChildId: "vent-calibration-4",
+        rightChildId: "vectoring-4"
+      },
+      { name: "Vent Calibration 4",
+        attribute: "Jump Jet Energy",
+        value: "3",
+        leftChildId: "lift-speed-4",
+        centerChildId: "vent-calibration-5",
+        rightChildId: "heat-shielding-5"
+      },
+      { name: "Vectoring 4",
+        attribute: "Jump Jet Forward Thrust",
+        value: "25",
+        leftChildId: "heat-shielding-5",
+        centerChildId: "vectoring-5"
+      },
+      { name: "Lift Speed 4",
+        attribute: "Jump Jet Vertical Thrust",
+        value: "3",
+        rightChildId: "vent-calibration-5"
+      },
+      { name: "Heat Shielding 5",
+        attribute: "Jump Jet Heat Reduction",
+        value: "6",
+        leftChildId: "vent-calibration-5",
+        rightChildId: "vectoring-5"
+      },
+      { name: "Vent Calibration 5",
+        attribute: "Jump Jet Energy",
+        value: "3"
+      },
+      { name: "Vectoring 5",
+        attribute: "Jump Jet Forward Thrust",
+        value: "25",
+        leftChildId: "lift-speed-5"
+      },
+      { name: "Lift Speed 5",
+        attribute: "Jump Jet Vertical Thrust",
+        value: "3"
+      }
+
+    ]
   }
 ]
 
@@ -864,6 +990,18 @@ let attributeTemplateMap = [
     template: "+{}%"
   },
   { attribute: "Max Speed",
+    template: "+{}%"
+  },
+  { attribute: "Jump Jet Heat Reduction",
+    template: "-{}%"
+  },
+  { attribute: "Jump Jet Vertical Thrust",
+    template: "+{}%"
+  },
+  { attribute: "Jump Jet Forward Thrust",
+    template: "+{}%"
+  },
+  { attribute: "Jump Jet Energy",
     template: "+{}%"
   }
 ]
