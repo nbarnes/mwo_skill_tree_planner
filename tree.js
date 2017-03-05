@@ -79,7 +79,7 @@ let treeSource = [
         rightChildId: "gauss-charge-2"
       },
       { name: "Heat Gen 1",
-        attribute: "Weapons Heat Generation",
+        attribute: "Heat Generation",
         value: "1"
       },
       { name: "Cooldown 3",
@@ -108,8 +108,110 @@ let treeSource = [
       { name: "Gauss Charge 2",
         attribute: "Gauss Charge",
         value: "0.25",
-        leftChildId: "missile-rack-1",
+        leftChildId: "magazine-capacity-1",
         rightChildId: "gauss-charge-3"
+      },
+      { name: "Heat Gen 2",
+        attribute: "Heat Generation",
+        value: "1",
+        rightChildId: "laser-duration-5"
+      },
+      { name: "Laser Duration 4",
+        attribute: "Laser Duration",
+        value: "1.5",
+        leftChildId: "laser-duration-5"
+      },
+      { name: "Missile Rack 1",
+        attribute: "Missile Rack",
+        value: "1",
+        leftChildId: "missile-spread-1",
+        rightChildId: "missile-spread-2"
+      },
+      { name: "Heat Gen 3",
+        attribute: "Heat Generation",
+        value: "1",
+        rightChildId: "range-4"
+      },
+      { name: "Magazine Capacity 1",
+        attribute: "Magazine Capacity",
+        value: "8",
+        leftChildId: "range-4",
+        rightChildId: "range-5"
+      },
+      { name: "Gauss Charge 3",
+        attribute: "Gauss Charge",
+        value: "0.25",
+        rightChildId: "gauss-charge-4"
+      },
+      { name: "Laser Duration 5",
+        attribute: "Laser Duration",
+        value: "1.5",
+        leftChildId: "cooldown-6",
+        rightChildId: "cooldown-9"
+      },
+      { name: "Missile Spread 1",
+        attribute: "Missile Spread",
+        value: "1.5",
+        leftChildId: "cooldown-9",
+        rightChildId: "cooldown-7"
+      },
+      { name: "Missile Spread 2",
+        attribute: "Missile Spread",
+        value: "1.5",
+        leftChildId: "cooldown-7",
+        rightChildId: "velocity-5"
+      },
+      { name: "Range 4",
+        attribute: "Weapon Optimal Range",
+        value: "1.5",
+        leftChildId: "velocity-5",
+        rightChildId: "heat-gen-4"
+      },
+      { name: "Range 5",
+        attribute: "Weapon Optimal Range",
+        value: "1.5",
+        leftChildId: "heat-gen-4",
+        rightChildId: "cooldown-8"
+      },
+      { name: "Gauss Charge 4",
+        attribute: "Gauss Charge",
+        value: "0.25",
+        leftChildId: "cooldown-8"
+      },
+      { name: "Cooldown 6",
+        attribute: "Weapons Cooldown",
+        value: "0.8",
+        leftChildId: "laser-duration-6"
+      },
+      { name: "Cooldown 9",
+        attribute: "Weapons Cooldown",
+        value: "0.8",
+        leftChildId: "heat-gen-7",
+        rightChildId: "heat-gen-5"
+      },
+      { name: "Cooldown 7",
+        attribute: "Weapons Cooldown",
+        value: "0.8",
+        leftChildId: "heat-gen-5",
+        rightChildId: "heat-gen-6"
+      },
+      { name: "Velocity 5",
+        attribute: "Shot Velocity",
+        value: "4",
+        leftChildId: "heat-gen-6",
+        rightChildId: "gauss-charge-5"
+      },
+      { name: "Heat Gen 4",
+        attribute: "Heat Generation",
+        value: "1",
+        leftChildId: "gauss-charge-5",
+        rightChildId: "range-7"
+      },
+      { name: "Cooldown 8",
+        attribute: "Weapons Cooldown",
+        value: "0.8",
+        leftChildId: "range-7",
+        rightChildId: "lbx-spread-1"
       }
     ]
   }, {
@@ -154,7 +256,7 @@ let attributeTemplateMap = [
     template: "+{}%"
   },
   { attribute: "Gauss Charge",
-    template: "-{} sec."
+    template: "+{}"
   },
   { attribute: "Armor",
     template: "+{}%"
@@ -163,6 +265,18 @@ let attributeTemplateMap = [
     template: "+{}%"
   },
   { attribute: "Recoil Reduction",
+    template: "-{}%"
+  },
+  { attribute: "Heat Generation",
+    template: "-{}%"
+  },
+  { attribute: "Magazine Capacity",
+    template: "+{}"
+  },
+  { attribute: "Missile Rack",
+    template: "+{}"
+  },
+  { attribute: "Missile Spread",
     template: "-{}%"
   }
 

@@ -170,8 +170,8 @@ document.addEventListener("DOMContentLoaded", function() {
       buildTreeDisplay(tree);
     });
     updateNodeCounters();
-    document.getElementById('node-total').textContent = maxSkillNodes;
-    document.getElementById(trees[0].name.toLowerCase() + '-tab').click();
+    document.getElementById("node-total").textContent = maxSkillNodes;
+    document.getElementById(trees[0].name.toLowerCase() + "-tab").click();
   }
 
   buildUI(SkillTree.getTrees());
@@ -179,23 +179,23 @@ document.addEventListener("DOMContentLoaded", function() {
   function buildTab(tree, index) {
     let topOffset = 50;
     let tabElement = document.createElement("div");
-    tabElement.id = tree.name.toLowerCase() + '-tab';
+    tabElement.id = tree.name.toLowerCase() + "-tab";
     tabElement.classList.add("tab");
     tabElement.style.top = (40 * index) + 50 + "px";
     tabElement.style.left = 0;
     tabElement.textContent = tree.name;
 
     let counterElement = document.createElement("div");
-    counterElement.id = tree.name.toLowerCase() + '-tab-counter';
+    counterElement.id = tree.name.toLowerCase() + "-tab-counter";
     counterElement.classList.add("tab-counter");
-    counterElement.textContent = '0 / ' + SkillTree.getNodeCount(tree.name);
+    counterElement.textContent = "0 / " + SkillTree.getNodeCount(tree.name);
     tabElement.appendChild(counterElement);
 
     tabElement.addEventListener("click", function() {
-      document.querySelectorAll('.tab').forEach(function (el) {
-        el.classList.remove('selected');
+      document.querySelectorAll(".tab").forEach(function (el) {
+        el.classList.remove("selected");
       });
-      tabElement.classList.add('selected');
+      tabElement.classList.add("selected");
       changeSkillTree(tree.name);
     });
     document.getElementById("left-sidebar").appendChild(tabElement);
@@ -204,8 +204,8 @@ document.addEventListener("DOMContentLoaded", function() {
   function buildTreeDisplay(tree) {
     let treeElement = document.createElement("div");
     treeElement.id = treeNameToId(tree.name);
-    treeElement.classList.add('skill-tree');
-    treeElement.classList.add('hide');
+    treeElement.classList.add("skill-tree");
+    treeElement.classList.add("hide");
     document.getElementById("graph-view").appendChild(treeElement);
 
     // need to do something here to sort the node array.  Probably search it each time you add a node
@@ -222,11 +222,11 @@ document.addEventListener("DOMContentLoaded", function() {
 
       // the first element in nodes is the root node, so it starts available
       if (node == tree.nodes[0])
-        nodeFrameElement.querySelectorAll('.node-element').forEach(function(element) {
+        nodeFrameElement.querySelectorAll(".node-element").forEach(function(element) {
           element.classList.add("available");
         });
       else {
-        nodeFrameElement.querySelectorAll('.node-element').forEach(function(element) {
+        nodeFrameElement.querySelectorAll(".node-element").forEach(function(element) {
           element.classList.add("unavailable");
         });
       }
@@ -237,19 +237,19 @@ document.addEventListener("DOMContentLoaded", function() {
         let parentElement = document.getElementById(parent.id);
         let parentTop = dimensionAsNumber(parentElement.style.top);
         let parentLeft = dimensionAsNumber(parentElement.style.left);
-        if (relativeChildPostiion == 'left') {
-          nodeFrameElement.style.top = parentTop + yOffset + 'px';
-          nodeFrameElement.style.left = parentLeft - xOffset + 'px';
-        } else if (relativeChildPostiion == 'right') {
-          nodeFrameElement.style.top = parentTop + yOffset + 'px';
-          nodeFrameElement.style.left = parentLeft + xOffset + 'px';
+        if (relativeChildPostiion == "left") {
+          nodeFrameElement.style.top = parentTop + yOffset + "px";
+          nodeFrameElement.style.left = parentLeft - xOffset + "px";
+        } else if (relativeChildPostiion == "right") {
+          nodeFrameElement.style.top = parentTop + yOffset + "px";
+          nodeFrameElement.style.left = parentLeft + xOffset + "px";
         } else {
-          nodeFrameElement.style.top = parentTop + (yOffset * 2) + 'px';
-          nodeFrameElement.style.left = parentLeft + 'px';
+          nodeFrameElement.style.top = parentTop + (yOffset * 2) + "px";
+          nodeFrameElement.style.left = parentLeft + "px";
         }
       } else {
-        nodeFrameElement.style.top = '25px';
-        nodeFrameElement.style.left = '26px';
+        nodeFrameElement.style.top = "25px";
+        nodeFrameElement.style.left = "26px";
       }
 
       let leftPosition = dimensionAsNumber(nodeFrameElement.style.left);
@@ -262,17 +262,16 @@ document.addEventListener("DOMContentLoaded", function() {
 
       treeElement.appendChild(nodeFrameElement);
       nodeFrameElement.addEventListener("click", function() {
-        console.log(node.name);
         nodeSelectionChanged(node);
       });
     }
 
     let nodeWidth = 52; // width of a graph node, per planner.css
-    let padding = 25; // 'padding' here rather than in css because 'absolute' positioning of the
+    let padding = 25; // "padding" here rather than in css because "absolute" positioning of the
                       // node elements throws off alignment of css padding
-    treeElement.style.width = rightmostNodeElement - leftmostNodeElement + nodeWidth + (padding * 2) + 'px';
-    document.getElementById(treeNameToId(tree.name)).querySelectorAll('.graph-node').forEach(function (el) {
-      let newLeft = dimensionAsNumber(el.style.left) + (-leftmostNodeElement) + padding + 'px';
+    treeElement.style.width = rightmostNodeElement - leftmostNodeElement + nodeWidth + (padding * 2) + "px";
+    document.getElementById(treeNameToId(tree.name)).querySelectorAll(".graph-node").forEach(function (el) {
+      let newLeft = dimensionAsNumber(el.style.left) + (-leftmostNodeElement) + padding + "px";
       el.style.left = newLeft;
     });
 
@@ -282,26 +281,32 @@ document.addEventListener("DOMContentLoaded", function() {
       let nodeFrameElement = document.createElement("div");
       let hexTopElement = document.createElement("div");
       let nodeTextElement = document.createElement("div");
+      let nodeValueElement = document.createElement("div");
       let hexBottomElement = document.createElement("div");
 
-      nodeFrameElement.classList.add('node-element');
-      hexTopElement.classList.add('node-element');
-      nodeTextElement.classList.add('node-element');
-      hexBottomElement.classList.add('node-element');
+      nodeFrameElement.classList.add("node-element");
+      hexTopElement.classList.add("node-element");
+      nodeTextElement.classList.add("node-element");
+      nodeValueElement.classList.add("node-element");
+      hexBottomElement.classList.add("node-element");
 
       nodeFrameElement.classList.add("graph-node");
       nodeFrameElement.id = node.id;
 
-      hexTopElement.classList.add('hex-top');
-      hexTopElement.classList.add('hex-component');
-      nodeTextElement.classList.add('hex-text');
-      hexBottomElement.classList.add('hex-bottom');
-      hexBottomElement.classList.add('hex-component');
+      hexTopElement.classList.add("hex-top");
+      hexTopElement.classList.add("hex-component");
+      nodeTextElement.classList.add("hex-text");
+      nodeValueElement.classList.add("hex-text");
+      nodeValueElement.classList.add("hex-value");
+      hexBottomElement.classList.add("hex-bottom");
+      hexBottomElement.classList.add("hex-component");
 
       nodeTextElement.textContent = node.name;
+      nodeValueElement.textContent = getValueTemplate(node.attribute)[0] + node.value + getValueTemplate(node.attribute)[1];
 
       nodeFrameElement.append(hexTopElement);
       nodeFrameElement.append(nodeTextElement);
+      nodeFrameElement.append(nodeValueElement);
       nodeFrameElement.append(hexBottomElement);
 
       return nodeFrameElement;
@@ -309,13 +314,13 @@ document.addEventListener("DOMContentLoaded", function() {
 
   function getRelativeChildPosition(parent, childId) {
     if (parent.leftChildId == childId) {
-      return 'left';
+      return "left";
     } else if (parent.centerChildId == childId) {
-      return 'center';
+      return "center";
     } else if (parent.rightChildId == childId) {
-      return 'right';
+      return "right";
     }
-    return 'child not found'
+    return "child not found"
   }
 
   function nodeSelectionChanged(node) {
@@ -372,19 +377,19 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 
   function setNodeColorBasedOnSelectionStatus(node, selectionStatus) {
-    document.getElementById(node.id).querySelectorAll('.node-element').forEach(function(element) {
+    document.getElementById(node.id).querySelectorAll(".node-element").forEach(function(element) {
       removeNodeClasses(element);
       element.classList.add(selectionStatus);
     });
   }
 
   function updateNodeCounters() {
-    document.getElementById('node-selection-counter').textContent = SkillTree.getSelectedNodes().length;
+    document.getElementById("node-selection-counter").textContent = SkillTree.getSelectedNodes().length;
     let activeTree = SkillTree.getActiveTreeName();
-    let activeTabCounter = document.getElementById(activeTree.toLowerCase() + '-tab-counter');
+    let activeTabCounter = document.getElementById(activeTree.toLowerCase() + "-tab-counter");
     let nodesSelected = SkillTree.getSelectedNodes(activeTree).length;
     let nodesTotal = SkillTree.getNodeCount(activeTree);
-    activeTabCounter.textContent = nodesSelected + ' / ' + nodesTotal;
+    activeTabCounter.textContent = nodesSelected + " / " + nodesTotal;
   }
 
   function updateBonuses() {
@@ -405,7 +410,7 @@ document.addEventListener("DOMContentLoaded", function() {
       let bonusDisplayElement = document.createElement("div");
       bonusDisplayElement.id = bonusAttributeToId(bonus.attribute);
       bonusDisplayElement.classList.add("bonus-display");
-      bonusDisplayElement.textContent = bonus.attribute + ' ' + getValueTemplate(bonus.attribute)[0] + bonus.value + getValueTemplate(bonus.attribute)[1];
+      bonusDisplayElement.textContent = bonus.attribute + " " + getValueTemplate(bonus.attribute)[0] + bonus.value + getValueTemplate(bonus.attribute)[1];
 
       document.getElementById("bonuses-display").append(bonusDisplayElement);
 
@@ -423,32 +428,33 @@ document.addEventListener("DOMContentLoaded", function() {
   function getValueTemplate(attribute) {
     for (let mapping of attributeTemplateMap) {
       if (mapping.attribute == attribute) {
-        return [ mapping.template.split('{}')[0], mapping.template.split('{}')[1] ];
+        return [ mapping.template.split("{}")[0], mapping.template.split("{}")[1] ];
       }
     }
+    console.log('value template not found for attribute ' + attribute);
   }
 
   function changeSkillTree(treeName) {
     SkillTree.setActiveTreeName(treeName);
-    document.querySelectorAll('.skill-tree').forEach(function (el) {
-      el.classList.add('hide');
+    document.querySelectorAll(".skill-tree").forEach(function (el) {
+      el.classList.add("hide");
     });
-    document.getElementById(treeNameToId(treeName)).classList.remove('hide');
+    document.getElementById(treeNameToId(treeName)).classList.remove("hide");
   }
 
   function treeNameToId(treeName) {
-    return treeName.replace(/ /g, "-").toLowerCase() + '-skill-tree';
+    return treeName.replace(/ /g, "-").toLowerCase() + "-skill-tree";
   }
 
   function bonusAttributeToId(attribute) {
-    return attribute.replace(/ /g, "-").toLowerCase() + '-bonus-display';
+    return attribute.replace(/ /g, "-").toLowerCase() + "-bonus-display";
   }
 
   function nodeNameToId(nodeName) {
     return nodeName.replace(/ /g, "-").toLowerCase();
   }
 
-  // strips the 'px' off the end of a CSS dimension, returns the number value
+  // strips the "px" off the end of a CSS dimension, returns the number value
   function dimensionAsNumber(dimension) {
     return parseFloat(dimension.slice(0, -2));
   }

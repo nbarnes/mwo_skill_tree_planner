@@ -107,12 +107,17 @@
   font-size: 12px;
   line-height: 12px;
   position: absolute;
-  width: 48px;
+  width: 40px;
   height: 26px;
-  top: 10px;
-  left: 2.5px;
+  top: 4px;
+  left: 6px;
   z-index: 1;
   background-color: none;
+}
+
+.hex-value {
+  position: relative;
+  top: 40px;
 }
 
 .hex-component.selected {
