@@ -452,7 +452,7 @@ document.addEventListener("DOMContentLoaded", function() {
     for (let node of nodes) {
       let bonusForAttribute = getBonusForAttribute(bonuses, node.attribute);
       if (bonusForAttribute != undefined) {
-        bonusForAttribute.value = bonusForAttribute.value + node.value;
+        bonusForAttribute.value = ((bonusForAttribute.value * 10) + (node.value * 10)) / 10;
       } else {
         bonuses.push({attribute: node.attribute, value: node.value, valueTemplate: node.valueTemplate});
       }
