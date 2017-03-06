@@ -104,17 +104,17 @@
 
 .hex-text {
   position: absolute;
-  width: 40px;
+  width: 45px;
   height: 26px;
-  top: 6px;
-  left: 6px;
+  top: 10px;
+  left: 4px;
   z-index: 1;
   background-color: none;
 }
 
 .hex-value {
   position: relative;
-  top: 40px;
+  top: 43px;
 }
 
 .hex-component.selected {

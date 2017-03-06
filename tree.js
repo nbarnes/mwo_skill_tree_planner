@@ -1208,6 +1208,140 @@ let treeSource = [
         value: "20"
       }
     ]
+  },
+  /*
+  ==========================================
+                  AUXILIARY
+  ==========================================
+  */
+  {
+    name: "Auxiliary",
+    nodes: [
+      { name: "Consumable Slots 1",
+        attribute: "Consumable Slots",
+        value: "1",
+        leftChildId: "uav-duration",
+        rightChildId: "extended-bombardment-1"
+      },
+      { name: "UAV Duration",
+        attribute: "UAV Duration",
+        value: "10",
+        leftChildId: "uav-range-1",
+        centerChildId: "capture-assist-1",
+        rightChildId: "enhanced-coolshot-1"
+      },
+      { name: "Extended Bombardment 1",
+        attribute: "Artillery Strike Duration",
+        value: "25",
+        leftChildId: "enhanced-coolshot-1",
+        centerChildId: "capture-assist-2",
+        rightChildId: "extended-bombardment-2"
+      },
+      { name: "UAV Range 1",
+        attribute: "UAV Sight Range",
+        value: "20",
+        leftChildId: "extra-uav",
+        centerChildId: "enhanced-narc-1",
+        rightChildId: "capture-assist-1"
+      },
+      { name: "Enhanced Coolshot 1",
+        attribute: "Coolshot Effectiveness",
+        value: "50",
+        leftChildId: "capture-assist-1",
+        centerChildId: "enhanced-coolshot-2",
+        rightChildId: "capture-assist-2"
+      },
+      { name: "Extended Bombardment 2",
+        attribute: "Artillery Strike Duration",
+        value: "25",
+        centerChildId: "enhanced-narc-2",
+        rightChildId: "expanded-reserves"
+      },
+      { name: "Extra UAV",
+        attribute: "UAV Capacity",
+        value: "1",
+        leftChildId: "uav-range-2",
+        centerChildId: "consumable-slot-2",
+        rightChildId: "enhanced-narc-1"
+      },
+      { name: "Capture Assist 1",
+        attribute: "Point Capture Speed",
+        value: "5",
+        leftChildId: "enhanced-narc-1",
+        centerChildId: "capture-assist-3",
+        rightChildId: "enhanced-coolshot-2"
+      },
+      { name: "Capture Assist 2",
+        attribute: "Point Capture Speed",
+        value: "5",
+        leftChildId: "enhanced-coolshot-2",
+        centerChildId: "capture-assist-4",
+        rightChildId: "enhanced-narc-2"
+      },
+      { name: "Expanded Reserves",
+        attribute: "Expanded Reserves",
+        value: "1",
+        centerChildId: "consumable-slot-3",
+        rightChildId: "enhanced-spotting"
+      },
+      { name: "UAV Range 2",
+        attribute: "UAV Sight Range",
+        value: "20",
+        rightChildId: "consumable-slot-2"
+      },
+      { name: "Enhanced NARC 1",
+        attribute: "NARC Duration",
+        value: "1",
+        rightChildId: "capture-assist-3"
+      },
+      { name: "Enhanced Coolshot 2",
+        attribute: "Enhanced Coolshot",
+        value: "50",
+        leftChildId: "capture-assist-3",
+        centerChildId: "coolant-reserves",
+        rightChildId: "capture-assist-4"
+      },
+      { name: "Enhanced NARC 2",
+        attribute: "NARC Duration",
+        value: "10",
+        leftChildId: "capture-assist-4"
+      },
+      { name: "Enhanced Spotting",
+        attribute: "Enhanced Spotting",
+        value: "20",
+        leftChildId: "consumable-slot-3"
+      },
+      { name: "Consumable Slot 2",
+        attribute: "Additional Consumable Slot",
+        value: "1"
+      },
+      { name: "Capture Assist 3",
+        attribute: "Capture Point Speed",
+        value: "5"
+      },
+      { name: "Capture Assist 4",
+        attribute: "Capture Point Speed",
+        value: "5"
+      },
+      { name: "Consumable Slot 3",
+        attribute: "Additional Consumable Slot",
+        value: "1"
+      },
+      { name: "Coolant Reserves",
+        attribute: "Coolant Reserves",
+        value: "1",
+        leftChildId: "coolshot-cooldown",
+        rightChildId: "consumable-slot-4"
+      },
+      { name: "Coolshot Cooldown",
+        attribute: "Coolshot Cooldown",
+        value: "25"
+      },
+      { name: "Consumable Slot 4",
+        attribute: "Additional Consumable Slot",
+        value: "1"
+      }
+    ]
   }
 ]
 
@@ -1342,9 +1476,54 @@ let attributeTemplateMap = [
     template: "-{}%"
   },
   { attribute: "Seismic Sensor",
-    template: "{} meters"
+    template: "{} m."
   },
   { attribute: "ECM Range",
     template: "+{}%"
+  },
+  { attribute: "Consumable Slots",
+    template: "+{}"
+  },
+  { attribute: "UAV Duration",
+    template: "+{} sec."
+  },
+  { attribute: "UAV Sight Range",
+    template: "+{} m."
+  },
+  { attribute: "Artillery Strike Duration",
+    template: "+{}%"
+  },
+  { attribute: "Coolshot Effectiveness",
+    template: "+{}%"
+  },
+  { attribute: "UAV Capacity",
+    template: "+{}"
+  },
+  { attribute: "Point Capture Speed",
+    template: "+{}%"
+  },
+  { attribute: "NARC Duration",
+    template: "+{}%"
+  },
+  { attribute: "Enhanced Coolshot",
+    template: "+{}%"
+  },
+  { attribute: "Expanded Reserves",
+    template: "+{}"
+  },
+  { attribute: "Enhanced Spotting",
+    template: "-{}%"
+  },
+  { attribute: "Additional Consumable Slot",
+    template: "+{}"
+  },
+  { attribute: "Capture Point Speed",
+    template: "+{}%"
+  },
+  { attribute: "Coolant Reserves",
+    template: "+{}"
+  },
+  { attribute: "Coolshot Cooldown",
+    template: "+{}"
   }
 ]

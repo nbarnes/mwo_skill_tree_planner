@@ -262,6 +262,7 @@ document.addEventListener("DOMContentLoaded", function() {
       }
 
       treeElement.appendChild(nodeFrameElement);
+
       nodeFrameElement.addEventListener("click", function() {
         nodeSelectionChanged(node);
       });
