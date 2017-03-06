@@ -57,6 +57,26 @@
   background-color: lightgrey;
 }
 
+#select-tree-button {
+  position: absolute;
+  top: 580px;
+  left: 37px;
+}
+
+#reset-all-button {
+  position: absolute;
+  top: 605px;
+  left: 83px;
+
+}
+
+#reset-tree-button {
+  position: absolute;
+  top: 605px;
+  left: 5px;
+
+}
+
 .skill-tree {
   border: 1px solid black;
   position: relative;

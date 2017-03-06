@@ -1137,7 +1137,7 @@ let treeSource = [
         rightChildId: "sensor-range-4"
       },
       { name: "Target Decay 3",
-        attribute: "Target Decay",
+        attribute: "Target Lock Decay",
         value: "0.7",
         leftChildId: "sensor-range-5",
         rightChildId: "seismic-sensor-1"
@@ -1167,7 +1167,7 @@ let treeSource = [
         rightChildId: "target-info-gathering-5"
       },
       { name: "Target Decay 4",
-        attribute: "Target Decay",
+        attribute: "Target Lock Decay",
         value: "0.7"
       },
       { name: "Radar Deprivation 3",
@@ -1187,7 +1187,7 @@ let treeSource = [
         rightChildId: "radar-deprivation-4"
       },
       { name: "Target Decay 5",
-        attribute: "Target Decay",
+        attribute: "Target Lock Decay",
         value: "0.7",
         rightChildId: "radar-deprivation-5"
       },
@@ -1456,9 +1456,6 @@ let attributeTemplateMap = [
   },
   { attribute: "Target Info Speed",
     template: "+{}%"
-  },
-  { attribute: "Target Decay",
-    template: "+{} sec."
   },
   { attribute: "Target Retention",
     template: "+{}"

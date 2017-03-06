@@ -198,7 +198,9 @@ document.addEventListener("DOMContentLoaded", function() {
       tabElement.classList.add("selected");
       changeSkillTree(tree.name);
     });
-    document.getElementById("left-sidebar").appendChild(tabElement);
+
+
+    document.getElementById("total-nodes-display").after(tabElement);
   }
 
   function buildTreeDisplay(tree) {
@@ -517,5 +519,17 @@ document.addEventListener("DOMContentLoaded", function() {
     nodeElement.classList.remove("available");
     nodeElement.classList.remove("unavailable");
   }
+
+  document.getElementById('reset-tree-button').addEventListener('click', function() {
+    console.log('bob');
+  });
+
+  document.getElementById('reset-all-button').addEventListener('click', function() {
+    console.log('sally');
+  });
+
+  document.getElementById('select-tree-button').addEventListener('click', function() {
+    console.log('jack');
+  });
 
 });
