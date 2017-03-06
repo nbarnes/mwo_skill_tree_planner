@@ -907,6 +907,151 @@ let treeSource = [
       { name: "Lift Speed 5",
         attribute: "Jump Jet Vertical Thrust",
         value: "3"
+      },
+    ]
+  },
+  /*
+  ==========================================
+                 OPERATIONS
+  ==========================================
+  */
+  {
+    name: "Operations",
+    nodes: [
+      { name: "Quick Ignition 1",
+        attribute: "Startup Speed",
+        value: "7",
+        leftChildId: "speed-retention-1",
+        rightChildId: "improved-gyros-1"
+      },
+      { name: "Speed Retention 1",
+        attribute: "Speed Retention",
+        value: "10",
+        centerChildId: "hill-climb-1",
+        rightChildId: "heat-containment-1"
+      },
+      { name: "Improved Gyros 1",
+        attribute: "Tastier Gyros",
+        value: "12.5",
+        leftChildId: "heat-containment-1",
+        centerChildId: "quick-ignition-2"
+      },
+      { name: "Heat Containment 1",
+        attribute: "Heat Capacity",
+        value: "3",
+        leftChildId: "hill-climb-1",
+        rightChildId: "quick-ignition-2"
+      },
+      { name: "Hill Climb 1",
+        attribute: "Hill Climb",
+        value: "7.5",
+        leftChildId: "improved-gyros-2",
+        centerChildId: "quick-ignition-3"
+      },
+      { name: "Quick Ignition 2",
+        attribute: "Startup Speed",
+        value: "7",
+        centerChildId: "improved-gyros-3",
+        rightChildId: "heat-containment-2"
+      },
+      { name: "Improved Gyros 2",
+        attribute: "Tastier Gyros",
+        value: "12.5",
+        leftChildId: "cool-run-1",
+        centerChildId: "heat-containment-3"
+      },
+      { name: "Heat Containment 2",
+        attribute: "Heat Capacity",
+        value: "3",
+        centerChildId: "hill-climb-2",
+        rightChildId: "cool-run-2"
+      },
+      { name: "Cool Run 1",
+        attribute: "Heat Dissipation",
+        value: "2",
+        rightChildId: "heat-containment-3"
+      },
+      { name: "Quick Ignition 3",
+        attribute: "Startup Speed",
+        value: "7",
+        centerChildId: "speed-retention-2",
+        rightChildId: "cool-run-3"
+      },
+      { name: "Improved Gyros 3",
+        attribute: "Tastier Gyros",
+        value: "12.5",
+        leftChildId: "cool-run-3",
+        centerChildId: "quick-ignition-4"
+      },
+      { name: "Cool Run 2",
+        attribute: "Heat Dissipation",
+        value: "2",
+        leftChildId: "hill-climb-2"
+      },
+      { name: "Heat Containment 3",
+        attribute: "Heat Capacity",
+        value: "3"
+      },
+      { name: "Cool Run 3",
+        attribute: "Heat Dissipation",
+        value: "2",
+        leftChildId: "hill-climb-2",
+        rightChildId: "quick-ignition-4"
+      },
+      { name: "Hill Climb 2",
+        attribute: "Hill Climb",
+        value: "7.5",
+        leftChildId: "quick-ignition-4"
+      },
+      { name: "Speed Retention 2",
+        attribute: "Speed Retention",
+        value: "10",
+        leftChildId: "heat-containment-4",
+        rightChildId: "hill-climb-3"
+      },
+      { name: "Quick Ignition 4",
+        attribute: "Startup Speed",
+        value: "7",
+        leftChildId: "hill-climb-3",
+        rightChildId: "heat-containment-5"
+      },
+      { name: "Heat Containment 4",
+        attribute: "Heat Dissipation",
+        value: "3"
+      },
+      { name: "Hill Climb 3",
+        attribute: "Hill Climb",
+        value: "7.5",
+        leftChildId: "improved-gyros-4",
+        rightChildId: "speed-retention-3"
+      },
+      { name: "Heat Containment 5",
+        attribute: "Heat Dissipation",
+        value: "3"
+      },
+      { name: "Improved Gyros 4",
+        attribute: "Tastier Gyros",
+        value: "12.5",
+        rightChildId: "quick-ignition-5"
+      },
+      { name: "Speed Retention 3",
+        attribute: "Speed Retention",
+        value: "10",
+        leftChildId: "quick-ignition-5"
+      },
+      { name: "Quick Ignition 5",
+        attribute: "Startup Speed",
+        value: "7",
+        leftChildId: "cool-run-4",
+        rightChildId: "cool-run-5"
+      },
+      { name: "Cool Run 4",
+        attribute: "Heat Dissipation",
+        value: "2"
+      },
+      { name: "Cool Run 5",
+        attribute: "Heat Dissipation",
+        value: "2"
       }
 
     ]
@@ -1002,6 +1147,24 @@ let attributeTemplateMap = [
     template: "+{}%"
   },
   { attribute: "Jump Jet Energy",
+    template: "+{}%"
+  },
+  { attribute: "Tastier Gyros",
+    template: "+{}%"
+  },
+  { attribute: "Startup Speed",
+    template: "-{}%"
+  },
+  { attribute: "Speed Retention",
+    template: "+{}%"
+  },
+  { attribute: "Heat Capacity",
+    template: "+{}%"
+  },
+  { attribute: "Hill Climb",
+    template: "+{}%"
+  },
+  { attribute: "Heat Dissipation",
     template: "+{}%"
   }
 ]

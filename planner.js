@@ -235,6 +235,7 @@ document.addEventListener("DOMContentLoaded", function() {
       if (parent != undefined) {
         let relativeChildPostiion = getRelativeChildPosition(parent, node.id);
         let parentElement = document.getElementById(parent.id);
+
         let parentTop = dimensionAsNumber(parentElement.style.top);
         let parentLeft = dimensionAsNumber(parentElement.style.left);
         if (relativeChildPostiion == "left") {
@@ -305,38 +306,38 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 
   function buildNodeElement(node) {
-      let nodeFrameElement = document.createElement("div");
-      let hexTopElement = document.createElement("div");
-      let nodeTextElement = document.createElement("div");
-      let nodeValueElement = document.createElement("div");
-      let hexBottomElement = document.createElement("div");
+    let nodeFrameElement = document.createElement("div");
+    let hexTopElement = document.createElement("div");
+    let nodeTextElement = document.createElement("div");
+    let nodeValueElement = document.createElement("div");
+    let hexBottomElement = document.createElement("div");
 
-      nodeFrameElement.classList.add("node-element");
-      hexTopElement.classList.add("node-element");
-      nodeTextElement.classList.add("node-element");
-      nodeValueElement.classList.add("node-element");
-      hexBottomElement.classList.add("node-element");
+    nodeFrameElement.classList.add("node-element");
+    hexTopElement.classList.add("node-element");
+    nodeTextElement.classList.add("node-element");
+    nodeValueElement.classList.add("node-element");
+    hexBottomElement.classList.add("node-element");
 
-      nodeFrameElement.classList.add("graph-node");
-      nodeFrameElement.id = node.id;
+    nodeFrameElement.classList.add("graph-node");
+    nodeFrameElement.id = node.id;
 
-      hexTopElement.classList.add("hex-top");
-      hexTopElement.classList.add("hex-component");
-      nodeTextElement.classList.add("hex-text");
-      nodeValueElement.classList.add("hex-text");
-      nodeValueElement.classList.add("hex-value");
-      hexBottomElement.classList.add("hex-bottom");
-      hexBottomElement.classList.add("hex-component");
+    hexTopElement.classList.add("hex-top");
+    hexTopElement.classList.add("hex-component");
+    nodeTextElement.classList.add("hex-text");
+    nodeValueElement.classList.add("hex-text");
+    nodeValueElement.classList.add("hex-value");
+    hexBottomElement.classList.add("hex-bottom");
+    hexBottomElement.classList.add("hex-component");
 
-      nodeTextElement.textContent = node.name;
-      nodeValueElement.textContent = getValueTemplate(node.attribute)[0] + node.value + getValueTemplate(node.attribute)[1];
+    nodeTextElement.textContent = node.name;
+    nodeValueElement.textContent = getValueTemplate(node.attribute)[0] + node.value + getValueTemplate(node.attribute)[1];
 
-      nodeFrameElement.append(hexTopElement);
-      nodeFrameElement.append(nodeTextElement);
-      nodeFrameElement.append(nodeValueElement);
-      nodeFrameElement.append(hexBottomElement);
+    nodeFrameElement.append(hexTopElement);
+    nodeFrameElement.append(nodeTextElement);
+    nodeFrameElement.append(nodeValueElement);
+    nodeFrameElement.append(hexBottomElement);
 
-      return nodeFrameElement;
+    return nodeFrameElement;
   }
 
   function drawLineBetweenNodes(parentElement, childElement, treeElement) {
@@ -362,8 +363,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
     treeElement.appendChild(lineElement);
-
-
   }
 
   function getRelativeChildPosition(parent, childId) {
