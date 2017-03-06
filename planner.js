@@ -271,7 +271,8 @@ document.addEventListener("DOMContentLoaded", function() {
     let nodeWidth = 52; // width of a graph node, per planner.css
     let padding = 25; // "padding" here rather than in css because "absolute" positioning of the
                       // node elements throws off alignment of css padding
-    treeElement.style.width = rightmostNodeElement - leftmostNodeElement + nodeWidth + (padding * 2) + "px";
+    let treeWidth = rightmostNodeElement - leftmostNodeElement + nodeWidth + (padding * 2);
+    treeElement.style.width = treeWidth + "px";
     document.getElementById(treeNameToId(tree.name)).querySelectorAll(".graph-node").forEach(function (el) {
       let newLeft = dimensionAsNumber(el.style.left) + (-leftmostNodeElement) + padding + "px";
       el.style.left = newLeft;
@@ -489,7 +490,9 @@ document.addEventListener("DOMContentLoaded", function() {
     document.querySelectorAll(".skill-tree").forEach(function (el) {
       el.classList.add("hide");
     });
-    document.getElementById(treeNameToId(treeName)).classList.remove("hide");
+    let treeElement = document.getElementById(treeNameToId(treeName));
+    treeElement.classList.remove("hide");
+    document.getElementById('footer').style.width = (dimensionAsNumber(treeElement.style.width) + 294) + "px";
   }
 
   function treeNameToId(treeName) {
