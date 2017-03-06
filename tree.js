@@ -519,7 +519,7 @@ let treeSource = [
         rightChildId: "shock-absorbance-5"
       },
       { name: "Reinforced Casing 4",
-        attribute: "Armor",
+        attribute: "Reinforced Casing",
         value: "1",
         leftChildId: "shock-absorbance-5"
       },
@@ -1053,7 +1053,160 @@ let treeSource = [
         attribute: "Heat Dissipation",
         value: "2"
       }
-
+    ]
+  },
+  /*
+  ==========================================
+                   SENSORS
+  ==========================================
+  */
+  {
+    name: "Sensors",
+    nodes: [
+      { name: "Target Info Gathering 1",
+        attribute: "Target Info Speed",
+        value: "3",
+        leftChildId: "target-decay-1",
+        rightChildId: "sensor-range-1"
+      },
+      { name: "Target Decay 1",
+        attribute: "Target Lock Decay",
+        value: "0.7",
+        leftChildId: "target-retention-1",
+        centerChildId: "target-info-gathering-3",
+        rightChildId: "sensor-range-2"
+      },
+      { name: "Sensor Range 1",
+        attribute: "Sensor Range",
+        value: "3",
+        leftChildId: "sensor-range-2",
+        centerChildId: "sensor-range-3",
+        rightChildId: "target-info-gathering-2"
+      },
+      { name: "Target Retention 1",
+        attribute: "Target Retention",
+        value: "200",
+        rightChildId: "target-info-gathering-3"
+      },
+      { name: "Sensor Range 2",
+        attribute: "Sensor Range",
+        value: "3",
+        leftChildId: "target-info-gathering-3",
+        rightChildId: "sensor-range-3"
+      },
+      { name: "Target Info Gathering 2",
+        attribute: "Target Info Speed",
+        value: "3",
+        leftChildId: "sensor-range-3",
+        rightChildId: "advanced-zoom"
+      },
+      { name: "Target Info Gathering 3",
+        attribute: "Target Info Speed",
+        value: "3",
+        centerChildId: "target-info-gathering-4",
+        rightChildId: "target-decay-2"
+      },
+      { name: "Sensor Range 3",
+        attribute: "Sensor Range",
+        value: "3",
+        centerChildId: "target-retenton-2"
+      },
+      { name: "Advanced Zoom",
+        attribute: "Zoom Magnifier",
+        value: "1"
+      },
+      { name: "Target Decay 2",
+        attribute: "Target Lock Decay",
+        value: "0.7"
+      },
+      { name: "Target Info Gathering 4",
+        attribute: "Target Info Speed",
+        value: "3",
+        leftChildId: "radar-deprivation-1",
+        centerChildId: "sensor-range-4"
+      },
+      { name: "Target Retenton 2",
+        attribute: "Target Retention",
+        value: "200",
+        centerChildId: "sensor-range-5",
+        rightChildId: "target-decay-3"
+      },
+      { name: "Radar Deprivation 1",
+        attribute: "Radar Deprivation",
+        value: "20",
+        rightChildId: "sensor-range-4"
+      },
+      { name: "Target Decay 3",
+        attribute: "Target Decay",
+        value: "0.7",
+        leftChildId: "sensor-range-5",
+        rightChildId: "seismic-sensor-1"
+      },
+      { name: "Sensor Range 4",
+        attribute: "Sensor Range",
+        value: "3",
+        leftChildId: "radar-deprivation-2",
+        centerChildId: "target-info-gathering-5",
+        rightChildId: "target-decay-4"
+      },
+      { name: "Sensor Range 5",
+        attribute: "Sensor Range",
+        value: "3",
+        leftChildId: "target-decay-4",
+        centerChildId: "target-decay-5",
+        rightChildId: "radar-deprivation-3"
+      },
+      { name: "Seismic Sensor 1",
+        attribute: "Seismic Sensor",
+        value: "100"
+      },
+      { name: "Radar Deprivation 2",
+        attribute: "Radar Deprivation",
+        value: "20",
+        leftChildId: "enhanced-ecm-1",
+        rightChildId: "target-info-gathering-5"
+      },
+      { name: "Target Decay 4",
+        attribute: "Target Decay",
+        value: "0.7"
+      },
+      { name: "Radar Deprivation 3",
+        attribute: "Radar Deprivation",
+        value: "20",
+        leftChildId: "target-decay-5",
+        rightChildId: "enhanced-ecm-2"
+      },
+      { name: "Enhanced ECM 1",
+        attribute: "ECM Range",
+        value: "22.5"
+      },
+      { name: "Target Info Gathering 5",
+        attribute: "Target Info Speed",
+        value: "3",
+        leftChildId: "seismic-sensor-2",
+        rightChildId: "radar-deprivation-4"
+      },
+      { name: "Target Decay 5",
+        attribute: "Target Decay",
+        value: "0.7",
+        rightChildId: "radar-deprivation-5"
+      },
+      { name: "Enhanced ECM 2",
+        attribute: "ECM Range",
+        value: "22.5"
+      },
+      { name: "Seismic Sensor 2",
+        attribute: "Seismic Sensor",
+        value: "100"
+      },
+      { name: "Radar Deprivation 4",
+        attribute: "Radar Deprivation",
+        value: "20"
+      },
+      { name: "Radar Deprivation 5",
+        attribute: "Radar Deprivation",
+        value: "20"
+      }
     ]
   }
 ]
@@ -1165,6 +1318,33 @@ let attributeTemplateMap = [
     template: "+{}%"
   },
   { attribute: "Heat Dissipation",
+    template: "+{}%"
+  },
+  { attribute: "Target Info Speed",
+    template: "+{}%"
+  },
+  { attribute: "Target Decay",
+    template: "+{} sec."
+  },
+  { attribute: "Target Retention",
+    template: "+{}"
+  },
+  { attribute: "Sensor Range",
+    template: "+{}%"
+  },
+  { attribute: "Target Lock Decay",
+    template: "+{} sec."
+  },
+  { attribute: "Zoom Magnifier",
+    template: "+{}x"
+  },
+  { attribute: "Radar Deprivation",
+    template: "-{}%"
+  },
+  { attribute: "Seismic Sensor",
+    template: "{} meters"
+  },
+  { attribute: "ECM Range",
     template: "+{}%"
   }
 ]
