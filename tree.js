@@ -68,7 +68,7 @@ let treeSource = [
         rightChildId: "cooldown-4"
       },
       { name: "High Explosive 1",
-        attribute: "High Explosive",
+        attribute: "Missile Crit Damage",
         value: "3",
         leftChildId: "cooldown-4",
         rightChildId: "velocity-4"
@@ -80,12 +80,12 @@ let treeSource = [
         rightChildId: "cooldown-5"
       },
       { name: "Gauss Charge 1",
-        attribute: "Gauss Charge",
+        attribute: "Gauss Held Time",
         value: "0.25",
         rightChildId: "gauss-charge-2"
       },
       { name: "Heat Gen 1",
-        attribute: "Heat Generation",
+        attribute: "Weapon Heat Gen",
         value: "1"
       },
       { name: "Cooldown 3",
@@ -112,13 +112,13 @@ let treeSource = [
         rightChildId: "magazine-capacity-1"
       },
       { name: "Gauss Charge 2",
-        attribute: "Gauss Charge",
+        attribute: "Gauss Held Time",
         value: "0.25",
         leftChildId: "magazine-capacity-1",
         rightChildId: "gauss-charge-3"
       },
       { name: "Heat Gen 2",
-        attribute: "Heat Generation",
+        attribute: "Weapon Heat Gen",
         value: "1",
         rightChildId: "laser-duration-5"
       },
@@ -128,13 +128,13 @@ let treeSource = [
         leftChildId: "laser-duration-5"
       },
       { name: "Missile Rack 1",
-        attribute: "Missile Rack",
+        attribute: "Missile Ammo",
         value: "1",
         leftChildId: "missile-spread-1",
         rightChildId: "missile-spread-2"
       },
       { name: "Heat Gen 3",
-        attribute: "Heat Generation",
+        attribute: "Weapon Heat Gen",
         value: "1",
         rightChildId: "range-4"
       },
@@ -145,7 +145,7 @@ let treeSource = [
         rightChildId: "range-5"
       },
       { name: "Gauss Charge 3",
-        attribute: "Gauss Charge",
+        attribute: "Gauss Held Time",
         value: "0.25",
         rightChildId: "gauss-charge-4"
       },
@@ -183,7 +183,7 @@ let treeSource = [
         rightChildId: "cooldown-8"
       },
       { name: "Gauss Charge 4",
-        attribute: "Gauss Charge",
+        attribute: "Gauss Held Time",
         value: "0.25",
         leftChildId: "cooldown-8"
       },
@@ -211,7 +211,7 @@ let treeSource = [
         rightChildId: "gauss-charge-5"
       },
       { name: "Heat Gen 4",
-        attribute: "Heat Generation",
+        attribute: "Weapon Heat Gen",
         value: "1",
         leftChildId: "gauss-charge-5",
         rightChildId: "range-7"
@@ -228,27 +228,27 @@ let treeSource = [
         rightChildId: "laser-duration-7"
       },
       { name: "Heat Gen 7",
-        attribute: "Heat Generation",
+        attribute: "Weapon Heat Gen",
         value: "1",
         leftChildId: "laser-duration-7",
         rightChildId: "high-explosive-2"
       },
       { name: "Heat Gen 5",
-        attribute: "Heat Generation",
+        attribute: "Weapon Heat Gen",
         value: "1",
         leftChildId: "high-explosive-2",
         centerChildId: "range-8",
         rightChildId: "missile-spread-3"
       },
       { name: "Heat Gen 6",
-        attribute: "Heat Generation",
+        attribute: "Weapon Heat Gen",
         value: "1",
         leftChildId: "missile-spread-3",
         centerChildId: "range-9",
         rightChildId: "high-explosive-3"
       },
       { name: "Gauss Charge 5",
-        attribute: "Gauss Charge",
+        attribute: "Gauss Held Time",
         value: "0.25",
         leftChildId: "high-explosive-3",
         centerChildId: "lbx-spread-3",
@@ -272,7 +272,7 @@ let treeSource = [
         rightChildId: "laser-duration-8"
       },
       { name: "High Explosive 2",
-        attribute: "High Explosive",
+        attribute: "Missile Crit Damage",
         value: "3",
         leftChildId: "laser-duration-8",
         rightChildId: "range-8"
@@ -284,7 +284,7 @@ let treeSource = [
         rightChildId: "range-9"
       },
       { name: "High Explosive 3",
-        attribute: "High Explosive",
+        attribute: "Missile Crit Damage",
         value: "3",
         leftChildId: "range-9",
         rightChildId: "lbx-spread-3"
@@ -373,7 +373,7 @@ let treeSource = [
         rightChildId: "uac-jam-chance-3"
       },
       { name: "Heat Gen 8",
-        attribute: "Heat Generation",
+        attribute: "Weapon Heat Gen",
         value: "1"
       },
       { name: "Laser Duration 10",
@@ -381,12 +381,12 @@ let treeSource = [
         value: "1.5"
       },
       { name: "High Explosive 4",
-        attribute: "High Explosive",
+        attribute: "Missile Crit Damage",
         value: "3",
         rightChildId: "missile-rack-2"
       },
       { name: "High Explosive 5",
-        attribute: "High Explosive",
+        attribute: "Missile Crit Damage",
         value: "3",
         leftChildId: "missile-rack-2"
       },
@@ -408,7 +408,7 @@ let treeSource = [
         leftChildId: "uac-jam-chance-5"
       },
       { name: "Missile Rack 2",
-        attribute: "Missile Rack",
+        attribute: "Missile Ammo",
         value: "1"
       },
       { name: "LBX Spread 5",
@@ -434,7 +434,7 @@ let treeSource = [
     name: 'Survival',
     nodes: [
       { name: "Reinforced Casing 1",
-        attribute: "Reinforced Casing",
+        attribute: "Crit Chance (Received)",
         value: "1",
         leftChildId: "ams-overload-1",
         rightChildId: "shock-absorbance-1"
@@ -446,7 +446,7 @@ let treeSource = [
         rightChildId: "skeletal-density-1"
       },
       { name: "Shock Absorbance 1",
-        attribute: "Impact Reduction",
+        attribute: "Fall Damage",
         value: "10",
         leftChildId: "skeletal-density-1",
         centerChildId: "reinforced-casing-2"
@@ -458,26 +458,26 @@ let treeSource = [
         rightChildId: "reinforced-casing-2"
       },
       { name: "Shock Absorbance 2",
-        attribute: "Impact Reduction",
+        attribute: "Fall Damage",
         value: "10",
         leftChildId: "shock-absorbance-3",
         centerChildId: "reinforced-casing-3"
       },
       { name: "Reinforced Casing 2",
-        attribute: "Reinforced Casing",
+        attribute: "Crit Chance (Received)",
         value: "1",
         centerChildId: "ams-overload-2",
         rightChildId: "skeletal-density-2"
       },
       { name: "Shock Absorbance 3",
-        attribute: "Impact Reduction",
+        attribute: "Fall Damage",
         value: "10",
         leftChildId: "armor-hardening-1",
         centerChildId: "skeletal-density-3",
         rightChildId: "reinforced-casing-3"
       },
       { name: "Skeletal Density 2",
-        attribute: "Recoil Reduction",
+        attribute: "Internal Structure",
         value: "5.2",
         leftChildId: "ams-overload-2",
         centerChildId: "reinforced-casing-4",
@@ -489,7 +489,7 @@ let treeSource = [
         rightChildId: "skeletal-density-3"
       },
       { name: "Reinforced Casing 3",
-        attribute: "Reinforced Casing",
+        attribute: "Crit Chance (Received)",
         value: "1",
         leftChildId: "skeletal-density-3",
         centerChildId: "shock-absorbance-4",
@@ -519,18 +519,18 @@ let treeSource = [
         rightChildId: "shock-absorbance-5"
       },
       { name: "Reinforced Casing 4",
-        attribute: "Reinforced Casing",
+        attribute: "Crit Chance (Received)",
         value: "1",
         leftChildId: "shock-absorbance-5"
       },
       { name: "Shock Absorbance 4",
-        attribute: "Impact Reduction",
+        attribute: "Fall Damage",
         value: "10",
         leftChildId: "skeletal-density-4",
         rightChildId: "reinforced-casing-5"
       },
       { name: "Shock Absorbance 5",
-        attribute: "Impact Reduction",
+        attribute: "Fall Damage",
         value: "10",
         leftChildId: "reinforced-casing-5",
         rightChildId: "skeletal-density-5"
@@ -540,7 +540,7 @@ let treeSource = [
         value: "5.2"
       },
       { name: "Reinforced Casing 5",
-        attribute: "Reinforced Casing",
+        attribute: "Crit Chance (Received)",
         value: "1",
         leftChildId: "armor-hardening-4",
         rightChildId: "armor-hardening-5"
@@ -800,7 +800,7 @@ let treeSource = [
         rightChildId: "vectoring-1"
       },
       { name: "Vent Calibration 1",
-        attribute: "Jump Jet Energy",
+        attribute: "Jump Jet Burn Time",
         value: "3",
         centerChildId: "vent-calibration-2",
         rightChildId: "heat-shielding-2"
@@ -819,12 +819,12 @@ let treeSource = [
         rightChildId: "vectoring-2"
       },
       { name: "Lift Speed 1",
-        attribute: "Jump Jet Vertical Thrust",
+        attribute: "Jump Jet Initial Boost",
         value: "3",
         leftChildId: "vectoring-2"
       },
       { name: "Vent Calibration 2",
-        attribute: "Jump Jet Energy",
+        attribute: "Jump Jet Burn Time",
         value: "3",
         centerChildId: "vent-calibration-3",
         rightChildId: "heat-shielding-3"
@@ -843,12 +843,12 @@ let treeSource = [
         rightChildId: "vectoring-3"
       },
       { name: "Lift Speed 2",
-        attribute: "Jump Jet Vertical Thrust",
+        attribute: "Jump Jet Initial Boost",
         value: "3",
         leftChildId: "vectoring-3"
       },
       { name: "Vent Calibration 3",
-        attribute: "Jump Jet Energy",
+        attribute: "Jump Jet Burn Time",
         value: "3",
         leftChildId: "lift-speed-3",
         centerChildId: "vent-calibration-4",
@@ -861,7 +861,7 @@ let treeSource = [
         centerChildId: "vectoring-4"
       },
       { name: "Lift Speed 3",
-        attribute: "Jump Jet Vertical Thrust",
+        attribute: "Jump Jet Initial Boost",
         value: "3",
         rightChildId: "vent-calibration-4"
       },
@@ -872,7 +872,7 @@ let treeSource = [
         rightChildId: "vectoring-4"
       },
       { name: "Vent Calibration 4",
-        attribute: "Jump Jet Energy",
+        attribute: "Jump Jet Burn Time",
         value: "3",
         leftChildId: "lift-speed-4",
         centerChildId: "vent-calibration-5",
@@ -885,7 +885,7 @@ let treeSource = [
         centerChildId: "vectoring-5"
       },
       { name: "Lift Speed 4",
-        attribute: "Jump Jet Vertical Thrust",
+        attribute: "Jump Jet Initial Boost",
         value: "3",
         rightChildId: "vent-calibration-5"
       },
@@ -896,7 +896,7 @@ let treeSource = [
         rightChildId: "vectoring-5"
       },
       { name: "Vent Calibration 5",
-        attribute: "Jump Jet Energy",
+        attribute: "Jump Jet Burn Time",
         value: "3"
       },
       { name: "Vectoring 5",
@@ -905,7 +905,7 @@ let treeSource = [
         leftChildId: "lift-speed-5"
       },
       { name: "Lift Speed 5",
-        attribute: "Jump Jet Vertical Thrust",
+        attribute: "Jump Jet Initial Boost",
         value: "3"
       },
     ]
@@ -925,7 +925,7 @@ let treeSource = [
         rightChildId: "improved-gyros-1"
       },
       { name: "Speed Retention 1",
-        attribute: "Speed Retention",
+        attribute: "Legged Speed",
         value: "10",
         centerChildId: "hill-climb-1",
         rightChildId: "heat-containment-1"
@@ -990,7 +990,8 @@ let treeSource = [
       },
       { name: "Heat Containment 3",
         attribute: "Heat Capacity",
-        value: "3"
+        value: "3",
+        rightChildId: "speed-retention-2"
       },
       { name: "Cool Run 3",
         attribute: "Heat Dissipation",
@@ -1004,7 +1005,7 @@ let treeSource = [
         leftChildId: "quick-ignition-4"
       },
       { name: "Speed Retention 2",
-        attribute: "Speed Retention",
+        attribute: "Legged Speed",
         value: "10",
         leftChildId: "heat-containment-4",
         rightChildId: "hill-climb-3"
@@ -1035,7 +1036,7 @@ let treeSource = [
         rightChildId: "quick-ignition-5"
       },
       { name: "Speed Retention 3",
-        attribute: "Speed Retention",
+        attribute: "Legged Speed",
         value: "10",
         leftChildId: "quick-ignition-5"
       },
@@ -1109,7 +1110,8 @@ let treeSource = [
       { name: "Sensor Range 3",
         attribute: "Sensor Range",
         value: "3",
-        centerChildId: "target-retenton-2"
+        leftChildId: "target-decay-2",
+        centerChildId: "target-retention-2"
       },
       { name: "Advanced Zoom",
         attribute: "Zoom Magnifier",
@@ -1125,7 +1127,7 @@ let treeSource = [
         leftChildId: "radar-deprivation-1",
         centerChildId: "sensor-range-4"
       },
-      { name: "Target Retenton 2",
+      { name: "Target Retention 2",
         attribute: "Target Retention",
         value: "200",
         centerChildId: "sensor-range-5",
@@ -1279,7 +1281,7 @@ let treeSource = [
         rightChildId: "enhanced-narc-2"
       },
       { name: "Expanded Reserves",
-        attribute: "Expanded Reserves",
+        attribute: "Additional Air/Arty Strike",
         value: "1",
         centerChildId: "consumable-slot-3",
         rightChildId: "enhanced-spotting"
@@ -1290,24 +1292,24 @@ let treeSource = [
         rightChildId: "consumable-slot-2"
       },
       { name: "Enhanced NARC 1",
-        attribute: "NARC Duration",
+        attribute: "NARC Velocity and Duration",
         value: "1",
         rightChildId: "capture-assist-3"
       },
       { name: "Enhanced Coolshot 2",
-        attribute: "Enhanced Coolshot",
+        attribute: "Coolshot Effectiveness",
         value: "50",
         leftChildId: "capture-assist-3",
         centerChildId: "coolant-reserves",
         rightChildId: "capture-assist-4"
       },
       { name: "Enhanced NARC 2",
-        attribute: "NARC Duration",
+        attribute: "NARC Velocity and Duration",
         value: "10",
         leftChildId: "capture-assist-4"
       },
       { name: "Enhanced Spotting",
-        attribute: "Enhanced Spotting",
+        attribute: "Air/Arty Strike Accuracy",
         value: "20",
         leftChildId: "consumable-slot-3"
       },
@@ -1316,11 +1318,11 @@ let treeSource = [
         value: "1"
       },
       { name: "Capture Assist 3",
-        attribute: "Capture Point Speed",
+        attribute: "Rate of Capture",
         value: "5"
       },
       { name: "Capture Assist 4",
-        attribute: "Capture Point Speed",
+        attribute: "Rate of Capture",
         value: "5"
       },
       { name: "Consumable Slot 3",
@@ -1358,11 +1360,11 @@ let attributeTemplateMap = [
   { attribute: "Weapons Cooldown",
     template: "-{}%"
   },
-  { attribute: "High Explosive",
+  { attribute: "Missile Crit Damage",
     template: "+{}%"
   },
-  { attribute: "Gauss Charge",
-    template: "+{}"
+  { attribute: "Gauss Held Time",
+    template: "+{} sec."
   },
   { attribute: "Armor",
     template: "+{}%"
@@ -1370,16 +1372,13 @@ let attributeTemplateMap = [
   { attribute: "AMS Effectiveness",
     template: "+{}%"
   },
-  { attribute: "Recoil Reduction",
-    template: "-{}%"
-  },
-  { attribute: "Heat Generation",
+  { attribute: "Weapon Heat Gen",
     template: "-{}%"
   },
   { attribute: "Magazine Capacity",
     template: "+{}"
   },
-  { attribute: "Missile Rack",
+  { attribute: "Missile Ammo",
     template: "+{}"
   },
   { attribute: "Missile Spread",
@@ -1388,13 +1387,13 @@ let attributeTemplateMap = [
   { attribute: "LBX Spread",
     template: "-{}%"
   },
+  { attribute: "Fall Damage",
+    template: "-{}%"
+  },
   { attribute: "UAC Jam Chance",
     template: "-{}%"
   },
-  { attribute: "Reinforced Casing",
-    template: "-{}%"
-  },
-  { attribute: "Impact Reduction",
+  { attribute: "Crit Chance (Received)",
     template: "-{}%"
   },
   { attribute: "Internal Structure",
@@ -1427,13 +1426,13 @@ let attributeTemplateMap = [
   { attribute: "Jump Jet Heat Reduction",
     template: "-{}%"
   },
-  { attribute: "Jump Jet Vertical Thrust",
+  { attribute: "Jump Jet Initial Boost",
     template: "+{}%"
   },
   { attribute: "Jump Jet Forward Thrust",
     template: "+{}%"
   },
-  { attribute: "Jump Jet Energy",
+  { attribute: "Jump Jet Burn Time",
     template: "+{}%"
   },
   { attribute: "Tastier Gyros",
@@ -1442,7 +1441,7 @@ let attributeTemplateMap = [
   { attribute: "Startup Speed",
     template: "-{}%"
   },
-  { attribute: "Speed Retention",
+  { attribute: "Legged Speed",
     template: "+{}%"
   },
   { attribute: "Heat Capacity",
@@ -1458,7 +1457,7 @@ let attributeTemplateMap = [
     template: "+{}%"
   },
   { attribute: "Target Retention",
-    template: "+{}"
+    template: "+{} m."
   },
   { attribute: "Sensor Range",
     template: "+{}%"
@@ -1499,22 +1498,19 @@ let attributeTemplateMap = [
   { attribute: "Point Capture Speed",
     template: "+{}%"
   },
-  { attribute: "NARC Duration",
+  { attribute: "NARC Velocity and Duration",
     template: "+{}%"
   },
-  { attribute: "Enhanced Coolshot",
-    template: "+{}%"
-  },
-  { attribute: "Expanded Reserves",
+  { attribute: "Additional Air/Arty Strike",
     template: "+{}"
   },
-  { attribute: "Enhanced Spotting",
+  { attribute: "Air/Arty Strike Accuracy",
     template: "-{}%"
   },
   { attribute: "Additional Consumable Slot",
     template: "+{}"
   },
-  { attribute: "Capture Point Speed",
+  { attribute: "Rate of Capture",
     template: "+{}%"
   },
   { attribute: "Coolant Reserves",
