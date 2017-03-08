@@ -4,21 +4,15 @@
   height: 630px;
   text-align: center;
 }
-
 #left-sidebar {
-  position: relative;
   border-width: 1px 0px 1px 1px;
-  border-color: black;
-  border-style: solid;
-  width: 150px;
-  background-color: grey;
-  font-size: 300%;
-  line-height: 50px;
 }
 
 #right-sidebar {
-  position: relative;
   border-width: 1px 1px 1px 0px;
+}
+
+.sidebar {
   border-color: black;
   border-style: solid;
   width: 150px;
@@ -39,6 +33,7 @@
 }
 
 .tab {
+  left: 9px;
   font-size: 16px;
   line-height: 20px;
   position: absolute;
@@ -47,7 +42,7 @@
   border-style: solid;
   height: 40px;
   width: 150px;
-  background-color: darkgrey;
+  background-color: #737882;
 }
 
 .tab.selected {

@@ -177,12 +177,12 @@ document.addEventListener("DOMContentLoaded", function() {
   buildUI(SkillTree.getTrees());
 
   function buildTab(tree, index) {
+    let tabHeight = 40; // matches element height defined in planner.css
     let topOffset = 50;
     let tabElement = document.createElement("div");
     tabElement.id = tree.name.toLowerCase() + "-tab";
     tabElement.classList.add("tab");
-    tabElement.style.top = (40 * index) + 50 + "px";
-    tabElement.style.left = 0;
+    tabElement.style.top = (40 * index) + 55 + "px";
     tabElement.textContent = tree.name;
 
     let counterElement = document.createElement("div");
