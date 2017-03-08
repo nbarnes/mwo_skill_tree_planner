@@ -53,8 +53,9 @@
 .tab.selected {
   z-index: 2;
   border-width: 1px 1px 1px 0px;
-  border-right-color: lightgrey;
-  background-color: lightgrey;
+  color: white;
+  border-right-color: #43464b;
+  background-color: #43464b;
 }
 
 #select-tree-button {
