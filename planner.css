@@ -67,14 +67,18 @@
   position: absolute;
   top: 605px;
   left: 83px;
+}
 
+#serialize-button {
+  position: absolute;
+  top: 560px;
+  left: 45px;
 }
 
 #reset-tree-button {
   position: absolute;
   top: 605px;
   left: 5px;
-
 }
 
 .skill-tree {
@@ -138,7 +142,7 @@
 }
 
 .hex-component.selected {
-  background-color: green;
+  background-color: #349A34;
 }
 
 .hex-component.available {
@@ -149,7 +153,15 @@
   background-color: red;
 }
 
+.hex-component.locked {
+  background-color: #005900;
+}
+
 .hex-text.selected {
+  color: white;
+}
+
+.hex-text.locked {
   color: white;
 }
 
