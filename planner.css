@@ -86,7 +86,7 @@
   position: relative;
   width: 500px;
   height: 628px;
-  background-color: lightgrey;
+  background-color: #43464b;
 }
 
 .graph-node {
@@ -142,23 +142,23 @@
 }
 
 .hex-component.selected {
-  background-color: #349A34;
+  background-color: #00f500;
 }
 
 .hex-component.available {
-  background-color: yellow;
+  background-color: #00FFFF;
 }
 
 .hex-component.unavailable {
-  background-color: red;
+  background-color: grey;
 }
 
 .hex-component.locked {
-  background-color: #005900;
+  background-color: #007a00;
 }
 
 .hex-text.selected {
-  color: white;
+  color: black;
 }
 
 .hex-text.locked {
@@ -170,7 +170,7 @@
 }
 
 .hex-text.unavailable {
-  color: white;
+  color: black;
 }
 
 .node-connect-line {
