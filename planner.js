@@ -388,7 +388,7 @@ document.addEventListener("DOMContentLoaded", function() {
         updateNodeColor(node);
       }
     }
-    updateNodeColors(SkillTree.getTree(SkillTree.getActiveTreeName()));
+    updateNodeColors(SkillTree.getActiveTreeName());
 
     updateNodeColor(node);
     for (let child of node.children()) {
@@ -398,11 +398,12 @@ document.addEventListener("DOMContentLoaded", function() {
       updateNodeColor(parent);
     }
 
-    updateNodeCounters();
+    updateNodeCounters(SkillTree.getActiveTreeName());
     updateBonuses();
   }
 
-  function updateNodeColors(tree) {
+  function updateNodeColors(treeName) {
+    let tree = SkillTree.getTree(treeName);
     for (let node of tree.nodes) {
       updateNodeColor(node);
     }
@@ -479,13 +480,18 @@ document.addEventListener("DOMContentLoaded", function() {
     }
   }
 
-  function updateNodeCounters() {
-    document.getElementById("node-selection-counter").textContent = SkillTree.getSelectedNodes().length;
-    let activeTree = SkillTree.getActiveTreeName();
-    let activeTabCounter = document.getElementById(activeTree.toLowerCase() + "-tab-counter");
-    let nodesSelected = SkillTree.getSelectedNodes(activeTree).length;
-    let nodesTotal = SkillTree.getNodeCount(activeTree);
-    activeTabCounter.textContent = nodesSelected + " / " + nodesTotal;
+  function updateNodeCounters(treeName) {
+    if (treeName == undefined) {
+      for (let tree of SkillTree.getTrees()) {
+        updateNodeCounters(tree.name);
+      }
+    } else {
+      document.getElementById("node-selection-counter").textContent = SkillTree.getSelectedNodes().length;
+      let tab = document.getElementById(treeName.toLowerCase() + "-tab-counter");
+      let nodesSelected = SkillTree.getSelectedNodes(treeName).length;
+      let nodesTotal = SkillTree.getNodeCount(treeName);
+      tab.textContent = nodesSelected + " / " + nodesTotal;
+    }
   }
 
   function updateBonuses() {
@@ -560,27 +566,42 @@ document.addEventListener("DOMContentLoaded", function() {
     nodeElement.classList.remove("unavailable");
   }
 
-  // document.getElementById('reset-tree-button').addEventListener('click', function() {
-  //   resetTree(SkillTree.getActiveTreeName());
-  // });
+  document.getElementById('reset-tree-button').addEventListener('click', function() {
+    resetTree(SkillTree.getActiveTreeName());
+  });
 
-  // document.getElementById('reset-all-button').addEventListener('click', function() {
-  //   for (let tree of SkillTree.getTrees()) {
-  //     resetTree(tree.name);
-  //   }
-  // });
+  document.getElementById('reset-all-button').addEventListener('click', function() {
+    for (let tree of SkillTree.getTrees()) {
+      resetTree(tree.name);
+    }
+  });
 
-  // document.getElementById('select-tree-button').addEventListener('click', function() {
+  document.getElementById('select-tree-button').addEventListener('click', function() {
+    selectAllNodes(SkillTree.getActiveTreeName());
+  });
 
-  // });
+  function resetTree(treeName) {
+    let tree = SkillTree.getTree(treeName);
+    for (let node of tree.nodes) {
+      node.selected = false;
+    }
+    updateNodeCounters(treeName);
+    updateBonuses();
+    updateNodeColors(treeName);
+  }
 
-  // function resetTree(treeName) {
-  //   let tree = SkillTree.getTree(treeName);
-  //   for (let node of tree.nodes) {
-  //     node.selected = false;
-  //   }
-  //   updateNodeGraphColors(treeName);
-  // }
+  function selectAllNodes(treeName) {
+    let availableNodes = maxSkillNodes - SkillTree.getSelectedNodes().length;
+    let tree = SkillTree.getTree(treeName);
+    if (availableNodes > tree.nodes.length) {
+      for (let node of tree.nodes) {
+        node.selected = true;
+      }
+      updateNodeCounters(treeName);
+      updateBonuses();
+      updateNodeColors(treeName);
+    }
+  }
 
   // document.getElementById('serialize-button').addEventListener('click', function() {
 

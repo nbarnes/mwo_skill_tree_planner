@@ -53,30 +53,47 @@
   background-color: #43464b;
 }
 
+.clickable-div {
+  height: 20px;
+  width: 120px;
+  padding: 2px;
+  font-size: 18px;
+  line-height: 21px;
+  text-align: center;
+  background-color: #737882;
+  border: 1px solid black;
+  border-radius: 5px;
+}
+
+.clickable-div:hover {
+  color: white;
+  background-color: #43464b;
+}
+
 #select-tree-button {
   position: absolute;
-  top: 580px;
-  left: 37px;
+  top: 545px;
+  left: 22px;
 }
 
 #reset-all-button {
   position: absolute;
-  top: 605px;
-  left: 83px;
+  top: 575px;
+  left: 22px;
 }
+
+#reset-tree-button {
+  position: absolute;
+  top: 605px;
+  left: 22px;
+}
+
 
 #serialize-button {
   position: absolute;
   top: 560px;
   left: 45px;
 }
-
-#reset-tree-button {
-  position: absolute;
-  top: 605px;
-  left: 5px;
-}
-
 .skill-tree {
   border: 1px solid black;
   position: relative;
