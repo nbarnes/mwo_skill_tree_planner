@@ -400,7 +400,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     updateNodeCounters(SkillTree.getActiveTreeName());
     updateBonuses();
-    history.pushState({}, '', '/');
+    pushRemoteIdToURL(remoteId);
   }
 
   function updateNodeColors(treeName) {
@@ -597,7 +597,7 @@ document.addEventListener("DOMContentLoaded", function() {
     updateNodeCounters(treeName);
     updateBonuses();
     updateNodeColors(treeName);
-    history.pushState({}, '', '/');
+    pushRemoteIdToURL(remoteId);
   }
 
   function selectAllNodes(treeName) {
@@ -610,7 +610,7 @@ document.addEventListener("DOMContentLoaded", function() {
       updateNodeCounters(treeName);
       updateBonuses();
       updateNodeColors(treeName);
-      history.pushState({}, '', '/');
+      pushRemoteIdToURL(remoteId);
     }
   }
 
@@ -641,7 +641,7 @@ document.addEventListener("DOMContentLoaded", function() {
         updateNodeCounters();
         updateBonuses();
         updateNodeColors();
-        history.pushState({}, '', '/?' + remoteId);
+        pushRemoteIdToURL(remoteId);
       });
     }
 
@@ -660,7 +660,7 @@ document.addEventListener("DOMContentLoaded", function() {
     }).then(function(response) {
       let regex = /([^//]*)$/;
       let remoteId = regex.exec(response.headers.get('location'))[0];
-      history.pushState({}, '', '/?' + remoteId);
+      pushRemoteIdToURL(remoteId);
     }, function(error) {
       console.log(error.message); //=> String
     });
@@ -711,6 +711,10 @@ document.addEventListener("DOMContentLoaded", function() {
         }
       }
     }
+  }
+
+  function pushRemoteIdToURL(remoteId) {
+    history.pushState({}, '', window.location.pathname + '/?' + remoteId);
   }
 
   loadFromRemoteId();
