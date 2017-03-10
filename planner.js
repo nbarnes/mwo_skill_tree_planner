@@ -711,7 +711,7 @@ document.addEventListener("DOMContentLoaded", function() {
     console.log('in pushRemoteIdToURL, window.location.hostname = ' + window.location.hostname);
     console.log('in pushRemoteIdToURL, window.location.pathname = ' + window.location.pathname);
     console.log('in pushRemoteIdToURL, window.location.origin = ' + window.location.origin);
-    history.pushState({}, '', window.location.origin + '/?' + remoteId);
+    history.pushState({}, '', window.location.origin + window.location.pathname + '/?' + remoteId);
   }
 
 
