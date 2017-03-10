@@ -706,8 +706,11 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 
   function pushRemoteIdToURL(remoteId) {
+    console.log(window.location);
+    console.log('in pushRemoteIdToURL, window.location.href = ' + window.location.href);
+    console.log('in pushRemoteIdToURL, window.location.hostname = ' + window.location.hostname);
     console.log('in pushRemoteIdToURL, window.location.pathname = ' + window.location.pathname);
-    history.pushState({}, '', window.location.pathname + '/?' + remoteId);
+    history.pushState({}, '', window.location.origin + '/?' + remoteId);
   }
 
 
