@@ -400,12 +400,19 @@ document.addEventListener("DOMContentLoaded", function() {
 
     updateNodeCounters(SkillTree.getActiveTreeName());
     updateBonuses();
+    history.pushState({}, '', '/');
   }
 
   function updateNodeColors(treeName) {
-    let tree = SkillTree.getTree(treeName);
-    for (let node of tree.nodes) {
-      updateNodeColor(node);
+    if (treeName == undefined) {
+      for (let tree of SkillTree.getTrees()) {
+        updateNodeColors(tree.name);
+      }
+    } else {
+      let tree = SkillTree.getTree(treeName);
+      for (let node of tree.nodes) {
+        updateNodeColor(node);
+      }
     }
   }
 
@@ -588,6 +595,7 @@ document.addEventListener("DOMContentLoaded", function() {
     updateNodeCounters(treeName);
     updateBonuses();
     updateNodeColors(treeName);
+    history.pushState({}, '', '/');
   }
 
   function selectAllNodes(treeName) {
@@ -600,24 +608,110 @@ document.addEventListener("DOMContentLoaded", function() {
       updateNodeCounters(treeName);
       updateBonuses();
       updateNodeColors(treeName);
+      history.pushState({}, '', '/');
     }
   }
 
-  // document.getElementById('serialize-button').addEventListener('click', function() {
+  function loadFromRemoteId() {
+    console.log('running loadFromRemoteId()');
 
-  //   let strippedTrees = stripTrees(SkillTree.getTrees())
+    let regex = /([^//?]*)$/;
+    let remoteBlobId = regex.exec(window.location.href)[1];
+
+    console.log('remoteBlobId = ' + remoteBlobId)
+
+    if ((remoteBlobId != undefined) && (remoteBlobId != '')) {
+      fetch('https://jsonblob.com/api/jsonBlob/' + remoteBlobId, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json"
+        }
+      })
+      .then(function(response) {
+        if (response.ok) {
+          return response.json();
+        } else {
+          console.log('Error response - ' + response);
+        }
+      })
+      .then(function(json) {
+        importTrees(json);
+        updateNodeCounters();
+        updateBonuses();
+        updateNodeColors();
+        history.pushState({}, '', '/?' + remoteBlobId);
+      });
+    }
+
+    console.log('done loadFromRemoteId()');
+
+  }
 
 
-  //   console.log(strippedTrees.length);
+  document.getElementById('permalink-button').addEventListener('click', function() {
+    fetch('https://jsonblob.com/api/jsonBlob', {
+      method: "POST",
+      body: serializeTrees(),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    }).then(function(response) {
+      let regex = /([^//]*)$/;
+      let remoteBlobId = regex.exec(response.headers.get('location'))[0];
+      history.pushState({}, '', '/?' + remoteBlobId);
+    }, function(error) {
+      console.log(error.message); //=> String
+    });
+  });
 
-  //   console.log('btoa = ' + btoa(strippedTrees).length);
-  //   console.log('lzw_encode = ' + lzw_encode(strippedTrees).length);
-  //   console.log('LZString = ' + LZString.compressToBase64(strippedTrees));
+  function serializeTrees() {
+    let trees = SkillTree.getTrees();
+    let serializedTrees = [];
+    for (let tree of trees) {
+      let serializedTree = {
+        name: tree.name,
+        nodes: []
+      }
+      for (let node of tree.nodes) {
+        serializedTree.nodes.push(serializeNode(node));
+      }
+      serializedTrees.push(serializedTree);
+    }
+    return JSON.stringify(serializedTrees);
+  }
 
-  // });
+  function serializeNode(node) {
+    let s;
+    if (node.selected) {
+      s = 1;
+    } else {
+      s = 0;
+    }
+    return {
+      id: node.id,
+      s: s
+    }
+  }
 
+  function importTrees(serializedTrees) {
+    for (let serializedTree of serializedTrees) {
+      let tree = SkillTree.getTree(serializedTree.name);
+      let serializedNodes = serializedTree.nodes;
+      for (let serializedNode of serializedNodes) {
+        for (let node of tree.nodes) {
+          if (serializedNode.id == node.id) {
+            if (serializedNode.s == 1) {
+              node.selected = true;
+            } else {
+              node.selected = false;
+            }
+          }
+        }
+      }
+    }
+  }
 
-
+  loadFromRemoteId();
 
 
 });

@@ -43,6 +43,7 @@
   height: 40px;
   width: 150px;
   background-color: #737882;
+  cursor: pointer;
 }
 
 .tab.selected {
@@ -54,6 +55,7 @@
 }
 
 .clickable-div {
+  position: absolute;
   height: 20px;
   width: 120px;
   padding: 2px;
@@ -63,6 +65,8 @@
   background-color: #737882;
   border: 1px solid black;
   border-radius: 5px;
+  left: 22px;
+  cursor: pointer;
 }
 
 .clickable-div:hover {
@@ -70,30 +74,28 @@
   background-color: #43464b;
 }
 
-#select-tree-button {
-  position: absolute;
-  top: 545px;
-  left: 22px;
+#permalink-button {
+  top: 515px;
 }
 
-#reset-all-button {
-  position: absolute;
-  top: 575px;
-  left: 22px;
+#select-tree-button {
+  top: 545px;
 }
 
 #reset-tree-button {
-  position: absolute;
-  top: 605px;
-  left: 22px;
+  top: 575px;
 }
 
+#reset-all-button {
+  top: 605px;
+}
 
 #serialize-button {
   position: absolute;
   top: 560px;
   left: 45px;
 }
+
 .skill-tree {
   border: 1px solid black;
   position: relative;
@@ -109,6 +111,7 @@
   font-size: 10px;
   line-height: 10px;
   z-index: 1;
+  cursor: pointer;
 }
 
 .hex-top {
