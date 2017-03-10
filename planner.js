@@ -546,7 +546,9 @@ document.addEventListener("DOMContentLoaded", function() {
     });
     let treeElement = document.getElementById(treeNameToId(treeName));
     treeElement.classList.remove("hide");
-    document.getElementById('footer').style.width = (dimensionAsNumber(treeElement.style.width) + 294) + "px";
+    let totalWidth = (dimensionAsNumber(treeElement.style.width) + 294) + "px"
+    document.getElementById('modal-overlay').style.width = totalWidth;
+    document.getElementById('footer').style.width = totalWidth;
   }
 
   function treeNameToId(treeName) {
@@ -616,12 +618,12 @@ document.addEventListener("DOMContentLoaded", function() {
     console.log('running loadFromRemoteId()');
 
     let regex = /([^//?]*)$/;
-    let remoteBlobId = regex.exec(window.location.href)[1];
+    let remoteId = regex.exec(window.location.href)[1];
 
-    console.log('remoteBlobId = ' + remoteBlobId)
+    console.log('remoteId = ' + remoteId)
 
-    if ((remoteBlobId != undefined) && (remoteBlobId != '')) {
-      fetch('https://jsonblob.com/api/jsonBlob/' + remoteBlobId, {
+    if ((remoteId != undefined) && (remoteId != '')) {
+      fetch('https://jsonblob.com/api/jsonBlob/' + remoteId, {
         method: "GET",
         headers: {
           "Content-Type": "application/json"
@@ -639,7 +641,7 @@ document.addEventListener("DOMContentLoaded", function() {
         updateNodeCounters();
         updateBonuses();
         updateNodeColors();
-        history.pushState({}, '', '/?' + remoteBlobId);
+        history.pushState({}, '', '/?' + remoteId);
       });
     }
 
@@ -657,8 +659,8 @@ document.addEventListener("DOMContentLoaded", function() {
       }
     }).then(function(response) {
       let regex = /([^//]*)$/;
-      let remoteBlobId = regex.exec(response.headers.get('location'))[0];
-      history.pushState({}, '', '/?' + remoteBlobId);
+      let remoteId = regex.exec(response.headers.get('location'))[0];
+      history.pushState({}, '', '/?' + remoteId);
     }, function(error) {
       console.log(error.message); //=> String
     });

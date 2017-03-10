@@ -4,6 +4,16 @@
   height: 630px;
   text-align: center;
 }
+
+#modal-overlay {
+  padding: 0px 5px 0px 5px;
+  position: absolute;
+  height: 678px;
+  opacity: 0.5;
+  background-color: black;
+  z-index: 99;
+}
+
 #left-sidebar {
   border-width: 1px 0px 1px 1px;
 }
@@ -88,12 +98,6 @@
 
 #reset-all-button {
   top: 605px;
-}
-
-#serialize-button {
-  position: absolute;
-  top: 560px;
-  left: 45px;
 }
 
 .skill-tree {
