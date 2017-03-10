@@ -210,8 +210,8 @@ document.addEventListener("DOMContentLoaded", function() {
     treeElement.classList.add("hide");
     document.getElementById("graph-view").appendChild(treeElement);
 
-    // need to do something here to sort the node array.  Probably search it each time you add a node
-    // and add the children of that node to a queue to be the next loaded
+    // TODO: need to do something here to sort the node array.  Probably search it each
+    // time you add a node and add the children of that node to a queue to be the next loaded
 
     let xOffset = 65;
     let yOffset = 38;
@@ -642,6 +642,7 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 
   document.getElementById('permalink-button').addEventListener('click', function() {
+    // TODO: do something to indicate that we're loading
     fetch('https://jsonblob.com/api/jsonBlob', {
       method: "POST",
       body: serializeTrees(),
@@ -651,7 +652,8 @@ document.addEventListener("DOMContentLoaded", function() {
     }).then(function(response) {
       let regex = /([^//]*)$/;
       let remoteId = regex.exec(response.headers.get('location'))[0];
-      pushRemoteIdToURL(remoteId);
+      document.getElementById('permalink-display').textContent = pushRemoteIdToURL(remoteId);
+      document.getElementById('modal-overlay').classList.remove('hide');
     }, function(error) {
       console.log(error.message); //=> String
     });
@@ -705,16 +707,26 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 
   function pushRemoteIdToURL(remoteId) {
-    history.pushState({}, '', window.location.origin + window.location.pathname + '?' + remoteId);
+    let remoteURL = window.location.origin + window.location.pathname + '?' + remoteId
+    history.pushState({}, '', remoteURL);
+    return remoteURL;
   }
 
   function revertURL() {
     history.pushState({}, '', window.location.origin + window.location.pathname);
   }
 
-
   document.getElementById('modal-overlay').addEventListener('click', function() {
     document.getElementById('modal-overlay').classList.add('hide');
+  });
+
+  // document.getElementById('copy-to-clipboard-button').addEventListener('click', function(event) {
+  //   document.execCommand('copy')
+  //   event.stopPropagation();
+  // });
+
+  document.getElementById('permalink-display').addEventListener('click', function(event) {
+    event.stopPropagation();
   });
 
   loadFromRemoteId();

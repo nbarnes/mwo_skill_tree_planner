@@ -1191,6 +1191,7 @@ let treeSource = [
       { name: "Target Decay 5",
         attribute: "Target Lock Decay",
         value: "0.7",
+        leftChildId: "radar-deprivation-4",
         rightChildId: "radar-deprivation-5"
       },
       { name: "Enhanced ECM 2",
