@@ -400,7 +400,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     updateNodeCounters(SkillTree.getActiveTreeName());
     updateBonuses();
-    pushRemoteIdToURL(remoteId);
+    history.pushState({}, '', '');
   }
 
   function updateNodeColors(treeName) {
@@ -597,7 +597,7 @@ document.addEventListener("DOMContentLoaded", function() {
     updateNodeCounters(treeName);
     updateBonuses();
     updateNodeColors(treeName);
-    pushRemoteIdToURL(remoteId);
+    history.pushState({}, '', '');
   }
 
   function selectAllNodes(treeName) {
@@ -610,17 +610,13 @@ document.addEventListener("DOMContentLoaded", function() {
       updateNodeCounters(treeName);
       updateBonuses();
       updateNodeColors(treeName);
-      pushRemoteIdToURL(remoteId);
+    history.pushState({}, '', '');
     }
   }
 
   function loadFromRemoteId() {
-    console.log('running loadFromRemoteId()');
-
     let regex = /([^//?]*)$/;
     let remoteId = regex.exec(window.location.href)[1];
-
-    console.log('remoteId = ' + remoteId)
 
     if ((remoteId != undefined) && (remoteId != '')) {
       fetch('https://jsonblob.com/api/jsonBlob/' + remoteId, {
@@ -641,14 +637,10 @@ document.addEventListener("DOMContentLoaded", function() {
         updateNodeCounters();
         updateBonuses();
         updateNodeColors();
-        pushRemoteIdToURL(remoteId);
       });
     }
 
-    console.log('done loadFromRemoteId()');
-
   }
-
 
   document.getElementById('permalink-button').addEventListener('click', function() {
     fetch('https://jsonblob.com/api/jsonBlob', {
@@ -714,8 +706,14 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 
   function pushRemoteIdToURL(remoteId) {
+    console.log('in pushRemoteIdToURL, window.location.pathname = ' + window.location.pathname);
     history.pushState({}, '', window.location.pathname + '/?' + remoteId);
   }
+
+
+  document.getElementById('modal-overlay').addEventListener('click', function() {
+    document.getElementById('modal-overlay').classList.add('hide');
+  });
 
   loadFromRemoteId();
 
