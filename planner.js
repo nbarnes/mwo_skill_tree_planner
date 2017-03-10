@@ -400,7 +400,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     updateNodeCounters(SkillTree.getActiveTreeName());
     updateBonuses();
-    history.pushState({}, '', '');
+    history.pushState({}, '', '/');
   }
 
   function updateNodeColors(treeName) {
@@ -597,7 +597,7 @@ document.addEventListener("DOMContentLoaded", function() {
     updateNodeCounters(treeName);
     updateBonuses();
     updateNodeColors(treeName);
-    history.pushState({}, '', '');
+    history.pushState({}, '', '/');
   }
 
   function selectAllNodes(treeName) {
@@ -610,7 +610,7 @@ document.addEventListener("DOMContentLoaded", function() {
       updateNodeCounters(treeName);
       updateBonuses();
       updateNodeColors(treeName);
-    history.pushState({}, '', '');
+      history.pushState({}, '', '/');
     }
   }
 
