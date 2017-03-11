@@ -55,6 +55,13 @@
   background-color: #43464b;
 }
 
+#cost-totals-display {
+  font-size: 16px;
+  line-height: 20px;
+  position: relative;
+  top: 410px;
+}
+
 .clickable-div {
   position: absolute;
   height: 20px;

@@ -3,6 +3,8 @@
 document.addEventListener("DOMContentLoaded", function() {
 
   let maxSkillNodes = 91;
+  let cbillsPerNode = 60000;
+  let xpPerNode = 800;
 
   let SkillTree = (function() {
 
@@ -198,7 +200,6 @@ document.addEventListener("DOMContentLoaded", function() {
       tabElement.classList.add("selected");
       changeSkillTree(tree.name);
     });
-
 
     document.getElementById("total-nodes-display").after(tabElement);
   }
@@ -488,17 +489,21 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 
   function updateNodeCounters(treeName) {
+    let totalNodesSelected = SkillTree.getSelectedNodes().length;
+    document.getElementById("node-selection-counter").textContent = totalNodesSelected;
     if (treeName == undefined) {
       for (let tree of SkillTree.getTrees()) {
         updateNodeCounters(tree.name);
       }
     } else {
-      document.getElementById("node-selection-counter").textContent = SkillTree.getSelectedNodes().length;
       let tab = document.getElementById(treeName.toLowerCase() + "-tab-counter");
       let nodesSelected = SkillTree.getSelectedNodes(treeName).length;
       let nodesTotal = SkillTree.getNodeCount(treeName);
       tab.textContent = nodesSelected + " / " + nodesTotal;
     }
+    let totalCbillCost = (totalNodesSelected * cbillsPerNode).toLocaleString('en-US') + ' C-Bills and';
+    let totalXpCost = (totalNodesSelected * xpPerNode).toLocaleString('en-US') + ' XP / GXP';
+    document.getElementById("cost-totals-display").innerHTML = totalCbillCost + "</br>" + totalXpCost;
   }
 
   function updateBonuses() {
