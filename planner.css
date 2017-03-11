@@ -225,10 +225,9 @@
 
 #permalink-display {
   font-size: 20px;
-  line-height: 20px;
   background-color: #43464b;
   border-radius: 5px;
-  padding: 5px;
+  padding: 9px 6px 6px 6px;
   cursor: text;
 }
 

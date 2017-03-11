@@ -620,6 +620,9 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 
   function loadFromRemoteId() {
+    setModalCloseability(false);
+    document.getElementById('modal-overlay').classList.remove('hide');
+    document.getElementById('permalink-display').textContent = 'Reactor online, weapons online, sensors online....';
     let regex = /([^//?]*)$/;
     let remoteId = regex.exec(window.location.href)[1];
 
@@ -642,12 +645,15 @@ document.addEventListener("DOMContentLoaded", function() {
         updateNodeCounters();
         updateBonuses();
         updateNodeColors();
+        document.getElementById('modal-overlay').classList.add('hide');
       });
     }
   }
 
   document.getElementById('permalink-button').addEventListener('click', function() {
-    // TODO: do something to indicate that we're loading
+    setModalCloseability(false);
+    document.getElementById('permalink-display').textContent = 'Permalink inbound on your position.';
+    document.getElementById('modal-overlay').classList.remove('hide');
     fetch('https://jsonblob.com/api/jsonBlob', {
       method: "POST",
       body: serializeTrees(),
@@ -659,8 +665,10 @@ document.addEventListener("DOMContentLoaded", function() {
       let remoteId = regex.exec(response.headers.get('location'))[0];
       document.getElementById('permalink-display').textContent = pushRemoteIdToURL(remoteId);
       document.getElementById('modal-overlay').classList.remove('hide');
+      setModalCloseability(true);
     }, function(error) {
-      console.log(error.message); //=> String
+      console.log(error.message);
+      setModalCloseability(true);
     });
   });
 
@@ -721,14 +729,17 @@ document.addEventListener("DOMContentLoaded", function() {
     history.pushState({}, '', window.location.origin + window.location.pathname);
   }
 
-  document.getElementById('modal-overlay').addEventListener('click', function() {
-    document.getElementById('modal-overlay').classList.add('hide');
-  });
+  // takes a boolean
+  function setModalCloseability(closeability) {
+      document.getElementById('modal-overlay').setAttribute('data-closeable', closeability.toString());
+  }
 
-  // document.getElementById('copy-to-clipboard-button').addEventListener('click', function(event) {
-  //   document.execCommand('copy')
-  //   event.stopPropagation();
-  // });
+  document.getElementById('modal-overlay').addEventListener('click', function() {
+    let closeable = document.getElementById('modal-overlay').getAttribute('data-closeable');
+    if (closeable == 'true') {
+      document.getElementById('modal-overlay').classList.add('hide');
+    }
+  });
 
   document.getElementById('permalink-display').addEventListener('click', function(event) {
     event.stopPropagation();
