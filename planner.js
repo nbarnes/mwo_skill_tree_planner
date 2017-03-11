@@ -620,13 +620,14 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 
   function loadFromRemoteId() {
-    setModalCloseability(false);
-    document.getElementById('modal-overlay').classList.remove('hide');
-    document.getElementById('permalink-display').textContent = 'Reactor online, weapons online, sensors online....';
     let regex = /([^//?]*)$/;
     let remoteId = regex.exec(window.location.href)[1];
 
     if ((remoteId != undefined) && (remoteId != '')) {
+      setModalCloseability(false);
+      document.getElementById('modal-overlay').classList.remove('hide');
+      document.getElementById('permalink-display').textContent = 'Reactor online, weapons online, sensors online....';
+
       fetch('https://jsonblob.com/api/jsonBlob/' + remoteId, {
         method: "GET",
         headers: {
@@ -647,6 +648,7 @@ document.addEventListener("DOMContentLoaded", function() {
         updateNodeColors();
         document.getElementById('modal-overlay').classList.add('hide');
       });
+
     }
   }
 
