@@ -524,7 +524,13 @@ document.addEventListener("DOMContentLoaded", function() {
       bonusDisplayElement.classList.add("bonus-display");
       bonusDisplayElement.textContent = bonus.attribute + " " + getValueTemplate(bonus.attribute)[0] + bonus.value + getValueTemplate(bonus.attribute)[1];
       document.getElementById("bonuses-display").append(bonusDisplayElement);
+
     });
+    if (document.getElementById("bonuses-display").offsetHeight > 560) {
+      document.querySelectorAll(".bonus-display").forEach(function (el) {
+        el.style.fontSize= "12px";
+      });
+    }
   }
 
   function getBonusForAttribute(bonuses, attribute) {
