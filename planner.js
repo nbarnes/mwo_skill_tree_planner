@@ -568,11 +568,6 @@ document.addEventListener("DOMContentLoaded", function() {
     return nodeName.replace(/ /g, "-").toLowerCase();
   }
 
-  // strips the "px" off the end of a CSS dimension, returns the number value
-  function dimensionAsNumber(dimension) {
-    return parseFloat(dimension.slice(0, -2));
-  }
-
   function removeNodeClasses(nodeElement) {
     nodeElement.classList.remove("selected");
     nodeElement.classList.remove("available");
@@ -747,7 +742,11 @@ document.addEventListener("DOMContentLoaded", function() {
     event.stopPropagation();
   });
 
-  loadFromRemoteId();
+  // strips the "px" off the end of a CSS dimension, returns the number value
+  function dimensionAsNumber(dimension) {
+    return parseFloat(dimension.slice(0, -2));
+  }
 
+  loadFromRemoteId();
 
 });
