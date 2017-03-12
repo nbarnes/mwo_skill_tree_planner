@@ -20,7 +20,7 @@
   background-color: grey;
   font-size: 300%;
   line-height: 50px;
-  overflow-y: auto;
+  /* overflow-y: auto; */
 }
 
 #bonuses-header {

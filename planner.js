@@ -286,7 +286,7 @@ document.addEventListener("DOMContentLoaded", function() {
       if (node.leftChildId != undefined) {
         let leftChildElement = document.getElementById(node.leftChildId);
         if (leftChildElement == null) {
-          console.log('left child id results in null = ' + node.leftChildId);
+          console.log("left child id results in null = " + node.leftChildId);
         } else {
           drawLineBetweenNodes(parentElement, leftChildElement, treeElement);
         }
@@ -294,7 +294,7 @@ document.addEventListener("DOMContentLoaded", function() {
       if (node.centerChildId != undefined) {
         let centerChildElement = document.getElementById(node.centerChildId);
         if (centerChildElement == null) {
-          console.log('center child id results in null = ' + node.centerChildId);
+          console.log("center child id results in null = " + node.centerChildId);
         } else {
           drawLineBetweenNodes(parentElement, centerChildElement, treeElement);
         }
@@ -302,7 +302,7 @@ document.addEventListener("DOMContentLoaded", function() {
       if (node.rightChildId != undefined) {
         let rightChildElement = document.getElementById(node.rightChildId);
         if (rightChildElement == null) {
-          console.log('right child id results in null = ' + node.rightChildId);
+          console.log("right child id results in null = " + node.rightChildId);
         } else {
           drawLineBetweenNodes(parentElement, rightChildElement, treeElement);
         }
@@ -354,17 +354,17 @@ document.addEventListener("DOMContentLoaded", function() {
     let childX = dimensionAsNumber(childElement.style.left);
     let childY = dimensionAsNumber(childElement.style.top);
 
-    lineElement.style.width = childY - parentY + 15 + 'px';
+    lineElement.style.width = childY - parentY + 15 + "px";
 
     let midX = (parentX + childX) / 2;
     let midY = (parentY + childY) / 2;
 
     let angle  = (Math.atan2(parentY - childY, parentX - childX) * 180 / Math.PI) + 180;
-    let transform = 'rotate(' + (angle) + 'deg)';
+    let transform = "rotate(" + (angle) + "deg)";
 
     lineElement.style.transform = transform;
-    lineElement.style.top = (parentY + 26) + 'px';
-    lineElement.style.left = (parentX + 26) + 'px';
+    lineElement.style.top = (parentY + 26) + "px";
+    lineElement.style.left = (parentX + 26) + "px";
 
     treeElement.appendChild(lineElement);
   }
@@ -433,15 +433,15 @@ document.addEventListener("DOMContentLoaded", function() {
   function updateNodeColor(node) {
     if (node.selected) {
       if (safeToDeselect(node)) {
-        setNodeElementColors(node, 'selected');
+        setNodeElementColors(node, "selected");
       } else {
-        setNodeElementColors(node, 'locked');
+        setNodeElementColors(node, "locked");
       }
     } else {
       if (nodeAvailableForSelection(node)) {
-        setNodeElementColors(node, 'available');
+        setNodeElementColors(node, "available");
       } else {
-        setNodeElementColors(node, 'unavailable');
+        setNodeElementColors(node, "unavailable");
       }
     }
   }
@@ -501,8 +501,8 @@ document.addEventListener("DOMContentLoaded", function() {
       let nodesTotal = SkillTree.getNodeCount(treeName);
       tab.textContent = nodesSelected + " / " + nodesTotal;
     }
-    let totalCbillCost = (totalNodesSelected * cbillsPerNode).toLocaleString('en-US') + ' C-Bills and';
-    let totalXpCost = (totalNodesSelected * xpPerNode).toLocaleString('en-US') + ' XP / GXP';
+    let totalCbillCost = (totalNodesSelected * cbillsPerNode).toLocaleString("en-US") + " C-Bills and";
+    let totalXpCost = (totalNodesSelected * xpPerNode).toLocaleString("en-US") + " XP / GXP";
     document.getElementById("cost-totals-display").innerHTML = totalCbillCost + "</br>" + totalXpCost;
   }
 
@@ -547,7 +547,7 @@ document.addEventListener("DOMContentLoaded", function() {
         return [ mapping.template.split("{}")[0], mapping.template.split("{}")[1] ];
       }
     }
-    console.log('value template not found for attribute ' + attribute);
+    console.log("value template not found for attribute " + attribute);
   }
 
   function changeSkillTree(treeName) {
@@ -558,8 +558,8 @@ document.addEventListener("DOMContentLoaded", function() {
     let treeElement = document.getElementById(treeNameToId(treeName));
     treeElement.classList.remove("hide");
     let totalWidth = (dimensionAsNumber(treeElement.style.width) + 294) + "px"
-    document.getElementById('modal-overlay').style.width = totalWidth;
-    document.getElementById('footer').style.width = totalWidth;
+    document.getElementById("modal-overlay").style.width = totalWidth;
+    document.getElementById("footer").style.width = totalWidth;
   }
 
   function treeNameToId(treeName) {
@@ -581,17 +581,17 @@ document.addEventListener("DOMContentLoaded", function() {
     nodeElement.classList.remove("unavailable");
   }
 
-  document.getElementById('reset-tree-button').addEventListener('click', function() {
+  document.getElementById("reset-tree-button").addEventListener("click", function() {
     resetTree(SkillTree.getActiveTreeName());
   });
 
-  document.getElementById('reset-all-button').addEventListener('click', function() {
+  document.getElementById("reset-all-button").addEventListener("click", function() {
     for (let tree of SkillTree.getTrees()) {
       resetTree(tree.name);
     }
   });
 
-  document.getElementById('select-tree-button').addEventListener('click', function() {
+  document.getElementById("select-tree-button").addEventListener("click", function() {
     selectAllNodes(SkillTree.getActiveTreeName());
   });
 
@@ -624,12 +624,12 @@ document.addEventListener("DOMContentLoaded", function() {
     let regex = /([^//?]*)$/;
     let remoteId = regex.exec(window.location.href)[1];
 
-    if ((remoteId != undefined) && (remoteId != '')) {
+    if ((remoteId != undefined) && (remoteId != "")) {
       setModalCloseability(false);
-      document.getElementById('modal-overlay').classList.remove('hide');
-      document.getElementById('permalink-display').textContent = 'Reactor online, weapons online, sensors online....';
+      document.getElementById("modal-overlay").classList.remove("hide");
+      document.getElementById("permalink-display").textContent = "Reactor online, weapons online, sensors online....";
 
-      fetch('https://jsonblob.com/api/jsonBlob/' + remoteId, {
+      fetch("https://jsonblob.com/api/jsonBlob/" + remoteId, {
         method: "GET",
         headers: {
           "Content-Type": "application/json"
@@ -639,7 +639,7 @@ document.addEventListener("DOMContentLoaded", function() {
         if (response.ok) {
           return response.json();
         } else {
-          console.log('Error response - ' + response);
+          console.log("Error response - " + response);
         }
       })
       .then(function(json) {
@@ -647,17 +647,17 @@ document.addEventListener("DOMContentLoaded", function() {
         updateNodeCounters();
         updateBonuses();
         updateNodeColors();
-        document.getElementById('modal-overlay').classList.add('hide');
+        document.getElementById("modal-overlay").classList.add("hide");
       });
 
     }
   }
 
-  document.getElementById('permalink-button').addEventListener('click', function() {
+  document.getElementById("permalink-button").addEventListener("click", function() {
     setModalCloseability(false);
-    document.getElementById('permalink-display').textContent = 'Permalink inbound on your position.';
-    document.getElementById('modal-overlay').classList.remove('hide');
-    fetch('https://jsonblob.com/api/jsonBlob', {
+    document.getElementById("permalink-display").textContent = "Permalink inbound on your position.";
+    document.getElementById("modal-overlay").classList.remove("hide");
+    fetch("https://jsonblob.com/api/jsonBlob", {
       method: "POST",
       body: serializeTrees(),
       headers: {
@@ -665,9 +665,9 @@ document.addEventListener("DOMContentLoaded", function() {
       }
     }).then(function(response) {
       let regex = /([^//]*)$/;
-      let remoteId = regex.exec(response.headers.get('location'))[0];
-      document.getElementById('permalink-display').textContent = pushRemoteIdToURL(remoteId);
-      document.getElementById('modal-overlay').classList.remove('hide');
+      let remoteId = regex.exec(response.headers.get("location"))[0];
+      document.getElementById("permalink-display").textContent = pushRemoteIdToURL(remoteId);
+      document.getElementById("modal-overlay").classList.remove("hide");
       setModalCloseability(true);
     }, function(error) {
       console.log(error.message);
@@ -723,28 +723,28 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 
   function pushRemoteIdToURL(remoteId) {
-    let remoteURL = window.location.origin + window.location.pathname + '?' + remoteId
-    history.pushState({}, '', remoteURL);
+    let remoteURL = window.location.origin + window.location.pathname + "?" + remoteId
+    history.pushState({}, "", remoteURL);
     return remoteURL;
   }
 
   function revertURL() {
-    history.pushState({}, '', window.location.origin + window.location.pathname);
+    history.pushState({}, "", window.location.origin + window.location.pathname);
   }
 
   // takes a boolean
   function setModalCloseability(closeability) {
-      document.getElementById('modal-overlay').setAttribute('data-closeable', closeability.toString());
+      document.getElementById("modal-overlay").setAttribute("data-closeable", closeability.toString());
   }
 
-  document.getElementById('modal-overlay').addEventListener('click', function() {
-    let closeable = document.getElementById('modal-overlay').getAttribute('data-closeable');
-    if (closeable == 'true') {
-      document.getElementById('modal-overlay').classList.add('hide');
+  document.getElementById("modal-overlay").addEventListener("click", function() {
+    let closeable = document.getElementById("modal-overlay").getAttribute("data-closeable");
+    if (closeable == "true") {
+      document.getElementById("modal-overlay").classList.add("hide");
     }
   });
 
-  document.getElementById('permalink-display').addEventListener('click', function(event) {
+  document.getElementById("permalink-display").addEventListener("click", function(event) {
     event.stopPropagation();
   });
 
