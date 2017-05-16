@@ -436,127 +436,196 @@ let treeSource = [
       { name: "Reinforced Casing 1",
         attribute: "Crit Chance (Received)",
         value: "1",
-        leftChildId: "ams-overload-1",
-        rightChildId: "shock-absorbance-1"
-      },
-      { name: "AMS Overload 1",
-        attribute: "AMS Effectiveness",
-        value: "1.25",
-        centerChildId: "shock-absorbance-2",
+        leftChildId: "shock-absorbance-1",
+        rightChildId: "ams-overload-1"
+      },      
+	    { name: "Shock Absorbance 1",
+        attribute: "Fall Damage",
+        value: "10",
+        centerChildId: "reinforced-casing-2",
         rightChildId: "skeletal-density-1"
       },
-      { name: "Shock Absorbance 1",
-        attribute: "Fall Damage",
-        value: "10",
-        leftChildId: "skeletal-density-1",
-        centerChildId: "reinforced-casing-2"
-      },
-      { name: "Skeletal Density 1",
-        attribute: "Internal Structure",
-        value: "5.2",
-        centerChildId: "shock-absorbance-2",
-        rightChildId: "reinforced-casing-2"
-      },
-      { name: "Shock Absorbance 2",
-        attribute: "Fall Damage",
-        value: "10",
-        leftChildId: "shock-absorbance-3",
-        centerChildId: "reinforced-casing-3"
-      },
-      { name: "Reinforced Casing 2",
-        attribute: "Crit Chance (Received)",
-        value: "1",
-        centerChildId: "ams-overload-2",
-        rightChildId: "skeletal-density-2"
-      },
-      { name: "Shock Absorbance 3",
-        attribute: "Fall Damage",
-        value: "10",
-        leftChildId: "armor-hardening-1",
-        centerChildId: "skeletal-density-3",
-        rightChildId: "reinforced-casing-3"
-      },
-      { name: "Skeletal Density 2",
-        attribute: "Internal Structure",
-        value: "5.2",
-        leftChildId: "ams-overload-2",
-        centerChildId: "reinforced-casing-4",
-        rightChildId: "armor-hardening-2"
-      },
-      { name: "Armor Hardening 1",
-        attribute: "Armor",
-        value: "3.2",
-        rightChildId: "skeletal-density-3"
-      },
-      { name: "Reinforced Casing 3",
-        attribute: "Crit Chance (Received)",
-        value: "1",
-        leftChildId: "skeletal-density-3",
-        centerChildId: "shock-absorbance-4",
-        rightChildId: "armor-hardening-3"
-      },
-      { name: "AMS Overload 2",
+	    { name: "AMS Overload 1",
         attribute: "AMS Effectiveness",
         value: "1.25",
-        leftChildId: "armor-hardening-3",
-        centerChildId: "shock-absorbance-5",
-        rightChildId: "reinforced-casing-4"
+        leftChildId: "skeletal-density-1",
+        centerChildId: "reinforced-casing-3"
       },
-      { name: "Armor Hardening 2",
-        attribute: "Armor",
-        value: "3.2",
-        leftChildId: "reinforced-casing-4"
-      },
-      { name: "Skeletal Density 3",
+	    { name: "Skeletal Density 1",
         attribute: "Internal Structure",
-        value: "5.2",
-        rightChildId: "shock-absorbance-4"
+        value: "3.1",
+        leftChildId: "reinforced-casing-2",
+        rightChildId: "reinforced-casing-3"
       },
-      { name: "Armor Hardening 3",
-        attribute: "Armor",
-        value: "3.2",
-        leftChildId: "shock-absorbance-4",
-        rightChildId: "shock-absorbance-5"
-      },
-      { name: "Reinforced Casing 4",
+	    { name: "Reinforced Casing 2",
         attribute: "Crit Chance (Received)",
         value: "1",
-        leftChildId: "shock-absorbance-5"
+        leftChildId: "armor-hardening-1",
+        centerChildId: "ams-overload-2"
       },
-      { name: "Shock Absorbance 4",
+	    { name: "Reinforced Casing 3",
+        attribute: "Crit Chance (Received)",
+        value: "1",
+        centerChildId: "shock-absorbance-3",
+        rightChildId: "skeletal-density-2"
+      },
+	    { name: "Armor Hardening 1",
+        attribute: "Armor",
+        value: "1.6",
+        leftChildId: "shock-absorbance-2",
+        centerChildId: "skeletal-density-3",
+        rightChildId: "ms-overload-2"
+      },
+	    { name: "Skeletal Density 2",
+        attribute: "Internal Structure",
+        value: "3.1",
+        leftChildId: "shock-absorbance-3",
+        centerChildId: "reinforced-casing-4",
+        rightChildId: "shock-absorbance-4"
+      },
+	  { name: "Shock Absorbance 2",
+        attribute: "Fall Damage",
+        value: "10",
+        leftChildId: "armor-hardening-2",
+        rightChildId: "skeletal-density-3"
+      },
+	    { name: "AMS Overload 2",
+        attribute: "AMS Effectiveness",
+        value: "1.25",
+        leftChildId: "skeletal-density-3",
+        rightChildId: "skeletal-density-4"
+      },
+	    { name: "Shock Absorbance 3",
         attribute: "Fall Damage",
         value: "10",
         leftChildId: "skeletal-density-4",
-        rightChildId: "reinforced-casing-5"
+        rightChildId: "reinforced-casing-4"
       },
-      { name: "Shock Absorbance 5",
+	    { name: "Shock Absorbance 4",
         attribute: "Fall Damage",
         value: "10",
-        leftChildId: "reinforced-casing-5",
-        rightChildId: "skeletal-density-5"
+        leftChildId: "reinforced-casing-4",
+        rightChildId: "armor-hardening-3"
       },
-      { name: "Skeletal Density 4",
+	    { name: "Armor Hardening 2",
+        attribute: "Armor",
+        value: "1.6",
+        rightChildId: "reinforced-casing-5"
+      },
+	    { name: "Skeletal Density 3",
         attribute: "Internal Structure",
-        value: "5.2"
+        value: "3.1",
+        leftChildId: "reinforced-casing-5",
+        centerChildId: "armor-hardening-5"
       },
-      { name: "Reinforced Casing 5",
+	    { name: "Skeletal Density 4",
+        attribute: "Internal Structure",
+        value: "3.1",
+        centerChildId: "skeletal-density-5"
+      },
+	    { name: "Reinforced Casing 4",
+        attribute: "Crit Chance (Received)",
+        value: "1",
+        centerChildId: "skeletal-density-6",
+        rightChildId: "reinforced-casing-7"
+      },
+	    { name: "Armor Hardening 3",
+        attribute: "Armor",
+        value: "1.6",
+        leftChildId: "reinforced-casing-7"
+      },
+	    { name: "Reinforced Casing 5",
         attribute: "Crit Chance (Received)",
         value: "1",
         leftChildId: "armor-hardening-4",
         rightChildId: "armor-hardening-5"
       },
-      { name: "Skeletal Density 5",
+	    { name: "Reinforced Casing 7",
+        attribute: "Crit Chance (Received)",
+        value: "1",
+        leftChildId: "skeletal-density-6",
+        rightChildId: "skeletal-density-7"
+      },
+	    { name: "Armor Hardening 4",
+        attribute: "Armor",
+        value: "1.6"
+      },
+  	  { name: "Armor Hardening 5",
+        attribute: "Armor",
+        value: "1.6",
+        rightChildId: "reinforced-casing-6"
+      },
+	    { name: "Skeletal Density 5",
         attribute: "Internal Structure",
-        value: "5.2"
+        value: "3.1",
+        leftChildId: "reinforced-casing-6",
+        rightChildId: "reinforced-casing-8"
       },
-      { name: "Armor Hardening 4",
-        attribute: "Armor",
-        value: "3.2"
+	    { name: "Skeletal Density 6",
+        attribute: "Internal Structure",
+        value: "3.1",
+        leftChildId: "reinforced-casing-8"
       },
-      { name: "Armor Hardening 5",
+	    { name: "Skeletal Density 7",
+        attribute: "Internal Structure",
+        value: "3.1"
+      },
+	    { name: "Reinforced Casing 6",
+        attribute: "Crit Chance (Received)",
+        value: "1",
+        leftChildId: "armor-hardening-6",
+        centerChildId: "skeletal-density-9"
+      },
+	    { name: "Reinforced Casing 8",
+        attribute: "Crit Chance (Received)",
+        value: "1",
+        centerChildId: "skeletal-density-10",
+        rightChildId: "skeletal-density-8"
+      },
+	    { name: "Armor Hardening 6",
         attribute: "Armor",
-        value: "3.2"
-      }
+        value: "1.6",
+        rightChildId: "skeletal-density-9"
+      },
+	    { name: "Skeletal Density 8",
+        attribute: "Internal Structure",
+        value: "3.1",
+        leftChildId: "skeletal-density-10"
+      },
+	    { name: "Skeletal Density 9",
+        attribute: "Internal Structure",
+        value: "3.1",
+        leftChildId: "armor-hardening-7",
+        rightChildId: "shock-absorbance-5"
+      },
+	    { name: "Skeletal Density 10",
+        attribute: "Internal Structure",
+        value: "3.1",
+        leftChildId: "shock-absorbance-5",
+        rightChildId: "armor-hardening-8"
+      },
+	    { name: "Armor Hardening 7",
+        attribute: "Armor",
+        value: "1.6"
+      },
+	    { name: "Shock Absorbance 5",
+        attribute: "Fall Damage",
+        value: "10",
+        leftChildId: "armor-hardening-9",
+        rightChildId: "armor-hardening-10"
+      },
+	    { name: "Armor Hardening 8",
+        attribute: "Armor",
+        value: "1.6"
+      },
+	    { name: "Armor Hardening 9",
+        attribute: "Armor",
+        value: "1.6"
+      },
+	    { name: "Armor Hardening 10",
+        attribute: "Armor",
+        value: "1.6"
+      },
     ]
   },
   /*
