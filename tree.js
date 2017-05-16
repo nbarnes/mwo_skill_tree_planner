@@ -1224,7 +1224,7 @@ let treeSource = [
         attribute: "Consumable Slots",
         value: "1",
         leftChildId: "uav-duration",
-        rightChildId: "extended-bombardment-1"
+        rightChildId: "adv.-salvos-1"
       },
       { name: "UAV Duration",
         attribute: "UAV Duration",
