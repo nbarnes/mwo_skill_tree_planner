@@ -1220,7 +1220,7 @@ let treeSource = [
   {
     name: "Auxiliary",
     nodes: [
-      { name: "Consumable Slots 1",
+      { name: "Consumable Slot 1",
         attribute: "Consumable Slots",
         value: "1",
         leftChildId: "uav-duration",
@@ -1238,7 +1238,7 @@ let treeSource = [
         value: "25",
         leftChildId: "enhanced-coolshot-1",
         centerChildId: "capture-assist-2",
-        rightChildId: "extended-bombardment-2"
+        rightChildId: "adv.-salvos-2"
       },
       { name: "UAV Range 1",
         attribute: "UAV Sight Range",
@@ -1249,12 +1249,12 @@ let treeSource = [
       },
       { name: "Enhanced Coolshot 1",
         attribute: "Coolshot Effectiveness",
-        value: "50",
+        value: "25",
         leftChildId: "capture-assist-1",
         centerChildId: "enhanced-coolshot-2",
         rightChildId: "capture-assist-2"
       },
-      { name: "Extended Bombardment 2",
+      { name: "ADV. Salvos 2",
         attribute: "Artillery Strike Duration",
         value: "25",
         centerChildId: "enhanced-narc-2",
@@ -1294,12 +1294,12 @@ let treeSource = [
       },
       { name: "Enhanced NARC 1",
         attribute: "NARC Velocity and Duration",
-        value: "1",
+        value: "10",
         rightChildId: "capture-assist-3"
       },
       { name: "Enhanced Coolshot 2",
         attribute: "Coolshot Effectiveness",
-        value: "50",
+        value: "25",
         leftChildId: "capture-assist-3",
         centerChildId: "coolant-reserves",
         rightChildId: "capture-assist-4"
@@ -1485,7 +1485,7 @@ let attributeTemplateMap = [
     template: "+{} sec."
   },
   { attribute: "UAV Sight Range",
-    template: "+{} m."
+    template: "+{}%"
   },
   { attribute: "Artillery Strike Duration",
     template: "+{}%"
@@ -1518,6 +1518,6 @@ let attributeTemplateMap = [
     template: "+{}"
   },
   { attribute: "Coolshot Cooldown",
-    template: "+{}"
+    template: "-{}%"
   }
 ]
