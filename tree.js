@@ -1066,7 +1066,7 @@ let treeSource = [
     nodes: [
       { name: "Target Info Gathering 1",
         attribute: "Target Info Speed",
-        value: "3",
+        value: "7",
         leftChildId: "target-decay-1",
         rightChildId: "sensor-range-1"
       },
@@ -1079,7 +1079,7 @@ let treeSource = [
       },
       { name: "Sensor Range 1",
         attribute: "Sensor Range",
-        value: "3",
+        value: "7",
         leftChildId: "sensor-range-2",
         centerChildId: "sensor-range-3",
         rightChildId: "target-info-gathering-2"
@@ -1087,29 +1087,27 @@ let treeSource = [
       { name: "Target Retention 1",
         attribute: "Target Retention",
         value: "200",
-        rightChildId: "target-info-gathering-3"
       },
       { name: "Sensor Range 2",
         attribute: "Sensor Range",
-        value: "3",
+        value: "7",
         leftChildId: "target-info-gathering-3",
         rightChildId: "sensor-range-3"
       },
       { name: "Target Info Gathering 2",
         attribute: "Target Info Speed",
-        value: "3",
-        leftChildId: "sensor-range-3",
+        value: "7",
         rightChildId: "advanced-zoom"
       },
       { name: "Target Info Gathering 3",
         attribute: "Target Info Speed",
-        value: "3",
+        value: "7",
         centerChildId: "target-info-gathering-4",
         rightChildId: "target-decay-2"
       },
       { name: "Sensor Range 3",
         attribute: "Sensor Range",
-        value: "3",
+        value: "7",
         leftChildId: "target-decay-2",
         centerChildId: "target-retention-2"
       },
@@ -1123,7 +1121,7 @@ let treeSource = [
       },
       { name: "Target Info Gathering 4",
         attribute: "Target Info Speed",
-        value: "3",
+        value: "7",
         leftChildId: "radar-deprivation-1",
         centerChildId: "sensor-range-4"
       },
@@ -1136,24 +1134,22 @@ let treeSource = [
       { name: "Radar Deprivation 1",
         attribute: "Radar Deprivation",
         value: "20",
-        rightChildId: "sensor-range-4"
       },
       { name: "Target Decay 3",
         attribute: "Target Lock Decay",
         value: "0.7",
-        leftChildId: "sensor-range-5",
         rightChildId: "seismic-sensor-1"
       },
       { name: "Sensor Range 4",
         attribute: "Sensor Range",
-        value: "3",
+        value: "7",
         leftChildId: "radar-deprivation-2",
         centerChildId: "target-info-gathering-5",
         rightChildId: "target-decay-4"
       },
       { name: "Sensor Range 5",
         attribute: "Sensor Range",
-        value: "3",
+        value: "7",
         leftChildId: "target-decay-4",
         centerChildId: "target-decay-5",
         rightChildId: "radar-deprivation-3"
@@ -1166,7 +1162,6 @@ let treeSource = [
         attribute: "Radar Deprivation",
         value: "20",
         leftChildId: "enhanced-ecm-1",
-        rightChildId: "target-info-gathering-5"
       },
       { name: "Target Decay 4",
         attribute: "Target Lock Decay",
@@ -1175,7 +1170,6 @@ let treeSource = [
       { name: "Radar Deprivation 3",
         attribute: "Radar Deprivation",
         value: "20",
-        leftChildId: "target-decay-5",
         rightChildId: "enhanced-ecm-2"
       },
       { name: "Enhanced ECM 1",
@@ -1184,7 +1178,7 @@ let treeSource = [
       },
       { name: "Target Info Gathering 5",
         attribute: "Target Info Speed",
-        value: "3",
+        value: "7",
         leftChildId: "seismic-sensor-2",
         rightChildId: "radar-deprivation-4"
       },
@@ -1467,7 +1461,7 @@ let attributeTemplateMap = [
     template: "+{} sec."
   },
   { attribute: "Zoom Magnifier",
-    template: "+{}x"
+    template: "+{}"
   },
   { attribute: "Radar Deprivation",
     template: "-{}%"
