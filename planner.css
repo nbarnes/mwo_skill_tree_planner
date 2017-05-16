@@ -164,11 +164,11 @@
 }
 
 .hex-component.selected {
-  background-color: #00f500;
+  background-color: #00b5f5;
 }
 
 .hex-component.available {
-  background-color: #00FFFF;
+  background-color: #00556d;
 }
 
 .hex-component.unavailable {
