@@ -1233,7 +1233,7 @@ let treeSource = [
         centerChildId: "capture-assist-1",
         rightChildId: "enhanced-coolshot-1"
       },
-      { name: "Extended Bombardment 1",
+      { name: "ADV. Salvos 1",
         attribute: "Artillery Strike Duration",
         value: "25",
         leftChildId: "enhanced-coolshot-1",
