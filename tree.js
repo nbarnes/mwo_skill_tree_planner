@@ -651,7 +651,7 @@ let treeSource = [
       { name: "Hard Brake 1",
         attribute: "Deceleration",
         value: "3.5",
-        leftChildId: "kinectic-burst-2",
+        leftChildId: "kinetic-burst-2",
         rightChildId: "torso-yaw-2"
       },
       { name: "Hard Brake 2",
@@ -1257,7 +1257,6 @@ let treeSource = [
       { name: "Target Decay 5",
         attribute: "Target Lock Decay",
         value: "0.7",
-        leftChildId: "radar-deprivation-4",
         rightChildId: "radar-deprivation-5"
       },
       { name: "Enhanced ECM 2",
@@ -1310,8 +1309,7 @@ let treeSource = [
         attribute: "UAV Sight Range",
         value: "20",
         leftChildId: "extra-uav",
-        centerChildId: "enhanced-narc-1",
-        rightChildId: "capture-assist-1"
+        centerChildId: "enhanced-narc-1"
       },
       { name: "Enhanced Coolshot 1",
         attribute: "Coolshot Effectiveness",
@@ -1330,8 +1328,7 @@ let treeSource = [
         attribute: "UAV Capacity",
         value: "1",
         leftChildId: "uav-range-2",
-        centerChildId: "consumable-slot-2",
-        rightChildId: "enhanced-narc-1"
+        centerChildId: "consumable-slot-2"
       },
       { name: "Capture Assist 1",
         attribute: "Point Capture Speed",
@@ -1355,8 +1352,7 @@ let treeSource = [
       },
       { name: "UAV Range 2",
         attribute: "UAV Sight Range",
-        value: "20",
-        rightChildId: "consumable-slot-2"
+        value: "20"
       },
       { name: "Enhanced NARC 1",
         attribute: "NARC Velocity and Duration",
@@ -1377,8 +1373,7 @@ let treeSource = [
       },
       { name: "Enhanced Spotting",
         attribute: "Air/Arty Strike Accuracy",
-        value: "20",
-        leftChildId: "consumable-slot-3"
+        value: "20"
       },
       { name: "Consumable Slot 2",
         attribute: "Additional Consumable Slot",
@@ -1503,7 +1498,7 @@ let attributeTemplateMap = [
     template: "+{}%"
   },
   { attribute: "Tastier Gyros",
-    template: "+{}%"
+    template: "-{}%"
   },
   { attribute: "Startup Speed",
     template: "-{}%"
@@ -1536,7 +1531,7 @@ let attributeTemplateMap = [
     template: "+{}"
   },
   { attribute: "Radar Deprivation",
-    template: "-{}%"
+    template: "+{}%"
   },
   { attribute: "Seismic Sensor",
     template: "{} m."
