@@ -148,7 +148,7 @@ let treeSource = [
       },
       { name: "LBX Spread 1",
         attribute: "LBX Spread",
-        value: "",
+        value: "5",
         rightChildId: "cooldown-8"
       },
 	  { name: "Range 10",
@@ -363,7 +363,7 @@ let treeSource = [
       },
       { name: "LBX Spread 2",
         attribute: "LBX Spread",
-        value: ""
+        value: "5"
       },
       { name: "Heat Gen 13",
         attribute: "Weapon Heat Gen",
