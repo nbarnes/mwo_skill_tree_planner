@@ -1044,7 +1044,7 @@ let treeSource = [
         rightChildId: "heat-containment-5"
       },
       { name: "Heat Containment 4",
-        attribute: "Heat Dissipation",
+        attribute: "Heat Capacity",
         value: "3"
       },
       { name: "Quick Ignition 4",
@@ -1054,7 +1054,7 @@ let treeSource = [
         rightChildId: "speed-retention-3"
       },
       { name: "Heat Containment 5",
-        attribute: "Heat Dissipation",
+        attribute: "Heat Capacity",
         value: "3"
       },
       { name: "Improved Gyros 4",
