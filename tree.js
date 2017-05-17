@@ -346,7 +346,8 @@ let treeSource = [
 	  { name: "Heat Gen 12",
         attribute: "Weapon Heat Gen",
         value: "0.75",
-        centerChildId: "heat-gen-14"
+        centerChildId: "heat-gen-14",
+        rightChildId: "lbx-spread-2"
       },
       { name: "Cooldown 16",
         attribute: "Weapon Cooldown",
