@@ -61,34 +61,34 @@ let treeSource = [
         value: "2",
         leftChildId: "cooldown-4"
       },
-	  { name: "Cooldown 2",
+      { name: "Cooldown 2",
         attribute: "Weapon Cooldown",
         value: "0.75",
         rightChildId: "cooldown-5"
       },
-	  { name: "Cooldown 3",
+      { name: "Cooldown 3",
         attribute: "Weapon Cooldown",
         value: "0.75",
         leftChildId: "range-7",
         centerChildId: "missile-spread-1",
         rightChildId: "heat-gen-1"
       },
-	  { name: "High Explosive 1",
+      { name: "High Explosive 1",
         attribute: "Missile Crit Damage",
         value: "7.5",
         leftChildId: "heat-gen-1"
       },
-	  { name: "Cooldown 4",
+      { name: "Cooldown 4",
         attribute: "Weapon Cooldown",
         value: "0.75",
         centerChildId: "cooldown-6"
       },
-	  { name: "Gauss Charge 1",
+      { name: "Gauss Charge 1",
         attribute: "Gauss Held Time",
         value: "0.5",
         rightChildId: "heat-gen-2"
       },
-	  { name: "Cooldown 5",
+      { name: "Cooldown 5",
         attribute: "Weapon Cooldown",
         value: "0.75",
         leftChildId: "heat-gen-2",
@@ -140,13 +140,13 @@ let treeSource = [
         centerChildId: "laser-duration-1",
         rightChildId: "range-12"
       },
-	  { name: "Heat Gen 4",
+      { name: "Heat Gen 4",
         attribute: "Weapon Heat Gen",
         value: "0.75",
         leftChildId: "range-12",
         rightChildId: "velocity-4"
       },
-	  { name: "LBX Spread 1",
+      { name: "LBX Spread 1",
         attribute: "LBX Spread",
         value: "",
         rightChildId: "cooldown-8"
@@ -157,75 +157,75 @@ let treeSource = [
         leftChildId: "cooldown-8",
         rightChildId: "uac-jam-chance-1"
       },
-	  { name: "Cooldown 7",
+      { name: "Cooldown 7",
         attribute: "Weapon Cooldown",
         value: "0.75",
         leftChildId: "heat-gen-5",
         rightChildId: "heat-gen-6"
       },
-	  { name: "Velocity 3",
+      { name: "Velocity 3",
         attribute: "Weapon Velocity",
         value: "2",
         leftChildId: "heat-gen-6"
       },
-	  { name: "Range 11",
+      { name: "Range 11",
         attribute: "Weapon Range",
         value: "1",
         leftChildId: "range-13",
         rightChildId: "laser-duration-1"
       },
-	  { name: "Range 12",
+      { name: "Range 12",
         attribute: "Weapon Range",
         value: "1",
         leftChildId: "laser-duration-1",
         rightChildId: "range-14"
       },
-	  { name: "Velocity 4",
+      { name: "Velocity 4",
         attribute: "Weapon Velocity",
         value: "2",
         rightChildId: "cooldown-9"
       },
-	  { name: "Cooldown 8",
+      { name: "Cooldown 8",
         attribute: "Weapon Cooldown",
         value: "0.75",
         leftChildId: "cooldown-9",
         centerChildId: "gauss-charge-2",
         rightChildId: "heat-gen-7"
       },
-	  { name: "UAC Jam Chance 1",
+      { name: "UAC Jam Chance 1",
         attribute: "UAC Jam Chance",
-        value: ""
+        value: "2.5"
       },
-	  { name: "Heat Gen 5",
+      { name: "Heat Gen 5",
         attribute: "Weapon Heat Gen",
         value: "0.75",
         leftChildId: "cooldown-10"
       },
-	  { name: "Heat Gen 6",
+      { name: "Heat Gen 6",
         attribute: "Weapon Heat Gen",
         value: "0.75",
         leftChildId: "high-explosive-2",
         centerChildId: "laser-duration-2",
         rightChildId: "heat-gen-8"
       },
-	  { name: "Range 13",
+      { name: "Range 13",
         attribute: "Weapon Range",
         value: "1",
         leftChildId: "heat-gen-8",
         rightChildId: "missile-rack-1"
       },
-	  { name: "Laser Duration 1",
+      { name: "Laser Duration 1",
         attribute: "Laser Duration",
         value: "3.75",
         centerChildId: "cooldown-12"
       },
-	  { name: "Range 14",
+      { name: "Range 14",
         attribute: "Weapon Range",
         value: "1",
         leftChildId: "magazine-capacity-1",
         rightChildId: "heat-gen-9"
       },
-	  { name: "Cooldown 9",
+      { name: "Cooldown 9",
         attribute: "Weapon Cooldown",
         value: "0.75",
         leftChildId: "heat-gen-9",
@@ -255,7 +255,7 @@ let treeSource = [
       },
 	  { name: "Missile Rack 1",
         attribute: "Missile Ammo",
-        value: "",
+        value: "1",
         rightChildId: "cooldown-12"
       },
 	  { name: "Magazine Capacity 1",
@@ -281,7 +281,7 @@ let treeSource = [
       },
 	  { name: "Missile Rack 2",
         attribute: "Missile Ammo",
-        value: ""
+        value: "1"
       },
 	  { name: "Laser Duration 2",
         attribute: "Laser Duration",
@@ -359,7 +359,7 @@ let treeSource = [
       },
       { name: "UAC Jam Chance 2",
         attribute: "UAC Jam Chance",
-        value: ""
+        value: "2.5"
       },
       { name: "LBX Spread 2",
         attribute: "LBX Spread",
