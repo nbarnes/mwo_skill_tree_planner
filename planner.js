@@ -3,7 +3,7 @@
 document.addEventListener("DOMContentLoaded", function() {
 
   let maxSkillNodes = 91;
-  let cbillsPerNode = 60000;
+  let cbillsPerNode = 45000;
   let xpPerNode = 800;
 
   let SkillTree = (function() {
