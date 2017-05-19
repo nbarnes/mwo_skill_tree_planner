@@ -1,12 +1,12 @@
 // First element of the nodes array MUST be the root node of the skll graph
 
 let treeSource = [
-  {
   /*
   ==========================================
                    WEAPONS
   ==========================================
   */
+  {
     name: "Weapons",
     nodes: [
       { name: "Range 1",
