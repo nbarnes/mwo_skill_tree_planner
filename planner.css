@@ -179,6 +179,14 @@
   background-color: #00b5f5;
 }
 
+.hex-component.highlightedSelected {
+  background-color: white;
+}
+
+.hex-component.highlightedNotSelected {
+  background-color: white;
+}
+
 .hex-text.selected {
   color: black;
 }
@@ -192,6 +200,14 @@
 }
 
 .hex-text.unavailable {
+  color: black;
+}
+
+.hex-text.highlightedSelected {
+  color: #00b5f5;
+}
+
+.hex-text.highlightedNotSelected {
   color: black;
 }
 

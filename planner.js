@@ -147,6 +147,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
   function Node(newName, newAttribute, newValue, newValueTemplate, newId, newLeftChildId, newCenterChildId, newRightCenterChildId) {
     var selected = false;
+    let highlighted = false;
 
     this.name = newName;
     this.attribute = newAttribute;
@@ -164,6 +165,7 @@ document.addEventListener("DOMContentLoaded", function() {
       return SkillTree.childrenOf(this);
     };
     this.selected = selected;
+    this.highlighted = highlighted;
   }
 
   function buildUI(trees) {
@@ -266,8 +268,14 @@ document.addEventListener("DOMContentLoaded", function() {
 
       treeElement.appendChild(nodeFrameElement);
 
-      nodeFrameElement.addEventListener("click", function() {
-        nodeClicked(node);
+      nodeFrameElement.addEventListener("click", function(e) {
+        nodeClicked(node, e);
+      });
+      nodeFrameElement.addEventListener("mouseover", function(e) {
+        nodeHovered(node, e);
+      });
+      nodeFrameElement.addEventListener("mouseout", function() {
+        nodeUnHovered(node);
       });
     }
 
@@ -380,16 +388,44 @@ document.addEventListener("DOMContentLoaded", function() {
     return "child not found in getRelativeChildPosition()"
   }
 
-  function nodeClicked(node) {
+  var allowFreeNodeSelection = true;
+  var highlightedNodesArray = [];
+
+  function nodeClicked(node, e) {
+    var multiSelectionHappened = false;
     if (node.selected) {
-      attemptNodeDeselection(node);
+      if(!allowFreeNodeSelection) {
+        attemptNodeDeselection(node);
+      } else {
+        if (e.ctrlKey && highlightedNodesArray.length > 0) {
+          for (let highlightedNode of highlightedNodesArray) {
+            selectNode(false, highlightedNode);
+          }
+          multiSelectionHappened = true;
+        }
+			  else {
+          selectNode(false, node);
+        }
+      }
     } else {
-      if (nodeAvailableForSelection(node) && (SkillTree.getSelectedNodes().length < maxSkillNodes)) {
-        node.selected = true;
-        updateNodeColor(node);
+      if (allowFreeNodeSelection && e.ctrlKey && highlightedNodesArray.length > 0) {
+        for (let highlightedNode of highlightedNodesArray) {
+          highlightedNode.selected = true;
+
+          updateNodeColor(highlightedNode);
+          //selectNode(true, node);
+        }
+        multiSelectionHappened = true;
+      } else if (nodeAvailableForSelection(node) && (SkillTree.getSelectedNodes().length < maxSkillNodes)) {
+        selectNode(true, node);
+//        node.selected = true;
+//        updateNodeColor(node);
       }
     }
-    updateNodeColors(SkillTree.getActiveTreeName());
+/*
+    if(!multiSelectionHappened) {
+      updateNodeColors(SkillTree.getActiveTreeName());
+    }
 
     updateNodeColor(node);
     for (let child of node.children()) {
@@ -398,10 +434,63 @@ document.addEventListener("DOMContentLoaded", function() {
     for (let parent of node.parents()) {
       updateNodeColor(parent);
     }
-
+*/
     updateNodeCounters(SkillTree.getActiveTreeName());
     updateBonuses();
     revertURL();
+  }
+  
+  function nodeHovered(node, e) {
+    if(highlightedNodesArray.length > 0 || !e.ctrlKey) {
+      return;
+    }
+    highlightNode(node);
+
+    let treeName = SkillTree.getActiveTreeName();
+    if (treeName == undefined) {
+     return;
+    } else {
+      let tree = SkillTree.getTree(treeName);
+      
+      for (let anotherNode of tree.nodes) {
+        if(anotherNode.attribute == node.attribute && anotherNode.id != node.id) {
+          highlightNode(anotherNode);
+        }
+      }
+    }
+  }
+  
+  function highlightNode(node) {
+    if(node) {
+      node.highlighted = true;
+      updateNodeColor(node);
+      highlightedNodesArray.push(node);
+    }
+  }
+
+  function nodeUnHovered(node) {
+    if(highlightedNodesArray.length == 0) {
+      return;
+    }
+    for (var highlightedNode of highlightedNodesArray) {
+      highlightedNode.highlighted = false;
+      updateNodeColor(highlightedNode);
+    }
+    highlightedNodesArray = [];
+  }
+  
+  function selectNode(value, node) {
+//    console.log("nodeName " + node.name + " highlighted state is " + node.hightlighted);
+    node.selected = value;
+    updateNodeColor(node);
+ 
+    for (let child of node.children()) {
+      updateNodeColor(child);
+    }
+    
+    for (let parent of node.parents()) {
+      updateNodeColor(parent);
+    }
   }
 
   function updateNodeColors(treeName) {
@@ -419,30 +508,35 @@ document.addEventListener("DOMContentLoaded", function() {
 
   function attemptNodeDeselection(node) {
     if (safeToDeselect(node)) {
-      node.selected = false;
-      updateNodeColor(node);
-    }
-    for (let child of node.children()) {
-      updateNodeColor(child);
-    }
-    for (let parent of node.parents()) {
-      updateNodeColor(parent);
+      selectNode(false, node);
     }
   }
 
   function updateNodeColor(node) {
-    if (node.selected) {
-      if (safeToDeselect(node)) {
-        setNodeElementColors(node, "selected");
-      } else {
-        setNodeElementColors(node, "locked");
-      }
+    var mode = "";
+    if (node.highlighted)
+    {
+      mode = node.selected ? "highlightedSelected" : "highlightedNotSelected";
     } else {
-      if (nodeAvailableForSelection(node)) {
-        setNodeElementColors(node, "available");
+      if (node.selected) {
+        if (safeToDeselect(node)) {
+          mode = "selected";
+        } else {
+          mode = "locked";
+        }
       } else {
-        setNodeElementColors(node, "unavailable");
+        if (nodeAvailableForSelection(node)) {
+          mode = "available";
+        } else {
+          mode = "unavailable";
+        }
       }
+    }
+    if(mode.length > 0) {
+//      console.log(node.name + " mode " + mode + " selected " + node.selected + " high " + node.highlighted);
+      setNodeElementColors(node, mode);
+    } else {
+      console.log("Can't determinate node color (mode) for " + node.name + " " + node.id);
     }
   }
 
@@ -579,6 +673,8 @@ document.addEventListener("DOMContentLoaded", function() {
     nodeElement.classList.remove("available");
     nodeElement.classList.remove("locked");
     nodeElement.classList.remove("unavailable");
+    nodeElement.classList.remove("highlightedSelected");
+    nodeElement.classList.remove("highlightedNotSelected");
   }
 
   document.getElementById("reset-tree-button").addEventListener("click", function() {
