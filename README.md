@@ -22,6 +22,10 @@ ABOUT ME
 ========
 My name is Nathaniel Barnes, and I am a software developer living in Seattle, WA with four family members, four horses, four cats, and six chickens. I enjoy making software tools, drinking chai, watching chickens, and playing Mechwarrior Online. I can be reached at nbarnes@gmail.com, found on Twitter as @foxbarnes, or at my professional portfolio site www.alightsabermind.com.
 
+ADDITIONAL CONTRIBUTORS
+=======================
+Special thanks to Tarogato for updating tree.js with the live-server trees
+
 LICENSE
 =======
 (The MIT License)
