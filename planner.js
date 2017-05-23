@@ -653,6 +653,7 @@ document.addEventListener("DOMContentLoaded", function() {
     treeElement.classList.remove("hide");
     let totalWidth = (dimensionAsNumber(treeElement.style.width) + 294) + "px"
     document.getElementById("modal-overlay").style.width = totalWidth;
+    document.getElementById("settings-overlay").style.width = totalWidth;
     document.getElementById("footer").style.width = totalWidth;
   }
 
