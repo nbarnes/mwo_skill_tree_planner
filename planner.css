@@ -60,7 +60,7 @@
   font-size: 16px;
   line-height: 20px;
   position: relative;
-  top: 410px;
+  top: 380px;
 }
 
 .clickable-div {
@@ -83,21 +83,26 @@
 }
 
 #permalink-button {
-  top: 515px;
+  top: 485px;
   left: 22px;
 }
 
 #select-tree-button {
-  top: 545px;
+  top: 515px;
   left: 22px;
 }
 
 #reset-tree-button {
-  top: 575px;
+  top: 545px;
   left: 22px;
 }
 
 #reset-all-button {
+  top: 575px;
+  left: 22px;
+}
+
+#settings-button {
   top: 605px;
   left: 22px;
 }
@@ -246,4 +251,63 @@
   border-radius: 5px;
   padding: 9px 6px 6px 6px;
   cursor: text;
+}
+
+#settings-overlay {
+  padding: 0px 5px 0px 5px;
+  position: absolute;
+  height: 678px;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 98;
+}
+
+#modal-window1 {
+  position: absolute;
+  color: white;
+  background-color: black;
+  width: 400px;
+  height: 100px;
+  position: relative;
+  margin: 20% auto;
+  z-index: 99;
+  padding: 20px;
+  border: 1px solid #888;
+  border-radius: 15px;
+}
+
+#settings-display {
+  font-size: 20px;
+  background-color: #43464b;
+  border-radius: 5px;
+  padding: 9px 6px 6px 6px;
+  cursor: text;
+}
+
+.settings-clickable-div {
+  position: absolute;
+  left: 20px;
+  height: 20px;
+  width: 180px;
+  padding: 2px;
+  font-size: 18px;
+  line-height: 21px;
+  text-align: center;
+  background-color: #737882;
+  color: #030303;
+  border: 1px solid black;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.setttings-clickable-div:hover {
+  color: white;
+  background-color: #43464b;
+}
+
+#settings-selection-type-button {
+  top: 60px;
+}
+
+#settings-show-tooltips-button {
+  top: 90px;
 }

@@ -850,5 +850,28 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 
   loadFromRemoteId();
+  document.getElementById("settings-button").addEventListener("click", function() {
+    document.getElementById("settings-overlay").classList.remove("hide");
+  });
+  document.getElementById("settings-overlay").addEventListener("click", function() {
+     document.getElementById("settings-overlay").classList.add("hide");
+  });
+  document.getElementById("modal-window1").addEventListener("click", function() {
+  });
+  
+  function setFreeNodeSelection(isFree)
+  {
+    allowFreeNodeSelection = isFree;
+    var text = "Free selection (ctrl)";
+    if(allowFreeNodeSelection) {
+      text = "Strict selection";
+    }
+    document.getElementById("settings-selection-type-button").textContent = text;
+  }
+  
+  document.getElementById("settings-selection-type-button").addEventListener("click", function() {
+    setFreeNodeSelection(!allowFreeNodeSelection);
+    console.log("Selection changed");
+  });
 
 });
