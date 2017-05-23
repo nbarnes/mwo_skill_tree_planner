@@ -806,9 +806,6 @@ let treeSource = [
       { name: "Speed Tweak 5",
         attribute: "Max Speed",
         value: "1.5",
-        leftChildId: "",
-        centerChildId: "",
-        rightChildId: ""
       }
     ]
   },
