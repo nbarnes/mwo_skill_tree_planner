@@ -128,7 +128,6 @@
 .hex-top {
   border-width: 2px 1px 0px 1px;
   border-style: solid;
-  border-color: black;
   position: absolute;
   width: 43px;
   height: 36px;
@@ -142,7 +141,6 @@
 .hex-bottom {
   border-width: 0px 1px 2px 1px;
   border-style: solid;
-  border-color: black;
   position: absolute;
   width: 43px;
   height: 36px;
@@ -166,6 +164,14 @@
 .hex-value {
   position: relative;
   top: 43px;
+}
+
+.hex-component.attached {
+  border-color: black;
+}
+
+.hex-component.detached {
+  border-color: red;
 }
 
 .hex-component.selected {

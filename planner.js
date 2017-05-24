@@ -28,9 +28,39 @@ document.addEventListener("DOMContentLoaded", function() {
                                         nodeDef.rightChildId
                               ));
         }
+        let rootNode = skillTree.nodes[0];
+        buildDependences(skillTree.nodes, rootNode);
         skillTrees.push(skillTree);
       }
       return skillTrees;
+    }
+    
+    function buildDependences(nodesList, currentNode) {
+
+      var childrenQuantity = 0;
+      {
+        if (currentNode.leftChildId != undefined) {
+          ++childrenQuantity;
+        }
+        if (currentNode.centerChildId != undefined) {
+          ++childrenQuantity;
+        }
+        if (currentNode.rightChildId != undefined) {
+          ++childrenQuantity;
+        }
+      }
+
+      for (let subnode of nodesList) {
+        if (currentNode.children.length == childrenQuantity) {
+          break;
+        }
+        if(subnode.id == currentNode.leftChildId || subnode.id == currentNode.centerChildId || subnode.id == currentNode.rightChildId) {
+          currentNode.children.push(subnode);
+          subnode.parents.push(currentNode);
+          
+          buildDependences(nodesList, subnode);
+        }
+      }
     }
 
     function setActiveTreeName(newName) {
@@ -145,7 +175,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
   })();
 
-  function Node(newName, newAttribute, newValue, newValueTemplate, newId, newLeftChildId, newCenterChildId, newRightCenterChildId) {
+  function Node(newName, newAttribute, newValue, newValueTemplate, newId, newLeftChildId, newCenterChildId, newRightChildId) {
     var selected = false;
     let highlighted = false;
 
@@ -157,15 +187,12 @@ document.addEventListener("DOMContentLoaded", function() {
 
     this.leftChildId = newLeftChildId,
     this.centerChildId = newCenterChildId,
-    this.rightChildId = newRightCenterChildId,
-    this.parents = function() {
-      return SkillTree.parentsOf(this);
-    };
-    this.children = function() {
-      return SkillTree.childrenOf(this);
-    };
+    this.rightChildId = newRightChildId;
+    this.parents = [];
+    this.children = [];
     this.selected = selected;
     this.highlighted = highlighted;
+    this.inDetachedSubTree = false;
   }
 
   function buildUI(trees) {
@@ -235,8 +262,11 @@ document.addEventListener("DOMContentLoaded", function() {
           element.classList.add("unavailable");
         });
       }
+      nodeFrameElement.querySelectorAll(".hex-component").forEach(function(element) {
+        element.classList.add("attached");
+      });
 
-      let parent = node.parents()[0];
+      let parent = node.parents[0];
       if (parent != undefined) {
         let relativeChildPostiion = getRelativeChildPosition(parent, node.id);
         let parentElement = document.getElementById(parent.id);
@@ -337,8 +367,10 @@ document.addEventListener("DOMContentLoaded", function() {
     hexTopElement.classList.add("hex-top");
     hexTopElement.classList.add("hex-component");
     nodeTextElement.classList.add("hex-text");
+//    nodeTextElement.classList.add("unselectable");
     nodeValueElement.classList.add("hex-text");
     nodeValueElement.classList.add("hex-value");
+//    nodeValueElement.classList.add("unselectable");
     hexBottomElement.classList.add("hex-bottom");
     hexBottomElement.classList.add("hex-component");
 
@@ -408,19 +440,38 @@ document.addEventListener("DOMContentLoaded", function() {
         }
       }
     } else {
-      if (allowFreeNodeSelection && e.ctrlKey && highlightedNodesArray.length > 0) {
-        for (let highlightedNode of highlightedNodesArray) {
-          highlightedNode.selected = true;
+      if (allowFreeNodeSelection) {
+        if (e.ctrlKey) {
+          if(highlightedNodesArray.length > 0) {
+            for (let highlightedNode of highlightedNodesArray) {
+//              highlightedNode.selected = true;
 
-          updateNodeColor(highlightedNode);
-          //selectNode(true, node);
+//              updateNodeColor(highlightedNode);
+              selectNode(true, highlightedNode);
+            }
+            multiSelectionHappened = true;
+          }
         }
-        multiSelectionHappened = true;
+        else {
+          if(node.parents.length > 0) {
+            node.inDetachedSubTree = true;
+            for (let parentNode of node.parents) {
+              if (parentNode.selected && !parentNode.inDetachedSubTree) {
+                node.inDetachedSubTree = false;
+                break;
+              }
+            }
+          }
+          selectNode(true, node);
+        }
       } else if (nodeAvailableForSelection(node) && (SkillTree.getSelectedNodes().length < maxSkillNodes)) {
         selectNode(true, node);
 //        node.selected = true;
 //        updateNodeColor(node);
       }
+    }
+    if (multiSelectionHappened) {
+      updateTreeIntegrity(SkillTree.getActiveTreeName());
     }
 /*
     if(!multiSelectionHappened) {
@@ -482,14 +533,75 @@ document.addEventListener("DOMContentLoaded", function() {
   function selectNode(value, node) {
 //    console.log("nodeName " + node.name + " highlighted state is " + node.hightlighted);
     node.selected = value;
+    if(value == false) {
+      node.inDetachedSubTree = false;
+      for (let childNode of node.children) {
+        if (childNode.selected && !childNode.inDetachedSubTree) {
+          childNode.inDetachedSubTree = true;
+          for (let parentNode of childNode.parents) {
+            if (parentNode.selected && !parentNode.inDetachedSubTree) {
+              childNode.inDetachedSubTree = false;
+              break;
+            }
+          }
+          if (childNode.inDetachedSubTree) {
+            propagateDetachment(childNode);
+          }
+        }
+      }
+    }
+    else {
+      if (!node.inDetachedSubTree) {
+        for(let childNode of node.children) {
+          if(childNode.inDetachedSubTree) {
+            childNode.inDetachedSubTree = false;
+            propagateAttachment(childNode);
+          }
+        }
+      }
+    }
     updateNodeColor(node);
  
-    for (let child of node.children()) {
+    for (let child of node.children) {
       updateNodeColor(child);
+      //update color for other parents of children, so available ones for deselection before become locked if required.
+      for (let childParentNode of child.parents) {
+        if(childParentNode != node) {
+          updateNodeColor(childParentNode);
+        }
+      }
     }
     
-    for (let parent of node.parents()) {
+    for (let parent of node.parents) {
       updateNodeColor(parent);
+    }
+  }
+  
+  function propagateAttachment(node) {
+    for (let childNode of node.children) {
+      if (childNode.inDetachedSubTree) {
+        childNode.inDetachedSubTree = false;
+        updateNodeColor(childNode);
+        propagateAttachment(childNode);
+      }
+    }
+  }
+  
+  function propagateDetachment(node) {
+    for (let childNode of node.children) {
+      if (childNode.selected && !childNode.inDetachedSubTree) {
+        childNode.inDetachedSubTree = true;
+        for (let parentNode of childNode.parents) {
+          if (parentNode.selected && !parentNode.inDetachedSubTree) {
+            childNode.inDetachedSubTree = false;
+            break;
+          }
+        }
+        if (childNode.inDetachedSubTree) {
+          updateNodeColor(childNode);
+          propagateDetachment(childNode);
+        }
+      }
     }
   }
 
@@ -525,7 +637,7 @@ document.addEventListener("DOMContentLoaded", function() {
           mode = "locked";
         }
       } else {
-        if (nodeAvailableForSelection(node)) {
+        if ((allowFreeNodeSelection == false && nodeAvailableForSelection(node)) || node.parents.length == 0) {
           mode = "available";
         } else {
           mode = "unavailable";
@@ -542,7 +654,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
   function safeToDeselect(node) {
     var safeToDeselect = true;
-    for (let child of node.children()) {
+    for (let child of node.children) {
       if (child.selected) {
         // Set node in question to deselected to see if the chlid is still elegible for selection
         // based on other parents.  We"ll set it back to selected after we"re done with that check.
@@ -556,10 +668,10 @@ document.addEventListener("DOMContentLoaded", function() {
 
   function nodeAvailableForSelection(node) {
     var parentIsSelected = false;
-    for (let parent of node.parents()) {
-      parentIsSelected = parent.selected || parentIsSelected;
+    for (let parentNode of node.parents) {
+      parentIsSelected = (parentNode.selected && !parentNode.inDetachedSubTree) || parentIsSelected;
     }
-    parentIsSelected = parentIsSelected || (node.parents().length === 0);
+    parentIsSelected = parentIsSelected || (node.parents.length === 0);
     return parentIsSelected;
   }
 
@@ -567,6 +679,15 @@ document.addEventListener("DOMContentLoaded", function() {
     document.getElementById(node.id).querySelectorAll(".node-element").forEach(function(element) {
       removeNodeClasses(element);
       element.classList.add(state);
+    });
+    let borderElement = "attached";
+    if(node.selected && node.inDetachedSubTree) {
+      borderElement = "detached";
+    }
+    document.getElementById(node.id).querySelectorAll(".hex-component").forEach(function(element) {
+      element.classList.remove("attached");
+      element.classList.remove("detached");
+      element.classList.add(borderElement);
     });
   }
 
@@ -863,6 +984,10 @@ document.addEventListener("DOMContentLoaded", function() {
   function setFreeNodeSelection(isFree)
   {
     allowFreeNodeSelection = isFree;
+    if (!allowFreeNodeSelection) {
+      for (let tree of SkillTree.getTrees())
+        updateTreeIntegrity(tree.name);
+    }
     var text = "Free selection (ctrl)";
     if(allowFreeNodeSelection) {
       text = "Strict selection";
@@ -874,5 +999,41 @@ document.addEventListener("DOMContentLoaded", function() {
     setFreeNodeSelection(!allowFreeNodeSelection);
     console.log("Selection changed");
   });
+  
+  function updateTreeIntegrity(treeName) {
+    let tree = SkillTree.getTree(treeName);
+    
+    tree.nodes.forEach(function(node){
+      if (node.selected) {
+        node.inDetachedSubTree = true;
+      }
+    });
+    tree.nodes[0].inDetachedSubTree = false;
+    if (tree.nodes[0].selected) {
+      markAsAttachedRecursively(tree.nodes[0].children);
+    }
+    
+    updateNodeColors(treeName);
+  }
+  
+  function markAsAttachedRecursively(currentNodes)
+  {
+    let nextLevelNodes = [];
+    for (let currentNode of currentNodes) {
+      if (!currentNode.selected) {
+        continue;
+      }
+      for (let parentNode of currentNode.parents) {
+        if (parentNode.selected && !parentNode.inDetachedSubTree) {
+          currentNode.inDetachedSubTree = false;
+          nextLevelNodes = nextLevelNodes.concat(currentNode.children);
+          break;
+        }
+      }
+    }
+    if (nextLevelNodes.length > 0) {
+      markAsAttachedRecursively(nextLevelNodes);
+    }
+  }
 
 });
