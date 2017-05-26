@@ -827,7 +827,7 @@ document.addEventListener("DOMContentLoaded", function() {
   function selectAllNodes(treeName) {
     let availableNodes = maxSkillNodes - SkillTree.getSelectedNodes().length;
     let tree = SkillTree.getTree(treeName);
-    if (availableNodes > tree.nodes.length) {
+    if (availableNodes > tree.nodes.length || allowFreeNodeSelection) {
       for (let node of tree.nodes) {
         node.selected = true;
       }
