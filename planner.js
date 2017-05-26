@@ -228,6 +228,9 @@ document.addEventListener("DOMContentLoaded", function() {
       });
       tabElement.classList.add("selected");
       changeSkillTree(tree.name);
+      if (!displayAllBonuses) {
+        updateBonuses();
+      }
     });
 
     document.getElementById("total-nodes-display").after(tabElement);
@@ -421,6 +424,7 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 
   var allowFreeNodeSelection = true;
+  var displayAllBonuses = false;
   var highlightedNodesArray = [];
 
   function nodeClicked(node, e) {
@@ -723,7 +727,11 @@ document.addEventListener("DOMContentLoaded", function() {
 
   function updateBonuses() {
     let bonuses = [];
-    let nodes = SkillTree.getSelectedNodes();
+    let treeName = undefined;
+    if (!displayAllBonuses) {
+      treeName = SkillTree.getActiveTreeName();
+    }
+    let nodes = SkillTree.getSelectedNodes(treeName);
     for (let node of nodes) {
       let bonusForAttribute = getBonusForAttribute(bonuses, node.attribute);
       if (bonusForAttribute != undefined) {
@@ -997,7 +1005,6 @@ document.addEventListener("DOMContentLoaded", function() {
   
   document.getElementById("settings-selection-type-button").addEventListener("click", function() {
     setFreeNodeSelection(!allowFreeNodeSelection);
-    console.log("Selection changed");
   });
   
   function updateTreeIntegrity(treeName) {
@@ -1036,4 +1043,18 @@ document.addEventListener("DOMContentLoaded", function() {
     }
   }
 
+  document.getElementById("settings-show-bonus-mode-button").addEventListener("click", function() {
+    changeBonusMode();
+  });
+  
+  function changeBonusMode() {
+    displayAllBonuses = !displayAllBonuses;
+    
+    var text = "Show all bonuses";
+    if(displayAllBonuses) {
+      text = "Show bonuses from active tab";
+    }
+    document.getElementById("settings-show-bonus-mode-button").textContent = text;
+    updateBonuses();
+  }
 });
