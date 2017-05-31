@@ -986,7 +986,8 @@ document.addEventListener("DOMContentLoaded", function() {
   document.getElementById("settings-overlay").addEventListener("click", function() {
      document.getElementById("settings-overlay").classList.add("hide");
   });
-  document.getElementById("modal-window1").addEventListener("click", function() {
+  document.getElementById("settings-display").addEventListener("click", function(event) {
+    event.stopPropagation();
   });
   
   function setFreeNodeSelection(isFree)
@@ -1003,8 +1004,9 @@ document.addEventListener("DOMContentLoaded", function() {
     document.getElementById("settings-selection-type-button").textContent = text;
   }
   
-  document.getElementById("settings-selection-type-button").addEventListener("click", function() {
+  document.getElementById("settings-selection-type-button").addEventListener("click", function(event) {
     setFreeNodeSelection(!allowFreeNodeSelection);
+    event.stopPropagation();
   });
   
   function updateTreeIntegrity(treeName) {
@@ -1043,8 +1045,9 @@ document.addEventListener("DOMContentLoaded", function() {
     }
   }
 
-  document.getElementById("settings-show-bonus-mode-button").addEventListener("click", function() {
+  document.getElementById("settings-show-bonus-mode-button").addEventListener("click", function(event) {
     changeBonusMode();
+    event.stopPropagation();
   });
   
   function changeBonusMode() {
@@ -1058,7 +1061,7 @@ document.addEventListener("DOMContentLoaded", function() {
     updateBonuses();
   }
   
-  document.getElementById("deselect-detached-nodes-button").addEventListener("click", function() {
+  document.getElementById("deselect-detached-nodes-button").addEventListener("click", function(event) {
     for (let tree of SkillTree.getTrees()) {
       tree.nodes.forEach(function(node){
         if (node.inDetachedSubTree) {
@@ -1070,6 +1073,11 @@ document.addEventListener("DOMContentLoaded", function() {
     updateNodeColors(SkillTree.getActiveTreeName());
     updateNodeCounters();
     updateBonuses();
+    event.stopPropagation();
+  });
+  
+  document.getElementById("settings-show-tooltips-button").addEventListener("click", function(event) {
+    event.stopPropagation();
   });
   
 });
