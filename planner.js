@@ -2,6 +2,15 @@
 
 var allowFreeNodeSelection = true;
 var displayAllBonuses = false;
+
+function detachedNodesCounterUpdated() {
+  if (detachedNodesCounter > 0) {
+    document.getElementById("deselect-detached-nodes-button").classList.remove("hide");
+  } else {
+    document.getElementById("deselect-detached-nodes-button").classList.add("hide");
+  }
+}
+
 document.addEventListener("DOMContentLoaded", function() {
 
   let maxSkillNodes = 91;
@@ -437,10 +446,10 @@ document.addEventListener("DOMContentLoaded", function() {
         }
         else {
           if(node.parents.length > 0) {
-            node.inDetachedSubTree = true;
+            node.markAsDetached();
             for (let parentNode of node.parents) {
-              if (parentNode.selected && !parentNode.inDetachedSubTree) {
-                node.inDetachedSubTree = false;
+              if (parentNode.selected && !parentNode.inDetachedSubTree()) {
+                node.markAsAttached();
                 break;
               }
             }
@@ -658,7 +667,7 @@ document.addEventListener("DOMContentLoaded", function() {
     if (availableNodes > tree.nodes.length || allowFreeNodeSelection) {
       for (let node of tree.nodes) {
         node.selected = true;
-        node.inDetachedSubTree = false;
+        node.markAsAttached();
       }
       updateNodeCounters(treeName);
       updateBonuses();
@@ -835,10 +844,10 @@ document.addEventListener("DOMContentLoaded", function() {
     
     tree.nodes.forEach(function(node){
       if (node.selected) {
-        node.inDetachedSubTree = true;
+        node.markAsDetached();
       }
     });
-    tree.nodes[0].inDetachedSubTree = false;
+    tree.nodes[0].markAsAttached();
     if (tree.nodes[0].selected) {
       markAsAttachedRecursively(tree.nodes[0].children);
     }
@@ -862,19 +871,25 @@ document.addEventListener("DOMContentLoaded", function() {
     updateBonuses();
   }
   
+  detachedNodesCounterUpdated();
   document.getElementById("deselect-detached-nodes-button").addEventListener("click", function(event) {
     for (let tree of SkillTree.getTrees()) {
+      var treeHadDetachedNodes = false;
       tree.nodes.forEach(function(node){
-        if (node.inDetachedSubTree) {
+        if (node.inDetachedSubTree()) {
           node.selected = false;
+          node.markAsAttached();
+          treeHadDetachedNodes = true;
         }
       });
+      if (treeHadDetachedNodes) {
+        updateNodeColors(tree.name);
+      }
     }
     
-    updateNodeColors(SkillTree.getActiveTreeName());
     updateNodeCounters();
     updateBonuses();
-    event.stopPropagation();
+//    event.stopPropagation();
   });
   
   document.getElementById("settings-show-tooltips-button").addEventListener("click", function(event) {

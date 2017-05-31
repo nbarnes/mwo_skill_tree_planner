@@ -109,6 +109,7 @@
 
 #deselect-detached-nodes-button {
   top: 350px;
+  color: red;
   left: 22px;
 }
 

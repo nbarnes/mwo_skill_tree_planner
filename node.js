@@ -1,5 +1,6 @@
 
 var highlightedNodesArray = [];
+var detachedNodesCounter = 0;
 
 function Node(newName, newAttribute, newValue, newValueTemplate, newId, newLeftChildId, newCenterChildId, newRightChildId) {
   var selected = false;
@@ -18,34 +19,60 @@ function Node(newName, newAttribute, newValue, newValueTemplate, newId, newLeftC
   this.children = [];
   this.selected = selected;
   this.highlighted = highlighted;
-  this.inDetachedSubTree = false;
+  
+  this.inDetachedSubTreeValue = false;
+  this.inDetachedSubTree = function() {
+    return this.inDetachedSubTreeValue;
+  }
+  this.markAsAttached = function() {
+    if(this.inDetachedSubTreeValue) {
+      --detachedNodesCounter;
+      this.inDetachedSubTreeValue = false;
+      detachedNodesCounterUpdated();
+    }
+  }
+  this.markAsDetached = function() {
+    if(!this.inDetachedSubTreeValue) {
+      ++detachedNodesCounter;
+      this.inDetachedSubTreeValue = true;
+      detachedNodesCounterUpdated();
+    }
+  }
+/*  
+    // public interface
+  return {
+    
+    inDetachedSubTree: inDetachedSubTree,
+    markAsAttached: markAsAttached,
+    markAsDetached: markAsDetached
+*/
 }
 
 function selectNode(value, node) {
 //    console.log("nodeName " + node.name + " highlighted state is " + node.hightlighted);
   node.selected = value;
   if(value == false) {
-    node.inDetachedSubTree = false;
+    node.markAsAttached();
     for (let childNode of node.children) {
-      if (childNode.selected && !childNode.inDetachedSubTree) {
-        childNode.inDetachedSubTree = true;
+      if (childNode.selected && !childNode.inDetachedSubTree()) {
+        childNode.markAsDetached();
         for (let parentNode of childNode.parents) {
-          if (parentNode.selected && !parentNode.inDetachedSubTree) {
-            childNode.inDetachedSubTree = false;
+          if (parentNode.selected && !parentNode.inDetachedSubTree()) {
+            childNode.markAsAttached();
             break;
           }
         }
-        if (childNode.inDetachedSubTree) {
+        if (childNode.inDetachedSubTree()) {
           propagateDetachment(childNode);
         }
       }
     }
   }
   else {
-    if (!node.inDetachedSubTree) {
+    if (!node.inDetachedSubTree()) {
       for(let childNode of node.children) {
-        if(childNode.inDetachedSubTree) {
-          childNode.inDetachedSubTree = false;
+        if(childNode.inDetachedSubTree()) {
+          childNode.markAsAttached();
           propagateAttachment(childNode);
         }
       }
@@ -70,8 +97,8 @@ function selectNode(value, node) {
 
 function propagateAttachment(node) {
   for (let childNode of node.children) {
-    if (childNode.inDetachedSubTree) {
-      childNode.inDetachedSubTree = false;
+    if (childNode.inDetachedSubTree()) {
+      childNode.markAsAttached();
       updateNodeColor(childNode);
       propagateAttachment(childNode);
     }
@@ -80,15 +107,15 @@ function propagateAttachment(node) {
 
 function propagateDetachment(node) {
   for (let childNode of node.children) {
-    if (childNode.selected && !childNode.inDetachedSubTree) {
-      childNode.inDetachedSubTree = true;
+    if (childNode.selected && !childNode.inDetachedSubTree()) {
+      childNode.markAsDetached();
       for (let parentNode of childNode.parents) {
-        if (parentNode.selected && !parentNode.inDetachedSubTree) {
-          childNode.inDetachedSubTree = false;
+        if (parentNode.selected && !parentNode.inDetachedSubTree()) {
+          childNode.markAsAttached();
           break;
         }
       }
-      if (childNode.inDetachedSubTree) {
+      if (childNode.inDetachedSubTree()) {
         updateNodeColor(childNode);
         propagateDetachment(childNode);
       }
@@ -112,8 +139,8 @@ function markAsAttachedRecursively(currentNodes)
       continue;
     }
     for (let parentNode of currentNode.parents) {
-      if (parentNode.selected && !parentNode.inDetachedSubTree) {
-        currentNode.inDetachedSubTree = false;
+      if (parentNode.selected && !parentNode.inDetachedSubTree()) {
+        currentNode.markAsAttached();
         nextLevelNodes = nextLevelNodes.concat(currentNode.children);
         break;
       }
@@ -157,7 +184,7 @@ function updateNodeColor(node) {
 function nodeAvailableForSelection(node) {
   var parentIsSelected = false;
   for (let parentNode of node.parents) {
-    parentIsSelected = (parentNode.selected && !parentNode.inDetachedSubTree) || parentIsSelected;
+    parentIsSelected = (parentNode.selected && !parentNode.inDetachedSubTree()) || parentIsSelected;
   }
   parentIsSelected = parentIsSelected || (node.parents.length === 0);
   return parentIsSelected;
@@ -169,7 +196,7 @@ function setNodeElementColors(node, state) {
     element.classList.add(state);
   });
   let borderElement = "attached";
-  if(node.selected && node.inDetachedSubTree) {
+  if(node.selected && node.inDetachedSubTree()) {
     borderElement = "detached";
   }
   document.getElementById(node.id).querySelectorAll(".hex-component").forEach(function(element) {
