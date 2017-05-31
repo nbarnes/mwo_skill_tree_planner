@@ -654,6 +654,7 @@ document.addEventListener("DOMContentLoaded", function() {
     let tree = SkillTree.getTree(treeName);
     for (let node of tree.nodes) {
       node.selected = false;
+      node.markAsAttached();
     }
     updateNodeCounters(treeName);
     updateBonuses();
