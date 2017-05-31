@@ -838,6 +838,7 @@ document.addEventListener("DOMContentLoaded", function() {
     if (availableNodes > tree.nodes.length || allowFreeNodeSelection) {
       for (let node of tree.nodes) {
         node.selected = true;
+        node.inDetachedSubTree = false;
       }
       updateNodeCounters(treeName);
       updateBonuses();
