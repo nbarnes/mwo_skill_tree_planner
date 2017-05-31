@@ -1057,4 +1057,19 @@ document.addEventListener("DOMContentLoaded", function() {
     document.getElementById("settings-show-bonus-mode-button").textContent = text;
     updateBonuses();
   }
+  
+  document.getElementById("deselect-detached-nodes-button").addEventListener("click", function() {
+    for (let tree of SkillTree.getTrees()) {
+      tree.nodes.forEach(function(node){
+        if (node.inDetachedSubTree) {
+          node.selected = false;
+        }
+      });
+    }
+    
+    updateNodeColors(SkillTree.getActiveTreeName());
+    updateNodeCounters();
+    updateBonuses();
+  });
+  
 });

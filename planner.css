@@ -107,6 +107,11 @@
   left: 22px;
 }
 
+#deselect-detached-nodes-button {
+  top: 350px;
+  left: 22px;
+}
+
 .skill-tree {
   border: 1px solid black;
   position: relative;
