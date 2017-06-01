@@ -548,6 +548,13 @@ document.addEventListener("DOMContentLoaded", function() {
   function updateNodeCounters(treeName) {
     let totalNodesSelected = SkillTree.getSelectedNodes().length;
     document.getElementById("node-selection-counter").textContent = totalNodesSelected;
+    let totalCounter = document.getElementById("node-selection-counter");
+    totalCounter.textContent = totalNodesSelected;
+    if(totalNodesSelected > maxSkillNodes) {
+      totalCounter.style.color = "red";
+    } else {
+      totalCounter.style.color = "inherit";
+    }
     if (treeName == undefined) {
       for (let tree of SkillTree.getTrees()) {
         updateNodeCounters(tree.name);
