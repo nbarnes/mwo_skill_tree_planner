@@ -1,9 +1,20 @@
 "use strict";
 
+var allowFreeNodeSelection = true;
+var displayAllBonuses = false;
+
+function detachedNodesCounterUpdated() {
+  if (detachedNodesCounter > 0) {
+    document.getElementById("deselect-detached-nodes-button").classList.remove("hide");
+  } else {
+    document.getElementById("deselect-detached-nodes-button").classList.add("hide");
+  }
+}
+
 document.addEventListener("DOMContentLoaded", function() {
 
   let maxSkillNodes = 91;
-  let cbillsPerNode = 60000;
+  let cbillsPerNode = 45000;
   let xpPerNode = 800;
 
   let SkillTree = (function() {
@@ -28,9 +39,39 @@ document.addEventListener("DOMContentLoaded", function() {
                                         nodeDef.rightChildId
                               ));
         }
+        let rootNode = skillTree.nodes[0];
+        buildDependences(skillTree.nodes, rootNode);
         skillTrees.push(skillTree);
       }
       return skillTrees;
+    }
+    
+    function buildDependences(nodesList, currentNode) {
+
+      var childrenQuantity = 0;
+      {
+        if (currentNode.leftChildId != undefined) {
+          ++childrenQuantity;
+        }
+        if (currentNode.centerChildId != undefined) {
+          ++childrenQuantity;
+        }
+        if (currentNode.rightChildId != undefined) {
+          ++childrenQuantity;
+        }
+      }
+
+      for (let subnode of nodesList) {
+        if (currentNode.children.length == childrenQuantity) {
+          break;
+        }
+        if(subnode.id == currentNode.leftChildId || subnode.id == currentNode.centerChildId || subnode.id == currentNode.rightChildId) {
+          currentNode.children.push(subnode);
+          subnode.parents.push(currentNode);
+          
+          buildDependences(nodesList, subnode);
+        }
+      }
     }
 
     function setActiveTreeName(newName) {
@@ -145,27 +186,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
   })();
 
-  function Node(newName, newAttribute, newValue, newValueTemplate, newId, newLeftChildId, newCenterChildId, newRightCenterChildId) {
-    var selected = false;
-
-    this.name = newName;
-    this.attribute = newAttribute;
-    this.value = newValue;
-    this.valueTemplate = newValueTemplate
-    this.id = newId;
-
-    this.leftChildId = newLeftChildId,
-    this.centerChildId = newCenterChildId,
-    this.rightChildId = newRightCenterChildId,
-    this.parents = function() {
-      return SkillTree.parentsOf(this);
-    };
-    this.children = function() {
-      return SkillTree.childrenOf(this);
-    };
-    this.selected = selected;
-  }
-
   function buildUI(trees) {
     trees.forEach(function(tree, index) {
       buildTab(tree, index);
@@ -199,6 +219,9 @@ document.addEventListener("DOMContentLoaded", function() {
       });
       tabElement.classList.add("selected");
       changeSkillTree(tree.name);
+      if (!displayAllBonuses) {
+        updateBonuses();
+      }
     });
 
     document.getElementById("total-nodes-display").after(tabElement);
@@ -233,8 +256,11 @@ document.addEventListener("DOMContentLoaded", function() {
           element.classList.add("unavailable");
         });
       }
+      nodeFrameElement.querySelectorAll(".hex-component").forEach(function(element) {
+        element.classList.add("attached");
+      });
 
-      let parent = node.parents()[0];
+      let parent = node.parents[0];
       if (parent != undefined) {
         let relativeChildPostiion = getRelativeChildPosition(parent, node.id);
         let parentElement = document.getElementById(parent.id);
@@ -266,8 +292,14 @@ document.addEventListener("DOMContentLoaded", function() {
 
       treeElement.appendChild(nodeFrameElement);
 
-      nodeFrameElement.addEventListener("click", function() {
-        nodeClicked(node);
+      nodeFrameElement.addEventListener("click", function(e) {
+        nodeClicked(node, e);
+      });
+      nodeFrameElement.addEventListener("mouseover", function(e) {
+        nodeHovered(node, e);
+      });
+      nodeFrameElement.addEventListener("mouseout", function() {
+        nodeUnHovered(node);
       });
     }
 
@@ -329,8 +361,10 @@ document.addEventListener("DOMContentLoaded", function() {
     hexTopElement.classList.add("hex-top");
     hexTopElement.classList.add("hex-component");
     nodeTextElement.classList.add("hex-text");
+//    nodeTextElement.classList.add("unselectable");
     nodeValueElement.classList.add("hex-text");
     nodeValueElement.classList.add("hex-value");
+//    nodeValueElement.classList.add("unselectable");
     hexBottomElement.classList.add("hex-bottom");
     hexBottomElement.classList.add("hex-component");
 
@@ -380,16 +414,61 @@ document.addEventListener("DOMContentLoaded", function() {
     return "child not found in getRelativeChildPosition()"
   }
 
-  function nodeClicked(node) {
+
+  function nodeClicked(node, e) {
+    var multiSelectionHappened = false;
     if (node.selected) {
-      attemptNodeDeselection(node);
+      if(!allowFreeNodeSelection) {
+        attemptNodeDeselection(node);
+      } else {
+        if (e.ctrlKey && highlightedNodesArray.length > 0) {
+          for (let highlightedNode of highlightedNodesArray) {
+            selectNode(false, highlightedNode);
+          }
+          multiSelectionHappened = true;
+        }
+			  else {
+          selectNode(false, node);
+        }
+      }
     } else {
-      if (nodeAvailableForSelection(node) && (SkillTree.getSelectedNodes().length < maxSkillNodes)) {
-        node.selected = true;
-        updateNodeColor(node);
+      if (allowFreeNodeSelection) {
+        if (e.ctrlKey) {
+          if(highlightedNodesArray.length > 0) {
+            for (let highlightedNode of highlightedNodesArray) {
+//              highlightedNode.selected = true;
+
+//              updateNodeColor(highlightedNode);
+              selectNode(true, highlightedNode);
+            }
+            multiSelectionHappened = true;
+          }
+        }
+        else {
+          if(node.parents.length > 0) {
+            node.markAsDetached();
+            for (let parentNode of node.parents) {
+              if (parentNode.selected && !parentNode.inDetachedSubTree()) {
+                node.markAsAttached();
+                break;
+              }
+            }
+          }
+          selectNode(true, node);
+        }
+      } else if (nodeAvailableForSelection(node) && (SkillTree.getSelectedNodes().length < maxSkillNodes)) {
+        selectNode(true, node);
+//        node.selected = true;
+//        updateNodeColor(node);
       }
     }
-    updateNodeColors(SkillTree.getActiveTreeName());
+    if (multiSelectionHappened) {
+      updateTreeIntegrity(SkillTree.getActiveTreeName());
+    }
+/*
+    if(!multiSelectionHappened) {
+      updateNodeColors(SkillTree.getActiveTreeName());
+    }
 
     updateNodeColor(node);
     for (let child of node.children()) {
@@ -398,10 +477,41 @@ document.addEventListener("DOMContentLoaded", function() {
     for (let parent of node.parents()) {
       updateNodeColor(parent);
     }
-
+*/
     updateNodeCounters(SkillTree.getActiveTreeName());
     updateBonuses();
     revertURL();
+  }
+  
+  function nodeHovered(node, e) {
+    if(highlightedNodesArray.length > 0 || !e.ctrlKey) {
+      return;
+    }
+    highlightNode(node);
+
+    let treeName = SkillTree.getActiveTreeName();
+    if (treeName == undefined) {
+     return;
+    } else {
+      let tree = SkillTree.getTree(treeName);
+      
+      for (let anotherNode of tree.nodes) {
+        if(anotherNode.attribute == node.attribute && anotherNode.id != node.id) {
+          highlightNode(anotherNode);
+        }
+      }
+    }
+  }
+
+  function nodeUnHovered(node) {
+    if(highlightedNodesArray.length == 0) {
+      return;
+    }
+    for (var highlightedNode of highlightedNodesArray) {
+      highlightedNode.highlighted = false;
+      updateNodeColor(highlightedNode);
+    }
+    highlightedNodesArray = [];
   }
 
   function updateNodeColors(treeName) {
@@ -419,63 +529,10 @@ document.addEventListener("DOMContentLoaded", function() {
 
   function attemptNodeDeselection(node) {
     if (safeToDeselect(node)) {
-      node.selected = false;
-      updateNodeColor(node);
-    }
-    for (let child of node.children()) {
-      updateNodeColor(child);
-    }
-    for (let parent of node.parents()) {
-      updateNodeColor(parent);
+      selectNode(false, node);
     }
   }
-
-  function updateNodeColor(node) {
-    if (node.selected) {
-      if (safeToDeselect(node)) {
-        setNodeElementColors(node, "selected");
-      } else {
-        setNodeElementColors(node, "locked");
-      }
-    } else {
-      if (nodeAvailableForSelection(node)) {
-        setNodeElementColors(node, "available");
-      } else {
-        setNodeElementColors(node, "unavailable");
-      }
-    }
-  }
-
-  function safeToDeselect(node) {
-    var safeToDeselect = true;
-    for (let child of node.children()) {
-      if (child.selected) {
-        // Set node in question to deselected to see if the chlid is still elegible for selection
-        // based on other parents.  We"ll set it back to selected after we"re done with that check.
-        node.selected = false;
-        safeToDeselect = nodeAvailableForSelection(child) && safeToDeselect;
-        node.selected = true;
-      }
-    }
-    return safeToDeselect;
-  }
-
-  function nodeAvailableForSelection(node) {
-    var parentIsSelected = false;
-    for (let parent of node.parents()) {
-      parentIsSelected = parent.selected || parentIsSelected;
-    }
-    parentIsSelected = parentIsSelected || (node.parents().length === 0);
-    return parentIsSelected;
-  }
-
-  function setNodeElementColors(node, state) {
-    document.getElementById(node.id).querySelectorAll(".node-element").forEach(function(element) {
-      removeNodeClasses(element);
-      element.classList.add(state);
-    });
-  }
-
+/*
   function updateNodeDisplay(treeName) {
     if (treeName == undefined) {
       for (let tree of SkillTree.getTrees()) {
@@ -487,10 +544,17 @@ document.addEventListener("DOMContentLoaded", function() {
       }
     }
   }
-
+*/
   function updateNodeCounters(treeName) {
     let totalNodesSelected = SkillTree.getSelectedNodes().length;
     document.getElementById("node-selection-counter").textContent = totalNodesSelected;
+    let totalCounter = document.getElementById("node-selection-counter");
+    totalCounter.textContent = totalNodesSelected;
+    if(totalNodesSelected > maxSkillNodes) {
+      totalCounter.style.color = "red";
+    } else {
+      totalCounter.style.color = "inherit";
+    }
     if (treeName == undefined) {
       for (let tree of SkillTree.getTrees()) {
         updateNodeCounters(tree.name);
@@ -508,7 +572,11 @@ document.addEventListener("DOMContentLoaded", function() {
 
   function updateBonuses() {
     let bonuses = [];
-    let nodes = SkillTree.getSelectedNodes();
+    let treeName = undefined;
+    if (!displayAllBonuses) {
+      treeName = SkillTree.getActiveTreeName();
+    }
+    let nodes = SkillTree.getSelectedNodes(treeName);
     for (let node of nodes) {
       let bonusForAttribute = getBonusForAttribute(bonuses, node.attribute);
       if (bonusForAttribute != undefined) {
@@ -559,6 +627,7 @@ document.addEventListener("DOMContentLoaded", function() {
     treeElement.classList.remove("hide");
     let totalWidth = (dimensionAsNumber(treeElement.style.width) + 294) + "px"
     document.getElementById("modal-overlay").style.width = totalWidth;
+    document.getElementById("settings-overlay").style.width = totalWidth;
     document.getElementById("footer").style.width = totalWidth;
   }
 
@@ -572,13 +641,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
   function nodeNameToId(nodeName) {
     return nodeName.replace(/ /g, "-").toLowerCase();
-  }
-
-  function removeNodeClasses(nodeElement) {
-    nodeElement.classList.remove("selected");
-    nodeElement.classList.remove("available");
-    nodeElement.classList.remove("locked");
-    nodeElement.classList.remove("unavailable");
   }
 
   document.getElementById("reset-tree-button").addEventListener("click", function() {
@@ -599,6 +661,7 @@ document.addEventListener("DOMContentLoaded", function() {
     let tree = SkillTree.getTree(treeName);
     for (let node of tree.nodes) {
       node.selected = false;
+      node.markAsAttached();
     }
     updateNodeCounters(treeName);
     updateBonuses();
@@ -609,9 +672,10 @@ document.addEventListener("DOMContentLoaded", function() {
   function selectAllNodes(treeName) {
     let availableNodes = maxSkillNodes - SkillTree.getSelectedNodes().length;
     let tree = SkillTree.getTree(treeName);
-    if (availableNodes > tree.nodes.length) {
+    if (availableNodes > tree.nodes.length || allowFreeNodeSelection) {
       for (let node of tree.nodes) {
         node.selected = true;
+        node.markAsAttached();
       }
       updateNodeCounters(treeName);
       updateBonuses();
@@ -754,5 +818,90 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 
   loadFromRemoteId();
-
+  document.getElementById("settings-button").addEventListener("click", function() {
+    document.getElementById("settings-overlay").classList.remove("hide");
+  });
+  document.getElementById("settings-overlay").addEventListener("click", function() {
+     document.getElementById("settings-overlay").classList.add("hide");
+  });
+  document.getElementById("settings-display").addEventListener("click", function(event) {
+    event.stopPropagation();
+  });
+  
+  function setFreeNodeSelection(isFree)
+  {
+    allowFreeNodeSelection = isFree;
+    if (!allowFreeNodeSelection) {
+      for (let tree of SkillTree.getTrees())
+        updateTreeIntegrity(tree.name);
+    }
+    var text = "Free selection (ctrl)";
+    if(allowFreeNodeSelection) {
+      text = "Strict selection";
+    }
+    document.getElementById("settings-selection-type-button").textContent = text;
+  }
+  
+  document.getElementById("settings-selection-type-button").addEventListener("click", function(event) {
+    setFreeNodeSelection(!allowFreeNodeSelection);
+    event.stopPropagation();
+  });
+  
+  function updateTreeIntegrity(treeName) {
+    let tree = SkillTree.getTree(treeName);
+    
+    tree.nodes.forEach(function(node){
+      if (node.selected) {
+        node.markAsDetached();
+      }
+    });
+    tree.nodes[0].markAsAttached();
+    if (tree.nodes[0].selected) {
+      markAsAttachedRecursively(tree.nodes[0].children);
+    }
+    
+    updateNodeColors(treeName);
+  }
+  
+  document.getElementById("settings-show-bonus-mode-button").addEventListener("click", function(event) {
+    changeBonusMode();
+    event.stopPropagation();
+  });
+  
+  function changeBonusMode() {
+    displayAllBonuses = !displayAllBonuses;
+    
+    var text = "Show all bonuses";
+    if(displayAllBonuses) {
+      text = "Show bonuses from active tab";
+    }
+    document.getElementById("settings-show-bonus-mode-button").textContent = text;
+    updateBonuses();
+  }
+  
+  detachedNodesCounterUpdated();
+  document.getElementById("deselect-detached-nodes-button").addEventListener("click", function(event) {
+    for (let tree of SkillTree.getTrees()) {
+      var treeHadDetachedNodes = false;
+      tree.nodes.forEach(function(node){
+        if (node.inDetachedSubTree()) {
+          node.selected = false;
+          node.markAsAttached();
+          treeHadDetachedNodes = true;
+        }
+      });
+      if (treeHadDetachedNodes) {
+        updateNodeColors(tree.name);
+      }
+    }
+    
+    updateNodeCounters();
+    updateBonuses();
+//    event.stopPropagation();
+  });
+  
+  document.getElementById("settings-show-tooltips-button").addEventListener("click", function(event) {
+    event.stopPropagation();
+  });
+  
 });

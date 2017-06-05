@@ -60,7 +60,7 @@
   font-size: 16px;
   line-height: 20px;
   position: relative;
-  top: 410px;
+  top: 380px;
 }
 
 .clickable-div {
@@ -83,22 +83,33 @@
 }
 
 #permalink-button {
-  top: 515px;
+  top: 485px;
   left: 22px;
 }
 
 #select-tree-button {
-  top: 545px;
+  top: 515px;
   left: 22px;
 }
 
 #reset-tree-button {
-  top: 575px;
+  top: 545px;
   left: 22px;
 }
 
 #reset-all-button {
+  top: 575px;
+  left: 22px;
+}
+
+#settings-button {
   top: 605px;
+  left: 22px;
+}
+
+#deselect-detached-nodes-button {
+  top: 350px;
+  color: red;
   left: 22px;
 }
 
@@ -123,7 +134,6 @@
 .hex-top {
   border-width: 2px 1px 0px 1px;
   border-style: solid;
-  border-color: black;
   position: absolute;
   width: 43px;
   height: 36px;
@@ -137,7 +147,6 @@
 .hex-bottom {
   border-width: 0px 1px 2px 1px;
   border-style: solid;
-  border-color: black;
   position: absolute;
   width: 43px;
   height: 36px;
@@ -163,6 +172,14 @@
   top: 43px;
 }
 
+.hex-component.attached {
+  border-color: black;
+}
+
+.hex-component.detached {
+  border-color: red;
+}
+
 .hex-component.selected {
   background-color: #00b5f5;
 }
@@ -179,6 +196,14 @@
   background-color: #00b5f5;
 }
 
+.hex-component.highlightedSelected {
+  background-color: white;
+}
+
+.hex-component.highlightedNotSelected {
+  background-color: white;
+}
+
 .hex-text.selected {
   color: black;
 }
@@ -192,6 +217,14 @@
 }
 
 .hex-text.unavailable {
+  color: black;
+}
+
+.hex-text.highlightedSelected {
+  color: #00b5f5;
+}
+
+.hex-text.highlightedNotSelected {
   color: black;
 }
 
@@ -230,4 +263,68 @@
   border-radius: 5px;
   padding: 9px 6px 6px 6px;
   cursor: text;
+}
+
+#settings-overlay {
+  padding: 0px 5px 0px 5px;
+  position: absolute;
+  height: 678px;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 98;
+}
+
+#modal-window1 {
+  position: absolute;
+  color: white;
+  background-color: black;
+  width: 400px;
+  height: 130px;
+  position: relative;
+  margin: 20% auto;
+  z-index: 99;
+  padding: 20px;
+  border: 1px solid #888;
+  border-radius: 15px;
+}
+
+#settings-display {
+  font-size: 20px;
+  background-color: #43464b;
+  border-radius: 5px;
+  height: 115px;
+  padding: 9px 6px 6px 6px;
+  cursor: text;
+}
+
+.settings-clickable-div {
+  position: absolute;
+  left: 40px;
+  height: 20px;
+  width: auto;
+  padding: 2px 10px 2px 10px;
+  font-size: 18px;
+  line-height: 21px;
+  text-align: center;
+  background-color: #737882;
+  color: #030303;
+  border: 1px solid black;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.setttings-clickable-div:hover {
+  color: white;
+  background-color: #43464b;
+}
+
+#settings-selection-type-button {
+  top: 60px;
+}
+
+#settings-show-bonus-mode-button {
+  top: 90px;
+}
+
+#settings-show-tooltips-button {
+  top: 120px;
 }
