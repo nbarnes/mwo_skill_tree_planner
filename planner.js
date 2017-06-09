@@ -194,10 +194,6 @@ document.addEventListener("DOMContentLoaded", function() {
     tabElement.appendChild(counterElement);
 
     tabElement.addEventListener("click", function() {
-      document.querySelectorAll(".tab").forEach(function (el) {
-        el.classList.remove("selected");
-      });
-      tabElement.classList.add("selected");
       changeSkillTree(tree.name);
     });
 
@@ -552,16 +548,24 @@ document.addEventListener("DOMContentLoaded", function() {
 
   function changeSkillTree(treeName) {
     SkillTree.setActiveTreeName(treeName);
+    document.querySelectorAll(".tab").forEach(function (el) {
+      el.classList.remove("selected");
+    });
+    getTabForTreeName(treeName).classList.add("selected");
+
     document.querySelectorAll(".skill-tree").forEach(function (el) {
       el.classList.add("hide");
     });
     let treeElement = document.getElementById(treeNameToId(treeName));
     treeElement.classList.remove("hide");
     let treeDisplayWidth = dimensionAsNumber(treeElement.style.width);
-    console.log(treeDisplayWidth);
     let totalWidth = (treeDisplayWidth + 294) + "px"
     document.getElementById("modal-overlay").style.width = totalWidth;
     document.getElementById("footer").style.width = totalWidth;
+  }
+
+  function getTabForTreeName(treeName) {
+    return document.getElementById(stringToCss(treeName) + "-tab");
   }
 
   function treeNameToId(treeName) {
@@ -649,10 +653,11 @@ document.addEventListener("DOMContentLoaded", function() {
         }
       })
       .then(function(json) {
-        importTrees(json);
+        importTrees(json['trees']);
         updateNodeCounters();
         updateBonuses();
         updateNodeColors();
+        changeSkillTree(json['activeTreeName']);
         document.getElementById("modal-overlay").classList.add("hide");
       });
 
@@ -683,7 +688,9 @@ document.addEventListener("DOMContentLoaded", function() {
 
   function serializeTrees() {
     let trees = SkillTree.getTrees();
-    let serializedTrees = [];
+    let serializedTrees = {};
+    serializedTrees.trees = [];
+    serializedTrees.activeTreeName = SkillTree.getActiveTreeName();
     for (let tree of trees) {
       let serializedTree = {
         name: tree.name,
@@ -692,7 +699,7 @@ document.addEventListener("DOMContentLoaded", function() {
       for (let node of tree.nodes) {
         serializedTree.nodes.push(serializeNode(node));
       }
-      serializedTrees.push(serializedTree);
+      serializedTrees.trees.push(serializedTree);
     }
     return JSON.stringify(serializedTrees);
   }
