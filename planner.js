@@ -286,7 +286,7 @@ document.addEventListener("DOMContentLoaded", function() {
       if (node.leftChildId != undefined) {
         let leftChildElement = document.getElementById(node.leftChildId);
         if (leftChildElement == null) {
-          console.log("left child id results in null = " + node.leftChildId);
+          console.log("left child id results in null = " + node.leftChildId + " for parent " + parentElement.id);
         } else {
           drawLineBetweenNodes(parentElement, leftChildElement, treeElement);
         }
@@ -294,7 +294,7 @@ document.addEventListener("DOMContentLoaded", function() {
       if (node.centerChildId != undefined) {
         let centerChildElement = document.getElementById(node.centerChildId);
         if (centerChildElement == null) {
-          console.log("center child id results in null = " + node.centerChildId);
+          console.log("center child id results in null = " + node.centerChildId + " for parent " + parentElement.id);
         } else {
           drawLineBetweenNodes(parentElement, centerChildElement, treeElement);
         }
@@ -302,7 +302,7 @@ document.addEventListener("DOMContentLoaded", function() {
       if (node.rightChildId != undefined) {
         let rightChildElement = document.getElementById(node.rightChildId);
         if (rightChildElement == null) {
-          console.log("right child id results in null = " + node.rightChildId);
+          console.log("right child id results in null = " + node.rightChildId + " for parent " + parentElement.id);
         } else {
           drawLineBetweenNodes(parentElement, rightChildElement, treeElement);
         }
@@ -557,17 +557,23 @@ document.addEventListener("DOMContentLoaded", function() {
     });
     let treeElement = document.getElementById(treeNameToId(treeName));
     treeElement.classList.remove("hide");
-    let totalWidth = (dimensionAsNumber(treeElement.style.width) + 294) + "px"
+    let treeDisplayWidth = dimensionAsNumber(treeElement.style.width);
+    console.log(treeDisplayWidth);
+    let totalWidth = (treeDisplayWidth + 294) + "px"
     document.getElementById("modal-overlay").style.width = totalWidth;
     document.getElementById("footer").style.width = totalWidth;
   }
 
   function treeNameToId(treeName) {
-    return treeName.replace(/ /g, "-").toLowerCase() + "-skill-tree";
+     return stringToCss(treeName) + "-skill-tree";
   }
 
   function bonusAttributeToId(attribute) {
-    return attribute.replace(/ /g, "-").toLowerCase() + "-bonus-display";
+     return stringToCss(attribute) + "bonus-display";
+  }
+
+  function stringToCss(string) {
+      string.replace(/ /g, "-").toLowerCase()
   }
 
   function nodeNameToId(nodeName) {
