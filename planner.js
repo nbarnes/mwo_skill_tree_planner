@@ -572,12 +572,12 @@ document.addEventListener("DOMContentLoaded", function() {
      return stringToCss(attribute) + "bonus-display";
   }
 
-  function stringToCss(string) {
-      string.replace(/ /g, "-").toLowerCase()
+  function nodeNameToId(nodeName) {
+    return stringToCss(nodeName);
   }
 
-  function nodeNameToId(nodeName) {
-    return nodeName.replace(/ /g, "-").toLowerCase();
+  function stringToCss(string) {
+    return string.replace(/ /g, "-").toLowerCase()
   }
 
   function removeNodeClasses(nodeElement) {
