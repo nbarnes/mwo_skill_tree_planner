@@ -16,7 +16,7 @@
 .sidebar {
   border-color: black;
   border-style: solid;
-  width: 150px;
+  min-width: 150px;
   background-color: grey;
   font-size: 300%;
   line-height: 50px;

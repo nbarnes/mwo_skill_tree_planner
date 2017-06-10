@@ -182,7 +182,7 @@ document.addEventListener("DOMContentLoaded", function() {
     let tabHeight = 40; // matches element height defined in planner.css
     let topOffset = 50;
     let tabElement = document.createElement("div");
-    tabElement.id = tree.name.toLowerCase() + "-tab";
+    tabElement.id = stringToCss(tree.name + "-tab");
     tabElement.classList.add("tab");
     tabElement.style.top = (40 * index) + 55 + "px";
     tabElement.textContent = tree.name;
@@ -551,6 +551,7 @@ document.addEventListener("DOMContentLoaded", function() {
     document.querySelectorAll(".tab").forEach(function (el) {
       el.classList.remove("selected");
     });
+    console.log(treeName);
     getTabForTreeName(treeName).classList.add("selected");
 
     document.querySelectorAll(".skill-tree").forEach(function (el) {
@@ -581,7 +582,7 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 
   function stringToCss(string) {
-    return string.replace(/ /g, "-").toLowerCase()
+    return string.replace(/ /g, "-").toLowerCase();
   }
 
   function removeNodeClasses(nodeElement) {
