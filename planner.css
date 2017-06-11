@@ -57,13 +57,6 @@
   background-color: #43464b;
 }
 
-#cost-totals-display {
-  font-size: 16px;
-  line-height: 20px;
-  position: relative;
-  top: 410px;
-}
-
 .clickable-div {
   position: absolute;
   height: 20px;
@@ -83,7 +76,19 @@
   background-color: #43464b;
 }
 
+#cost-totals-display {
+  font-size: 16px;
+  line-height: 20px;
+  position: relative;
+  top: 380px;
+}
+
 #permalink-button {
+  top: 485px;
+  left: 22px;
+}
+
+#download-image-button {
   top: 515px;
   left: 22px;
 }

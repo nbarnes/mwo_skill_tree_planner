@@ -6,11 +6,15 @@ Mechwarrior Online Skill Tree Planner
 
 TECHNOLOGY
 ==========
-Javascript, HTML, and CSS.  Everything it needs, nothing it doesn't. No jQuery!
+Javascript, HTML, and CSS. npm for package management, rollup for builds. Everything it needs, nothing it doesn't. No jQuery!
 
 WHERE
 =====
 Live builds of the MWO Skill Tree Planner can be found at https://nbarnes.github.io/mwo_skill_tree_planner/. The github repo is at https://github.com/nbarnes/mwo_skill_tree_planner.
+
+BUILD
+=====
+You'll need npm and rollup. Build with 'rollup -c'. Run locally with http-server.
 
 CONTRIBUTOR COVENANT
 ====================

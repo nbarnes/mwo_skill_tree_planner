@@ -1,4 +1,4 @@
-"use strict";
+import { treeSource, attributeTemplateMap } from "./tree.js"
 
 document.addEventListener("DOMContentLoaded", function() {
 
@@ -591,6 +591,12 @@ document.addEventListener("DOMContentLoaded", function() {
     nodeElement.classList.remove("locked");
     nodeElement.classList.remove("unavailable");
   }
+
+  document.getElementById("download-image-button").addEventListener("click", function() {
+    let canvas = document.getElementById("canvas");
+    let treeHTML = document.getElementById(treeNameToId(SkillTree.getActiveTreeName()));
+    rasterizeHTML.drawDocument(treeHTML, canvas);
+  });
 
   document.getElementById("reset-tree-button").addEventListener("click", function() {
     resetTree(SkillTree.getActiveTreeName());

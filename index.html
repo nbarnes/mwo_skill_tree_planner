@@ -12,9 +12,7 @@
     <link rel="stylesheet" href="planner.css" type="text/css">
   </head>
   <body>
-    <script src="tree.js" type="text/javascript"></script>
-    <script src="planner.js" type="text/javascript"></script>
-    <script src="dom-to-image.min.js" type="text/javascript"></script>
+    <script src="bundle.min.js" type="text/javascript"></script>
 
     <div id='pane'>
 
@@ -38,6 +36,7 @@
         <div id='cost-totals-display'>cost totals go here</div>
 
         <div id='permalink-button' class='clickable-div'>Get Permalink</div>
+        <div id='download-image-button' class='clickable-div'>Download as PNG</div>
         <div id='reset-all-button' class='clickable-div'>Reset All</div>
         <div id='reset-tree-button' class='clickable-div'>Reset Tree</div>
         <div id='select-tree-button' class='clickable-div'>Select Tree</div>
@@ -61,6 +60,9 @@
       <br/>
       Copyright Nathaniel Barnes, nbarnes@gmail.com
     </div>
+
+
+    <canvas id="canvas" width="400" height="200" style='display: none;'></canvas>
 
   </body>
 
