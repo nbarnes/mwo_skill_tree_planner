@@ -1,6 +1,6 @@
 // First element of the nodes array MUST be the root node of the skll graph
 
-let treeSource = [
+export const treeSource = [
   /*
   ==========================================
                    WEAPONS
@@ -393,7 +393,7 @@ let treeSource = [
         value: "1",
         leftChildId: "shock-absorbance-1",
         rightChildId: "ams-overload-1"
-      },      
+      },
 	    { name: "Shock Absorbance 1",
         attribute: "Fall Damage",
         value: "10",
@@ -805,7 +805,7 @@ let treeSource = [
       },
       { name: "Speed Tweak 5",
         attribute: "Max Speed",
-        value: "1.5",
+        value: "1.5"
       }
     ]
   },
@@ -1361,7 +1361,7 @@ let treeSource = [
   }
 ]
 
-let attributeTemplateMap = [
+export const attributeTemplateMap = [
   { attribute: "Weapon Range",
     template: "+{}%"
   },

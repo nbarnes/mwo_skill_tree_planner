@@ -1,9 +1,10 @@
-"use strict";
+import { treeSource, attributeTemplateMap } from "./tree.js"
+import { Node, selectNode, highlightNode, markAsAttachedRecursively, updateNodeColor, nodeAvailableForSelection, safeToDeselect, highlightedNodesArray, detachedNodesCounter } from "./node.js"
 
-var allowFreeNodeSelection = true;
+export var allowFreeNodeSelection = true;
 var displayAllBonuses = false;
 
-function detachedNodesCounterUpdated() {
+export function detachedNodesCounterUpdated() {
   if (detachedNodesCounter > 0) {
     document.getElementById("deselect-detached-nodes-button").classList.remove("hide");
   } else {
@@ -202,7 +203,7 @@ document.addEventListener("DOMContentLoaded", function() {
     let tabHeight = 40; // matches element height defined in planner.css
     let topOffset = 50;
     let tabElement = document.createElement("div");
-    tabElement.id = tree.name.toLowerCase() + "-tab";
+    tabElement.id = stringToCss(tree.name + "-tab");
     tabElement.classList.add("tab");
     tabElement.style.top = (40 * index) + 55 + "px";
     tabElement.textContent = tree.name;
@@ -318,7 +319,7 @@ document.addEventListener("DOMContentLoaded", function() {
       if (node.leftChildId != undefined) {
         let leftChildElement = document.getElementById(node.leftChildId);
         if (leftChildElement == null) {
-          console.log("left child id results in null = " + node.leftChildId);
+          console.log("left child id results in null = " + node.leftChildId + " for parent " + parentElement.id);
         } else {
           drawLineBetweenNodes(parentElement, leftChildElement, treeElement);
         }
@@ -326,7 +327,7 @@ document.addEventListener("DOMContentLoaded", function() {
       if (node.centerChildId != undefined) {
         let centerChildElement = document.getElementById(node.centerChildId);
         if (centerChildElement == null) {
-          console.log("center child id results in null = " + node.centerChildId);
+          console.log("center child id results in null = " + node.centerChildId + " for parent " + parentElement.id);
         } else {
           drawLineBetweenNodes(parentElement, centerChildElement, treeElement);
         }
@@ -334,7 +335,7 @@ document.addEventListener("DOMContentLoaded", function() {
       if (node.rightChildId != undefined) {
         let rightChildElement = document.getElementById(node.rightChildId);
         if (rightChildElement == null) {
-          console.log("right child id results in null = " + node.rightChildId);
+          console.log("right child id results in null = " + node.rightChildId + " for parent " + parentElement.id);
         } else {
           drawLineBetweenNodes(parentElement, rightChildElement, treeElement);
         }
@@ -361,10 +362,8 @@ document.addEventListener("DOMContentLoaded", function() {
     hexTopElement.classList.add("hex-top");
     hexTopElement.classList.add("hex-component");
     nodeTextElement.classList.add("hex-text");
-//    nodeTextElement.classList.add("unselectable");
     nodeValueElement.classList.add("hex-text");
     nodeValueElement.classList.add("hex-value");
-//    nodeValueElement.classList.add("unselectable");
     hexBottomElement.classList.add("hex-bottom");
     hexBottomElement.classList.add("hex-component");
 
@@ -511,7 +510,7 @@ document.addEventListener("DOMContentLoaded", function() {
       highlightedNode.highlighted = false;
       updateNodeColor(highlightedNode);
     }
-    highlightedNodesArray = [];
+    highlightedNodesArray.length = 0;
   }
 
   function updateNodeColors(treeName) {
@@ -620,28 +619,49 @@ document.addEventListener("DOMContentLoaded", function() {
 
   function changeSkillTree(treeName) {
     SkillTree.setActiveTreeName(treeName);
+    document.querySelectorAll(".tab").forEach(function (el) {
+      el.classList.remove("selected");
+    });
+    console.log(treeName);
+    getTabForTreeName(treeName).classList.add("selected");
+
     document.querySelectorAll(".skill-tree").forEach(function (el) {
       el.classList.add("hide");
     });
     let treeElement = document.getElementById(treeNameToId(treeName));
     treeElement.classList.remove("hide");
-    let totalWidth = (dimensionAsNumber(treeElement.style.width) + 294) + "px"
+    let treeDisplayWidth = dimensionAsNumber(treeElement.style.width);
+    let totalWidth = (treeDisplayWidth + 294) + "px"
     document.getElementById("modal-overlay").style.width = totalWidth;
     document.getElementById("settings-overlay").style.width = totalWidth;
     document.getElementById("footer").style.width = totalWidth;
   }
 
+  function getTabForTreeName(treeName) {
+    return document.getElementById(stringToCss(treeName) + "-tab");
+  }
+
   function treeNameToId(treeName) {
-    return treeName.replace(/ /g, "-").toLowerCase() + "-skill-tree";
+     return stringToCss(treeName) + "-skill-tree";
   }
 
   function bonusAttributeToId(attribute) {
-    return attribute.replace(/ /g, "-").toLowerCase() + "-bonus-display";
+     return stringToCss(attribute) + "bonus-display";
   }
 
   function nodeNameToId(nodeName) {
-    return nodeName.replace(/ /g, "-").toLowerCase();
+    return stringToCss(nodeName);
   }
+
+  function stringToCss(string) {
+    return string.replace(/ /g, "-").toLowerCase();
+  }
+
+  document.getElementById("download-image-button").addEventListener("click", function() {
+    let canvas = document.getElementById("canvas");
+    let treeHTML = document.getElementById(treeNameToId(SkillTree.getActiveTreeName()));
+    rasterizeHTML.drawDocument(treeHTML, canvas);
+  });
 
   document.getElementById("reset-tree-button").addEventListener("click", function() {
     resetTree(SkillTree.getActiveTreeName());
@@ -707,10 +727,11 @@ document.addEventListener("DOMContentLoaded", function() {
         }
       })
       .then(function(json) {
-        importTrees(json);
+        importTrees(json['trees']);
         updateNodeCounters();
         updateBonuses();
         updateNodeColors();
+        changeSkillTree(json['activeTreeName']);
         document.getElementById("modal-overlay").classList.add("hide");
       });
 
@@ -741,7 +762,9 @@ document.addEventListener("DOMContentLoaded", function() {
 
   function serializeTrees() {
     let trees = SkillTree.getTrees();
-    let serializedTrees = [];
+    let serializedTrees = {};
+    serializedTrees.trees = [];
+    serializedTrees.activeTreeName = SkillTree.getActiveTreeName();
     for (let tree of trees) {
       let serializedTree = {
         name: tree.name,
@@ -750,7 +773,7 @@ document.addEventListener("DOMContentLoaded", function() {
       for (let node of tree.nodes) {
         serializedTree.nodes.push(serializeNode(node));
       }
-      serializedTrees.push(serializedTree);
+      serializedTrees.trees.push(serializedTree);
     }
     return JSON.stringify(serializedTrees);
   }

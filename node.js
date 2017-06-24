@@ -1,8 +1,9 @@
+import { detachedNodesCounterUpdated, allowFreeNodeSelection } from "./planner.js"
 
-var highlightedNodesArray = [];
-var detachedNodesCounter = 0;
+export const highlightedNodesArray = [];
+export var detachedNodesCounter = 0;
 
-function Node(newName, newAttribute, newValue, newValueTemplate, newId, newLeftChildId, newCenterChildId, newRightChildId) {
+export function Node(newName, newAttribute, newValue, newValueTemplate, newId, newLeftChildId, newCenterChildId, newRightChildId) {
   var selected = false;
   let highlighted = false;
 
@@ -48,7 +49,7 @@ function Node(newName, newAttribute, newValue, newValueTemplate, newId, newLeftC
 */
 }
 
-function selectNode(value, node) {
+export function selectNode(value, node) {
 //    console.log("nodeName " + node.name + " highlighted state is " + node.hightlighted);
   node.selected = value;
   if(value == false) {
@@ -123,7 +124,7 @@ function propagateDetachment(node) {
   }
 }
 
-function highlightNode(node) {
+export function highlightNode(node) {
   if(node) {
     node.highlighted = true;
     updateNodeColor(node);
@@ -131,7 +132,7 @@ function highlightNode(node) {
   }
 }
 
-function markAsAttachedRecursively(currentNodes)
+export function markAsAttachedRecursively(currentNodes)
 {
   let nextLevelNodes = [];
   for (let currentNode of currentNodes) {
@@ -153,7 +154,7 @@ function markAsAttachedRecursively(currentNodes)
 
 //visual methods
 
-function updateNodeColor(node) {
+export function updateNodeColor(node) {
   var mode = "";
   if (node.highlighted)
   {
@@ -181,7 +182,7 @@ function updateNodeColor(node) {
   }
 }
 
-function nodeAvailableForSelection(node) {
+export function nodeAvailableForSelection(node) {
   var parentIsSelected = false;
   for (let parentNode of node.parents) {
     parentIsSelected = (parentNode.selected && !parentNode.inDetachedSubTree()) || parentIsSelected;
@@ -206,7 +207,7 @@ function setNodeElementColors(node, state) {
   });
 }
 
-function safeToDeselect(node) {
+export function safeToDeselect(node) {
   var safeToDeselect = true;
   for (let child of node.children) {
     if (child.selected) {
