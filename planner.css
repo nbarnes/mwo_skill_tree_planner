@@ -16,7 +16,7 @@
 .sidebar {
   border-color: black;
   border-style: solid;
-  width: 150px;
+  min-width: 150px;
   background-color: grey;
   font-size: 300%;
   line-height: 50px;
@@ -24,6 +24,7 @@
 }
 
 #bonuses-header {
+  font-size: 80%;
   text-decoration: underline
 }
 
@@ -56,13 +57,6 @@
   background-color: #43464b;
 }
 
-#cost-totals-display {
-  font-size: 16px;
-  line-height: 20px;
-  position: relative;
-  top: 380px;
-}
-
 .clickable-div {
   position: absolute;
   height: 20px;
@@ -82,7 +76,19 @@
   background-color: #43464b;
 }
 
+#cost-totals-display {
+  font-size: 16px;
+  line-height: 20px;
+  position: relative;
+  top: 350px;
+}
+
 #permalink-button {
+  top: 455px;
+  left: 22px;
+}
+
+#download-image-button {
   top: 485px;
   left: 22px;
 }
@@ -134,6 +140,7 @@
 .hex-top {
   border-width: 2px 1px 0px 1px;
   border-style: solid;
+  border-color: black;
   position: absolute;
   width: 43px;
   height: 36px;
@@ -147,6 +154,7 @@
 .hex-bottom {
   border-width: 0px 1px 2px 1px;
   border-style: solid;
+  border-color: black;
   position: absolute;
   width: 43px;
   height: 36px;
