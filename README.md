@@ -6,11 +6,19 @@ Mechwarrior Online Skill Tree Planner
 
 TECHNOLOGY
 ==========
-Javascript, HTML, and CSS.  Everything it needs, nothing it doesn't. No jQuery!
+Javascript, HTML, and CSS. npm and webpack for builds. Everything it needs, nothing it doesn't. No jQuery!
 
 WHERE
 =====
 Live builds of the MWO Skill Tree Planner can be found at https://nbarnes.github.io/mwo_skill_tree_planner/. The github repo is at https://github.com/nbarnes/mwo_skill_tree_planner.
+
+BUILD
+=====
+* Edit your source code, found in `index.html`, the two `.css` files, and, for the javascript, `/src`
+* Make sure you have Node.js, and then make sure you have node package manager, then run `npx webpack`
+* Your build will be in `/dist` as `main.js`
+* Serve your build with the local server of your choice (I use [http-server](https://www.npmjs.com/package/http-server))
+* Visit the served page at `localhost:8080` (port subject to change based on your local server settings)
 
 CONTRIBUTOR COVENANT
 ====================

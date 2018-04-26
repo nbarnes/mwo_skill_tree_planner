@@ -1,0 +1,28 @@
+{
+  "name": "mwo_skill_tree_planner",
+  "version": "1.0.0",
+  "description": "Skill Tree Planning Tool for PGI's Mechwarrior Online",
+  "private": true,
+  "dependencies": {
+    "npm": "^6.0.0"
+  },
+  "devDependencies": {
+    "babel-loader": "^7.1.4",
+    "webpack": "^4.6.0",
+    "webpack-cli": "^2.0.15"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nbarnes/mwo_skill_tree_planner.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nbarnes/mwo_skill_tree_planner/issues"
+  },
+  "homepage": "https://github.com/nbarnes/mwo_skill_tree_planner#readme"
+}

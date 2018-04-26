@@ -1,5 +1,5 @@
-// First element of the nodes array MUST be the root node of the skll graph
 
+// First element of the nodes array MUST be the root node of the skill graph
 let treeSource = [
   /*
   ==========================================
@@ -1534,3 +1534,5 @@ let attributeTemplateMap = [
     template: "-{}%"
   }
 ]
+
+export { treeSource, attributeTemplateMap };

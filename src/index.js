@@ -1,3 +1,5 @@
+import { treeSource, attributeTemplateMap } from './data';
+
 "use strict";
 
 document.addEventListener("DOMContentLoaded", function() {
