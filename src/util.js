@@ -1,6 +1,4 @@
 
-function stringToCss(string) {
+export let stringToCss = function(string) {
   return string.replace(/ /g, "-").toLowerCase();
 }
-
-export { stringToCss };

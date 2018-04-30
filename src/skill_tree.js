@@ -1,3 +1,6 @@
+
+"use strict";
+
 import { stringToCss } from './util.js'
 
 export default function SkillTreeFactory(treeSource) {

@@ -1,9 +1,11 @@
+
+"use strict";
+
 import { treeSource } from './tree_source';
 import { attributeMap } from './attribute_map';
 import SkillTreeFactory from './skill_tree';
-import { stringToCss } from './util.js'
-
-"use strict";
+import { stringToCss } from './util.js';
+import { PubSub } from './pub_sub.js';
 
 document.addEventListener("DOMContentLoaded", function() {
 
@@ -20,10 +22,16 @@ document.addEventListener("DOMContentLoaded", function() {
     });
     updateNodeCounters();
     document.getElementById("node-total").textContent = maxSkillNodes;
-    document.getElementById(trees[0].name.toLowerCase() + "-tab").click();
   }
 
   buildUI(skillTree.getTrees());
+
+  PubSub.subscribe('treeTabClicked', data => {
+    changeSkillTree(data.treeName);
+  });
+  PubSub.subscribe('nodeClicked', data => nodeClicked(data.node));
+
+  PubSub.publish('treeTabClicked', {treeName: skillTree.getTrees()[0].name});
 
   function buildTab(tree, index) {
     let tabHeight = 40; // matches element height defined in planner.css
@@ -41,7 +49,7 @@ document.addEventListener("DOMContentLoaded", function() {
     tabElement.appendChild(counterElement);
 
     tabElement.addEventListener("click", function() {
-      changeSkillTree(tree.name);
+      PubSub.publish('treeTabClicked', {treeName: tree.name});
     });
 
     document.getElementById("total-nodes-display").after(tabElement);
@@ -54,8 +62,9 @@ document.addEventListener("DOMContentLoaded", function() {
     treeElement.classList.add("hide");
     document.getElementById("graph-view").appendChild(treeElement);
 
-    // TODO: need to do something here to sort the node array.  Probably search it each
-    // time you add a node and add the children of that node to a queue to be the next loaded
+    // TODO: need to do something here to sort the node array.  Probably search
+    // it each time you add a node and add the children of that node to a queue
+    // to be the next loaded
 
     let xOffset = 65;
     let yOffset = 38;
@@ -63,7 +72,6 @@ document.addEventListener("DOMContentLoaded", function() {
     var rightmostNodeElement = 0;
 
     for (let node of tree.nodes) {
-
       let nodeFrameElement = buildNodeElement(node);
 
       // the first element in nodes is the root node, so it starts available
@@ -111,8 +119,9 @@ document.addEventListener("DOMContentLoaded", function() {
       treeElement.appendChild(nodeFrameElement);
 
       nodeFrameElement.addEventListener("click", function() {
-        nodeClicked(node);
+        PubSub.publish('nodeClicked', {node: node});
       });
+
     }
 
     let nodeWidth = 52; // width of a graph node, per planner.css
@@ -230,19 +239,9 @@ document.addEventListener("DOMContentLoaded", function() {
     } else {
       if (nodeAvailableForSelection(node) && (skillTree.getSelectedNodes().length < maxSkillNodes)) {
         node.selected = true;
-        updateNodeColor(node);
       }
     }
     updateNodeColors(skillTree.getActiveTreeName());
-
-    updateNodeColor(node);
-    for (let child of skillTree.childrenOf(node)) {
-      updateNodeColor(child);
-    }
-    for (let parent of skillTree.parentsOf(node)) {
-      updateNodeColor(parent);
-    }
-
     updateNodeCounters(skillTree.getActiveTreeName());
     updateBonuses();
     revertURL();
@@ -295,7 +294,7 @@ document.addEventListener("DOMContentLoaded", function() {
     for (let child of skillTree.childrenOf(node)) {
       if (child.selected) {
         // Set node in question to deselected to see if the chlid is still elegible for selection
-        // based on other parents.  We"ll set it back to selected after we"re done with that check.
+        // based on other parents.  We"ll set it back to selected after we're done with that check.
         node.selected = false;
         safeToDeselect = nodeAvailableForSelection(child) && safeToDeselect;
         node.selected = true;
@@ -361,15 +360,15 @@ document.addEventListener("DOMContentLoaded", function() {
         bonuses.push({attribute: node.attribute, value: node.value, valueTemplate: node.valueTemplate});
       }
     }
-    document.getElementById("bonuses-display").innerHTML = null;
-    bonuses.forEach(function(bonus, index) {
+    document.getElementById("bonuses-display").innerHTML = "";
+    let bonusFrame = document.createDocumentFragment();
+    bonuses.forEach((bonus, index) => {
       let bonusDisplayElement = document.createElement("div");
-      bonusDisplayElement.id = bonusAttributeToId(bonus.attribute);
       bonusDisplayElement.classList.add("bonus-display");
       bonusDisplayElement.textContent = bonus.attribute + " " + getValueTemplate(bonus.attribute)[0] + bonus.value + getValueTemplate(bonus.attribute)[1];
-      document.getElementById("bonuses-display").append(bonusDisplayElement);
-
+      bonusFrame.append(bonusDisplayElement);
     });
+    document.getElementById("bonuses-display").append(bonusFrame);
     if (document.getElementById("bonuses-display").offsetHeight > 560) {
       document.querySelectorAll(".bonus-display").forEach(function (el) {
         el.style.fontSize= "12px";
@@ -394,7 +393,6 @@ document.addEventListener("DOMContentLoaded", function() {
     document.querySelectorAll(".tab").forEach(function (el) {
       el.classList.remove("selected");
     });
-    console.log(treeName);
     getTabForTreeName(treeName).classList.add("selected");
 
     document.querySelectorAll(".skill-tree").forEach(function (el) {
@@ -416,10 +414,6 @@ document.addEventListener("DOMContentLoaded", function() {
      return stringToCss(treeName) + "-skill-tree";
   }
 
-  function bonusAttributeToId(attribute) {
-     return stringToCss(attribute) + "bonus-display";
-  }
-
   function removeNodeClasses(nodeElement) {
     nodeElement.classList.remove("selected");
     nodeElement.classList.remove("available");
@@ -427,18 +421,30 @@ document.addEventListener("DOMContentLoaded", function() {
     nodeElement.classList.remove("unavailable");
   }
 
-  document.getElementById("reset-tree-button").addEventListener("click", function() {
-    resetTree(skillTree.getActiveTreeName());
+  document.getElementById("reset-tree-button").addEventListener("click", () => {
+    PubSub.publish('resetActiveTree', {treeName: skillTree.getActiveTreeName()});
   });
 
-  document.getElementById("reset-all-button").addEventListener("click", function() {
+  PubSub.subscribe('resetActiveTree', data => {
+    resetTree(data.treeName);
+  });
+
+  document.getElementById("reset-all-button").addEventListener("click", () => {
+    PubSub.publish('resetAllTrees', {});
+  });
+
+  PubSub.subscribe('resetAllTrees', data => {
     for (let tree of skillTree.getTrees()) {
       resetTree(tree.name);
     }
   });
 
-  document.getElementById("select-tree-button").addEventListener("click", function() {
-    selectAllNodes(skillTree.getActiveTreeName());
+  document.getElementById("select-tree-button").addEventListener("click", () => {
+    PubSub.publish('selectEntireTree', {treeName: skillTree.getActiveTreeName()});
+  });
+
+  PubSub.subscribe('selectEntireTree', data => {
+    selectAllNodes(data.treeName);
   });
 
   function resetTree(treeName) {
