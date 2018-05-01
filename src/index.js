@@ -4,7 +4,7 @@
 import { treeSource } from './tree_source';
 import { attributeMap } from './attribute_map';
 import SkillTreeFactory from './skill_tree';
-import { stringToCss } from './util.js';
+import { stringToCss, dimensionAsNumber } from './util.js';
 import { PubSub } from './pub_sub.js';
 
 document.addEventListener("DOMContentLoaded", function() {
@@ -506,7 +506,11 @@ document.addEventListener("DOMContentLoaded", function() {
     }
   }
 
-  document.getElementById("permalink-button").addEventListener("click", function() {
+  document.getElementById("permalink-button").addEventListener("click", () => {
+    PubSub.publish("GetPermalink");
+  });
+
+  PubSub.subscribe("GetPermalink", (data) => {
     setModalCloseability(false);
     document.getElementById("permalink-display").textContent = "Permalink inbound on your position.";
     document.getElementById("modal-overlay").classList.remove("hide");
@@ -602,11 +606,6 @@ document.addEventListener("DOMContentLoaded", function() {
   document.getElementById("permalink-display").addEventListener("click", function(event) {
     event.stopPropagation();
   });
-
-  // strips the "px" off the end of a CSS dimension, returns the number value
-  function dimensionAsNumber(dimension) {
-    return parseFloat(dimension.slice(0, -2));
-  }
 
   loadFromRemoteId();
 
