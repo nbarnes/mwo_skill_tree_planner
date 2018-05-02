@@ -143,11 +143,7 @@ function NodeFactory(nodeDef) {
     value: parseFloat(nodeDef.value),
     leftChildId: nodeDef.leftChildId,
     centerChildId: nodeDef.centerChildId,
-    rightChildId: nodeDef.rightChildId,
-    selectedColor: attributeMap[nodeDef.attribute].selectedColor,
-    availableColor: attributeMap[nodeDef.attribute].availableColor,
-    unavailableColor: attributeMap[nodeDef.attribute].unavailableColor,
-    lockedColor: attributeMap[nodeDef.attribute].lockedColor
+    rightChildId: nodeDef.rightChildId
   };
 }
 
