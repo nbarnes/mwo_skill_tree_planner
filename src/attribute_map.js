@@ -8,87 +8,54 @@ export let attributeMap = {
   */
   "Weapon Range": {
     template: "+{}%",
-    selectedColor: "hsl(0, 100%, 80%)",
-    lockedColor: "hsl(0, 100%, 80%)",
-    availableColor: "hsl(0, 100%, 20%)",
-    unavailableColor: "hsl(0, 100%, 20%)"
+    hue: "0"
   },
   "Laser Duration": {
     template: "-{}%",
-    selectedColor: "hsl(30, 100%, 80%)",
-    lockedColor: "hsl(30, 100%, 80%)",
-    availableColor: "hsl(30, 100%, 20%)",
-    unavailableColor: "hsl(30, 100%, 20%)"
+    hue: "30"
   },
   "Weapon Velocity": {
     template: "+{}%",
-    selectedColor: "hsl(60, 100%, 80%)",
+    hue: "60",
     lockedColor: "hsl(60, 100%, 80%)",
     availableColor: "hsl(60, 100%, 20%)",
     unavailableColor: "hsl(60, 100%, 20%)"
   },
   "Weapon Cooldown": {
     template: "-{}%",
-    selectedColor: "hsl(90, 100%, 80%)",
-    lockedColor: "hsl(90, 100%, 80%)",
-    availableColor: "hsl(90, 100%, 20%)",
-    unavailableColor: "hsl(90, 100%, 20%)"
+    hue: "90"
   },
   "Missile Crit Damage": {
     template: "+{}%",
-    selectedColor: "hsl(120, 100%, 80%)",
-    lockedColor: "hsl(120, 100%, 80%)",
-    availableColor: "hsl(120, 100%, 20%)",
-    unavailableColor: "hsl(120, 100%, 20%)"
+    hue: "120"
   },
   "Gauss Held Time": {
     template: "+{} sec.",
-    selectedColor: "hsl(120, 100%, 80%)",
-    lockedColor: "hsl(120, 100%, 80%)",
-    availableColor: "hsl(120, 100%, 20%)",
-    unavailableColor: "hsl(120, 100%, 20%)"
+    hue: "120"
   },
   "Weapon Heat Gen": {
     template: "-{}%",
-    selectedColor: "hsl(150, 100%, 80%)",
-    lockedColor: "hsl(150, 100%, 80%)",
-    availableColor: "hsl(150, 100%, 20%)",
-    unavailableColor: "hsl(150, 100%, 20%)"
+    hue: "150"
   },
   "Ballistic Ammo": {
     template: "+{}",
-    selectedColor: "hsl(240, 100%, 80%)",
-    lockedColor: "hsl(240, 100%, 80%)",
-    availableColor: "hsl(240, 100%, 20%)",
-    unavailableColor: "hsl(240, 100%, 20%)"
+    hue: "180"
   },
   "Missile Ammo": {
     template: "+{}",
-    selectedColor: "hsl(270, 100%, 80%)",
-    lockedColor: "hsl(270, 100%, 80%)",
-    availableColor: "hsl(270, 100%, 20%)",
-    unavailableColor: "hsl(270, 100%, 20%)"
+    hue: "210"
   },
   "Missile Spread": {
     template: "+{}%",
-    selectedColor: "hsl(270, 100%, 80%)",
-    lockedColor: "hsl(270, 100%, 80%)",
-    availableColor: "hsl(270, 100%, 20%)",
-    unavailableColor: "hsl(270, 100%, 20%)"
+    hue: "240",
   },
   "LBX Spread": {
     template: "-{}%",
-    selectedColor: "hsl(300, 100%, 80%)",
-    lockedColor: "hsl(300, 100%, 80%)",
-    availableColor: "hsl(300, 100%, 20%)",
-    unavailableColor: "hsl(300, 100%, 20%)"
+    hue: "270"
   },
   "UAC Jam Chance": {
     template: "-{}%",
-    selectedColor: "hsl(330, 100%, 80%)",
-    lockedColor: "hsl(330, 100%, 80%)",
-    availableColor: "hsl(330, 100%, 20%)",
-    unavailableColor: "hsl(330, 100%, 20%)"
+    hue: "300"
   },
   /*
   ==========================================
@@ -97,38 +64,23 @@ export let attributeMap = {
   */
   "Armor": {
     template: "+{}%",
-    selectedColor: "white",
-    lockedColor: "black",
-    availableColor: "grey",
-    unavailableColor: "lightblue"
+    hue: "0",
   },
   "AMS Effectiveness": {
     template: "+{}%",
-    selectedColor: "#804218",
-    lockedColor: "#552402",
-    availableColor: "#D09269",
-    unavailableColor: "#FBCAA8"
+    hue: "70"
   },
   "Crit Chance Received": {
     template: "-{}%",
-    selectedColor: "white",
-    lockedColor: "black",
-    availableColor: "grey",
-    unavailableColor: "lightblue"
+    hue: "140"
   },
   "Internal Structure": {
     template: "+{}%",
-    selectedColor: "white",
-    lockedColor: "black",
-    availableColor: "grey",
-    unavailableColor: "lightblue"
+    hue: "210"
   },
   "Fall Damage": {
     template: "-{}%",
-    selectedColor: "hsl(0, 100%, 80%)",
-    unavailableColor: "hsl(0, 100%, 20%)",
-    lockedColor: "hsl(0, 100%, 80%)",
-    availableColor: "hsl(0, 100%, 20%)"
+    hue: "280"
   },
   /*
   ==========================================
@@ -137,59 +89,35 @@ export let attributeMap = {
   */
   "Acceleration": {
     template: "+{}%",
-    selectedColor: "white",
-    availableColor: "grey",
-    unavailableColor: "lightblue",
-    lockedColor: "black"
+    hue: "0"
   },
   "Deceleration": {
     template: "+{}%",
-    selectedColor: "white",
-    availableColor: "grey",
-    unavailableColor: "lightblue",
-    lockedColor: "black"
+    hue: "40"
   },
   "Max Torso Inclination": {
     template: "+{}%",
-    selectedColor: "white",
-    availableColor: "grey",
-    unavailableColor: "lightblue",
-    lockedColor: "black"
+    hue: "80"
   },
   "Max Arm Inclination": {
     template: "+{}%",
-    selectedColor: "white",
-    availableColor: "grey",
-    unavailableColor: "lightblue",
-    lockedColor: "black"
+    hue: "120"
   },
   "Torso Twist Speed": {
     template: "+{}%",
-    selectedColor: "white",
-    availableColor: "grey",
-    unavailableColor: "lightblue",
-    lockedColor: "black"
+    hue: "160"
   },
   "Max Torso Twist": {
     template: "+{}%",
-    selectedColor: "white",
-    availableColor: "grey",
-    unavailableColor: "lightblue",
-    lockedColor: "black"
+    hue: "200"
   },
   "Turn Speed": {
     template: "+{}%",
-    selectedColor: "white",
-    availableColor: "grey",
-    unavailableColor: "lightblue",
-    lockedColor: "black"
+    hue: "240"
   },
   "Max Speed": {
     template: "+{}%",
-    selectedColor: "white",
-    availableColor: "grey",
-    unavailableColor: "lightblue",
-    lockedColor: "black"
+    hue: "280"
   },
   /*
   ==========================================
@@ -198,38 +126,19 @@ export let attributeMap = {
   */
   "Jump Jet Heat Reduction": {
     template: "-{}%",
-    selectedColor: "white",
-    availableColor: "grey",
-    unavailableColor: "lightblue",
-    lockedColor: "black"
+    hue: "0"
   },
   "Jump Jet Initial Boost": {
     template: "+{}%",
-    selectedColor: "white",
-    availableColor: "grey",
-    unavailableColor: "lightblue",
-    lockedColor: "black"
+    hue: "70"
   },
   "Jump Jet Forward Thrust": {
     template: "+{}%",
-    selectedColor: "white",
-    availableColor: "grey",
-    unavailableColor: "lightblue",
-    lockedColor: "black"
+    hue: "140"
   },
   "Jump Jet Burn Time": {
     template: "+{}%",
-    selectedColor: "white",
-    availableColor: "grey",
-    unavailableColor: "lightblue",
-    lockedColor: "black"
-  },
-  "Tastier Gyros": {
-    template: "-{}%",
-    selectedColor: "white",
-    availableColor: "grey",
-    unavailableColor: "lightblue",
-    lockedColor: "black"
+    hue: "210"
   },
   /*
   ==========================================
@@ -238,38 +147,27 @@ export let attributeMap = {
   */
   "Startup Speed": {
     template: "-{}%",
-    selectedColor: "white",
-    availableColor: "grey",
-    unavailableColor: "lightblue",
-    lockedColor: "black"
+    hue: "0"
   },
   "Legged Speed": {
     template: "+{}%",
-    selectedColor: "white",
-    availableColor: "grey",
-    unavailableColor: "lightblue",
-    lockedColor: "black"
+    hue: "60"
   },
   "Heat Capacity": {
     template: "+{}%",
-    selectedColor: "white",
-    availableColor: "grey",
-    unavailableColor: "lightblue",
-    lockedColor: "black"
+    hue: "120"
   },
   "Hill Climb": {
     template: "+{}%",
-    selectedColor: "white",
-    availableColor: "grey",
-    unavailableColor: "lightblue",
-    lockedColor: "black"
+    hue: "180"
   },
   "Heat Dissipation": {
     template: "+{}%",
-    selectedColor: "white",
-    availableColor: "grey",
-    unavailableColor: "lightblue",
-    lockedColor: "black"
+    hue: "240"
+  },
+  "Tastier Gyros": {
+    template: "-{}%",
+    hue: "300"
   },
   /*
   ==========================================
@@ -278,59 +176,35 @@ export let attributeMap = {
   */
   "Target Info Speed": {
     template: "+{}%",
-    selectedColor: "white",
-    availableColor: "grey",
-    unavailableColor: "lightblue",
-    lockedColor: "black"
+    hue: "0"
   },
   "Target Retention": {
     template: "+{} m.",
-    selectedColor: "white",
-    availableColor: "grey",
-    unavailableColor: "lightblue",
-    lockedColor: "black"
+    hue: "40"
   },
   "Sensor Range": {
     template: "+{}%",
-    selectedColor: "white",
-    availableColor: "grey",
-    unavailableColor: "lightblue",
-    lockedColor: "black"
+    hue: "80"
   },
   "Target Lock Decay": {
     template: "+{} sec.",
-    selectedColor: "white",
-    availableColor: "grey",
-    unavailableColor: "lightblue",
-    lockedColor: "black"
+    hue: "120"
   },
   "Zoom Magnifier": {
     template: "+{}",
-    selectedColor: "white",
-    availableColor: "grey",
-    unavailableColor: "lightblue",
-    lockedColor: "black"
+    hue: "160"
   },
   "Radar Deprivation": {
     template: "+{}%",
-    selectedColor: "white",
-    availableColor: "grey",
-    unavailableColor: "lightblue",
-    lockedColor: "black"
+    hue: "200"
   },
   "Seismic Sensor": {
     template: "{} m.",
-    selectedColor: "white",
-    availableColor: "grey",
-    unavailableColor: "lightblue",
-    lockedColor: "black"
+    hue: "240"
   },
   "ECM Range": {
     template: "+{}%",
-    selectedColor: "white",
-    availableColor: "grey",
-    unavailableColor: "lightblue",
-    lockedColor: "black"
+    hue: "280"
   },
   /*
   ==========================================
@@ -339,100 +213,58 @@ export let attributeMap = {
   */
   "Consumable Slots": {
     template: "+{}",
-    selectedColor: "white",
-    availableColor: "grey",
-    unavailableColor: "lightblue",
-    lockedColor: "black"
+    hue: "0"
   },
   "UAV Duration": {
     template: "+{} sec.",
-    selectedColor: "white",
-    availableColor: "grey",
-    unavailableColor: "lightblue",
-    lockedColor: "black"
+    hue: "20"
   },
   "UAV Sight Range": {
     template: "+{}%",
-    selectedColor: "white",
-    availableColor: "grey",
-    unavailableColor: "lightblue",
-    lockedColor: "black"
+    hue: "40"
   },
   "Artillery Strike Duration": {
     template: "+{}%",
-    selectedColor: "white",
-    availableColor: "grey",
-    unavailableColor: "lightblue",
-    lockedColor: "black"
+    hue: "60"
   },
   "Coolshot Effectiveness": {
     template: "+{}%",
-    selectedColor: "white",
-    availableColor: "grey",
-    unavailableColor: "lightblue",
-    lockedColor: "black"
+    hue: "80"
   },
   "UAV Capacity": {
     template: "+{}",
-    selectedColor: "white",
-    availableColor: "grey",
-    unavailableColor: "lightblue",
-    lockedColor: "black"
+    hue: "100"
   },
   "Point Capture Speed": {
     template: "+{}%",
-    selectedColor: "white",
-    availableColor: "grey",
-    unavailableColor: "lightblue",
-    lockedColor: "black"
+    hue: "120"
   },
   "NARC Velocity and Duration": {
     template: "+{}%",
-    selectedColor: "white",
-    availableColor: "grey",
-    unavailableColor: "lightblue",
-    lockedColor: "black"
+    hue: "140"
   },
   "Additional Air or Arty Strike": {
     template: "+{}",
-    selectedColor: "white",
-    availableColor: "grey",
-    unavailableColor: "lightblue",
-    lockedColor: "black"
+    hue: "160"
   },
   "Air or Arty Strike Accuracy": {
     template: "-{}%",
-    selectedColor: "white",
-    availableColor: "grey",
-    unavailableColor: "lightblue",
-    lockedColor: "black"
+    hue: "180"
   },
   "Additional Consumable Slot": {
     template: "+{}",
-    selectedColor: "white",
-    availableColor: "grey",
-    unavailableColor: "lightblue",
-    lockedColor: "black"
+    hue: "200"
   },
   "Rate of Capture": {
     template: "+{}%",
-    selectedColor: "white",
-    availableColor: "grey",
-    unavailableColor: "lightblue",
-    lockedColor: "black"
+    hue: "220"
   },
   "Coolant Reserves": {
     template: "+{}",
-    selectedColor: "white",
-    availableColor: "grey",
-    unavailableColor: "lightblue",
-    lockedColor: "black"
+    hue: "240"
   },
   "Coolshot Cooldown": {
     template: "-{}%",
-    selectedColor: "white",
-    availableColor: "grey",
-    unavailableColor: "lightblue",
-    lockedColor: "black"
+    hue: "260"
   }
 }
