@@ -1,11 +1,11 @@
 
 "use strict";
 
-import { treeSource } from './tree_source';
-import { attributeMap } from './attribute_map';
-import SkillTreeFactory from './skill_tree';
-import { stringToCss, dimensionAsNumber } from './util.js';
-import { PubSub } from './pub_sub.js';
+import { treeSource } from "./tree_source";
+import { attributeMap } from "./attribute_map";
+import SkillTreeFactory from "./skill_tree";
+import { stringToCss, dimensionAsNumber } from "./util.js";
+import { PubSub } from "./pub_sub.js";
 
 document.addEventListener("DOMContentLoaded", function() {
 
@@ -26,12 +26,14 @@ document.addEventListener("DOMContentLoaded", function() {
 
   buildUI(skillTree.getTrees());
 
-  PubSub.subscribe('treeTabClicked', data => {
+  PubSub.subscribe("treeTabClicked", data => {
     changeSkillTree(data.treeName);
   });
-  PubSub.subscribe('nodeClicked', data => nodeClicked(data.node));
+  PubSub.subscribe("nodeClicked", data => nodeClicked(data.node));
 
-  PubSub.publish('treeTabClicked', {treeName: skillTree.getTrees()[0].name});
+  PubSub.subscribe("toggleNodeColorization", data => toggleNodeColorization());
+
+  PubSub.publish("treeTabClicked", {treeName: skillTree.getTrees()[0].name});
 
   function buildTab(tree, index) {
     let tabHeight = 40; // matches element height defined in planner.css
@@ -49,7 +51,7 @@ document.addEventListener("DOMContentLoaded", function() {
     tabElement.appendChild(counterElement);
 
     tabElement.addEventListener("click", function() {
-      PubSub.publish('treeTabClicked', {treeName: tree.name});
+      PubSub.publish("treeTabClicked", {treeName: tree.name});
     });
 
     document.getElementById("total-nodes-display").after(tabElement);
@@ -70,6 +72,10 @@ document.addEventListener("DOMContentLoaded", function() {
     let yOffset = 38;
     var leftmostNodeElement = 0;
     var rightmostNodeElement = 0;
+
+    let colorizationStylesElement = document.createElement('style');
+    document.head.appendChild(colorizationStylesElement);
+    let colorizationStyles = colorizationStylesElement.sheet;
 
     for (let node of tree.nodes) {
       let nodeFrameElement = buildNodeElement(node);
@@ -116,10 +122,15 @@ document.addEventListener("DOMContentLoaded", function() {
         rightmostNodeElement = leftPosition;
       }
 
+      colorizationStyles.insertRule(`#graph-view.colorize-nodes .hex-component.selected { background-color: ${ node.selectedColor }; }`);
+      colorizationStyles.insertRule(`#graph-view.colorize-nodes .hex-component.available { background-color: ${ node.availableColor }; }`);
+      colorizationStyles.insertRule(`#graph-view.colorize-nodes .hex-component.unavailable { background-color: ${ node.unavailabledColor }; }`);
+      colorizationStyles.insertRule(`#graph-view.colorize-nodes .hex-component.locked { background-color: ${ node.lockedColor }; }`);
+
       treeElement.appendChild(nodeFrameElement);
 
       nodeFrameElement.addEventListener("click", function() {
-        PubSub.publish('nodeClicked', {node: node});
+        PubSub.publish("nodeClicked", {node: node});
       });
 
     }
@@ -294,7 +305,7 @@ document.addEventListener("DOMContentLoaded", function() {
     for (let child of skillTree.childrenOf(node)) {
       if (child.selected) {
         // Set node in question to deselected to see if the chlid is still elegible for selection
-        // based on other parents.  We"ll set it back to selected after we're done with that check.
+        // based on other parents.  We"ll set it back to selected after we"re done with that check.
         node.selected = false;
         safeToDeselect = nodeAvailableForSelection(child) && safeToDeselect;
         node.selected = true;
@@ -385,7 +396,8 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 
   function getValueTemplate(attribute) {
-    return [ attributeMap[attribute].split("{}")[0], attributeMap[attribute].split("{}")[1] ];
+    const template = attributeMap[attribute].template.split("{}");
+    return [ template[0], template[1] ];
   }
 
   function changeSkillTree(treeName) {
@@ -422,28 +434,28 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 
   document.getElementById("reset-tree-button").addEventListener("click", () => {
-    PubSub.publish('resetActiveTree', {treeName: skillTree.getActiveTreeName()});
+    PubSub.publish("resetActiveTree", {treeName: skillTree.getActiveTreeName()});
   });
 
-  PubSub.subscribe('resetActiveTree', data => {
+  PubSub.subscribe("resetActiveTree", data => {
     resetTree(data.treeName);
   });
 
   document.getElementById("reset-all-button").addEventListener("click", () => {
-    PubSub.publish('resetAllTrees', {});
+    PubSub.publish("resetAllTrees", {});
   });
 
-  PubSub.subscribe('resetAllTrees', data => {
+  PubSub.subscribe("resetAllTrees", data => {
     for (let tree of skillTree.getTrees()) {
       resetTree(tree.name);
     }
   });
 
   document.getElementById("select-tree-button").addEventListener("click", () => {
-    PubSub.publish('selectEntireTree', {treeName: skillTree.getActiveTreeName()});
+    PubSub.publish("selectEntireTree", {treeName: skillTree.getActiveTreeName()});
   });
 
-  PubSub.subscribe('selectEntireTree', data => {
+  PubSub.subscribe("selectEntireTree", data => {
     selectAllNodes(data.treeName);
   });
 
@@ -495,11 +507,11 @@ document.addEventListener("DOMContentLoaded", function() {
         }
       })
       .then(function(json) {
-        importTrees(json['trees']);
+        importTrees(json["trees"]);
         updateNodeCounters();
         updateBonuses();
         updateNodeColors();
-        changeSkillTree(json['activeTreeName']);
+        changeSkillTree(json["activeTreeName"]);
         document.getElementById("modal-overlay").classList.add("hide");
       });
 
@@ -608,5 +620,13 @@ document.addEventListener("DOMContentLoaded", function() {
   });
 
   loadFromRemoteId();
+
+  document.getElementById("colorize-nodes-button").addEventListener("click", function(event) {
+    PubSub.publish("toggleNodeColorization");
+  });
+
+  function toggleNodeColorization() {
+    document.getElementById("graph-view").classList.toggle("colorize-nodes");
+  }
 
 });

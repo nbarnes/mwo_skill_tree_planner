@@ -4,7 +4,6 @@ export const PubSub = (function() {
   const subscriptionTopics = {};
 
   function publish(topic, data) {
-    console.log(`publish topic ${topic}`);
     if (subscriptionTopics[topic] == undefined) return;
     for (let subscription_callback of subscriptionTopics[topic]) {
       subscription_callback(data);
@@ -12,7 +11,6 @@ export const PubSub = (function() {
   }
 
   function subscribe(topic, callback) {
-    console.log(`subscribe topic ${topic}`);
     if (subscriptionTopics[topic] == undefined) {
       subscriptionTopics[topic] = [];
     }

@@ -2,6 +2,7 @@
 "use strict";
 
 import { stringToCss } from './util.js'
+import { attributeMap } from "./attribute_map";
 
 export default function SkillTreeFactory(treeSource) {
 
@@ -142,7 +143,11 @@ function NodeFactory(nodeDef) {
     value: parseFloat(nodeDef.value),
     leftChildId: nodeDef.leftChildId,
     centerChildId: nodeDef.centerChildId,
-    rightChildId: nodeDef.rightChildId
+    rightChildId: nodeDef.rightChildId,
+    selectedColor: attributeMap[nodeDef.attribute].selectedColor,
+    availableColor: attributeMap[nodeDef.attribute].availableColor,
+    unavailableColor: attributeMap[nodeDef.attribute].unavailableColor,
+    lockedColor: attributeMap[nodeDef.attribute].lockedColor
   };
 }
 
