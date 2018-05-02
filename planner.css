@@ -167,20 +167,46 @@
   background-color: #00b5f5;
 }
 
+.hex-top-shadow {
+  color: none;
+  background-color: none;
+  position: absolute;
+  width: 39px;
+  height: 36px;
+  top: -8px;
+  left: 8px;
+  z-index: -4;
+  transform: perspective(55px) rotateX(45deg);
+  box-shadow: -1px -6px 19px 8px rgba(0,0,0,1);
+}
+
+.hex-bottom-shadow {
+  color: none;
+  background-color: none;
+  position: absolute;
+  width: 24px;
+  height: 20px;
+  top: 36px;
+  left: 14px;
+  z-index: -4;
+  transform: perspective(55px) rotateX(-45deg);
+  box-shadow: 0px 3px 10px 14px rgba(0,0,0,1);
+}
+
 .hex-text.selected {
   color: black;
 }
 
 .hex-text.locked {
-  color: white;
+  color: black;
 }
 
 .hex-text.available {
-  color: black;
+  color: white;
 }
 
 .hex-text.unavailable {
-  color: black;
+  color: white;
 }
 
 .node-connect-line {

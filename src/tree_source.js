@@ -389,7 +389,7 @@ export let treeSource = [
     name: 'Survival',
     nodes: [
       { name: "Reinforced Casing 1",
-        attribute: "Crit Chance (Received)",
+        attribute: "Crit Chance Received",
         value: "1",
         leftChildId: "shock-absorbance-1",
         rightChildId: "ams-overload-1"
@@ -413,13 +413,13 @@ export let treeSource = [
         rightChildId: "reinforced-casing-3"
       },
 	    { name: "Reinforced Casing 2",
-        attribute: "Crit Chance (Received)",
+        attribute: "Crit Chance Received",
         value: "1",
         leftChildId: "armor-hardening-1",
         centerChildId: "ams-overload-2"
       },
 	    { name: "Reinforced Casing 3",
-        attribute: "Crit Chance (Received)",
+        attribute: "Crit Chance Received",
         value: "1",
         centerChildId: "shock-absorbance-3",
         rightChildId: "skeletal-density-2"
@@ -479,7 +479,7 @@ export let treeSource = [
         centerChildId: "skeletal-density-5"
       },
 	    { name: "Reinforced Casing 4",
-        attribute: "Crit Chance (Received)",
+        attribute: "Crit Chance Received",
         value: "1",
         centerChildId: "skeletal-density-6",
         rightChildId: "reinforced-casing-7"
@@ -490,13 +490,13 @@ export let treeSource = [
         leftChildId: "reinforced-casing-7"
       },
 	    { name: "Reinforced Casing 5",
-        attribute: "Crit Chance (Received)",
+        attribute: "Crit Chance Received",
         value: "1",
         leftChildId: "armor-hardening-4",
         rightChildId: "armor-hardening-5"
       },
 	    { name: "Reinforced Casing 7",
-        attribute: "Crit Chance (Received)",
+        attribute: "Crit Chance Received",
         value: "1",
         leftChildId: "skeletal-density-6",
         rightChildId: "skeletal-density-7"
@@ -526,13 +526,13 @@ export let treeSource = [
         value: "3.1"
       },
 	    { name: "Reinforced Casing 6",
-        attribute: "Crit Chance (Received)",
+        attribute: "Crit Chance Received",
         value: "1",
         leftChildId: "armor-hardening-6",
         centerChildId: "skeletal-density-9"
       },
 	    { name: "Reinforced Casing 8",
-        attribute: "Crit Chance (Received)",
+        attribute: "Crit Chance Received",
         value: "1",
         centerChildId: "skeletal-density-10",
         rightChildId: "skeletal-density-8"
@@ -1297,7 +1297,7 @@ export let treeSource = [
         rightChildId: "enhanced-narc-2"
       },
       { name: "Expanded Reserves",
-        attribute: "Additional Air/Arty Strike",
+        attribute: "Additional Air or Arty Strike",
         value: "1",
         centerChildId: "consumable-slot-3",
         rightChildId: "enhanced-spotting"
@@ -1324,7 +1324,7 @@ export let treeSource = [
         leftChildId: "capture-assist-4"
       },
       { name: "Enhanced Spotting",
-        attribute: "Air/Arty Strike Accuracy",
+        attribute: "Air or Arty Strike Accuracy",
         value: "20"
       },
       { name: "Consumable Slot 2",

@@ -1,124 +1,140 @@
 export let attributeMap = {
 
+
+  /*
+  ==========================================
+                   WEAPONS
+  ==========================================
+  */
   "Weapon Range": {
     template: "+{}%",
-    selectedColor: "white",
-    availableColor: "grey",
-    unavailableColor: "lightblue",
-    lockedColor: "black"
+    selectedColor: "hsl(0, 100%, 80%)",
+    lockedColor: "hsl(0, 100%, 80%)",
+    availableColor: "hsl(0, 100%, 20%)",
+    unavailableColor: "hsl(0, 100%, 20%)"
   },
   "Laser Duration": {
     template: "-{}%",
-    selectedColor: "white",
-    availableColor: "grey",
-    unavailableColor: "lightblue",
-    lockedColor: "black"
+    selectedColor: "hsl(30, 100%, 80%)",
+    lockedColor: "hsl(30, 100%, 80%)",
+    availableColor: "hsl(30, 100%, 20%)",
+    unavailableColor: "hsl(30, 100%, 20%)"
   },
   "Weapon Velocity": {
     template: "+{}%",
-    selectedColor: "white",
-    availableColor: "grey",
-    unavailableColor: "lightblue",
-    lockedColor: "black"
+    selectedColor: "hsl(60, 100%, 80%)",
+    lockedColor: "hsl(60, 100%, 80%)",
+    availableColor: "hsl(60, 100%, 20%)",
+    unavailableColor: "hsl(60, 100%, 20%)"
   },
   "Weapon Cooldown": {
     template: "-{}%",
-    selectedColor: "white",
-    availableColor: "grey",
-    unavailableColor: "lightblue",
-    lockedColor: "black"
+    selectedColor: "hsl(90, 100%, 80%)",
+    lockedColor: "hsl(90, 100%, 80%)",
+    availableColor: "hsl(90, 100%, 20%)",
+    unavailableColor: "hsl(90, 100%, 20%)"
   },
   "Missile Crit Damage": {
     template: "+{}%",
-    selectedColor: "white",
-    availableColor: "grey",
-    unavailableColor: "lightblue",
-    lockedColor: "black"
+    selectedColor: "hsl(120, 100%, 80%)",
+    lockedColor: "hsl(120, 100%, 80%)",
+    availableColor: "hsl(120, 100%, 20%)",
+    unavailableColor: "hsl(120, 100%, 20%)"
   },
   "Gauss Held Time": {
     template: "+{} sec.",
-    selectedColor: "white",
-    availableColor: "grey",
-    unavailableColor: "lightblue",
-    lockedColor: "black"
-  },
-  "Armor": {
-    template: "+{}%",
-    selectedColor: "white",
-    availableColor: "grey",
-    unavailableColor: "lightblue",
-    lockedColor: "black"
-  },
-  "AMS Effectiveness": {
-    template: "+{}%",
-    selectedColor: "white",
-    availableColor: "grey",
-    unavailableColor: "lightblue",
-    lockedColor: "black"
+    selectedColor: "hsl(120, 100%, 80%)",
+    lockedColor: "hsl(120, 100%, 80%)",
+    availableColor: "hsl(120, 100%, 20%)",
+    unavailableColor: "hsl(120, 100%, 20%)"
   },
   "Weapon Heat Gen": {
     template: "-{}%",
-    selectedColor: "white",
-    availableColor: "grey",
-    unavailableColor: "lightblue",
-    lockedColor: "black"
+    selectedColor: "hsl(150, 100%, 80%)",
+    lockedColor: "hsl(150, 100%, 80%)",
+    availableColor: "hsl(150, 100%, 20%)",
+    unavailableColor: "hsl(150, 100%, 20%)"
   },
   "Ballistic Ammo": {
     template: "+{}",
-    selectedColor: "white",
-    availableColor: "grey",
-    unavailableColor: "lightblue",
-    lockedColor: "black"
+    selectedColor: "hsl(240, 100%, 80%)",
+    lockedColor: "hsl(240, 100%, 80%)",
+    availableColor: "hsl(240, 100%, 20%)",
+    unavailableColor: "hsl(240, 100%, 20%)"
   },
   "Missile Ammo": {
     template: "+{}",
-    selectedColor: "white",
-    availableColor: "grey",
-    unavailableColor: "lightblue",
-    lockedColor: "black"
+    selectedColor: "hsl(270, 100%, 80%)",
+    lockedColor: "hsl(270, 100%, 80%)",
+    availableColor: "hsl(270, 100%, 20%)",
+    unavailableColor: "hsl(270, 100%, 20%)"
   },
   "Missile Spread": {
     template: "+{}%",
-    selectedColor: "white",
-    availableColor: "grey",
-    unavailableColor: "lightblue",
-    lockedColor: "black"
+    selectedColor: "hsl(270, 100%, 80%)",
+    lockedColor: "hsl(270, 100%, 80%)",
+    availableColor: "hsl(270, 100%, 20%)",
+    unavailableColor: "hsl(270, 100%, 20%)"
   },
   "LBX Spread": {
     template: "-{}%",
-    selectedColor: "white",
-    availableColor: "grey",
-    unavailableColor: "lightblue",
-    lockedColor: "black"
-  },
-  "Fall Damage": {
-    template: "-{}%",
-    selectedColor: "white",
-    availableColor: "grey",
-    unavailableColor: "lightblue",
-    lockedColor: "black"
+    selectedColor: "hsl(300, 100%, 80%)",
+    lockedColor: "hsl(300, 100%, 80%)",
+    availableColor: "hsl(300, 100%, 20%)",
+    unavailableColor: "hsl(300, 100%, 20%)"
   },
   "UAC Jam Chance": {
     template: "-{}%",
-    selectedColor: "white",
-    availableColor: "grey",
-    unavailableColor: "lightblue",
-    lockedColor: "black"
+    selectedColor: "hsl(330, 100%, 80%)",
+    lockedColor: "hsl(330, 100%, 80%)",
+    availableColor: "hsl(330, 100%, 20%)",
+    unavailableColor: "hsl(330, 100%, 20%)"
   },
-  "Crit Chance (Received)": {
+  /*
+  ==========================================
+                  SURVIVAL
+  ==========================================
+  */
+  "Armor": {
+    template: "+{}%",
+    selectedColor: "white",
+    lockedColor: "black",
+    availableColor: "grey",
+    unavailableColor: "lightblue"
+  },
+  "AMS Effectiveness": {
+    template: "+{}%",
+    selectedColor: "#804218",
+    lockedColor: "#552402",
+    availableColor: "#D09269",
+    unavailableColor: "#FBCAA8"
+  },
+  "Crit Chance Received": {
     template: "-{}%",
     selectedColor: "white",
+    lockedColor: "black",
     availableColor: "grey",
-    unavailableColor: "lightblue",
-    lockedColor: "black"
+    unavailableColor: "lightblue"
   },
   "Internal Structure": {
     template: "+{}%",
     selectedColor: "white",
+    lockedColor: "black",
     availableColor: "grey",
-    unavailableColor: "lightblue",
-    lockedColor: "black"
+    unavailableColor: "lightblue"
   },
+  "Fall Damage": {
+    template: "-{}%",
+    selectedColor: "hsl(0, 100%, 80%)",
+    unavailableColor: "hsl(0, 100%, 20%)",
+    lockedColor: "hsl(0, 100%, 80%)",
+    availableColor: "hsl(0, 100%, 20%)"
+  },
+  /*
+  ==========================================
+                    MOBiLITY
+  ==========================================
+  */
   "Acceleration": {
     template: "+{}%",
     selectedColor: "white",
@@ -175,6 +191,11 @@ export let attributeMap = {
     unavailableColor: "lightblue",
     lockedColor: "black"
   },
+  /*
+  ==========================================
+                  JUMP JETS
+  ==========================================
+  */
   "Jump Jet Heat Reduction": {
     template: "-{}%",
     selectedColor: "white",
@@ -210,6 +231,11 @@ export let attributeMap = {
     unavailableColor: "lightblue",
     lockedColor: "black"
   },
+  /*
+  ==========================================
+                 OPERATIONS
+  ==========================================
+  */
   "Startup Speed": {
     template: "-{}%",
     selectedColor: "white",
@@ -245,6 +271,11 @@ export let attributeMap = {
     unavailableColor: "lightblue",
     lockedColor: "black"
   },
+  /*
+  ==========================================
+                   SENSORS
+  ==========================================
+  */
   "Target Info Speed": {
     template: "+{}%",
     selectedColor: "white",
@@ -301,6 +332,11 @@ export let attributeMap = {
     unavailableColor: "lightblue",
     lockedColor: "black"
   },
+  /*
+  ==========================================
+                  AUXILIARY
+  ==========================================
+  */
   "Consumable Slots": {
     template: "+{}",
     selectedColor: "white",
@@ -357,14 +393,14 @@ export let attributeMap = {
     unavailableColor: "lightblue",
     lockedColor: "black"
   },
-  "Additional Air/Arty Strike": {
+  "Additional Air or Arty Strike": {
     template: "+{}",
     selectedColor: "white",
     availableColor: "grey",
     unavailableColor: "lightblue",
     lockedColor: "black"
   },
-  "Air/Arty Strike Accuracy": {
+  "Air or Arty Strike Accuracy": {
     template: "-{}%",
     selectedColor: "white",
     availableColor: "grey",

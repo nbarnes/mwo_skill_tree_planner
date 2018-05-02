@@ -22,6 +22,18 @@ document.addEventListener("DOMContentLoaded", function() {
     });
     updateNodeCounters();
     document.getElementById("node-total").textContent = maxSkillNodes;
+
+    let colorizationStylesElement = document.createElement('style');
+    document.head.appendChild(colorizationStylesElement);
+    let colorizationStyles = colorizationStylesElement.sheet;
+
+    for (let attribute of Object.getOwnPropertyNames(attributeMap)) {
+      colorizationStyles.insertRule(`#graph-view.colorize-nodes .${stringToCss(attribute)} .hex-component.selected { background-color: ${ attributeMap[attribute].selectedColor }; }`);
+      colorizationStyles.insertRule(`#graph-view.colorize-nodes .${stringToCss(attribute)} .hex-component.available { background-color: ${ attributeMap[attribute].availableColor }; }`);
+      colorizationStyles.insertRule(`#graph-view.colorize-nodes .${stringToCss(attribute)} .hex-component.unavailable { background-color: ${ attributeMap[attribute].unavailableColor }; }`);
+      colorizationStyles.insertRule(`#graph-view.colorize-nodes .${stringToCss(attribute)} .hex-component.locked { background-color: ${ attributeMap[attribute].lockedColor }; }`);
+    }
+
   }
 
   buildUI(skillTree.getTrees());
@@ -73,10 +85,6 @@ document.addEventListener("DOMContentLoaded", function() {
     var leftmostNodeElement = 0;
     var rightmostNodeElement = 0;
 
-    let colorizationStylesElement = document.createElement('style');
-    document.head.appendChild(colorizationStylesElement);
-    let colorizationStyles = colorizationStylesElement.sheet;
-
     for (let node of tree.nodes) {
       let nodeFrameElement = buildNodeElement(node);
 
@@ -121,11 +129,6 @@ document.addEventListener("DOMContentLoaded", function() {
       if (leftPosition > rightmostNodeElement) {
         rightmostNodeElement = leftPosition;
       }
-
-      colorizationStyles.insertRule(`#graph-view.colorize-nodes .hex-component.selected { background-color: ${ node.selectedColor }; }`);
-      colorizationStyles.insertRule(`#graph-view.colorize-nodes .hex-component.available { background-color: ${ node.availableColor }; }`);
-      colorizationStyles.insertRule(`#graph-view.colorize-nodes .hex-component.unavailable { background-color: ${ node.unavailabledColor }; }`);
-      colorizationStyles.insertRule(`#graph-view.colorize-nodes .hex-component.locked { background-color: ${ node.lockedColor }; }`);
 
       treeElement.appendChild(nodeFrameElement);
 
@@ -172,6 +175,7 @@ document.addEventListener("DOMContentLoaded", function() {
         }
       }
     }
+
   }
 
   function buildNodeElement(node) {
@@ -180,15 +184,20 @@ document.addEventListener("DOMContentLoaded", function() {
     let nodeTextElement = document.createElement("div");
     let nodeValueElement = document.createElement("div");
     let hexBottomElement = document.createElement("div");
+    let hexTopShadowElement = document.createElement("div");
+    let hexBottomShadowElement = document.createElement("div");
 
     nodeFrameElement.classList.add("node-element");
     hexTopElement.classList.add("node-element");
     nodeTextElement.classList.add("node-element");
     nodeValueElement.classList.add("node-element");
     hexBottomElement.classList.add("node-element");
+    hexTopShadowElement.classList.add("node-element");
+    hexBottomShadowElement.classList.add("node-element");
 
-    nodeFrameElement.classList.add("graph-node");
     nodeFrameElement.id = node.id;
+    nodeFrameElement.classList.add("graph-node");
+    nodeFrameElement.classList.add(`${stringToCss(node.attribute)}`);
 
     hexTopElement.classList.add("hex-top");
     hexTopElement.classList.add("hex-component");
@@ -197,6 +206,8 @@ document.addEventListener("DOMContentLoaded", function() {
     nodeValueElement.classList.add("hex-value");
     hexBottomElement.classList.add("hex-bottom");
     hexBottomElement.classList.add("hex-component");
+    hexTopShadowElement.classList.add("hex-top-shadow");
+    hexBottomShadowElement.classList.add("hex-bottom-shadow");
 
     nodeTextElement.textContent = node.name;
     nodeValueElement.textContent = getValueTemplate(node.attribute)[0] + node.value + getValueTemplate(node.attribute)[1];
@@ -205,6 +216,8 @@ document.addEventListener("DOMContentLoaded", function() {
     nodeFrameElement.append(nodeTextElement);
     nodeFrameElement.append(nodeValueElement);
     nodeFrameElement.append(hexBottomElement);
+    nodeFrameElement.append(hexTopShadowElement);
+    nodeFrameElement.append(hexBottomShadowElement);
 
     return nodeFrameElement;
   }
