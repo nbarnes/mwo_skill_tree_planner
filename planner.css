@@ -171,13 +171,13 @@
   color: none;
   background-color: none;
   position: absolute;
-  width: 39px;
-  height: 36px;
-  top: -8px;
-  left: 8px;
+  width: 24px;
+  height: 24px;
+  top: 0px;
+  left: 15px;
   z-index: -4;
   transform: perspective(55px) rotateX(45deg);
-  box-shadow: -1px -6px 19px 8px rgba(0,0,0,1);
+  box-shadow: -1px -6px 15px 14px rgba(0,0,0,1);
 }
 
 .hex-bottom-shadow {
@@ -185,12 +185,12 @@
   background-color: none;
   position: absolute;
   width: 24px;
-  height: 20px;
-  top: 36px;
+  height: 23px;
+  top: 33px;
   left: 14px;
   z-index: -4;
   transform: perspective(55px) rotateX(-45deg);
-  box-shadow: 0px 3px 10px 14px rgba(0,0,0,1);
+  box-shadow: 0px 3px 15px 14px rgba(0,0,0,1);
 }
 
 .hex-text.selected {
