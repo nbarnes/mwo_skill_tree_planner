@@ -5,7 +5,7 @@ import { attributeMap } from "./attribute_map";
 export let maxSkillNodes = 91; // total allowed number of selected skill nodes, per MWO
 
 export let stringToCss = (string) => {
-  return string.replace(/ /g, "-").toLowerCase();
+  return string.replace(/ \/ /g, "-").replace(/ /g, "-").toLowerCase();
 }
 
 // strips the "px" off the end of a CSS dimension, returns the number value

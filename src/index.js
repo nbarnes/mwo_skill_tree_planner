@@ -31,6 +31,7 @@ document.addEventListener("DOMContentLoaded", function() {
   PubSub.subscribe("treeTabClicked", data => {
     changeSkillTree(data.treeName);
   });
+
   PubSub.subscribe("nodeClicked", data => nodeClicked(data.node));
 
   PubSub.subscribe("toggleNodeColorization", data => toggleNodeColorization());
@@ -190,7 +191,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
   function changeSkillTree(treeName) {
     skillTree.setActiveTreeName(treeName);
-    document.querySelectorAll(".tab").forEach(function (el) {
+    document.querySelectorAll(".treeTab").forEach(function (el) {
       el.classList.remove("selected");
     });
     getTabForTreeName(treeName).classList.add("selected");

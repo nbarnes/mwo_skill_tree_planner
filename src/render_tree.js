@@ -2,6 +2,7 @@
 "use strict";
 
 import * as Util from "./util.js";
+import { PubSub } from "./pub_sub.js";
 
 export default function InterfaceBuilder(skillTree) {
 
@@ -16,7 +17,7 @@ export default function InterfaceBuilder(skillTree) {
     let topOffset = 50;
     let tabElement = document.createElement("div");
     tabElement.id = Util.stringToCss(tree.name + "-tab");
-    tabElement.classList.add("tab");
+    tabElement.classList.add("treeTab");
     tabElement.style.top = (40 * index) + 55 + "px";
     tabElement.textContent = tree.name;
 
@@ -25,6 +26,10 @@ export default function InterfaceBuilder(skillTree) {
     counterElement.classList.add("tab-counter");
     counterElement.textContent = "0 / " + skillTree.getNodeCount(tree.name);
     tabElement.appendChild(counterElement);
+
+    tabElement.addEventListener("click", () => {
+      PubSub.publish("treeTabClicked", {treeName: tree.name});
+    });
 
     document.getElementById("total-nodes-display").after(tabElement);
   }

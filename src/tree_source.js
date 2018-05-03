@@ -1297,7 +1297,7 @@ export let treeSource = [
         rightChildId: "enhanced-narc-2"
       },
       { name: "Expanded Reserves",
-        attribute: "Additional Air or Arty Strike",
+        attribute: "Additional Air / Arty Strike",
         value: "1",
         centerChildId: "consumable-slot-3",
         rightChildId: "enhanced-spotting"
@@ -1324,7 +1324,7 @@ export let treeSource = [
         leftChildId: "capture-assist-4"
       },
       { name: "Enhanced Spotting",
-        attribute: "Air or Arty Strike Accuracy",
+        attribute: "Air / Arty Strike Accuracy",
         value: "20"
       },
       { name: "Consumable Slot 2",
