@@ -4,39 +4,29 @@
 import { treeSource } from "./tree_source";
 import { attributeMap } from "./attribute_map";
 import SkillTreeFactory from "./skill_tree";
-import { stringToCss, dimensionAsNumber } from "./util.js";
+import * as Util from "./util.js";
 import { PubSub } from "./pub_sub.js";
+import InterfaceBuilder from "./render_tree.js";
 
 document.addEventListener("DOMContentLoaded", function() {
 
-  let maxSkillNodes = 91;
   let cbillsPerNode = 60000;
   let xpPerNode = 800;
 
   let skillTree = SkillTreeFactory(treeSource);
 
-  function buildUI(trees) {
-    trees.forEach(function(tree, index) {
-      buildTab(tree, index);
-      buildTreeDisplay(tree);
-    });
-    updateNodeCounters();
-    document.getElementById("node-total").textContent = maxSkillNodes;
+  let colorizationStylesElement = document.createElement('style');
+  document.head.appendChild(colorizationStylesElement);
+  let colorizationStyles = colorizationStylesElement.sheet;
 
-    let colorizationStylesElement = document.createElement('style');
-    document.head.appendChild(colorizationStylesElement);
-    let colorizationStyles = colorizationStylesElement.sheet;
-
-    for (let attribute of Object.getOwnPropertyNames(attributeMap)) {
-      colorizationStyles.insertRule(`#graph-view.colorize-nodes .${stringToCss(attribute)} .hex-component.selected { background-color: hsl(${ attributeMap[attribute].hue }, 100%, 80%); }`);
-      colorizationStyles.insertRule(`#graph-view.colorize-nodes .${stringToCss(attribute)} .hex-component.locked { background-color: hsl(${ attributeMap[attribute].hue }, 100%, 80%); }`);
-      colorizationStyles.insertRule(`#graph-view.colorize-nodes .${stringToCss(attribute)} .hex-component.available { background-color: hsl(${ attributeMap[attribute].hue }, 100%, 20%); }`);
-      colorizationStyles.insertRule(`#graph-view.colorize-nodes .${stringToCss(attribute)} .hex-component.unavailable { background-color: hsl(${ attributeMap[attribute].hue }, 100%, 20%); }`);
-    }
-
+  for (let attribute of Object.getOwnPropertyNames(attributeMap)) {
+    colorizationStyles.insertRule(`#graph-view.colorize-nodes .${Util.stringToCss(attribute)} .hex-component.selected { background-color: hsl(${ attributeMap[attribute].hue }, 100%, 80%); }`);
+    colorizationStyles.insertRule(`#graph-view.colorize-nodes .${Util.stringToCss(attribute)} .hex-component.locked { background-color: hsl(${ attributeMap[attribute].hue }, 100%, 80%); }`);
+    colorizationStyles.insertRule(`#graph-view.colorize-nodes .${Util.stringToCss(attribute)} .hex-component.available { background-color: hsl(${ attributeMap[attribute].hue }, 100%, 20%); }`);
+    colorizationStyles.insertRule(`#graph-view.colorize-nodes .${Util.stringToCss(attribute)} .hex-component.unavailable { background-color: hsl(${ attributeMap[attribute].hue }, 100%, 20%); }`);
   }
 
-  buildUI(skillTree.getTrees());
+  InterfaceBuilder(skillTree);
 
   PubSub.subscribe("treeTabClicked", data => {
     changeSkillTree(data.treeName);
@@ -47,221 +37,11 @@ document.addEventListener("DOMContentLoaded", function() {
 
   PubSub.publish("treeTabClicked", {treeName: skillTree.getTrees()[0].name});
 
-  function buildTab(tree, index) {
-    let tabHeight = 40; // matches element height defined in planner.css
-    let topOffset = 50;
-    let tabElement = document.createElement("div");
-    tabElement.id = stringToCss(tree.name + "-tab");
-    tabElement.classList.add("tab");
-    tabElement.style.top = (40 * index) + 55 + "px";
-    tabElement.textContent = tree.name;
-
-    let counterElement = document.createElement("div");
-    counterElement.id = tree.name.toLowerCase() + "-tab-counter";
-    counterElement.classList.add("tab-counter");
-    counterElement.textContent = "0 / " + skillTree.getNodeCount(tree.name);
-    tabElement.appendChild(counterElement);
-
-    tabElement.addEventListener("click", function() {
-      PubSub.publish("treeTabClicked", {treeName: tree.name});
-    });
-
-    document.getElementById("total-nodes-display").after(tabElement);
-  }
-
-  function buildTreeDisplay(tree) {
-    let treeElement = document.createElement("div");
-    treeElement.id = treeNameToId(tree.name);
-    treeElement.classList.add("skill-tree");
-    treeElement.classList.add("hide");
-    document.getElementById("graph-view").appendChild(treeElement);
-
-    // TODO: need to do something here to sort the node array.  Probably search
-    // it each time you add a node and add the children of that node to a queue
-    // to be the next loaded
-
-    let xOffset = 65;
-    let yOffset = 38;
-    var leftmostNodeElement = 0;
-    var rightmostNodeElement = 0;
-
-    for (let node of tree.nodes) {
-      let nodeFrameElement = buildNodeElement(node);
-
-      // the first element in nodes is the root node, so it starts available
-      if (node == tree.nodes[0])
-        nodeFrameElement.querySelectorAll(".node-element").forEach(function(element) {
-          element.classList.add("available");
-        });
-      else {
-        nodeFrameElement.querySelectorAll(".node-element").forEach(function(element) {
-          element.classList.add("unavailable");
-        });
-      }
-
-      let parent = skillTree.parentsOf(node)[0];
-      if (parent != undefined) {
-        let relativeChildPostiion = getRelativeChildPosition(parent, node);
-        let parentElement = document.getElementById(parent.id);
-
-        let parentTop = dimensionAsNumber(parentElement.style.top);
-        let parentLeft = dimensionAsNumber(parentElement.style.left);
-
-        if (relativeChildPostiion == "left") {
-          nodeFrameElement.style.top = parentTop + yOffset + "px";
-          nodeFrameElement.style.left = parentLeft - xOffset + "px";
-        } else if (relativeChildPostiion == "right") {
-          nodeFrameElement.style.top = parentTop + yOffset + "px";
-          nodeFrameElement.style.left = parentLeft + xOffset + "px";
-        } else {
-          nodeFrameElement.style.top = parentTop + (yOffset * 2) + "px";
-          nodeFrameElement.style.left = parentLeft + "px";
-        }
-      } else {
-        nodeFrameElement.style.top = "25px";
-        nodeFrameElement.style.left = "26px";
-      }
-
-      let leftPosition = dimensionAsNumber(nodeFrameElement.style.left);
-      if (leftPosition < leftmostNodeElement) {
-        leftmostNodeElement = leftPosition;
-      }
-      if (leftPosition > rightmostNodeElement) {
-        rightmostNodeElement = leftPosition;
-      }
-
-      treeElement.appendChild(nodeFrameElement);
-
-      nodeFrameElement.addEventListener("click", function() {
-        PubSub.publish("nodeClicked", {node: node});
-      });
-
-    }
-
-    let nodeWidth = 52; // width of a graph node, per planner.css
-    let padding = 25; // "padding" here rather than in css because "absolute" positioning of the
-                      // node elements throws off alignment of css padding
-    let treeWidth = rightmostNodeElement - leftmostNodeElement + nodeWidth + (padding * 2);
-    treeElement.style.width = treeWidth + "px";
-    document.getElementById(treeNameToId(tree.name)).querySelectorAll(".graph-node").forEach(function (el) {
-      let newLeft = dimensionAsNumber(el.style.left) + (-leftmostNodeElement) + padding + "px";
-      el.style.left = newLeft;
-    });
-
-    for (let node of tree.nodes) {
-      let parentElement = document.getElementById(node.id);
-      if (node.leftChildId != undefined) {
-        let leftChildElement = document.getElementById(node.leftChildId);
-        if (leftChildElement == null) {
-          console.log("left child id results in null = " + node.leftChildId + " for parent " + parentElement.id);
-        } else {
-          drawLineBetweenNodes(parentElement, leftChildElement, treeElement);
-        }
-      }
-      if (node.centerChildId != undefined) {
-        let centerChildElement = document.getElementById(node.centerChildId);
-        if (centerChildElement == null) {
-          console.log("center child id results in null = " + node.centerChildId + " for parent " + parentElement.id);
-        } else {
-          drawLineBetweenNodes(parentElement, centerChildElement, treeElement);
-        }
-      }
-      if (node.rightChildId != undefined) {
-        let rightChildElement = document.getElementById(node.rightChildId);
-        if (rightChildElement == null) {
-          console.log("right child id results in null = " + node.rightChildId + " for parent " + parentElement.id);
-        } else {
-          drawLineBetweenNodes(parentElement, rightChildElement, treeElement);
-        }
-      }
-    }
-
-  }
-
-  function buildNodeElement(node) {
-    let nodeFrameElement = document.createElement("div");
-    let hexTopElement = document.createElement("div");
-    let nodeTextElement = document.createElement("div");
-    let nodeValueElement = document.createElement("div");
-    let hexBottomElement = document.createElement("div");
-    let hexTopShadowElement = document.createElement("div");
-    let hexBottomShadowElement = document.createElement("div");
-
-    nodeFrameElement.classList.add("node-element");
-    hexTopElement.classList.add("node-element");
-    nodeTextElement.classList.add("node-element");
-    nodeValueElement.classList.add("node-element");
-    hexBottomElement.classList.add("node-element");
-    hexTopShadowElement.classList.add("node-element");
-    hexBottomShadowElement.classList.add("node-element");
-
-    nodeFrameElement.id = node.id;
-    nodeFrameElement.classList.add("graph-node");
-    nodeFrameElement.classList.add(`${stringToCss(node.attribute)}`);
-
-    hexTopElement.classList.add("hex-top");
-    hexTopElement.classList.add("hex-component");
-    nodeTextElement.classList.add("hex-text");
-    nodeValueElement.classList.add("hex-text");
-    nodeValueElement.classList.add("hex-value");
-    hexBottomElement.classList.add("hex-bottom");
-    hexBottomElement.classList.add("hex-component");
-    hexTopShadowElement.classList.add("hex-top-shadow");
-    hexBottomShadowElement.classList.add("hex-bottom-shadow");
-
-    nodeTextElement.textContent = node.name;
-    nodeValueElement.textContent = getValueTemplate(node.attribute)[0] + node.value + getValueTemplate(node.attribute)[1];
-
-    nodeFrameElement.append(hexTopElement);
-    nodeFrameElement.append(nodeTextElement);
-    nodeFrameElement.append(nodeValueElement);
-    nodeFrameElement.append(hexBottomElement);
-    nodeFrameElement.append(hexTopShadowElement);
-    nodeFrameElement.append(hexBottomShadowElement);
-
-    return nodeFrameElement;
-  }
-
-  function drawLineBetweenNodes(parentElement, childElement, treeElement) {
-    let lineElement = document.createElement("div");
-    lineElement.classList.add("node-connect-line");
-
-    let parentX = dimensionAsNumber(parentElement.style.left);
-    let parentY = dimensionAsNumber(parentElement.style.top);
-    let childX = dimensionAsNumber(childElement.style.left);
-    let childY = dimensionAsNumber(childElement.style.top);
-
-    lineElement.style.width = childY - parentY + 15 + "px";
-
-    let midX = (parentX + childX) / 2;
-    let midY = (parentY + childY) / 2;
-
-    let angle  = (Math.atan2(parentY - childY, parentX - childX) * 180 / Math.PI) + 180;
-    let transform = "rotate(" + (angle) + "deg)";
-
-    lineElement.style.transform = transform;
-    lineElement.style.top = (parentY + 26) + "px";
-    lineElement.style.left = (parentX + 26) + "px";
-
-    treeElement.appendChild(lineElement);
-  }
-
-  function getRelativeChildPosition(parent, child) {
-    if (parent.leftChildId == child.id) {
-      return "left";
-    } else if (parent.centerChildId == child.id) {
-      return "center";
-    } else if (parent.rightChildId == child.id) {
-      return "right";
-    }
-    return "child not found in getRelativeChildPosition()"
-  }
-
   function nodeClicked(node) {
     if (node.selected) {
       attemptNodeDeselection(node);
     } else {
-      if (nodeAvailableForSelection(node) && (skillTree.getSelectedNodes().length < maxSkillNodes)) {
+      if (nodeAvailableForSelection(node) && (skillTree.getSelectedNodes().length < Util.maxSkillNodes)) {
         node.selected = true;
       }
     }
@@ -389,7 +169,7 @@ document.addEventListener("DOMContentLoaded", function() {
     bonuses.forEach((bonus, index) => {
       let bonusDisplayElement = document.createElement("div");
       bonusDisplayElement.classList.add("bonus-display");
-      bonusDisplayElement.textContent = bonus.attribute + " " + getValueTemplate(bonus.attribute)[0] + bonus.value + getValueTemplate(bonus.attribute)[1];
+      bonusDisplayElement.textContent = bonus.attribute + " " + Util.getValueTemplate(bonus.attribute)[0] + bonus.value + Util.getValueTemplate(bonus.attribute)[1];
       bonusFrame.append(bonusDisplayElement);
     });
     document.getElementById("bonuses-display").append(bonusFrame);
@@ -408,11 +188,6 @@ document.addEventListener("DOMContentLoaded", function() {
     }
   }
 
-  function getValueTemplate(attribute) {
-    const template = attributeMap[attribute].template.split("{}");
-    return [ template[0], template[1] ];
-  }
-
   function changeSkillTree(treeName) {
     skillTree.setActiveTreeName(treeName);
     document.querySelectorAll(".tab").forEach(function (el) {
@@ -423,20 +198,16 @@ document.addEventListener("DOMContentLoaded", function() {
     document.querySelectorAll(".skill-tree").forEach(function (el) {
       el.classList.add("hide");
     });
-    let treeElement = document.getElementById(treeNameToId(treeName));
+    let treeElement = document.getElementById(Util.treeNameToId(treeName));
     treeElement.classList.remove("hide");
-    let treeDisplayWidth = dimensionAsNumber(treeElement.style.width);
+    let treeDisplayWidth = Util.dimensionAsNumber(treeElement.style.width);
     let totalWidth = (treeDisplayWidth + 294) + "px"
     document.getElementById("modal-overlay").style.width = totalWidth;
     document.getElementById("footer").style.width = totalWidth;
   }
 
   function getTabForTreeName(treeName) {
-    return document.getElementById(stringToCss(treeName) + "-tab");
-  }
-
-  function treeNameToId(treeName) {
-     return stringToCss(treeName) + "-skill-tree";
+    return document.getElementById(Util.stringToCss(treeName) + "-tab");
   }
 
   function removeNodeClasses(nodeElement) {
@@ -484,7 +255,7 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 
   function selectAllNodes(treeName) {
-    let availableNodes = maxSkillNodes - skillTree.getSelectedNodes().length;
+    let availableNodes = Util.maxSkillNodes - skillTree.getSelectedNodes().length;
     let tree = skillTree.getTree(treeName);
     if (availableNodes > tree.nodes.length) {
       for (let node of tree.nodes) {
