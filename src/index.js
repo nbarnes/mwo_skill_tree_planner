@@ -6,268 +6,41 @@ import { attributeMap } from "./attribute_map";
 import SkillTreeFactory from "./skill_tree";
 import * as Util from "./util.js";
 import { PubSub } from "./pub_sub.js";
-import InterfaceBuilder from "./render_tree.js";
+import renderTree from "./render_tree.js";
+import wireEvents from "./event_wiring.js";
 
 document.addEventListener("DOMContentLoaded", function() {
-
-  let cbillsPerNode = 60000;
-  let xpPerNode = 800;
 
   let skillTree = SkillTreeFactory(treeSource);
 
   let colorizationStylesElement = document.createElement('style');
   document.head.appendChild(colorizationStylesElement);
   let colorizationStyles = colorizationStylesElement.sheet;
-
   for (let attribute of Object.getOwnPropertyNames(attributeMap)) {
-    colorizationStyles.insertRule(`#graph-view.colorize-nodes .${Util.stringToCss(attribute)} .hex-component.selected { background-color: hsl(${ attributeMap[attribute].hue }, 100%, 80%); }`);
-    colorizationStyles.insertRule(`#graph-view.colorize-nodes .${Util.stringToCss(attribute)} .hex-component.locked { background-color: hsl(${ attributeMap[attribute].hue }, 100%, 80%); }`);
-    colorizationStyles.insertRule(`#graph-view.colorize-nodes .${Util.stringToCss(attribute)} .hex-component.available { background-color: hsl(${ attributeMap[attribute].hue }, 100%, 20%); }`);
-    colorizationStyles.insertRule(`#graph-view.colorize-nodes .${Util.stringToCss(attribute)} .hex-component.unavailable { background-color: hsl(${ attributeMap[attribute].hue }, 100%, 20%); }`);
+    colorizationStyles.insertRule(`#graph-view.colorize-nodes .${Util.stringToCss(attribute)} .hex-component.selected { background-color: hsl(${ attributeMap[attribute].hue }, 100%, 20%); }`);
+    colorizationStyles.insertRule(`#graph-view.colorize-nodes .${Util.stringToCss(attribute)} .hex-component.locked { background-color: hsl(${ attributeMap[attribute].hue }, 100%, 20%); }`);
+    colorizationStyles.insertRule(`#graph-view.colorize-nodes .${Util.stringToCss(attribute)} .hex-component.available { background-color: hsl(${ attributeMap[attribute].hue }, 90%, 70%); }`);
+    colorizationStyles.insertRule(`#graph-view.colorize-nodes .${Util.stringToCss(attribute)} .hex-component.unavailable { background-color: hsl(${ attributeMap[attribute].hue }, 90%, 70%); }`);
   }
 
-  InterfaceBuilder(skillTree);
-
-  PubSub.subscribe("treeTabClicked", data => {
-    changeSkillTree(data.treeName);
-  });
-
-  PubSub.subscribe("nodeClicked", data => nodeClicked(data.node));
+  renderTree(skillTree);
+  wireEvents(skillTree);
 
   PubSub.subscribe("toggleNodeColorization", data => toggleNodeColorization());
 
   PubSub.publish("treeTabClicked", {treeName: skillTree.getTrees()[0].name});
 
-  function nodeClicked(node) {
-    if (node.selected) {
-      attemptNodeDeselection(node);
-    } else {
-      if (nodeAvailableForSelection(node) && (skillTree.getSelectedNodes().length < Util.maxSkillNodes)) {
-        node.selected = true;
-      }
-    }
-    updateNodeColors(skillTree.getActiveTreeName());
-    updateNodeCounters(skillTree.getActiveTreeName());
-    updateBonuses();
-    revertURL();
-  }
-
-  function updateNodeColors(treeName) {
-    if (treeName == undefined) {
-      for (let tree of skillTree.getTrees()) {
-        updateNodeColors(tree.name);
-      }
-    } else {
-      let tree = skillTree.getTree(treeName);
-      for (let node of tree.nodes) {
-        updateNodeColor(node);
-      }
-    }
-  }
-
-  function attemptNodeDeselection(node) {
-    if (safeToDeselect(node)) {
-      node.selected = false;
-      updateNodeColor(node);
-    }
-    for (let child of skillTree.childrenOf(node)) {
-      updateNodeColor(child);
-    }
-    for (let parent of skillTree.parentsOf(node)) {
-      updateNodeColor(parent);
-    }
-  }
-
-  function updateNodeColor(node) {
-    if (node.selected) {
-      if (safeToDeselect(node)) {
-        setNodeElementColors(node, "selected");
-      } else {
-        setNodeElementColors(node, "locked");
-      }
-    } else {
-      if (nodeAvailableForSelection(node)) {
-        setNodeElementColors(node, "available");
-      } else {
-        setNodeElementColors(node, "unavailable");
-      }
-    }
-  }
-
-  function safeToDeselect(node) {
-    var safeToDeselect = true;
-    for (let child of skillTree.childrenOf(node)) {
-      if (child.selected) {
-        // Set node in question to deselected to see if the chlid is still elegible for selection
-        // based on other parents.  We"ll set it back to selected after we"re done with that check.
-        node.selected = false;
-        safeToDeselect = nodeAvailableForSelection(child) && safeToDeselect;
-        node.selected = true;
-      }
-    }
-    return safeToDeselect;
-  }
-
-  function nodeAvailableForSelection(node) {
-    var parentIsSelected = false;
-    for (let parent of skillTree.parentsOf(node)) {
-      parentIsSelected = parent.selected || parentIsSelected;
-    }
-    parentIsSelected = parentIsSelected || (skillTree.parentsOf(node).length === 0);
-    return parentIsSelected;
-  }
-
-  function setNodeElementColors(node, state) {
-    document.getElementById(node.id).querySelectorAll(".node-element").forEach(function(element) {
-      removeNodeClasses(element);
-      element.classList.add(state);
-    });
-  }
-
-  function updateNodeDisplay(treeName) {
-    if (treeName == undefined) {
-      for (let tree of skillTree.getTrees()) {
-        updateNodeDisplay(tree.name);
-      }
-    } else {
-      for (let node of skillTree.getTres(treeName).nodes) {
-        updateNodeColor(node);
-      }
-    }
-  }
-
-  function updateNodeCounters(treeName) {
-    let totalNodesSelected = skillTree.getSelectedNodes().length;
-    document.getElementById("node-selection-counter").textContent = totalNodesSelected;
-    if (treeName == undefined) {
-      for (let tree of skillTree.getTrees()) {
-        updateNodeCounters(tree.name);
-      }
-    } else {
-      let tab = document.getElementById(treeName.toLowerCase() + "-tab-counter");
-      let nodesSelected = skillTree.getSelectedNodes(treeName).length;
-      let nodesTotal = skillTree.getNodeCount(treeName);
-      tab.textContent = nodesSelected + " / " + nodesTotal;
-    }
-    let totalCbillCost = (totalNodesSelected * cbillsPerNode).toLocaleString("en-US") + " C-Bills and";
-    let totalXpCost = (totalNodesSelected * xpPerNode).toLocaleString("en-US") + " XP / GXP";
-    document.getElementById("cost-totals-display").innerHTML = totalCbillCost + "</br>" + totalXpCost;
-  }
-
-  function updateBonuses() {
-    let bonuses = [];
-    let nodes = skillTree.getSelectedNodes();
-    for (let node of nodes) {
-      let bonusForAttribute = getBonusForAttribute(bonuses, node.attribute);
-      if (bonusForAttribute != undefined) {
-        bonusForAttribute.value = ((bonusForAttribute.value * 10) + (node.value * 10)) / 10;
-      } else {
-        bonuses.push({attribute: node.attribute, value: node.value, valueTemplate: node.valueTemplate});
-      }
-    }
-    document.getElementById("bonuses-display").innerHTML = "";
-    let bonusFrame = document.createDocumentFragment();
-    bonuses.forEach((bonus, index) => {
-      let bonusDisplayElement = document.createElement("div");
-      bonusDisplayElement.classList.add("bonus-display");
-      bonusDisplayElement.textContent = bonus.attribute + " " + Util.getValueTemplate(bonus.attribute)[0] + bonus.value + Util.getValueTemplate(bonus.attribute)[1];
-      bonusFrame.append(bonusDisplayElement);
-    });
-    document.getElementById("bonuses-display").append(bonusFrame);
-    if (document.getElementById("bonuses-display").offsetHeight > 560) {
-      document.querySelectorAll(".bonus-display").forEach(function (el) {
-        el.style.fontSize= "12px";
-      });
-    }
-  }
-
-  function getBonusForAttribute(bonuses, attribute) {
-    for (let bonus of bonuses) {
-      if (bonus.attribute == attribute) {
-        return bonus;
-      }
-    }
-  }
-
-  function changeSkillTree(treeName) {
-    skillTree.setActiveTreeName(treeName);
-    document.querySelectorAll(".treeTab").forEach(function (el) {
-      el.classList.remove("selected");
-    });
-    getTabForTreeName(treeName).classList.add("selected");
-
-    document.querySelectorAll(".skill-tree").forEach(function (el) {
-      el.classList.add("hide");
-    });
-    let treeElement = document.getElementById(Util.treeNameToId(treeName));
-    treeElement.classList.remove("hide");
-    let treeDisplayWidth = Util.dimensionAsNumber(treeElement.style.width);
-    let totalWidth = (treeDisplayWidth + 294) + "px"
-    document.getElementById("modal-overlay").style.width = totalWidth;
-    document.getElementById("footer").style.width = totalWidth;
-  }
-
-  function getTabForTreeName(treeName) {
-    return document.getElementById(Util.stringToCss(treeName) + "-tab");
-  }
-
-  function removeNodeClasses(nodeElement) {
-    nodeElement.classList.remove("selected");
-    nodeElement.classList.remove("available");
-    nodeElement.classList.remove("locked");
-    nodeElement.classList.remove("unavailable");
-  }
-
   document.getElementById("reset-tree-button").addEventListener("click", () => {
     PubSub.publish("resetActiveTree", {treeName: skillTree.getActiveTreeName()});
   });
 
-  PubSub.subscribe("resetActiveTree", data => {
-    resetTree(data.treeName);
-  });
-
   document.getElementById("reset-all-button").addEventListener("click", () => {
-    PubSub.publish("resetAllTrees", {});
-  });
-
-  PubSub.subscribe("resetAllTrees", data => {
-    for (let tree of skillTree.getTrees()) {
-      resetTree(tree.name);
-    }
+    PubSub.publish("resetAllTrees");
   });
 
   document.getElementById("select-tree-button").addEventListener("click", () => {
     PubSub.publish("selectEntireTree", {treeName: skillTree.getActiveTreeName()});
   });
-
-  PubSub.subscribe("selectEntireTree", data => {
-    selectAllNodes(data.treeName);
-  });
-
-  function resetTree(treeName) {
-    let tree = skillTree.getTree(treeName);
-    for (let node of tree.nodes) {
-      node.selected = false;
-    }
-    updateNodeCounters(treeName);
-    updateBonuses();
-    updateNodeColors(treeName);
-    revertURL();
-  }
-
-  function selectAllNodes(treeName) {
-    let availableNodes = Util.maxSkillNodes - skillTree.getSelectedNodes().length;
-    let tree = skillTree.getTree(treeName);
-    if (availableNodes > tree.nodes.length) {
-      for (let node of tree.nodes) {
-        node.selected = true;
-      }
-      updateNodeCounters(treeName);
-      updateBonuses();
-      updateNodeColors(treeName);
-      revertURL();
-    }
-  }
 
   function loadFromRemoteId() {
     let regex = /([^//?]*)$/;
@@ -293,9 +66,8 @@ document.addEventListener("DOMContentLoaded", function() {
       })
       .then(function(json) {
         importTrees(json["trees"]);
-        updateNodeCounters();
         updateBonuses();
-        updateNodeColors();
+        updateTreeColors();
         changeSkillTree(json["activeTreeName"]);
         document.getElementById("modal-overlay").classList.add("hide");
       });
@@ -382,10 +154,6 @@ document.addEventListener("DOMContentLoaded", function() {
     let remoteURL = window.location.origin + window.location.pathname + "?" + remoteId
     history.pushState({}, "", remoteURL);
     return remoteURL;
-  }
-
-  function revertURL() {
-    history.pushState({}, "", window.location.origin + window.location.pathname);
   }
 
   // takes a boolean

@@ -4,7 +4,7 @@
 import * as Util from "./util.js";
 import { PubSub } from "./pub_sub.js";
 
-export default function InterfaceBuilder(skillTree) {
+export default function renderTree(skillTree) {
 
   skillTree.getTrees().forEach( (tree, index) => {
     buildTab(tree, index);
@@ -22,7 +22,7 @@ export default function InterfaceBuilder(skillTree) {
     tabElement.textContent = tree.name;
 
     let counterElement = document.createElement("div");
-    counterElement.id = tree.name.toLowerCase() + "-tab-counter";
+    counterElement.id = Util.stringToCss(tree.name) + "-tab-counter";
     counterElement.classList.add("tab-counter");
     counterElement.textContent = "0 / " + skillTree.getNodeCount(tree.name);
     tabElement.appendChild(counterElement);
@@ -69,11 +69,6 @@ export default function InterfaceBuilder(skillTree) {
         let relativeChildPostiion = getRelativeChildPosition(parent, node);
         let parentElement = treeElement.querySelector(`#${parent.id}`);
 
-        if (parentElement == null) {
-          console.log(parent);
-          console.log(parentElement);
-        }
-
         let parentTop = Util.dimensionAsNumber(parentElement.style.top);
         let parentLeft = Util.dimensionAsNumber(parentElement.style.left);
 
@@ -106,7 +101,7 @@ export default function InterfaceBuilder(skillTree) {
       treeElement.appendChild(nodeFrameElement);
 
       nodeFrameElement.addEventListener("click", function() {
-        PubSub.publish("nodeClicked", {node: node});
+        PubSub.publish("nodeClicked", { node: node });
       });
     }
 

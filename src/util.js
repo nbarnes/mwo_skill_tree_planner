@@ -3,6 +3,8 @@ import { attributeMap } from "./attribute_map";
 
 
 export let maxSkillNodes = 91; // total allowed number of selected skill nodes, per MWO
+export let cbillsPerNode = 60000;
+export let xpPerNode = 800;
 
 export let stringToCss = (string) => {
   return string.replace(/ \/ /g, "-").replace(/ /g, "-").toLowerCase();
