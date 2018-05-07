@@ -39,6 +39,7 @@ export default function wireEvents(skillTree) {
   PubSub.subscribe("resetAllTrees", data => {
     resetTree();
     updateTotalNodesAndCosts(skillTree.getSelectedNodes().length);
+    updatePerTreeNodeCountDisplay();
     updateBonuses();
     updateTreeColors();
     revertURL();
@@ -50,7 +51,7 @@ export default function wireEvents(skillTree) {
     updatePerTreeNodeCountDisplay(
       data.treeName,
       skillTree.getSelectedNodes(data.treeName).length,
-      skillTree.getNodeCount(data.treeName),
+      skillTree.getNodeCount(data.treeName)
     );
     updateBonuses();
     updateTreeColors(data.treeName);
@@ -214,13 +215,15 @@ export default function wireEvents(skillTree) {
 
   function updatePerTreeNodeCountDisplay(treeName, selectedTreeNodesCount, treeNodesCount) {
     if (treeName == undefined) {
-      for (let tree of skillTrees.getTrees()) {
-        let treeTabName = `${Util.stringToCss(treeName.toLowerCase())}-tab-counter`;
+      for (let tree of skillTree.getTrees()) {
+        let treeTabName = `${Util.stringToCss(tree.name)}-tab-counter`;
+        let selectedCount = skillTree.getSelectedNodes(tree.name).length;
+        let totalCount = skillTree.getNodeCount(tree.name);
         let nodeCountDisplay = document.getElementById(treeTabName);
-        nodeCountDisplay.textContent = `${selectedTreeNodesCount} / ${treeNodesCount}`;
+        nodeCountDisplay.textContent = `${selectedCount} / ${totalCount}`;
       }
     } else {
-      let nodeCountDisplay = document.getElementById(`${Util.stringToCss(treeName.toLowerCase())}-tab-counter`);
+      let nodeCountDisplay = document.getElementById(`${Util.stringToCss(treeName)}-tab-counter`);
       nodeCountDisplay.textContent = `${selectedTreeNodesCount} / ${treeNodesCount}`;
     }
   }

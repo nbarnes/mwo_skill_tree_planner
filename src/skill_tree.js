@@ -4,7 +4,7 @@
 import { stringToCss } from './util.js'
 import { attributeMap } from "./attribute_map";
 
-export default function SkillTreeFactory(treeSource) {
+export default function buildSkillTree(treeSource) {
 
   var activeTreeName = treeSource[0].name;
   let skillTrees = buildSkillTrees(treeSource);
@@ -16,11 +16,29 @@ export default function SkillTreeFactory(treeSource) {
       skillTree.name = treeDef.name;
       skillTree.nodes = [];
       for (let nodeDef of treeDef.nodes) {
-        skillTree.nodes.push(NodeFactory(nodeDef));
+        skillTree.nodes.push(buildNode(nodeDef));
       }
       skillTrees.push(skillTree);
     }
     return skillTrees;
+  }
+
+  function importJson(serializedTrees) {
+    for (let serializedTree of serializedTrees) {
+      let tree = getTree(serializedTree.name);
+      let serializedNodes = serializedTree.nodes;
+      for (let serializedNode of serializedNodes) {
+        for (let node of tree.nodes) {
+          if (serializedNode.id == node.id) {
+            if (serializedNode.s == 1) {
+              node.selected = true;
+            } else {
+              node.selected = false;
+            }
+          }
+        }
+      }
+    }
   }
 
   function setActiveTreeName(newName) {
@@ -121,6 +139,7 @@ export default function SkillTreeFactory(treeSource) {
   }
 
   return {
+    importJson: importJson,
     getActiveTreeName: getActiveTreeName,
     setActiveTreeName: setActiveTreeName,
     getTree: getTree,
@@ -134,7 +153,8 @@ export default function SkillTreeFactory(treeSource) {
 
 }
 
-function NodeFactory(nodeDef) {
+function buildNode(nodeDef) {
+
   return {
     selected: false,
     name: nodeDef.name,
@@ -148,7 +168,7 @@ function NodeFactory(nodeDef) {
     availableColor: attributeMap[nodeDef.attribute].availableColor,
     unavailableColor: attributeMap[nodeDef.attribute].unavailableColor,
     lockedColor: attributeMap[nodeDef.attribute].lockedColor
-  };
+  }
 }
 
 function nodeNameToId(nodeName) {
