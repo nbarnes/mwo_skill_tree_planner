@@ -17,9 +17,6 @@ export let attributeMap = {
   "Weapon Velocity": {
     template: "+{}%",
     hue: "60",
-    lockedColor: "hsl(60, 100%, 80%)",
-    availableColor: "hsl(60, 100%, 20%)",
-    unavailableColor: "hsl(60, 100%, 20%)"
   },
   "Weapon Cooldown": {
     template: "-{}%",
