@@ -30,8 +30,6 @@ document.addEventListener("DOMContentLoaded", function() {
   loadFromRemoteId(skillTree);
   PubSub.publish("treeTabClicked", {treeName: skillTree.getTrees()[0].name});
 
-  PubSub.subscribe("toggleNodeColorization", data => toggleNodeColorization());
-
   findById("reset-tree-button").addEventListener("click", () => {
     PubSub.publish("resetActiveTree", {treeName: skillTree.getActiveTreeName()});
   });
@@ -48,6 +46,10 @@ document.addEventListener("DOMContentLoaded", function() {
     PubSub.publish("getPermalink", {skillTree: skillTree} );
   });
 
+  findById("colorize-nodes-button").addEventListener("click", function(event) {
+    PubSub.publish("toggleNodeColorization");
+  });
+
   findById("permalink-display").addEventListener("click", function(event) {
     event.stopPropagation();
   });
@@ -58,13 +60,5 @@ document.addEventListener("DOMContentLoaded", function() {
       findById("modal-overlay").classList.add("hide");
     }
   });
-
-  findById("colorize-nodes-button").addEventListener("click", function(event) {
-    PubSub.publish("toggleNodeColorization");
-  });
-
-  function toggleNodeColorization() {
-    findById("graph-view").classList.toggle("colorize-nodes");
-  }
 
 });

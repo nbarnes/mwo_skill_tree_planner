@@ -58,6 +58,8 @@ export default function wireEvents(skillTree) {
     selectTree(data.treeName);
   });
 
+  PubSub.subscribe("toggleNodeColorization", data => toggleNodeColorization());
+
   function toggleNode(node) {
     if (node.selected()) {
       attemptNodeDeselection(node);
@@ -250,6 +252,10 @@ export default function wireEvents(skillTree) {
 
   function revertURL() {
     history.pushState({}, "", window.location.origin + window.location.pathname);
+  }
+
+  function toggleNodeColorization() {
+    findById("graph-view").classList.toggle("colorize-nodes");
   }
 
 }
