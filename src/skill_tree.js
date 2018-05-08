@@ -44,7 +44,7 @@ export default function buildSkillTree(treeSource) {
   }
 
   function updateNoOp() {
-    PubSub.publish("treeChanged");
+    PubSub.publish("treeChanged", {} );
   }
 
   function setActiveTreeName(newName) {

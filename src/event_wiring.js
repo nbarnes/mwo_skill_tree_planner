@@ -12,17 +12,24 @@ export default function wireEvents(skillTree) {
   });
 
   PubSub.subscribe("nodeChanged", data => {
+    let treeName = skillTree.getActiveTreeName();
     updateTotalNodesAndCosts(skillTree.getSelectedNodes().length);
-    updatePerTreeNodeCountDisplay();
-    updateTreeColors();
+    updatePerTreeNodeCountDisplay(treeName,
+                                  skillTree.getSelectedNodes(treeName).length,
+                                  skillTree.getNodeCount(treeName)
+    );
+    updateTreeColors(skillTree.getActiveTreeName());
     updateBonuses();
     revertURL();
   });
 
   PubSub.subscribe("treeChanged", data => {
     updateTotalNodesAndCosts(skillTree.getSelectedNodes().length);
-    updatePerTreeNodeCountDisplay();
-    updateTreeColors();
+    updatePerTreeNodeCountDisplay(data.treeName,
+                                  skillTree.getSelectedNodes(data.treeName).length,
+                                  skillTree.getNodeCount(data.treeName)
+    );
+    updateTreeColors(data.treeName);
     updateBonuses();
     revertURL();
   });
