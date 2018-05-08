@@ -10,6 +10,7 @@ import renderTree from "./render_tree.js";
 import wireEvents from "./event_wiring.js";
 import { loadFromRemoteId } from "./cold_storage.js";
 import { findById } from "./dom.js";
+import { saveToFile } from "./export_to_image.js";
 
 document.addEventListener("DOMContentLoaded", function() {
 
@@ -30,6 +31,7 @@ document.addEventListener("DOMContentLoaded", function() {
   loadFromRemoteId(skillTree);
   PubSub.publish("treeTabClicked", {treeName: skillTree.getTrees()[0].name});
 
+
   PubSub.subscribe("toggleNodeColorization", data => toggleNodeColorization());
 
   findById("reset-tree-button").addEventListener("click", () => {
@@ -48,6 +50,14 @@ document.addEventListener("DOMContentLoaded", function() {
     PubSub.publish("getPermalink", {skillTree: skillTree} );
   });
 
+  findById("colorize-nodes-button").addEventListener("click", function(event) {
+    PubSub.publish("toggleNodeColorization");
+  });
+
+  findById("save-to-file-button").addEventListener("click", function(event) {
+    saveToFile(findById("graph-view"));
+  });
+
   findById("permalink-display").addEventListener("click", function(event) {
     event.stopPropagation();
   });
@@ -57,10 +67,6 @@ document.addEventListener("DOMContentLoaded", function() {
     if (closeable == "true") {
       findById("modal-overlay").classList.add("hide");
     }
-  });
-
-  findById("colorize-nodes-button").addEventListener("click", function(event) {
-    PubSub.publish("toggleNodeColorization");
   });
 
   function toggleNodeColorization() {
