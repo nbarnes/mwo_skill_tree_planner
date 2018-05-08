@@ -25,12 +25,11 @@ export const loadFromRemoteId = function(skillTree) {
       }
     })
     .then(function(json) {
-      skillTree.importJson(json["trees"]);
-      updateBonuses();
-      updateTreeColors();
-      changeSkillTree(json["activeTreeName"]);
+      skillTree.importJson(json);
       document.getElementById("modal-overlay").classList.add("hide");
     });
+  } else {
+    skillTree.updateNoOp();
   }
 }
 
@@ -74,7 +73,7 @@ function serializeTrees(skillTree) {
 
 function serializeNode(node) {
   let s;
-  if (node.selected) {
+  if (node.selected()) {
     s = 1;
   } else {
     s = 0;

@@ -19,12 +19,19 @@ export default function wireEvents(skillTree) {
   });
 
   PubSub.subscribe("treeChanged", data => {
-    console.log(`treeChanged hit, treeName = ${data.treeName}`);
     updateTotalNodesAndCosts(skillTree.getSelectedNodes().length);
     updatePerTreeNodeCountDisplay();
     updateTreeColors();
     updateBonuses();
     revertURL();
+  });
+
+  PubSub.subscribe("treeImported", data => {
+    updateTotalNodesAndCosts(skillTree.getSelectedNodes().length);
+    updatePerTreeNodeCountDisplay();
+    updateTreeColors();
+    updateBonuses();
+    PubSub.publish("treeTabClicked", { treeName: data.activeTreeName });
   });
 
   PubSub.subscribe("treeTabClicked", data => {
@@ -105,13 +112,11 @@ export default function wireEvents(skillTree) {
     let availableNodes = Util.maxSkillNodes - skillTree.getSelectedNodes().length;
     let tree = skillTree.getTree(treeName);
     if (availableNodes >= tree.nodes.length) {
-      console.log(`event_wiring.selectTree hit, treeName = ${treeName}`);
       skillTree.selectTree(treeName);
     }
   }
 
   function updateTreeColors(treeName) {
-    console.log(`updateTreeColors hit with treeName = ${treeName}`)
     if (treeName == undefined) {
       for (let tree of skillTree.getTrees()) {
         updateTreeColors(tree.name);

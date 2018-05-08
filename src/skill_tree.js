@@ -24,22 +24,27 @@ export default function buildSkillTree(treeSource) {
     return skillTrees;
   }
 
-  function importJson(serializedTrees) {
-    for (let serializedTree of serializedTrees) {
+  function importJson(blob) {
+    for (let serializedTree of blob.trees) {
       let tree = getTree(serializedTree.name);
       let serializedNodes = serializedTree.nodes;
       for (let serializedNode of serializedNodes) {
         for (let node of tree.nodes) {
           if (serializedNode.id == node.id) {
             if (serializedNode.s == 1) {
-              node.selected(true);
+              node.selectWithoutEvent(true);
             } else {
-              node.selected(false);
+              node.selectWithoutEvent(false);
             }
           }
         }
       }
     }
+    PubSub.publish("treeImported", { activeTreeName: blob.activeTreeName });
+  }
+
+  function updateNoOp() {
+    PubSub.publish("treeChanged");
   }
 
   function setActiveTreeName(newName) {
@@ -146,7 +151,6 @@ export default function buildSkillTree(treeSource) {
   }
 
   function selectTree(treeName) {
-    console.log(`skillTree.selectTree hit, treeName = ${treeName}`);
     for (let node of getTree(treeName).nodes) {
       node.selectWithoutEvent(true);
     }
@@ -161,6 +165,7 @@ export default function buildSkillTree(treeSource) {
 
   return {
     importJson: importJson,
+    updateNoOp: updateNoOp,
     getActiveTreeName: getActiveTreeName,
     setActiveTreeName: setActiveTreeName,
     getTree: getTree,
