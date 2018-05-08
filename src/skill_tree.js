@@ -199,7 +199,7 @@ function buildNode(nodeDef) {
   }
 
   return {
-    // selectWithoutEvent mostly used for bulk / batch updating of nodes while
+    // selectWithoutEvent used for bulk / batch updating of nodes while
     //  avoiding event cascades
     selectWithoutEvent: selectWithoutEvent,
     selected: selected,

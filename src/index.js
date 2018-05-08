@@ -27,10 +27,9 @@ document.addEventListener("DOMContentLoaded", function() {
   renderTree(skillTree);
   wireEvents(skillTree);
   loadFromRemoteId(skillTree);
+  PubSub.publish("treeTabClicked", {treeName: skillTree.getTrees()[0].name});
 
   PubSub.subscribe("toggleNodeColorization", data => toggleNodeColorization());
-
-  PubSub.publish("treeTabClicked", {treeName: skillTree.getTrees()[0].name});
 
   document.getElementById("reset-tree-button").addEventListener("click", () => {
     PubSub.publish("resetActiveTree", {treeName: skillTree.getActiveTreeName()});
