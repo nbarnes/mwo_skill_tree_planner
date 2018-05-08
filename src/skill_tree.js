@@ -1,8 +1,9 @@
 
 "use strict";
 
-import { stringToCss } from './util.js'
+import { stringToCss } from "./util.js"
 import { attributeMap } from "./attribute_map";
+import { PubSub } from "./pub_sub.js"
 
 export default function buildSkillTree(treeSource) {
 
@@ -31,9 +32,9 @@ export default function buildSkillTree(treeSource) {
         for (let node of tree.nodes) {
           if (serializedNode.id == node.id) {
             if (serializedNode.s == 1) {
-              node.selected = true;
+              node.selected(true);
             } else {
-              node.selected = false;
+              node.selected(false);
             }
           }
         }
@@ -97,10 +98,9 @@ export default function buildSkillTree(treeSource) {
 
   function getSelectedNodes(treeName) {
     let selectedNodes = [];
-
     if (treeName != undefined) {
       for (let node of getTree(treeName).nodes) {
-        if (node.selected) {
+        if (node.selected()) {
           selectedNodes.push(node);
         }
       }
@@ -132,6 +132,27 @@ export default function buildSkillTree(treeSource) {
     return parentNodes;
   }
 
+  function resetTree(treeName) {
+    if (treeName == undefined) {
+      for (let tree of skillTrees) {
+        resetTree(tree.name);
+      }
+    } else {
+      for (let node of getTree(treeName).nodes) {
+        node.selectWithoutEvent(false);
+      }
+      PubSub.publish("treeChanged", {treeName: treeName});
+    }
+  }
+
+  function selectTree(treeName) {
+    console.log(`skillTree.selectTree hit, treeName = ${treeName}`);
+    for (let node of getTree(treeName).nodes) {
+      node.selectWithoutEvent(true);
+    }
+    PubSub.publish("treeChanged", {treeName: treeName});
+  }
+
   function pushIfDefined(collection, node) {
     if (node !== undefined) {
       collection.push(node);
@@ -148,15 +169,35 @@ export default function buildSkillTree(treeSource) {
     getNodeCount: getNodeCount,
     getSelectedNodes: getSelectedNodes,
     parentsOf: parentsOf,
-    childrenOf: childrenOf
+    childrenOf: childrenOf,
+    resetTree: resetTree,
+    selectTree: selectTree
   }
 
 }
 
 function buildNode(nodeDef) {
 
+  var isSelected = false;
+
+  function selectWithoutEvent(newSelected) {
+    isSelected = newSelected;
+  }
+
+  function selected(newSelected) {
+    if (newSelected == undefined) {
+      return isSelected;
+    } else {
+      isSelected = newSelected;
+      PubSub.publish("nodeChanged", { node: this } );
+    }
+  }
+
   return {
-    selected: false,
+    // selectWithoutEvent mostly used for bulk / batch updating of nodes while
+    //  avoiding event cascades
+    selectWithoutEvent: selectWithoutEvent,
+    selected: selected,
     name: nodeDef.name,
     id: nodeNameToId(nodeDef.name),
     attribute: nodeDef.attribute,

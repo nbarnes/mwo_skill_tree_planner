@@ -8,13 +8,21 @@ export default function wireEvents(skillTree) {
 
   PubSub.subscribe("nodeClicked", data => {
     toggleNode(data.node);
+  });
+
+  PubSub.subscribe("nodeChanged", data => {
     updateTotalNodesAndCosts(skillTree.getSelectedNodes().length);
-    updatePerTreeNodeCountDisplay(
-      skillTree.getActiveTreeName(),
-      skillTree.getSelectedNodes(skillTree.getActiveTreeName()).length,
-      skillTree.getNodeCount(skillTree.getActiveTreeName()),
-    );
-    updateTreeColors(skillTree.treeName);
+    updatePerTreeNodeCountDisplay();
+    updateTreeColors();
+    updateBonuses();
+    revertURL();
+  });
+
+  PubSub.subscribe("treeChanged", data => {
+    console.log(`treeChanged hit, treeName = ${data.treeName}`);
+    updateTotalNodesAndCosts(skillTree.getSelectedNodes().length);
+    updatePerTreeNodeCountDisplay();
+    updateTreeColors();
     updateBonuses();
     revertURL();
   });
@@ -24,86 +32,86 @@ export default function wireEvents(skillTree) {
   });
 
   PubSub.subscribe("resetActiveTree", data => {
-    resetTree(data.treeName);
-    updateTotalNodesAndCosts(skillTree.getSelectedNodes().length);
-    updatePerTreeNodeCountDisplay(
-      data.treeName,
-      skillTree.getSelectedNodes(data.treeName).length,
-      skillTree.getNodeCount(data.treeName),
-    );
-    updateBonuses();
-    updateTreeColors(data.treeName);
-    revertURL();
+    skillTree.resetTree(data.treeName);
   });
 
   PubSub.subscribe("resetAllTrees", data => {
-    resetTree();
-    updateTotalNodesAndCosts(skillTree.getSelectedNodes().length);
-    updatePerTreeNodeCountDisplay();
-    updateBonuses();
-    updateTreeColors();
-    revertURL();
+    skillTree.resetTree();
   });
 
-  PubSub.subscribe("selectEntireTree", data => {
-    selectEntireTree(data.treeName);
-    updateTotalNodesAndCosts(skillTree.getSelectedNodes().length);
-    updatePerTreeNodeCountDisplay(
-      data.treeName,
-      skillTree.getSelectedNodes(data.treeName).length,
-      skillTree.getNodeCount(data.treeName)
-    );
-    updateBonuses();
-    updateTreeColors(data.treeName);
-    revertURL();
+  PubSub.subscribe("selectTree", data => {
+    selectTree(data.treeName);
   });
 
   function toggleNode(node) {
-    if (node.selected) {
+    if (node.selected()) {
       attemptNodeDeselection(node);
-    } else if (skillTree.getSelectedNodes().length <= Util.maxSkillNodes) {
+    } else {
       attemptNodeSelection(node);
     }
   }
 
   function attemptNodeSelection(node) {
     if (canSelectNode(node)) {
-      node.selected = true;
+      node.selected(true);
     }
   }
 
   function attemptNodeDeselection(node) {
     if (canDeselectNode(node)) {
-      node.selected = false;
+      node.selected(false);
     }
   }
 
   function canSelectNode(node) {
-    var hasSelectedParent = false;
-    // A node with zero parents at all is the root of the graph and can always
-    // be selected
-    hasSelectedParent = hasSelectedParent || (skillTree.parentsOf(node).length === 0);
+    var availableNodeCount = (skillTree.getSelectedNodes().length <= Util.maxSkillNodes);
+    var isRootNode = skillTree.parentsOf(node).length === 0;
+    var parentSelected = false;
     for (let parent of skillTree.parentsOf(node)) {
-      hasSelectedParent = parent.selected || hasSelectedParent;
+      parentSelected = parent.selected() || parentSelected;
     }
-    return hasSelectedParent;
+    return availableNodeCount && (isRootNode || parentSelected);
   }
 
   function canDeselectNode(node) {
-    var deselectSafe = true;
+    var allChildrenUnlocked = true;
+    // for each child, find out if the child has another parent selelcted
     for (let child of skillTree.childrenOf(node)) {
-      if (child.selected) {
-        // Set node in question to deselected to see if the child is still elegible for selection
-        // based on other parents.  We"ll set it back to selected after we"re done with that check.
-        node.selected = false;
-        deselectSafe = canSelectNode(child) && deselectSafe;
-        node.selected = true;
-      }
+      allChildrenUnlocked = allChildrenUnlocked && childUnlocked(child, node);
     }
-    return deselectSafe;
+    return allChildrenUnlocked;
+  }
+
+  function childUnlocked(child, parent) {
+    var childUnlocked = true;
+    if (child.selected()) {
+      let otherParents = skillTree.parentsOf(child).filter(element => {
+        element != parent;
+      });
+      childUnlocked = parentSelected(otherParents);
+    }
+    return childUnlocked;
+  }
+
+  function parentSelected(parents) {
+    var parentSelected = false;
+    for (let parent of parents) {
+      parentSelected = parentSelected || parent.selected();
+    }
+    return parentSelected;
+  }
+
+  function selectTree(treeName) {
+    let availableNodes = Util.maxSkillNodes - skillTree.getSelectedNodes().length;
+    let tree = skillTree.getTree(treeName);
+    if (availableNodes >= tree.nodes.length) {
+      console.log(`event_wiring.selectTree hit, treeName = ${treeName}`);
+      skillTree.selectTree(treeName);
+    }
   }
 
   function updateTreeColors(treeName) {
+    console.log(`updateTreeColors hit with treeName = ${treeName}`)
     if (treeName == undefined) {
       for (let tree of skillTree.getTrees()) {
         updateTreeColors(tree.name);
@@ -117,7 +125,7 @@ export default function wireEvents(skillTree) {
   }
 
   function updateNodeColor(node) {
-    if (node.selected) {
+    if (node.selected()) {
       if (canDeselectNode(node)) {
         setNodeElementColors(node, "selected");
       } else {
@@ -225,29 +233,6 @@ export default function wireEvents(skillTree) {
     } else {
       let nodeCountDisplay = document.getElementById(`${Util.stringToCss(treeName)}-tab-counter`);
       nodeCountDisplay.textContent = `${selectedTreeNodesCount} / ${treeNodesCount}`;
-    }
-  }
-
-  function resetTree(treeName) {
-    if (treeName == undefined) {
-      for (let tree of skillTree.getTrees()) {
-        resetTree(tree.name);
-      }
-    } else {
-      let tree = skillTree.getTree(treeName);
-      for (let node of tree.nodes) {
-        node.selected = false;
-      }
-    }
-  }
-
-  function selectEntireTree(treeName) {
-    let availableNodes = Util.maxSkillNodes - skillTree.getSelectedNodes().length;
-    let tree = skillTree.getTree(treeName);
-    if (availableNodes > tree.nodes.length) {
-      for (let node of tree.nodes) {
-        node.selected = true;
-      }
     }
   }
 

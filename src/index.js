@@ -41,7 +41,7 @@ document.addEventListener("DOMContentLoaded", function() {
   });
 
   document.getElementById("select-tree-button").addEventListener("click", () => {
-    PubSub.publish("selectEntireTree", {treeName: skillTree.getActiveTreeName()});
+    PubSub.publish("selectTree", {treeName: skillTree.getActiveTreeName()});
   });
 
   document.getElementById("permalink-button").addEventListener("click", () => {
