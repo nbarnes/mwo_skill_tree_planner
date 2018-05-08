@@ -35,7 +35,7 @@
   line-height: 15px;
 }
 
-.tab {
+.treeTab {
   left: 9px;
   font-size: 16px;
   line-height: 20px;
@@ -49,7 +49,7 @@
   cursor: pointer;
 }
 
-.tab.selected {
+.treeTab.selected {
   z-index: 2;
   border-width: 1px 1px 1px 0px;
   color: white;
@@ -194,19 +194,19 @@
 }
 
 .hex-text.selected {
-  color: black;
+  color: white;
 }
 
 .hex-text.locked {
-  color: black;
+  color: white;
 }
 
 .hex-text.available {
-  color: white;
+  color: black;
 }
 
 .hex-text.unavailable {
-  color: white;
+  color: black;
 }
 
 .node-connect-line {

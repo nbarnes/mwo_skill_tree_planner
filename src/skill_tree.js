@@ -1,10 +1,11 @@
 
 "use strict";
 
-import { stringToCss } from './util.js'
+import { stringToCss } from "./util.js"
 import { attributeMap } from "./attribute_map";
+import { PubSub } from "./pub_sub.js"
 
-export default function SkillTreeFactory(treeSource) {
+export default function buildSkillTree(treeSource) {
 
   var activeTreeName = treeSource[0].name;
   let skillTrees = buildSkillTrees(treeSource);
@@ -16,11 +17,34 @@ export default function SkillTreeFactory(treeSource) {
       skillTree.name = treeDef.name;
       skillTree.nodes = [];
       for (let nodeDef of treeDef.nodes) {
-        skillTree.nodes.push(NodeFactory(nodeDef));
+        skillTree.nodes.push(buildNode(nodeDef));
       }
       skillTrees.push(skillTree);
     }
     return skillTrees;
+  }
+
+  function importJson(blob) {
+    for (let serializedTree of blob.trees) {
+      let tree = getTree(serializedTree.name);
+      let serializedNodes = serializedTree.nodes;
+      for (let serializedNode of serializedNodes) {
+        for (let node of tree.nodes) {
+          if (serializedNode.id == node.id) {
+            if (serializedNode.s == 1) {
+              node.selectWithoutEvent(true);
+            } else {
+              node.selectWithoutEvent(false);
+            }
+          }
+        }
+      }
+    }
+    PubSub.publish("treeImported", { activeTreeName: blob.activeTreeName });
+  }
+
+  function updateNoOp() {
+    PubSub.publish("treeChanged");
   }
 
   function setActiveTreeName(newName) {
@@ -79,10 +103,9 @@ export default function SkillTreeFactory(treeSource) {
 
   function getSelectedNodes(treeName) {
     let selectedNodes = [];
-
     if (treeName != undefined) {
       for (let node of getTree(treeName).nodes) {
-        if (node.selected) {
+        if (node.selected()) {
           selectedNodes.push(node);
         }
       }
@@ -114,6 +137,26 @@ export default function SkillTreeFactory(treeSource) {
     return parentNodes;
   }
 
+  function resetTree(treeName) {
+    if (treeName == undefined) {
+      for (let tree of skillTrees) {
+        resetTree(tree.name);
+      }
+    } else {
+      for (let node of getTree(treeName).nodes) {
+        node.selectWithoutEvent(false);
+      }
+      PubSub.publish("treeChanged", {treeName: treeName});
+    }
+  }
+
+  function selectTree(treeName) {
+    for (let node of getTree(treeName).nodes) {
+      node.selectWithoutEvent(true);
+    }
+    PubSub.publish("treeChanged", {treeName: treeName});
+  }
+
   function pushIfDefined(collection, node) {
     if (node !== undefined) {
       collection.push(node);
@@ -121,6 +164,8 @@ export default function SkillTreeFactory(treeSource) {
   }
 
   return {
+    importJson: importJson,
+    updateNoOp: updateNoOp,
     getActiveTreeName: getActiveTreeName,
     setActiveTreeName: setActiveTreeName,
     getTree: getTree,
@@ -129,14 +174,35 @@ export default function SkillTreeFactory(treeSource) {
     getNodeCount: getNodeCount,
     getSelectedNodes: getSelectedNodes,
     parentsOf: parentsOf,
-    childrenOf: childrenOf
+    childrenOf: childrenOf,
+    resetTree: resetTree,
+    selectTree: selectTree
   }
 
 }
 
-function NodeFactory(nodeDef) {
+function buildNode(nodeDef) {
+
+  var isSelected = false;
+
+  function selectWithoutEvent(newSelected) {
+    isSelected = newSelected;
+  }
+
+  function selected(newSelected) {
+    if (newSelected == undefined) {
+      return isSelected;
+    } else {
+      isSelected = newSelected;
+      PubSub.publish("nodeChanged", { node: this } );
+    }
+  }
+
   return {
-    selected: false,
+    // selectWithoutEvent used for bulk / batch updating of nodes while
+    //  avoiding event cascades
+    selectWithoutEvent: selectWithoutEvent,
+    selected: selected,
     name: nodeDef.name,
     id: nodeNameToId(nodeDef.name),
     attribute: nodeDef.attribute,

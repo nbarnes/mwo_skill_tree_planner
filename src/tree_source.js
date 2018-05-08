@@ -1241,7 +1241,7 @@ export let treeSource = [
         attribute: "Consumable Slots",
         value: "1",
         leftChildId: "uav-duration",
-        rightChildId: "adv.-salvos-1"
+        rightChildId: "advanced-salvos-1"
       },
       { name: "UAV Duration",
         attribute: "UAV Duration",
@@ -1250,12 +1250,12 @@ export let treeSource = [
         centerChildId: "capture-assist-1",
         rightChildId: "enhanced-coolshot-1"
       },
-      { name: "ADV. Salvos 1",
+      { name: "Advanced Salvos 1",
         attribute: "Artillery Strike Duration",
         value: "25",
         leftChildId: "enhanced-coolshot-1",
         centerChildId: "capture-assist-2",
-        rightChildId: "adv.-salvos-2"
+        rightChildId: "advanced-salvos-2"
       },
       { name: "UAV Range 1",
         attribute: "UAV Sight Range",
@@ -1270,7 +1270,7 @@ export let treeSource = [
         centerChildId: "enhanced-coolshot-2",
         rightChildId: "capture-assist-2"
       },
-      { name: "ADV. Salvos 2",
+      { name: "Advanced Salvos 2",
         attribute: "Artillery Strike Duration",
         value: "25",
         centerChildId: "enhanced-narc-2",
@@ -1297,7 +1297,7 @@ export let treeSource = [
         rightChildId: "enhanced-narc-2"
       },
       { name: "Expanded Reserves",
-        attribute: "Additional Air or Arty Strike",
+        attribute: "Additional Air / Arty Strike",
         value: "1",
         centerChildId: "consumable-slot-3",
         rightChildId: "enhanced-spotting"
@@ -1324,7 +1324,7 @@ export let treeSource = [
         leftChildId: "capture-assist-4"
       },
       { name: "Enhanced Spotting",
-        attribute: "Air or Arty Strike Accuracy",
+        attribute: "Air / Arty Strike Accuracy",
         value: "20"
       },
       { name: "Consumable Slot 2",

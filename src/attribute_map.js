@@ -243,11 +243,11 @@ export let attributeMap = {
     template: "+{}%",
     hue: "140"
   },
-  "Additional Air or Arty Strike": {
+  "Additional Air / Arty Strike": {
     template: "+{}",
     hue: "160"
   },
-  "Air or Arty Strike Accuracy": {
+  "Air / Arty Strike Accuracy": {
     template: "-{}%",
     hue: "180"
   },
