@@ -3,6 +3,7 @@
 
 import { PubSub } from "./pub_sub.js";
 import * as Util from "./util.js";
+import { findById } from "./dom.js";
 
 export const loadFromRemoteId = function(skillTree) {
   let regex = /([^//?]*)$/;
@@ -26,7 +27,7 @@ export const loadFromRemoteId = function(skillTree) {
     })
     .then(function(json) {
       skillTree.importJson(json);
-      document.getElementById("modal-overlay").classList.add("hide");
+      findById("modal-overlay").classList.add("hide");
     });
   } else {
     skillTree.updateNoOp();
@@ -44,8 +45,8 @@ PubSub.subscribe("getPermalink", (data) => {
   }).then(function(response) {
     let regex = /([^//]*)$/;
     let remoteId = regex.exec(response.headers.get("location"))[0];
-    document.getElementById("permalink-display").textContent = pushRemoteIdToURL(remoteId);
-    document.getElementById("modal-overlay").classList.remove("hide");
+    findById("permalink-display").textContent = pushRemoteIdToURL(remoteId);
+    findById("modal-overlay").classList.remove("hide");
     Util.setModalCloseability(true);
   }, function(error) {
     console.log(error.message);

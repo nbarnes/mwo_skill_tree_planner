@@ -3,6 +3,7 @@
 
 import * as Util from "./util.js";
 import { PubSub } from "./pub_sub.js";
+import { findById } from "./dom.js";
 
 export default function renderTree(skillTree) {
 
@@ -10,7 +11,7 @@ export default function renderTree(skillTree) {
     buildTab(tree, index);
     buildTreeDisplay(tree);
   });
-  document.getElementById("node-total").textContent = Util.maxSkillNodes;
+  findById("node-total").textContent = Util.maxSkillNodes;
 
   function buildTab(tree, index) {
     let tabHeight = 40; // matches element height defined in planner.css
@@ -31,7 +32,7 @@ export default function renderTree(skillTree) {
       PubSub.publish("treeTabClicked", {treeName: tree.name});
     });
 
-    document.getElementById("total-nodes-display").after(tabElement);
+    findById("total-nodes-display").after(tabElement);
   }
 
   function buildTreeDisplay(tree) {
@@ -144,7 +145,7 @@ export default function renderTree(skillTree) {
       }
     }
 
-    document.getElementById("graph-view").appendChild(treeElement);
+    findById("graph-view").appendChild(treeElement);
 
   }
 

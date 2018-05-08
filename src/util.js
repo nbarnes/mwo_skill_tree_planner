@@ -1,5 +1,6 @@
 
 import { attributeMap } from "./attribute_map";
+import { findById } from "./dom.js";
 
 export let maxSkillNodes = 91; // total allowed number of selected skill nodes, per MWO
 export let cbillsPerNode = 60000;
@@ -25,11 +26,11 @@ export const getValueTemplate = attribute => {
 
 export const showModal = message => {
   setModalCloseability(false);
-  document.getElementById("permalink-display").textContent = message;
-  document.getElementById("modal-overlay").classList.remove("hide");
+  findById("permalink-display").textContent = message;
+  findById("modal-overlay").classList.remove("hide");
 }
 
 // takes a boolean
 export const setModalCloseability = closeability => {
-  document.getElementById("modal-overlay").setAttribute("data-closeable", closeability.toString());
+  findById("modal-overlay").setAttribute("data-closeable", closeability.toString());
 }

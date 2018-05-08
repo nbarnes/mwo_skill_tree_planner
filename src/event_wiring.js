@@ -3,6 +3,7 @@
 
 import { PubSub } from "./pub_sub.js";
 import * as Util from "./util.js";
+import { findById, findByClass } from "./dom.js";
 
 export default function wireEvents(skillTree) {
 
@@ -146,7 +147,7 @@ export default function wireEvents(skillTree) {
   }
 
   function setNodeElementColors(node, state) {
-    document.getElementById(node.id).querySelectorAll(".node-element").forEach(function(element) {
+    findById(node.id).querySelectorAll(".node-element").forEach(function(element) {
       removeNodeClasses(element);
       element.classList.add(state);
     });
@@ -163,7 +164,7 @@ export default function wireEvents(skillTree) {
         bonuses.push({attribute: node.attribute, value: node.value, valueTemplate: node.valueTemplate});
       }
     }
-    document.getElementById("bonuses-display").innerHTML = "";
+    findById("bonuses-display").innerHTML = "";
     let bonusFrame = document.createDocumentFragment();
     bonuses.forEach((bonus, index) => {
       let bonusDisplayElement = document.createElement("div");
@@ -171,9 +172,9 @@ export default function wireEvents(skillTree) {
       bonusDisplayElement.textContent = bonus.attribute + " " + Util.getValueTemplate(bonus.attribute)[0] + bonus.value + Util.getValueTemplate(bonus.attribute)[1];
       bonusFrame.append(bonusDisplayElement);
     });
-    document.getElementById("bonuses-display").append(bonusFrame);
-    if (document.getElementById("bonuses-display").offsetHeight > 560) {
-      document.querySelectorAll(".bonus-display").forEach(function (el) {
+    findById("bonuses-display").append(bonusFrame);
+    if (findById("bonuses-display").offsetHeight > 560) {
+      findByClass(".bonus-display").forEach(function (el) {
         el.style.fontSize= "12px";
       });
     }
@@ -189,27 +190,27 @@ export default function wireEvents(skillTree) {
 
   function changeSkillTree(treeName) {
     skillTree.setActiveTreeName(treeName);
-    document.querySelectorAll(".treeTab").forEach(function (el) {
+    findByClass(".treeTab").forEach(function (el) {
       el.classList.remove("selected");
     });
     getTabForTreeName(treeName).classList.add("selected");
 
-    document.querySelectorAll(".skill-tree").forEach(function (el) {
+    findByClass(".skill-tree").forEach(function (el) {
       el.classList.add("hide");
     });
-    let treeElement = document.getElementById(Util.treeNameToId(treeName));
+    let treeElement = findById(Util.treeNameToId(treeName));
     treeElement.classList.remove("hide");
 
     // Reize the app to fit the new tree
     // TODO: The bonuses sidebar changes width, which breaks this
     let treeDisplayWidth = Util.dimensionAsNumber(treeElement.style.width);
     let totalWidth = (treeDisplayWidth + 294) + "px"
-    document.getElementById("modal-overlay").style.width = totalWidth;
-    document.getElementById("footer").style.width = totalWidth;
+    findById("modal-overlay").style.width = totalWidth;
+    findById("footer").style.width = totalWidth;
   }
 
   function getTabForTreeName(treeName) {
-    return document.getElementById(Util.stringToCss(treeName) + "-tab");
+    return findById(Util.stringToCss(treeName) + "-tab");
   }
 
   function removeNodeClasses(nodeElement) {
@@ -220,10 +221,10 @@ export default function wireEvents(skillTree) {
   }
 
   function updateTotalNodesAndCosts(selectedNodeCount) {
-    document.getElementById("node-selection-counter").textContent = selectedNodeCount;
+    findById("node-selection-counter").textContent = selectedNodeCount;
     let totalCbillCost = `${(selectedNodeCount * Util.cbillsPerNode).toLocaleString("en-US")} C-Bills and`;
     let totalXpCost = `${(selectedNodeCount * Util.xpPerNode).toLocaleString("en-US")} XP / GXP`;
-    document.getElementById("cost-totals-display").innerHTML = totalCbillCost + "</br>" + totalXpCost;
+    findById("cost-totals-display").innerHTML = totalCbillCost + "</br>" + totalXpCost;
   }
 
   function updatePerTreeNodeCountDisplay(treeName, selectedTreeNodesCount, treeNodesCount) {
@@ -232,11 +233,11 @@ export default function wireEvents(skillTree) {
         let treeTabName = `${Util.stringToCss(tree.name)}-tab-counter`;
         let selectedCount = skillTree.getSelectedNodes(tree.name).length;
         let totalCount = skillTree.getNodeCount(tree.name);
-        let nodeCountDisplay = document.getElementById(treeTabName);
+        let nodeCountDisplay = findById(treeTabName);
         nodeCountDisplay.textContent = `${selectedCount} / ${totalCount}`;
       }
     } else {
-      let nodeCountDisplay = document.getElementById(`${Util.stringToCss(treeName)}-tab-counter`);
+      let nodeCountDisplay = findById(`${Util.stringToCss(treeName)}-tab-counter`);
       nodeCountDisplay.textContent = `${selectedTreeNodesCount} / ${treeNodesCount}`;
     }
   }

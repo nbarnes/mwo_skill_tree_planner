@@ -8,7 +8,8 @@ import * as Util from "./util.js";
 import { PubSub } from "./pub_sub.js";
 import renderTree from "./render_tree.js";
 import wireEvents from "./event_wiring.js";
-import { loadFromRemoteId } from "./cold_storage.js"
+import { loadFromRemoteId } from "./cold_storage.js";
+import { findById } from "./dom.js";
 
 document.addEventListener("DOMContentLoaded", function() {
 
@@ -31,39 +32,39 @@ document.addEventListener("DOMContentLoaded", function() {
 
   PubSub.subscribe("toggleNodeColorization", data => toggleNodeColorization());
 
-  document.getElementById("reset-tree-button").addEventListener("click", () => {
+  findById("reset-tree-button").addEventListener("click", () => {
     PubSub.publish("resetActiveTree", {treeName: skillTree.getActiveTreeName()});
   });
 
-  document.getElementById("reset-all-button").addEventListener("click", () => {
+  findById("reset-all-button").addEventListener("click", () => {
     PubSub.publish("resetAllTrees");
   });
 
-  document.getElementById("select-tree-button").addEventListener("click", () => {
+  findById("select-tree-button").addEventListener("click", () => {
     PubSub.publish("selectTree", {treeName: skillTree.getActiveTreeName()});
   });
 
-  document.getElementById("permalink-button").addEventListener("click", () => {
+  findById("permalink-button").addEventListener("click", () => {
     PubSub.publish("getPermalink", {skillTree: skillTree} );
   });
 
-  document.getElementById("permalink-display").addEventListener("click", function(event) {
+  findById("permalink-display").addEventListener("click", function(event) {
     event.stopPropagation();
   });
 
-  document.getElementById("modal-overlay").addEventListener("click", function() {
-    let closeable = document.getElementById("modal-overlay").getAttribute("data-closeable");
+  findById("modal-overlay").addEventListener("click", function() {
+    let closeable = findById("modal-overlay").getAttribute("data-closeable");
     if (closeable == "true") {
-      document.getElementById("modal-overlay").classList.add("hide");
+      findById("modal-overlay").classList.add("hide");
     }
   });
 
-  document.getElementById("colorize-nodes-button").addEventListener("click", function(event) {
+  findById("colorize-nodes-button").addEventListener("click", function(event) {
     PubSub.publish("toggleNodeColorization");
   });
 
   function toggleNodeColorization() {
-    document.getElementById("graph-view").classList.toggle("colorize-nodes");
+    findById("graph-view").classList.toggle("colorize-nodes");
   }
 
 });
