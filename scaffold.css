@@ -56,27 +56,3 @@ div.field, div.actions {
 .hide {
   display: none;
 }
-#footer {
-  width: 100%;
-  padding: 5px;
-  clear: both;
-  text-align: center;
-  color: white;
-  background-color: black;
-}
-
-#footer a:link {
-  color: grey;
-}
-
-#footer a:visited {
-  color: darkgrey;
-}
-
-#footer a:link {
-  color: grey;
-}
-
-#footer a:hover {
-  color: lightgrey;
-}

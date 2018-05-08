@@ -1,8 +1,15 @@
 
 #pane {
   display: flex;
-  height: 630px;
+  flex-direction: column;
   text-align: center;
+  max-width: fit-content;
+}
+
+#main {
+  display: flex;
+  flex-direction: row;
+  max-width: fit-content;
 }
 
 #left-sidebar {
@@ -152,6 +159,7 @@
 .hex-value {
   position: relative;
   top: 43px;
+  z-index: 1;
 }
 
 .hex-component.selected {
@@ -226,12 +234,12 @@
 }
 
 #modal-window {
-  position: absolute;
+  position: relative;
+  top: 275px;
+  width: 600px;
   color: white;
   background-color: black;
-  width: 800px;
-  position: relative;
-  margin: 20% auto;
+  margin: auto auto;
   z-index: 99;
   padding: 20px;
   border: 1px solid #888;
@@ -244,4 +252,28 @@
   border-radius: 5px;
   padding: 9px 6px 6px 6px;
   cursor: text;
+}
+
+footer {
+  padding: 5px;
+  clear: both;
+  text-align: center;
+  color: white;
+  background-color: black;
+}
+
+footer a:link {
+  color: grey;
+}
+
+footer a:visited {
+  color: darkgrey;
+}
+
+footer a:link {
+  color: grey;
+}
+
+footer a:hover {
+  color: lightgrey;
 }

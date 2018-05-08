@@ -206,7 +206,6 @@ export default function wireEvents(skillTree) {
     let treeDisplayWidth = Util.dimensionAsNumber(treeElement.style.width);
     let totalWidth = (treeDisplayWidth + 294) + "px"
     findById("modal-overlay").style.width = totalWidth;
-    findById("footer").style.width = totalWidth;
   }
 
   function getTabForTreeName(treeName) {
