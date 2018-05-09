@@ -27,7 +27,6 @@
   background-color: grey;
   font-size: 300%;
   line-height: 50px;
-  /* overflow-y: auto; */
 }
 
 #bonuses-header {
@@ -128,7 +127,6 @@
   left: 4px;
   background-color: blue;
   z-index: 0;
-
 }
 
 .hex-top {
@@ -136,12 +134,18 @@
   top: -9px;
   transform: perspective(55px) rotateX(45deg);
 }
-
 .hex-bottom {
   border-width: 0px 1px 2px 1px;
   top: 26px;
   transform: perspective(55px) rotateX(-45deg);
 }
+
+.graph-node.illegal .hex-component {
+  border-style: dashed;
+  border-color: red;
+}
+.graph-node.illegal .hex-top { border-width: 4px 2px 0px 2px; }
+.graph-node.illegal .hex-bottom { border-width: 0px 2px 4px 2px; }
 
 .hex-text {
   position: absolute;
@@ -159,20 +163,8 @@
   z-index: 1;
 }
 
-.hex-component.selected {
-  background-color: #00b5f5;
-}
-.hex-component.available {
-  background-color: #00556d;
-}
-.hex-component.unavailable {
-  background-color: grey;
-}
-.hex-component.locked {
-  background-color: #00b5f5;
-}
-
 .hex-top-shadow {
+  display: none;
   color: none;
   background-color: none;
   position: absolute;
@@ -186,6 +178,7 @@
 }
 
 .hex-bottom-shadow {
+  display: none;
   color: none;
   background-color: none;
   position: absolute;
@@ -198,21 +191,15 @@
   box-shadow: 0px 3px 15px 5px rgba(0,0,0,1);
 }
 
-.hex-text.selected {
-  color: black;
-}
+.graph-node.selected .hex-component { background-color: #00b5f5; }
+.graph-node.locked .hex-component { background-color: #00b5f5; }
+.graph-node.available .hex-component { background-color: #00556d; }
+.graph-node.unavailable .hex-component { background-color: grey; }
 
-.hex-text.locked {
-  color: black;
-}
-
-.hex-text.available {
-  color: white;
-}
-
-.hex-text.unavailable {
-  color: white;
-}
+.graph-node.selected .hex-text { color: black; }
+.graph-node.locked .hex-text { color: black; }
+.graph-node.available .hex-text { color: white; }
+.graph-node.unavailable .hex-text { color: white; }
 
 .node-connect-line {
   position: absolute;

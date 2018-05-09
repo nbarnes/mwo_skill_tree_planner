@@ -156,10 +156,9 @@ export default function wireEvents(skillTree) {
   }
 
   function setNodeElementColors(node, state) {
-    findById(node.id).querySelectorAll(".node-element").forEach(function(element) {
-      removeNodeClasses(element);
-      element.classList.add(state);
-    });
+    let nodeElement = findById(node.id);
+    removeNodeClasses(nodeElement);
+    nodeElement.classList.add(state);
   }
 
   function updateBonuses() {

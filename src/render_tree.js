@@ -55,14 +55,10 @@ export default function renderTree(skillTree) {
       let nodeFrameElement = buildNodeElement(node);
 
       // the first element in nodes is the root node, so it starts available
-      if (node == tree.nodes[0])
-        nodeFrameElement.querySelectorAll(".node-element").forEach(function(element) {
-          element.classList.add("available");
-        });
-      else {
-        nodeFrameElement.querySelectorAll(".node-element").forEach(function(element) {
-          element.classList.add("unavailable");
-        });
+      if (node == tree.nodes[0]) {
+        nodeFrameElement.classList.add("available");
+      } else {
+        nodeFrameElement.classList.add("unavailable");
       }
 
       let parent = skillTree.parentsOf(node)[0];
