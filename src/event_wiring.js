@@ -81,17 +81,17 @@ export default function wireEvents(skillTree) {
   }
 
   function canSelectNode(node) {
-    var availableNodeCount = (skillTree.getSelectedNodes().length <= Util.maxSkillNodes);
-    var isRootNode = skillTree.parentsOf(node).length === 0;
-    var parentSelected = false;
+    let availableNodeCount = (skillTree.getSelectedNodes().length <= Util.maxSkillNodes);
+    let isRootNode = skillTree.parentsOf(node).length === 0;
+    let parentIsSelected = false;
     for (let parent of skillTree.parentsOf(node)) {
-      parentSelected = parent.selected() || parentSelected;
+      parentIsSelected = parent.selected() || parentIsSelected;
     }
-    return availableNodeCount && (isRootNode || parentSelected);
+    return availableNodeCount && (isRootNode || parentIsSelected);
   }
 
   function canDeselectNode(node) {
-    var allChildrenUnlocked = true;
+    let allChildrenUnlocked = true;
     // for each child, find out if the child has another parent selelcted
     for (let child of skillTree.childrenOf(node)) {
       allChildrenUnlocked = allChildrenUnlocked && childUnlocked(child, node);
@@ -100,22 +100,22 @@ export default function wireEvents(skillTree) {
   }
 
   function childUnlocked(child, parent) {
-    var childUnlocked = true;
+    let childUnlocked = true;
     if (child.selected()) {
       let otherParents = skillTree.parentsOf(child).filter(element => {
-        element != parent;
+        return element != parent;
       });
-      childUnlocked = parentSelected(otherParents);
+      childUnlocked = otherParentSelected(otherParents);
     }
     return childUnlocked;
   }
 
-  function parentSelected(parents) {
-    var parentSelected = false;
-    for (let parent of parents) {
-      parentSelected = parentSelected || parent.selected();
+  function otherParentSelected(parentNodes) {
+    let parentIsSelected = false;
+    for (let parentNode of parentNodes) {
+      parentIsSelected = parentIsSelected || parentNode.selected();
     }
-    return parentSelected;
+    return parentIsSelected;
   }
 
   function selectTree(treeName) {
