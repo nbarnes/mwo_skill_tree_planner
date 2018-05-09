@@ -1,5 +1,5 @@
-export let attributeMap = {
 
+export let attributeMap = {
 
   /*
   ==========================================
@@ -8,51 +8,51 @@ export let attributeMap = {
   */
   "Weapon Range": {
     template: "+{}%",
-    hue: "0"
+    color: "#a6cee3"
   },
   "Laser Duration": {
     template: "-{}%",
-    hue: "30"
+    color: "#1f78b4"
   },
   "Weapon Velocity": {
     template: "+{}%",
-    hue: "60",
+    color: "#e31a1c"
   },
   "Weapon Cooldown": {
     template: "-{}%",
-    hue: "90"
+    color: "#33a02c"
   },
   "Missile Crit Damage": {
     template: "+{}%",
-    hue: "120"
+    color: "#fb9a99"
   },
   "Gauss Held Time": {
     template: "+{} sec.",
-    hue: "120"
+    color: "#cab2d6"
   },
   "Weapon Heat Gen": {
     template: "-{}%",
-    hue: "150"
+    color: "#fdbf6f"
   },
   "Ballistic Ammo": {
     template: "+{}",
-    hue: "180"
+    color: "#ff7f00"
   },
   "Missile Ammo": {
     template: "+{}",
-    hue: "210"
+    color: "#b15928"
   },
   "Missile Spread": {
     template: "+{}%",
-    hue: "240",
+    color: "#6a3d9a"
   },
   "LBX Spread": {
     template: "-{}%",
-    hue: "270"
+    color: "#ffff99"
   },
   "UAC Jam Chance": {
     template: "-{}%",
-    hue: "300"
+    color: "#b2df8a"
   },
   /*
   ==========================================
@@ -61,23 +61,23 @@ export let attributeMap = {
   */
   "Armor": {
     template: "+{}%",
-    hue: "0",
+    color: "#e41a1c",
   },
   "AMS Effectiveness": {
     template: "+{}%",
-    hue: "70"
+    color: "#377eb8"
   },
   "Crit Chance Received": {
     template: "-{}%",
-    hue: "140"
+    color: "#4daf4a"
   },
   "Internal Structure": {
     template: "+{}%",
-    hue: "210"
+    color: "#984ea3"
   },
   "Fall Damage": {
     template: "-{}%",
-    hue: "280"
+    color: "#ff7f00"
   },
   /*
   ==========================================
@@ -86,35 +86,35 @@ export let attributeMap = {
   */
   "Acceleration": {
     template: "+{}%",
-    hue: "0"
+    color: "#e41a1c"
   },
   "Deceleration": {
     template: "+{}%",
-    hue: "40"
+    color: "#377eb8"
   },
   "Max Torso Inclination": {
     template: "+{}%",
-    hue: "80"
+    color: "#4daf4a"
   },
   "Max Arm Inclination": {
     template: "+{}%",
-    hue: "120"
+    color: "#984ea3"
   },
   "Torso Twist Speed": {
     template: "+{}%",
-    hue: "160"
+    color: "#ff7f00"
   },
   "Max Torso Twist": {
     template: "+{}%",
-    hue: "200"
+    color: "#ffff33"
   },
   "Turn Speed": {
     template: "+{}%",
-    hue: "240"
+    color: "#a65628"
   },
   "Max Speed": {
     template: "+{}%",
-    hue: "280"
+    color: "#f781bf"
   },
   /*
   ==========================================
@@ -123,19 +123,19 @@ export let attributeMap = {
   */
   "Jump Jet Heat Reduction": {
     template: "-{}%",
-    hue: "0"
+    color: "#e41a1c"
   },
   "Jump Jet Initial Boost": {
     template: "+{}%",
-    hue: "70"
+    color: "#377eb8"
   },
   "Jump Jet Forward Thrust": {
     template: "+{}%",
-    hue: "140"
+    color: "#4daf4a"
   },
   "Jump Jet Burn Time": {
     template: "+{}%",
-    hue: "210"
+    color: "#984ea3"
   },
   /*
   ==========================================
@@ -144,27 +144,27 @@ export let attributeMap = {
   */
   "Startup Speed": {
     template: "-{}%",
-    hue: "0"
+    color: "#e41a1c"
   },
   "Legged Speed": {
     template: "+{}%",
-    hue: "60"
+    color: "#377eb8"
   },
   "Heat Capacity": {
     template: "+{}%",
-    hue: "120"
+    color: "#4daf4a"
   },
   "Hill Climb": {
     template: "+{}%",
-    hue: "180"
+    color: "#984ea3"
   },
   "Heat Dissipation": {
     template: "+{}%",
-    hue: "240"
+    color: "#ff7f00"
   },
   "Tastier Gyros": {
     template: "-{}%",
-    hue: "300"
+    color: "#ffff33"
   },
   /*
   ==========================================
@@ -173,35 +173,35 @@ export let attributeMap = {
   */
   "Target Info Speed": {
     template: "+{}%",
-    hue: "0"
+    color: "#e41a1c"
   },
   "Target Retention": {
     template: "+{} m.",
-    hue: "40"
+    color: "#377eb8"
   },
   "Sensor Range": {
     template: "+{}%",
-    hue: "80"
+    color: "#4daf4a"
   },
   "Target Lock Decay": {
     template: "+{} sec.",
-    hue: "120"
+    color: "#984ea3"
   },
   "Zoom Magnifier": {
     template: "+{}",
-    hue: "160"
+    color: "#ff7f00"
   },
   "Radar Deprivation": {
     template: "+{}%",
-    hue: "200"
+    color: "#ffff33"
   },
   "Seismic Sensor": {
     template: "{} m.",
-    hue: "240"
+    color: "#a65628"
   },
   "ECM Range": {
     template: "+{}%",
-    hue: "280"
+    color: "#f781bf"
   },
   /*
   ==========================================
@@ -210,58 +210,58 @@ export let attributeMap = {
   */
   "Consumable Slots": {
     template: "+{}",
-    hue: "0"
+    color: "#a6cee3"
   },
   "UAV Duration": {
     template: "+{} sec.",
-    hue: "20"
+    color: "#1f78b4"
   },
   "UAV Sight Range": {
     template: "+{}%",
-    hue: "40"
+    color: "#777777"
   },
   "Artillery Strike Duration": {
     template: "+{}%",
-    hue: "60"
+    color: "#33a02c"
   },
   "Coolshot Effectiveness": {
     template: "+{}%",
-    hue: "80"
+    color: "#fb9a99"
   },
   "UAV Capacity": {
     template: "+{}",
-    hue: "100"
+    color: "#e31a1c"
   },
   "Point Capture Speed": {
     template: "+{}%",
-    hue: "120"
+    color: "#b15928"
   },
   "NARC Velocity and Duration": {
     template: "+{}%",
-    hue: "140"
+    color: "#ff7f00"
   },
   "Additional Air / Arty Strike": {
     template: "+{}",
-    hue: "160"
+    color: "#cab2d6"
   },
   "Air / Arty Strike Accuracy": {
     template: "-{}%",
-    hue: "180"
+    color: "#fdbf6f"
   },
   "Additional Consumable Slot": {
     template: "+{}",
-    hue: "200"
+    color: "#ffff99"
   },
   "Rate of Capture": {
     template: "+{}%",
-    hue: "220"
+    color: "#b15928"
   },
   "Coolant Reserves": {
     template: "+{}",
-    hue: "240"
+    color: "#6a3d9a"
   },
   "Coolshot Cooldown": {
     template: "-{}%",
-    hue: "260"
+    color: "#b2df8a"
   }
 }

@@ -19,10 +19,10 @@ document.addEventListener("DOMContentLoaded", function() {
   document.head.appendChild(colorizationStylesElement);
   let colorizationStyles = colorizationStylesElement.sheet;
   for (let attribute of Object.getOwnPropertyNames(attributeMap)) {
-    colorizationStyles.insertRule(`#graph-view.colorize-nodes .${Util.stringToCss(attribute)} .hex-component.selected { background-color: hsl(${ attributeMap[attribute].hue }, 100%, 20%); }`);
-    colorizationStyles.insertRule(`#graph-view.colorize-nodes .${Util.stringToCss(attribute)} .hex-component.locked { background-color: hsl(${ attributeMap[attribute].hue }, 100%, 20%); }`);
-    colorizationStyles.insertRule(`#graph-view.colorize-nodes .${Util.stringToCss(attribute)} .hex-component.available { background-color: hsl(${ attributeMap[attribute].hue }, 90%, 70%); }`);
-    colorizationStyles.insertRule(`#graph-view.colorize-nodes .${Util.stringToCss(attribute)} .hex-component.unavailable { background-color: hsl(${ attributeMap[attribute].hue }, 90%, 70%); }`);
+    colorizationStyles.insertRule(`#graph-view.colorize-nodes .${Util.stringToCss(attribute)} .hex-component.selected { background-color: ${ attributeMap[attribute].color }`);
+    colorizationStyles.insertRule(`#graph-view.colorize-nodes .${Util.stringToCss(attribute)} .hex-component.locked { background-color: ${ attributeMap[attribute].color }`);
+    colorizationStyles.insertRule(`#graph-view.colorize-nodes .${Util.stringToCss(attribute)} .hex-component.available { background-color: ${ Util.shadeColor(attributeMap[attribute].color, -0.65) }`);
+    colorizationStyles.insertRule(`#graph-view.colorize-nodes .${Util.stringToCss(attribute)} .hex-component.unavailable { background-color: ${ Util.shadeColor(attributeMap[attribute].color, -0.65) }`);
   }
 
   renderTree(skillTree);

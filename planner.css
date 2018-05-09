@@ -202,19 +202,19 @@
 }
 
 .hex-text.selected {
-  color: white;
+  color: black;
 }
 
 .hex-text.locked {
-  color: white;
+  color: black;
 }
 
 .hex-text.available {
-  color: black;
+  color: white;
 }
 
 .hex-text.unavailable {
-  color: black;
+  color: white;
 }
 
 .node-connect-line {
