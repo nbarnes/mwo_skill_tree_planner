@@ -126,21 +126,21 @@
   border-color: black;
   box-sizing: border-box;
   position: absolute;
-  width: 43px;
-  height: 38px;
-  left: 4px;
+  width: 52px;
+  height: 44px;
+  left: 1px;
   background-color: blue;
   z-index: 0;
 }
 
 .hex-top {
   border-width: 2px 1px 0px 1px;
-  top: -9px;
+  top: -15px;
   transform: perspective(55px) rotateX(45deg);
 }
 .hex-bottom {
   border-width: 0px 1px 2px 1px;
-  top: 26px;
+  top: 28px;
   transform: perspective(55px) rotateX(-45deg);
 }
 
