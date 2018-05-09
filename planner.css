@@ -157,6 +157,7 @@
   width: 52px;
   height: 26px;
   top: 10px;
+  left: 1px;
   z-index: 1;
   background-color: none;
 }
@@ -203,10 +204,10 @@
 
 .node-connect-line {
   position: absolute;
-  height: 2px;
+  height: 10px;
   background: black;
   z-index: 0;
-  transform-origin: 0 100%;
+  transform-origin: left center;
 }
 
 #modal-overlay {

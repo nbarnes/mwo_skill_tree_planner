@@ -200,16 +200,20 @@ export default function renderTree(skillTree) {
     let childX = Util.dimensionAsNumber(childElement.style.left);
     let childY = Util.dimensionAsNumber(childElement.style.top);
 
-    lineElement.style.width = childY - parentY + 15 + "px";
+    let deltaX = parentX - childX;
+    let deltaY = parentY - childY;
 
-    let midX = (parentX + childX) / 2;
-    let midY = (parentY + childY) / 2;
-
-    let angle  = (Math.atan2(parentY - childY, parentX - childX) * 180 / Math.PI) + 180;
+    let angle  = (Math.atan2(deltaY, deltaX) * 180 / Math.PI) + 180;
     let transform = "rotate(" + (angle) + "deg)";
 
+    if (angle == 90) {
+      lineElement.style.width = childY - parentY + "px";
+    } else {
+      lineElement.style.width = childY - parentY + 40 + "px";
+    }
+
     lineElement.style.transform = transform;
-    lineElement.style.top = (parentY + 26) + "px";
+    lineElement.style.top = (parentY + 22) + "px";
     lineElement.style.left = (parentX + 26) + "px";
 
     treeElement.appendChild(lineElement);
