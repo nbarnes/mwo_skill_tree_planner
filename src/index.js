@@ -20,9 +20,7 @@ document.addEventListener("DOMContentLoaded", function() {
   let colorizationStyles = colorizationStylesElement.sheet;
   for (let attribute of Object.getOwnPropertyNames(attributeMap)) {
     colorizationStyles.insertRule(`#graph-view.colorize-nodes .${Util.stringToCss(attribute)}.selected .hex-component { background-color: ${ attributeMap[attribute].color }`);
-    colorizationStyles.insertRule(`#graph-view.colorize-nodes .${Util.stringToCss(attribute)}.locked .hex-component { background-color: ${ attributeMap[attribute].color }`);
-    colorizationStyles.insertRule(`#graph-view.colorize-nodes .${Util.stringToCss(attribute)}.available .hex-component { background-color: ${ Util.shadeColor(attributeMap[attribute].color, -0.65) }`);
-    colorizationStyles.insertRule(`#graph-view.colorize-nodes .${Util.stringToCss(attribute)}.unavailable .hex-component { background-color: ${ Util.shadeColor(attributeMap[attribute].color, -0.65) }`);
+    colorizationStyles.insertRule(`#graph-view.colorize-nodes .${Util.stringToCss(attribute)} .hex-component { background-color: ${ Util.shadeColor(attributeMap[attribute].color, -0.65) }`);
   }
 
   renderTree(skillTree);

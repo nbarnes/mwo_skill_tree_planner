@@ -16,6 +16,10 @@
   border-width: 1px 0px 1px 1px;
 }
 
+#node-selection-counter.exceeded-max-nodes {
+  color: red;
+}
+
 #right-sidebar {
   border-width: 1px 1px 1px 0px;
 }
@@ -192,14 +196,10 @@
 }
 
 .graph-node.selected .hex-component { background-color: #00b5f5; }
-.graph-node.locked .hex-component { background-color: #00b5f5; }
-.graph-node.available .hex-component { background-color: #00556d; }
-.graph-node.unavailable .hex-component { background-color: grey; }
+.graph-node .hex-component { background-color: grey; }
 
 .graph-node.selected .hex-text { color: black; }
-.graph-node.locked .hex-text { color: black; }
-.graph-node.available .hex-text { color: white; }
-.graph-node.unavailable .hex-text { color: white; }
+.graph-node .hex-text { color: white; }
 
 .node-connect-line {
   position: absolute;

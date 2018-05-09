@@ -55,75 +55,13 @@ export default function wireEvents(skillTree) {
   });
 
   PubSub.subscribe("selectTree", data => {
-    selectTree(data.treeName);
+    skillTree.selectTree(data.treeName);
   });
 
   PubSub.subscribe("toggleNodeColorization", data => toggleNodeColorization());
 
   function toggleNode(node) {
-    if (node.selected()) {
-      attemptNodeDeselection(node);
-    } else {
-      attemptNodeSelection(node);
-    }
-  }
-
-  function attemptNodeSelection(node) {
-    if (canSelectNode(node)) {
-      node.selected(true);
-    }
-  }
-
-  function attemptNodeDeselection(node) {
-    if (canDeselectNode(node)) {
-      node.selected(false);
-    }
-  }
-
-  function canSelectNode(node) {
-    let availableNodeCount = (skillTree.getSelectedNodes().length <= Util.maxSkillNodes);
-    let isRootNode = skillTree.parentsOf(node).length === 0;
-    let parentIsSelected = false;
-    for (let parent of skillTree.parentsOf(node)) {
-      parentIsSelected = parent.selected() || parentIsSelected;
-    }
-    return availableNodeCount && (isRootNode || parentIsSelected);
-  }
-
-  function canDeselectNode(node) {
-    let allChildrenUnlocked = true;
-    // for each child, find out if the child has another parent selelcted
-    for (let child of skillTree.childrenOf(node)) {
-      allChildrenUnlocked = allChildrenUnlocked && childUnlocked(child, node);
-    }
-    return allChildrenUnlocked;
-  }
-
-  function childUnlocked(child, parent) {
-    let childUnlocked = true;
-    if (child.selected()) {
-      let otherParents = skillTree.parentsOf(child).filter(element => {
-        return element != parent;
-      });
-      childUnlocked = otherParentSelected(otherParents);
-    }
-    return childUnlocked;
-  }
-
-  function otherParentSelected(parentNodes) {
-    let parentIsSelected = false;
-    for (let parentNode of parentNodes) {
-      parentIsSelected = parentIsSelected || parentNode.selected();
-    }
-    return parentIsSelected;
-  }
-
-  function selectTree(treeName) {
-    let availableNodes = Util.maxSkillNodes - skillTree.getSelectedNodes().length;
-    let tree = skillTree.getTree(treeName);
-    if (availableNodes >= tree.nodes.length) {
-      skillTree.selectTree(treeName);
-    }
+    node.selected(!node.selected());
   }
 
   function updateTreeColors(treeName) {
@@ -134,31 +72,25 @@ export default function wireEvents(skillTree) {
     } else {
       let tree = skillTree.getTree(treeName);
       for (let node of tree.nodes) {
-        updateNodeColor(node);
+        let nodeElement = findById(node.id);
+        if (node.selected()) {
+          nodeElement.classList.add("selected");
+          nodeLegal(node) ? nodeElement.classList.remove("illegal") : nodeElement.classList.add("illegal");
+        } else {
+          nodeElement.classList.remove("selected");
+          nodeElement.classList.remove("illegal")
+        }
       }
     }
   }
 
-  function updateNodeColor(node) {
-    if (node.selected()) {
-      if (canDeselectNode(node)) {
-        setNodeElementColors(node, "selected");
-      } else {
-        setNodeElementColors(node, "locked");
-      }
-    } else {
-      if (canSelectNode(node)) {
-        setNodeElementColors(node, "available");
-      } else {
-        setNodeElementColors(node, "unavailable");
-      }
+  function nodeLegal(node) {
+    let isRootNode = skillTree.parentsOf(node).length === 0;
+    let legalParentIsSelected = false;
+    for (let parent of skillTree.parentsOf(node)) {
+      legalParentIsSelected = ( parent.selected() && nodeLegal(parent) ) || legalParentIsSelected;
     }
-  }
-
-  function setNodeElementColors(node, state) {
-    let nodeElement = findById(node.id);
-    removeNodeClasses(nodeElement);
-    nodeElement.classList.add(state);
+    return isRootNode || legalParentIsSelected;
   }
 
   function updateBonuses() {
@@ -210,7 +142,6 @@ export default function wireEvents(skillTree) {
     treeElement.classList.remove("hide");
 
     // Reize the app to fit the new tree
-    // TODO: The bonuses sidebar changes width, which breaks this
     let treeDisplayWidth = Util.dimensionAsNumber(treeElement.style.width);
     let totalWidth = (treeDisplayWidth + 294) + "px"
     findById("modal-overlay").style.width = totalWidth;
@@ -220,15 +151,13 @@ export default function wireEvents(skillTree) {
     return findById(Util.stringToCss(treeName) + "-tab");
   }
 
-  function removeNodeClasses(nodeElement) {
-    nodeElement.classList.remove("selected");
-    nodeElement.classList.remove("available");
-    nodeElement.classList.remove("locked");
-    nodeElement.classList.remove("unavailable");
-  }
-
   function updateTotalNodesAndCosts(selectedNodeCount) {
     findById("node-selection-counter").textContent = selectedNodeCount;
+    if (selectedNodeCount > Util.maxSkillNodes) {
+      findById("node-selection-counter").classList.add("exceeded-max-nodes")
+    } else {
+      findById("node-selection-counter").classList.remove("exceeded-max-nodes")
+    }
     let totalCbillCost = `${(selectedNodeCount * Util.cbillsPerNode).toLocaleString("en-US")} C-Bills and`;
     let totalXpCost = `${(selectedNodeCount * Util.xpPerNode).toLocaleString("en-US")} XP / GXP`;
     findById("cost-totals-display").innerHTML = totalCbillCost + "</br>" + totalXpCost;
