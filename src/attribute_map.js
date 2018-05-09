@@ -252,10 +252,6 @@ export let attributeMap = {
     template: "+{}",
     color: "#ffff99"
   },
-  "Rate of Capture": {
-    template: "+{}%",
-    color: "#b15928"
-  },
   "Coolant Reserves": {
     template: "+{}",
     color: "#6a3d9a"

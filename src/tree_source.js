@@ -1332,11 +1332,11 @@ export let treeSource = [
         value: "1"
       },
       { name: "Capture Assist 3",
-        attribute: "Rate of Capture",
+        attribute: "Point Capture Speed",
         value: "5"
       },
       { name: "Capture Assist 4",
-        attribute: "Rate of Capture",
+        attribute: "Point Capture Speed",
         value: "5"
       },
       { name: "Consumable Slot 3",
