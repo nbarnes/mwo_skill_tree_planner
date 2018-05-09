@@ -115,29 +115,8 @@ export default function renderTree(skillTree) {
     // Create the lines between the graph nodes and add them to the tree
     for (let node of tree.nodes) {
       let parentElement = treeElement.querySelector(`#${node.id}`);
-      if (node.leftChildId != undefined) {
-        let leftChildElement = treeElement.querySelector(`#${node.leftChildId}`);
-        if (leftChildElement == null) {
-          console.log("left child id results in null = " + node.leftChildId + " for parent " + parentElement.id);
-        } else {
-          drawLineBetweenNodes(parentElement, leftChildElement, treeElement);
-        }
-      }
-      if (node.centerChildId != undefined) {
-        let centerChildElement = treeElement.querySelector(`#${node.centerChildId}`);
-        if (centerChildElement == null) {
-          console.log("center child id results in null = " + node.centerChildId + " for parent " + parentElement.id);
-        } else {
-          drawLineBetweenNodes(parentElement, centerChildElement, treeElement);
-        }
-      }
-      if (node.rightChildId != undefined) {
-        let rightChildElement = treeElement.querySelector(`#${node.rightChildId}`);
-        if (rightChildElement == null) {
-          console.log("right child id results in null = " + node.rightChildId + " for parent " + parentElement.id);
-        } else {
-          drawLineBetweenNodes(parentElement, rightChildElement, treeElement);
-        }
+      for (let child of skillTree.childrenOf(node)) {
+        drawLineBetweenNodes(parentElement, treeElement.querySelector(`#${child.id}`));
       }
     }
 
@@ -191,7 +170,7 @@ export default function renderTree(skillTree) {
     return nodeFrameElement;
   }
 
-  function drawLineBetweenNodes(parentElement, childElement, treeElement) {
+  function drawLineBetweenNodes(parentElement, childElement) {
     let lineElement = document.createElement("div");
     lineElement.classList.add("node-connect-line");
 
@@ -213,10 +192,10 @@ export default function renderTree(skillTree) {
     }
 
     lineElement.style.transform = transform;
-    lineElement.style.top = (parentY + 22) + "px";
-    lineElement.style.left = (parentX + 26) + "px";
+    lineElement.style.top = 22 + "px";
+    lineElement.style.left = 26 + "px";
 
-    treeElement.appendChild(lineElement);
+    parentElement.appendChild(lineElement);
   }
 
   function getRelativeChildPosition(parent, child) {

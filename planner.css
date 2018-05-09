@@ -144,7 +144,7 @@
   transform: perspective(55px) rotateX(-45deg);
 }
 
-.graph-node.illegal .hex-component {
+#graph-view .graph-node.illegal .hex-component {
   border-style: dashed;
   border-color: red;
 }
@@ -196,8 +196,13 @@
   transform: perspective(55px) rotateX(-45deg);
 }
 
-.graph-node.selected .hex-component { background-color: #00b5f5; }
-.graph-node .hex-component { background-color: grey; }
+.graph-node.selected .hex-component {
+  border-color: lightgrey;
+  background-color: #00b5f5;
+ }
+.graph-node .hex-component {
+  background-color: grey;
+}
 
 .graph-node.selected .hex-text { color: black; }
 .graph-node .hex-text { color: white; }
@@ -206,9 +211,11 @@
   position: absolute;
   height: 10px;
   background: black;
-  z-index: 0;
+  z-index: -1;
   transform-origin: left center;
 }
+.graph-node.selected .node-connect-line { background: darkgrey; }
+.graph-node.illegal .node-connect-line { background: red; }
 
 #modal-overlay {
   padding: 0px 5px 0px 5px;
