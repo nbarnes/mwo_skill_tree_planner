@@ -116,7 +116,7 @@ export default function renderTree(skillTree) {
     for (let node of tree.nodes) {
       let parentElement = treeElement.querySelector(`#${node.id}`);
       for (let child of skillTree.childrenOf(node)) {
-        drawLineBetweenNodes(parentElement, treeElement.querySelector(`#${child.id}`));
+        drawLineBetweenNodes(parentElement, treeElement.querySelector(`#${child.id}`), treeElement);
       }
     }
 
@@ -144,6 +144,7 @@ export default function renderTree(skillTree) {
     nodeFrameElement.id = node.id;
     nodeFrameElement.classList.add("graph-node");
     nodeFrameElement.classList.add(`${Util.stringToCss(node.attribute)}`);
+    nodeFrameElement.dataset.attribute = Util.stringToCss(node.attribute);
 
     hexTopElement.classList.add("hex-top");
     hexTopElement.classList.add("hex-component");
@@ -170,7 +171,7 @@ export default function renderTree(skillTree) {
     return nodeFrameElement;
   }
 
-  function drawLineBetweenNodes(parentElement, childElement) {
+  function drawLineBetweenNodes(parentElement, childElement, treeElement) {
     let lineElement = document.createElement("div");
     lineElement.classList.add("node-connect-line");
 
@@ -192,10 +193,10 @@ export default function renderTree(skillTree) {
     }
 
     lineElement.style.transform = transform;
-    lineElement.style.top = 22 + "px";
-    lineElement.style.left = 26 + "px";
+    lineElement.style.top = (parentY + 22) + "px";
+    lineElement.style.left = (parentX + 26) + "px";
 
-    parentElement.appendChild(lineElement);
+    treeElement.appendChild(lineElement);
   }
 
   function getRelativeChildPosition(parent, child) {

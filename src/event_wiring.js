@@ -60,6 +60,22 @@ export default function wireEvents(skillTree) {
 
   PubSub.subscribe("toggleNodeColorization", data => toggleNodeColorization());
 
+  PubSub.subscribe("nodeMouseEnter", data => {
+    for (let node of findById(`${Util.treeNameToId(data.treeName)}`).querySelectorAll(".graph-node")) {
+      if (node.dataset.attribute == data.attribute) {
+        node.classList.add("mouse-over");
+      } else {
+        node.classList.remove("mouse-over");
+      }
+    }
+  });
+
+  PubSub.subscribe("nodeMouseLeft", data => {
+    for (let node of findById(`${Util.treeNameToId(data.treeName)}`).querySelectorAll(".graph-node")) {
+      node.classList.remove("mouse-over");
+    }
+  });
+
   function toggleNode(node) {
     node.selected(!node.selected());
   }

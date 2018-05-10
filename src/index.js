@@ -9,7 +9,7 @@ import { PubSub } from "./pub_sub.js";
 import renderTree from "./render_tree.js";
 import wireEvents from "./event_wiring.js";
 import { loadFromRemoteId } from "./cold_storage.js";
-import { findById } from "./dom.js";
+import { findById, findByClass } from "./dom.js";
 
 document.addEventListener("DOMContentLoaded", function() {
 
@@ -47,6 +47,18 @@ document.addEventListener("DOMContentLoaded", function() {
   findById("colorize-nodes-button").addEventListener("click", function(event) {
     PubSub.publish("toggleNodeColorization");
   });
+
+  for (let node of findByClass(".graph-node")) {
+    node.addEventListener("mouseenter", function(event) {
+      PubSub.publish("nodeMouseEnter", {attribute: this.dataset.attribute, treeName: skillTree.getActiveTreeName()} );
+    });
+  }
+
+  for (let node of findByClass(".graph-node")) {
+    node.addEventListener("mouseleave", function(event) {
+      PubSub.publish("nodeMouseLeft", {attribute: this.dataset.attribute, treeName: skillTree.getActiveTreeName()} );
+    });
+  }
 
   findById("permalink-display").addEventListener("click", function(event) {
     event.stopPropagation();

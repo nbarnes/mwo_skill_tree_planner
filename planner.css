@@ -123,7 +123,7 @@
 
 .hex-component {
   border-style: solid;
-  border-color: black;
+  border-color: #191919;
   box-sizing: border-box;
   position: absolute;
   width: 52px;
@@ -168,12 +168,12 @@
   z-index: 1;
 }
 
-.graph-node.illegal .hex-shadow-top {
-  box-shadow: -1px -6px 15px 8px rgba(255,0,0,1);
+.graph-node.mouse-over .hex-shadow-top {
+  box-shadow: -1px -6px 15px 8px rgba(255, 255, 255, 0.8);
 }
 
-.graph-node.illegal .hex-shadow-bottom {
-  box-shadow: 0px 3px 15px 8px rgba(255,0,0,1);
+.graph-node.mouse-over .hex-shadow-bottom {
+  box-shadow: 0px 3px 15px 8px rgba(255, 255, 255, 0.8);
 }
 
 .hex-shadow {
@@ -183,7 +183,7 @@
   width: 40px;
   height: 42px;
   left: 7px;
-  z-index: -4;
+  z-index: -1;
 }
 
 .hex-shadow-top {
@@ -210,8 +210,8 @@
 .node-connect-line {
   position: absolute;
   height: 10px;
-  background: black;
-  z-index: -1;
+  background: #191919;
+  z-index: 0;
   transform-origin: left center;
 }
 .graph-node.selected .node-connect-line { background: darkgrey; }
