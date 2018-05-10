@@ -227,8 +227,8 @@
   z-index: 0;
   transform-origin: left center;
 }
-.graph-node.selected .node-connect-line { background: darkgrey; }
-.graph-node.illegal .node-connect-line { background: red; }
+.node-connect-line.selected { background: darkgrey; }
+.node-connect-line.illegal { background: red; }
 
 #modal-overlay {
   padding: 0px 5px 0px 5px;

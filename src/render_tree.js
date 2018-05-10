@@ -112,16 +112,11 @@ export default function renderTree(skillTree) {
       el.style.left = newLeft;
     });
 
-    // Create the lines between the graph nodes and add them to the tree
     for (let node of tree.nodes) {
-      let parentElement = treeElement.querySelector(`#${node.id}`);
-      for (let child of skillTree.childrenOf(node)) {
-        drawLineBetweenNodes(parentElement, treeElement.querySelector(`#${child.id}`), treeElement);
-      }
+      drawNodeEdges(node, treeElement);
     }
 
     findById("graph-view").appendChild(treeElement);
-
   }
 
   function buildNodeElement(node) {
@@ -171,32 +166,38 @@ export default function renderTree(skillTree) {
     return nodeFrameElement;
   }
 
-  function drawLineBetweenNodes(parentElement, childElement, treeElement) {
-    let lineElement = document.createElement("div");
-    lineElement.classList.add("node-connect-line");
+  function drawNodeEdges(parentNode, treeElement) {
+    let parentElement = treeElement.querySelector(`#${parentNode.id}`);
+    for (let child of skillTree.childrenOf(parentNode)) {
+      let childElement = treeElement.querySelector(`#${child.id}`);
 
-    let parentX = Util.dimensionAsNumber(parentElement.style.left);
-    let parentY = Util.dimensionAsNumber(parentElement.style.top);
-    let childX = Util.dimensionAsNumber(childElement.style.left);
-    let childY = Util.dimensionAsNumber(childElement.style.top);
+      let lineElement = document.createElement("div");
+      lineElement.classList.add("node-connect-line");
+      lineElement.classList.add(parentNode.id);
 
-    let deltaX = parentX - childX;
-    let deltaY = parentY - childY;
+      let parentX = Util.dimensionAsNumber(parentElement.style.left);
+      let parentY = Util.dimensionAsNumber(parentElement.style.top);
+      let childX = Util.dimensionAsNumber(childElement.style.left);
+      let childY = Util.dimensionAsNumber(childElement.style.top);
 
-    let angle  = (Math.atan2(deltaY, deltaX) * 180 / Math.PI) + 180;
-    let transform = "rotate(" + (angle) + "deg)";
+      let deltaX = parentX - childX;
+      let deltaY = parentY - childY;
 
-    if (angle == 90) {
-      lineElement.style.width = childY - parentY + "px";
-    } else {
-      lineElement.style.width = childY - parentY + 40 + "px";
+      let angle  = (Math.atan2(deltaY, deltaX) * 180 / Math.PI) + 180;
+      let transform = "rotate(" + (angle) + "deg)";
+
+      if (angle == 90) {
+        lineElement.style.width = childY - parentY + "px";
+      } else {
+        lineElement.style.width = childY - parentY + 40 + "px";
+      }
+
+      lineElement.style.transform = transform;
+      lineElement.style.top = (parentY + 22) + "px";
+      lineElement.style.left = (parentX + 26) + "px";
+
+      treeElement.appendChild(lineElement);
     }
-
-    lineElement.style.transform = transform;
-    lineElement.style.top = (parentY + 22) + "px";
-    lineElement.style.left = (parentX + 26) + "px";
-
-    treeElement.appendChild(lineElement);
   }
 
   function getRelativeChildPosition(parent, child) {

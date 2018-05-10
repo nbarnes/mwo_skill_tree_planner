@@ -89,12 +89,21 @@ export default function wireEvents(skillTree) {
       let tree = skillTree.getTree(treeName);
       for (let node of tree.nodes) {
         let nodeElement = findById(node.id);
+        let childEdges = findByClass(`.${node.id}`);
         if (node.selected()) {
           nodeElement.classList.add("selected");
           nodeLegal(node) ? nodeElement.classList.remove("illegal") : nodeElement.classList.add("illegal");
+          for (let edge of childEdges) {
+            edge.classList.add("selected");
+            nodeLegal(node) ? edge.classList.remove("illegal") : edge.classList.add("illegal");
+          }
         } else {
           nodeElement.classList.remove("selected");
-          nodeElement.classList.remove("illegal")
+          nodeElement.classList.remove("illegal");
+          for (let edge of childEdges) {
+            edge.classList.remove("selected");
+            edge.classList.remove("illegal");
+          }
         }
       }
     }
