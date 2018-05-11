@@ -12,9 +12,9 @@ export default function insertAttributeColors(attributeMap) {
 
     // background
     // selected
-    colorizationStyles.insertRule(`.colorize-nodes .${Util.stringToCss(attribute)}.selected .hex-component { background-color: ${ attributeMap[attribute].color }`);
+    colorizationStyles.insertRule(`.colorize-nodes .${Util.stringToCss(attribute)}.selected .hex-component { background-color: ${ Util.shadeColor(attributeMap[attribute].color, 0.2) }`);
     // unselected
-    colorizationStyles.insertRule(`.colorize-nodes .${Util.stringToCss(attribute)} .hex-component { background-color: ${ Util.shadeColor(attributeMap[attribute].color, -0.65) }`);
+    colorizationStyles.insertRule(`.colorize-nodes .${Util.stringToCss(attribute)} .hex-component { background-color: ${ Util.shadeColor(attributeMap[attribute].color, -0.55) }`);
 
     // box shadow
     // selected, mouse over
@@ -43,11 +43,11 @@ export default function insertAttributeColors(attributeMap) {
     // selected, no mouse
     colorizationStyles.insertRule(`.colorize-nodes ` +
       `.${Util.stringToCss(attribute)}.selected .hex-component ` +
-      ` { border-color: ${ Util.shadeColor(attributeMap[attribute].color, -0.6) }`);
+      ` { border-color: ${ Util.shadeColor(attributeMap[attribute].color, -0.5) }`);
     // selected, mouse over
     colorizationStyles.insertRule(`.colorize-nodes ` +
       `.${Util.stringToCss(attribute)}.selected.mouse-over .hex-component ` +
-      `{ border-color: ${ Util.shadeColor(attributeMap[attribute].color, -0.3) }`);
+      `{ border-color: ${ Util.shadeColor(attributeMap[attribute].color, -0.25) }`);
     // unselected, no mouse
     colorizationStyles.insertRule(`.colorize-nodes ` +
       `.${Util.stringToCss(attribute)} .hex-component ` +
@@ -55,7 +55,7 @@ export default function insertAttributeColors(attributeMap) {
     // unselected, mouse over
     colorizationStyles.insertRule(`.colorize-nodes ` +
       `.${Util.stringToCss(attribute)}.mouse-over .hex-component ` +
-      `{ border-color: ${ Util.shadeColor(attributeMap[attribute].color, -0.4) }`);
+      `{ border-color: ${ Util.shadeColor(attributeMap[attribute].color, -0.65) }`);
 
   }
 }

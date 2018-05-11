@@ -227,7 +227,7 @@
   z-index: 0;
   transform-origin: left center;
 }
-.node-connect-line.selected { background: darkgrey; }
+.node-connect-line.selected { background: white; }
 .node-connect-line.illegal { background: red; }
 
 #modal-overlay {
