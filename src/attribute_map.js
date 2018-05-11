@@ -208,10 +208,6 @@ export let attributeMap = {
                   AUXILIARY
   ==========================================
   */
-  "Consumable Slots": {
-    template: "+{}",
-    color: "#a6cee3"
-  },
   "UAV Duration": {
     template: "+{} sec.",
     color: "#1f78b4"

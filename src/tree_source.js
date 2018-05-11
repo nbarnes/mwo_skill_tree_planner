@@ -1454,7 +1454,7 @@ export let treeSource = [
     nodes: [
       { name: "Consumable Slot 1",
         label: "Consumable Slot",
-        attribute: "Consumable Slots",
+        attribute: "Additional Consumable Slot",
         value: "1",
         leftChildId: "uav-duration",
         rightChildId: "advanced-salvos-1"
