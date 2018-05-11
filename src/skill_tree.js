@@ -14,7 +14,7 @@ export default function buildSkillTree(treeSource) {
     let skillTrees = [];
     for (let treeDef of treeSource) {
       let skillTree = {}
-      skillTree.name = treeDef.name;
+      skillTree.name = treeDef.treeName;
       skillTree.nodes = [];
       for (let nodeDef of treeDef.nodes) {
         skillTree.nodes.push(buildNode(nodeDef));
@@ -204,6 +204,7 @@ function buildNode(nodeDef) {
     selectWithoutEvent: selectWithoutEvent,
     selected: selected,
     name: nodeDef.name,
+    label: nodeDef.label,
     id: nodeNameToId(nodeDef.name),
     attribute: nodeDef.attribute,
     value: parseFloat(nodeDef.value),

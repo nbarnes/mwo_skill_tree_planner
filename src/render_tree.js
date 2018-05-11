@@ -153,7 +153,7 @@ export default function renderTree(skillTree) {
     hexTopShadowElement.classList.add("hex-shadow-top");
     hexBottomShadowElement.classList.add("hex-shadow-bottom");
 
-    nodeTextElement.textContent = node.name.slice(0, -2);
+    nodeTextElement.textContent = node.label;
     nodeValueElement.textContent = Util.getValueTemplate(node.attribute)[0] + node.value + Util.getValueTemplate(node.attribute)[1];
 
     nodeFrameElement.append(hexTopElement);
