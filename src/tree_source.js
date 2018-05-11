@@ -1470,7 +1470,7 @@ export let treeSource = [
       { name: "Advanced Salvos 1",
         label: "Advanced Salvos",
         attribute: "Artillery Strike Duration",
-        value: "25",
+        value: "15",
         leftChildId: "enhanced-coolshot-1",
         centerChildId: "capture-assist-2",
         rightChildId: "advanced-salvos-2"
@@ -1493,7 +1493,7 @@ export let treeSource = [
       { name: "Advanced Salvos 2",
         label: "Advanced Salvos",
         attribute: "Artillery Strike Duration",
-        value: "25",
+        value: "15",
         centerChildId: "enhanced-narc-2",
         rightChildId: "expanded-reserves"
       },
