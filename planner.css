@@ -71,12 +71,12 @@
   font-size: 16px;
   line-height: 20px;
   position: relative;
-  top: 375px;
+  top: 340px;
 }
 
 #buttons-frame {
   position: relative;
-  top: 375px;
+  top: 340px;
   width: 100%;
   height: 100%;
   display: flex;
@@ -101,6 +101,45 @@
 .action-button:hover {
   color: white;
   background-color: #43464b;
+}
+
+#chassis-toggles {
+  display: flex;
+  flex-direction: row;
+  align-items: space-between;
+}
+
+.chassis-toggle-button {
+  height: 20px;
+  width: 61px;
+  font-size: 18px;
+  line-height: 21px;
+  text-align: center;
+  background-color: #737882;
+  cursor: pointer;
+
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none;
+}
+
+#chassis-weight-toggle {
+  margin: 3px 0px 3px 3px;
+  padding: 2px 0px 2px 2px;
+  border-radius: 5px 0px 0px 5px;
+  border: 1px solid black;
+}
+
+#chassis-tech-toggle {
+  margin: 3px 3px 3px 0px;
+  padding: 2px 2px 2px 0px;
+  border-width: 1px 1px 1px 0px;
+  border-style: solid;
+  border-color: black;
+  border-radius: 0px 5px 5px 0px;
 }
 
 .skill-tree {

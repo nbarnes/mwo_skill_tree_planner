@@ -20,8 +20,16 @@ export const treeNameToId = treeName => {
 }
 
 export const getValueTemplate = attribute => {
-  const template = attributeMap[attribute].template.split("{}");
+  const template = getAttribute(attribute).template.split("{}");
   return [ template[0], template[1] ];
+}
+
+export const getAttribute  = name => {
+  for (let attribute of attributeMap) {
+    if (attribute.name == name) {
+      return attribute;
+    }
+  }
 }
 
 export const showModal = message => {

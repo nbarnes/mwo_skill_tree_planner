@@ -21,6 +21,7 @@ document.addEventListener("DOMContentLoaded", function() {
   renderTree(skillTree);
   wireEvents(skillTree);
   loadFromRemoteId(skillTree);
+  PubSub.publish("toggleChassisWeight");
   PubSub.publish("treeTabClicked", {treeName: skillTree.getTrees()[0].name});
 
   findById("reset-tree-button").addEventListener("click", () => {
@@ -41,6 +42,14 @@ document.addEventListener("DOMContentLoaded", function() {
 
   findById("colorize-nodes-button").addEventListener("click", function(event) {
     PubSub.publish("toggleNodeColorization");
+  });
+
+  findById("chassis-weight-toggle").addEventListener("click", function(event) {
+    PubSub.publish("toggleChassisWeight");
+  });
+
+  findById("chassis-tech-toggle").addEventListener("click", function(event) {
+    PubSub.publish("toggleChassisTech");
   });
 
   for (let node of findByClass(".graph-node")) {

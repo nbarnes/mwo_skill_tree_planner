@@ -212,3 +212,13 @@ export default function renderTree(skillTree) {
   }
 
 }
+
+export const updateHexValues = function (chassisWeight, chassisTech, skillTree) {
+  // nodes = skillTree.getNodes();
+  // for (let node of nodes) {
+  //   let nodeElement = findById(node.id);
+
+  // }
+
+
+}

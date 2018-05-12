@@ -4,6 +4,7 @@
 import { PubSub } from "./pub_sub.js";
 import * as Util from "./util.js";
 import { findById, findByClass } from "./dom.js";
+import { updateHexValues } from "./render_tree.js";
 
 export default function wireEvents(skillTree) {
 
@@ -59,6 +60,26 @@ export default function wireEvents(skillTree) {
   });
 
   PubSub.subscribe("toggleNodeColorization", data => toggleNodeColorization());
+
+  const weightToggleLabels = ["Light", "Medium", "Heavy", "Assault"];
+  let weightTogglePosition = 3;
+
+  PubSub.subscribe("toggleChassisWeight", data => {
+    let toggle = findById("chassis-weight-toggle");
+    weightTogglePosition == 3 ? weightTogglePosition = 0 : weightTogglePosition++
+    toggle.innerHTML = weightToggleLabels[weightTogglePosition];
+    skillTree.setChassisWeight(weightToggleLabels[weightTogglePosition].toLowerCase());
+  });
+
+  PubSub.subscribe("chassisWeightUpdated", data => {
+    updateHexValues(data.attributeMap, data.weight);
+    updateBonuses();
+  });
+
+  PubSub.subscribe("toggleChassisTech", data => {
+    updateHexValues(data.attributeMap, data.tech);
+    updateBonuses();
+  });
 
   PubSub.subscribe("nodeMouseEnter", data => {
     for (let node of findById(`${Util.treeNameToId(data.treeName)}`).querySelectorAll(".graph-node")) {
@@ -116,6 +137,9 @@ export default function wireEvents(skillTree) {
       legalParentIsSelected = ( parent.selected() && nodeLegal(parent) ) || legalParentIsSelected;
     }
     return isRootNode || legalParentIsSelected;
+  }
+
+  function updateHexValues(attributeMap) {
   }
 
   function updateBonuses() {

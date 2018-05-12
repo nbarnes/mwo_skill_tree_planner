@@ -1,14 +1,17 @@
 
 "use strict";
 
-import { stringToCss } from "./util.js"
+import { stringToCss } from "./util.js";
 import { attributeMap } from "./attribute_map";
-import { PubSub } from "./pub_sub.js"
+import { PubSub } from "./pub_sub.js";
+import { getAttribute } from "./util.js";
 
 export default function buildSkillTree(treeSource) {
 
   var activeTreeName = treeSource[0].name;
   let skillTrees = buildSkillTrees(treeSource);
+  let chassisWeight = 'light';
+  let chassisTech = 'I.S.';
 
   function buildSkillTrees(treeSource) {
     let skillTrees = [];
@@ -157,6 +160,24 @@ export default function buildSkillTree(treeSource) {
     PubSub.publish("treeChanged", {treeName: treeName});
   }
 
+  function setChassisWeight(newWeight) {
+    chassisWeight = newWeight;
+    PubSub.publish("chassisWeightUpdated", { weight: newWeight, attributeMap: attributeMap } );
+  }
+
+  function getChassisWeight() {
+    return chassisWeight;
+  }
+
+  function setChassisTech(newTech) {
+    chassisTech = newTech;
+    PubSub.publish("chassisTechUpdated", { tech: newTech, attributeMap: attributeMap } );
+  }
+
+  function getChassisTech() {
+    return chassisTech;
+  }
+
   function pushIfDefined(collection, node) {
     if (node !== undefined) {
       collection.push(node);
@@ -176,7 +197,11 @@ export default function buildSkillTree(treeSource) {
     parentsOf: parentsOf,
     childrenOf: childrenOf,
     resetTree: resetTree,
-    selectTree: selectTree
+    selectTree: selectTree,
+    getChassisWeight: getChassisWeight,
+    setChassisWeight: setChassisWeight,
+    getChassisTech: getChassisTech,
+    setChassisTech: setChassisTech
   }
 
 }
@@ -204,16 +229,12 @@ function buildNode(nodeDef) {
     selectWithoutEvent: selectWithoutEvent,
     selected: selected,
     name: nodeDef.name,
-    label: nodeDef.label,
-    id: nodeNameToId(nodeDef.name),
+    id: stringToCss(nodeDef.name),
     attribute: nodeDef.attribute,
-    value: parseFloat(nodeDef.value),
+    label: getAttribute(nodeDef.attribute).label,
+    value: parseFloat(getAttribute(nodeDef.attribute).value),
     leftChildId: nodeDef.leftChildId,
     centerChildId: nodeDef.centerChildId,
     rightChildId: nodeDef.rightChildId
   };
-}
-
-function nodeNameToId(nodeName) {
-  return stringToCss(nodeName);
 }

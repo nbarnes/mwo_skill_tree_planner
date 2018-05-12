@@ -1,56 +1,82 @@
 
-export let attributeMap = {
+export let attributeMap = [
 
   /*
   ==========================================
                    WEAPONS
   ==========================================
   */
-  "Weapon Range": {
+  {
+    name: "Weapon Range",
+    label: "Range",
+    value: "1",
     template: "+{}%",
     color: "#a6cee3"
-  },
-  "Laser Duration": {
+  }, {
+    name: "Laser Duration",
+    label: "",
+    value: "",
     template: "-{}%",
     color: "#1f78b4"
-  },
-  "Weapon Velocity": {
+  }, {
+    name: "Weapon Velocity",
+    label: "Velocity",
+    value: "2",
     template: "+{}%",
     color: "#e31a1c"
-  },
-  "Weapon Cooldown": {
+  }, {
+    name: "Weapon Cooldown",
+    label: "Cooldown",
+    value: "0.75",
     template: "-{}%",
     color: "#33a02c"
-  },
-  "Missile Crit Damage": {
+  }, {
+    name: "Missile Crit Damage",
+    label: "High Explosive",
+    value: "7.5",
     template: "+{}%",
     color: "#fb9a99"
-  },
-  "Gauss Held Time": {
+  }, {
+    name: "Gauss Held Time",
+    label: "Gauss Charge",
+    value: "0.5",
     template: "+{} sec.",
     color: "#cab2d6"
-  },
-  "Weapon Heat Gen": {
+  }, {
+    name: "Weapon Heat Gen",
+    label: "Heat Gen",
+    value: "0.75",
     template: "-{}%",
-    color: "#fdbf6f"
-  },
-  "Ballistic Ammo": {
+    color: "#fdbf6f",
+    chassisable: true
+  }, {
+    name: "Ballistic Ammo",
+    label: "Magazine Capacity",
+    value: "8",
     template: "+{}",
     color: "#ff7f00"
-  },
-  "Missile Ammo": {
+  }, {
+    name: "Missile Ammo",
+    label: "Missile Rack",
+    value: "1",
     template: "+{}",
     color: "#b15928"
-  },
-  "Missile Spread": {
+  }, {
+    name: "Missile Spread",
+    label: "Missile Spread",
+    value: "2.5",
     template: "+{}%",
     color: "#6a3d9a"
-  },
-  "LBX Spread": {
+  }, {
+    name: "LBX Spread",
+    label: "LBX Spread",
+    value: "5",
     template: "-{}%",
     color: "#ffff99"
-  },
-  "UAC Jam Chance": {
+  }, {
+    name: "UAC Jam Chance",
+    label: "UAX Jam Chance",
+    value: "2,5",
     template: "-{}%",
     color: "#b2df8a"
   },
@@ -59,23 +85,34 @@ export let attributeMap = {
                   SURVIVAL
   ==========================================
   */
-  "Armor": {
+  {
+    name: "Armor",
+    label: "Armor Hardening",
+    value: "1.6",
     template: "+{}%",
     color: "#e41a1c",
-  },
-  "AMS Effectiveness": {
+  }, {
+    name: "AMS Effectiveness",
+    label: "AMS Overload",
+    value: "1.25",
     template: "+{}%",
     color: "#377eb8"
-  },
-  "Crit Chance Received": {
+  }, {
+    name: "Crit Chance Received",
+    label: "Reinforced Casing",
+    value: "1",
     template: "-{}%",
     color: "#4daf4a"
-  },
-  "Internal Structure": {
+  }, {
+    name: "Internal Structure",
+    label: "Skeletal Density",
+    value: "3.1",
     template: "+{}%",
     color: "#984ea3"
-  },
-  "Fall Damage": {
+  }, {
+    name: "Fall Damage",
+    label: "Shock Absorbtion",
+    value: "10",
     template: "-{}%",
     color: "#ff7f00"
   },
@@ -84,35 +121,52 @@ export let attributeMap = {
                     MOBiLITY
   ==========================================
   */
-  "Acceleration": {
+  {
+    name: "Acceleration",
+    label: "Kinetic Burst",
+    value: "3.5",
     template: "+{}%",
     color: "#e41a1c"
-  },
-  "Deceleration": {
+  }, {
+    name: "Deceleration",
+    label: "Hard Brake",
+    value: "3.5",
     template: "+{}%",
     color: "#377eb8"
-  },
-  "Max Torso Inclination": {
+  }, {
+    name: "Max Torso Inclination",
+    label: "Torso Pitch",
+    value: "2",
     template: "+{}%",
     color: "#4daf4a"
-  },
-  "Max Arm Inclination": {
+  }, {
+    name: "Max Arm Inclination",
+    label: "",
+    value: "",
     template: "+{}%",
     color: "#984ea3"
-  },
-  "Torso Twist Speed": {
+  }, {
+    name: "Torso Twist Speed",
+    label: "Torso Speed",
+    value: "3.5",
     template: "+{}%",
     color: "#ff7f00"
-  },
-  "Max Torso Twist": {
+  }, {
+    name: "Max Torso Twist",
+    label: "Torso Yaw",
+    value: "2",
     template: "+{}%",
     color: "#ffff33"
-  },
-  "Turn Speed": {
+  }, {
+    name: "Turn Speed",
+    label: "Anchor Turn",
+    value: "5",
     template: "+{}%",
     color: "#a65628"
-  },
-  "Max Speed": {
+  }, {
+    name: "Max Speed",
+    label: "Speed Tweak",
+    value: "1.5",
     template: "+{}%",
     color: "#f781bf"
   },
@@ -121,19 +175,28 @@ export let attributeMap = {
                   JUMP JETS
   ==========================================
   */
-  "Jump Jet Heat Reduction": {
+  {
+    name: "Jump Jet Heat Reduction",
+    label: "Heat Shielding",
+    value: "6",
     template: "-{}%",
     color: "#e41a1c"
-  },
-  "Jump Jet Initial Boost": {
+  }, {
+    name: "Jump Jet Initial Boost",
+    label: "Lift Speed",
+    value: "3",
     template: "+{}%",
     color: "#377eb8"
-  },
-  "Jump Jet Forward Thrust": {
+  }, {
+    name: "Jump Jet Forward Thrust",
+    label: "Vectoring",
+    value: "25",
     template: "+{}%",
     color: "#4daf4a"
-  },
-  "Jump Jet Burn Time": {
+  }, {
+    name: "Jump Jet Burn Time",
+    label: "Vent Calibration",
+    value: "3",
     template: "+{}%",
     color: "#984ea3"
   },
@@ -142,27 +205,40 @@ export let attributeMap = {
                  OPERATIONS
   ==========================================
   */
-  "Startup Speed": {
+  {
+    name: "Startup Speed",
+    label: "Quick Ignition",
+    value: "7",
     template: "-{}%",
     color: "#e41a1c"
-  },
-  "Legged Speed": {
+  }, {
+    name: "Legged Speed",
+    label: "Speed Retention",
+    value: "10",
     template: "+{}%",
     color: "#377eb8"
-  },
-  "Heat Capacity": {
+  }, {
+    name: "Heat Capacity",
+    label: "Heat Containment",
+    value: "3",
     template: "+{}%",
     color: "#4daf4a"
-  },
-  "Hill Climb": {
+  }, {
+    name: "Hill Climb",
+    label: "Hill Climb",
+    value: "5",
     template: "+{}%",
     color: "#984ea3"
-  },
-  "Heat Dissipation": {
+  }, {
+    name: "Heat Dissipation",
+    label: "Cool Run",
+    value: "2",
     template: "+{}%",
     color: "#ff7f00"
-  },
-  "Tastier Gyros": {
+  }, {
+    name: "Tastier Gyros",
+    label: "Improved Gyros",
+    value: "17.5",
     template: "-{}%",
     color: "#ffff33"
   },
@@ -171,35 +247,52 @@ export let attributeMap = {
                    SENSORS
   ==========================================
   */
-  "Target Info Speed": {
+  {
+    name: "Target Info Speed",
+    label: "Target Info Gathering",
+    value: "7",
     template: "+{}%",
     color: "#e41a1c"
-  },
-  "Target Retention": {
+  }, {
+    name: "Target Retention",
+    label: "Target Retention",
+    value: "200",
     template: "+{} m.",
     color: "#377eb8"
-  },
-  "Sensor Range": {
+  }, {
+    name: "Sensor Range",
+    label: "Sensor Range",
+    value: "7",
     template: "+{}%",
     color: "#4daf4a"
-  },
-  "Target Lock Decay": {
+  }, {
+    name: "Target Lock Decay",
+    label: "Target Decay",
+    value: "0.7",
     template: "+{} sec.",
     color: "#984ea3"
-  },
-  "Zoom Magnifier": {
+  }, {
+    name: "Zoom Magnifier",
+    label: "Advanced Zoom",
+    value: "1",
     template: "+{}",
     color: "#ff7f00"
-  },
-  "Radar Deprivation": {
+  }, {
+    name: "Radar Deprivation",
+    label: "Radar Deprivation",
+    value: "20",
     template: "+{}%",
     color: "#ffff33"
-  },
-  "Seismic Sensor": {
+  }, {
+    name: "Seismic Sensor",
+    label: "Seismic Sensor",
+    value: "100",
     template: "{} m.",
     color: "#a65628"
-  },
-  "ECM Range": {
+  }, {
+    name: "ECM Range",
+    label: "Enchanced ECM",
+    value: "22.5",
     template: "+{}%",
     color: "#f781bf"
   },
@@ -208,52 +301,77 @@ export let attributeMap = {
                   AUXILIARY
   ==========================================
   */
-  "UAV Duration": {
+  {
+    name: "UAV Duration",
+    label: "UAV Duration",
+    value: "10",
     template: "+{} sec.",
     color: "#1f78b4"
-  },
-  "UAV Sight Range": {
+  }, {
+    name: "UAV Sight Range",
+    label: "UAV Range",
+    value: "20",
     template: "+{}%",
     color: "#777777"
-  },
-  "Artillery Strike Duration": {
+  }, {
+    name: "Artillery Strike Duration",
+    label: "Advanced Salvos",
+    value: "15",
     template: "+{}%",
     color: "#33a02c"
-  },
-  "Coolshot Effectiveness": {
+  }, {
+    name: "Coolshot Effectiveness",
+    label: "Enhanced Coolshot",
+    value: "25",
     template: "+{}%",
     color: "#fb9a99"
-  },
-  "UAV Capacity": {
+  }, {
+    name: "UAV Capacity",
+    label: "Extra UAV",
+    value: "1",
     template: "+{}",
     color: "#e31a1c"
-  },
-  "Point Capture Speed": {
+  }, {
+    name: "Point Capture Speed",
+    label: "Capture Assist",
+    value: "5",
     template: "+{}%",
     color: "#b15928"
-  },
-  "NARC Velocity and Duration": {
+  }, {
+    name: "NARC Velocity and Duration",
+    label: "Enhanced NARC",
+    value: "10",
     template: "+{}%",
     color: "#ff7f00"
-  },
-  "Additional Air / Arty Strike": {
+  }, {
+    name: "Additional Air / Arty Strike",
+    label: "Expanded Reserves",
+    value: "1",
     template: "+{}",
     color: "#cab2d6"
-  },
-  "Air / Arty Strike Accuracy": {
+  }, {
+    name: "Air / Arty Strike Accuracy",
+    label: "Enhanced Spotting",
+    value: "20",
     template: "-{}%",
     color: "#fdbf6f"
-  },
-  "Additional Consumable Slot": {
+  }, {
+    name: "Additional Consumable Slot",
+    label: "Consumable Slot",
+    value: "1",
     template: "+{}",
     color: "#ffff99"
-  },
-  "Coolant Reserves": {
+  }, {
+    name: "Coolant Reserves",
+    label: "Coolant Reserves",
+    value: "1",
     template: "+{}",
     color: "#6a3d9a"
-  },
-  "Coolshot Cooldown": {
+  }, {
+    name: "Coolshot Cooldown",
+    label: "Coolant Cooldown",
+    value: "25",
     template: "-{}%",
     color: "#b2df8a"
   }
-}
+]
