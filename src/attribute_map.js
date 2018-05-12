@@ -50,19 +50,19 @@ export let attributeMap = [
     color: "#fdbf6f",
     chassisValues: {
       light: {
-        'I.S.': '0.75',
-        Clan: '0.6'
+        is: '0.75',
+        clan: '0.6'
       },
       medium: {
-        'I.S.': '0.75',
+        is: '0.75',
         clan: '0.6'
       },
       heavy: {
-        'I.S.': '0.75',
+        is: '0.75',
         clan: '0.6'
       },
       assault: {
-        'I.S.': '0.75',
+        is: '0.75',
         clan: '0.6'
       },
     }

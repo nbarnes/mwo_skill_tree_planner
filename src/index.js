@@ -22,6 +22,7 @@ document.addEventListener("DOMContentLoaded", function() {
   wireEvents(skillTree);
   loadFromRemoteId(skillTree);
   PubSub.publish("toggleChassisWeight");
+  PubSub.publish("toggleChassisTech");
   PubSub.publish("treeTabClicked", {treeName: skillTree.getTrees()[0].name});
 
   findById("reset-tree-button").addEventListener("click", () => {

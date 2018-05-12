@@ -11,7 +11,7 @@ export default function buildSkillTree(treeSource) {
   var activeTreeName = treeSource[0].name;
   let skillTrees = buildSkillTrees(treeSource);
   let chassisWeight = 'light';
-  let chassisTech = 'I.S.';
+  let chassisTech = 'is';
 
   function buildSkillTrees(treeSource) {
     let skillTrees = [];

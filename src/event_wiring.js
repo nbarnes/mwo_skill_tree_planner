@@ -68,7 +68,17 @@ export default function wireEvents(skillTree) {
     let toggle = findById("chassis-weight-toggle");
     weightTogglePosition == 3 ? weightTogglePosition = 0 : weightTogglePosition++
     toggle.textContent = weightToggleLabels[weightTogglePosition];
-    skillTree.setChassisWeight(weightToggleLabels[weightTogglePosition].toLowerCase());
+    skillTree.setChassisWeight(Util.stringToCss(weightToggleLabels[weightTogglePosition]));
+  });
+
+  const techToggleLabels = ["I.S.", "Clan"];
+  let techTogglePosition = 1;
+
+  PubSub.subscribe("toggleChassisTech", data => {
+    let toggle = findById("chassis-tech-toggle");
+    techTogglePosition == 1 ? techTogglePosition = 0 : techTogglePosition++
+    toggle.textContent = techToggleLabels[techTogglePosition];
+    skillTree.setChassisTech(Util.stringToCss(techToggleLabels[techTogglePosition]));
   });
 
   PubSub.subscribe("chassisWeightUpdated", data => {
@@ -153,7 +163,6 @@ export default function wireEvents(skillTree) {
         }
       }
     }
-
   }
 
   function updateBonuses() {
@@ -163,9 +172,9 @@ export default function wireEvents(skillTree) {
       if (nodeLegal(node)) {
         let bonusForAttribute = getBonusForAttribute(bonuses, node.attribute);
         if (bonusForAttribute != undefined) {
-          bonusForAttribute.value = ((bonusForAttribute.value * 10) + (node.value * 10)) / 10;
+          bonusForAttribute.value = ((bonusForAttribute.value * 10) + (nodeValue(node) * 10)) / 10;
         } else {
-          bonuses.push({attribute: node.attribute, value: node.value, valueTemplate: node.valueTemplate});
+          bonuses.push({attribute: node.attribute, value: nodeValue(node), valueTemplate: node.valueTemplate});
         }
       }
     }
@@ -190,6 +199,15 @@ export default function wireEvents(skillTree) {
       if (bonus.attribute == attribute) {
         return bonus;
       }
+    }
+  }
+
+  function nodeValue(node) {
+    let attribute = Util.getAttribute(node.attribute);
+    if (attribute.chassisValues != undefined) {
+      return attribute.chassisValues[skillTree.getChassisWeight()][skillTree.getChassisTech()];
+    } else {
+      return attribute.value;
     }
   }
 

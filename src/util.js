@@ -7,7 +7,7 @@ export let cbillsPerNode = 60000;
 export let xpPerNode = 800;
 
 export let stringToCss = string => {
-  return string.replace(/ \/ /g, "-").replace(/ /g, "-").toLowerCase();
+  return string.replace(/ \/ | /g, "-").replace(/\./g, "").toLowerCase();
 }
 
 // strips the "px" off the end of a CSS dimension, returns the number value
