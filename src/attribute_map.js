@@ -14,14 +14,14 @@ export let attributeMap = [
     color: "#a6cee3"
   }, {
     name: "Laser Duration",
-    label: "",
-    value: "",
+    label: "Laser Duration",
+    value: "3.75",
     template: "-{}%",
     color: "#1f78b4"
   }, {
     name: "Weapon Velocity",
     label: "Velocity",
-    value: "2",
+    value: "3",
     template: "+{}%",
     color: "#e31a1c"
   }, {
@@ -39,7 +39,7 @@ export let attributeMap = [
   }, {
     name: "Gauss Held Time",
     label: "Gauss Charge",
-    value: "0.5",
+    value: "0.75",
     template: "+{} sec.",
     color: "#cab2d6"
   }, {
@@ -48,7 +48,24 @@ export let attributeMap = [
     value: "0.75",
     template: "-{}%",
     color: "#fdbf6f",
-    chassisable: true
+    chassisValues: {
+      light: {
+        'I.S.': '0.75',
+        Clan: '0.6'
+      },
+      medium: {
+        'I.S.': '0.75',
+        clan: '0.6'
+      },
+      heavy: {
+        'I.S.': '0.75',
+        clan: '0.6'
+      },
+      assault: {
+        'I.S.': '0.75',
+        clan: '0.6'
+      },
+    }
   }, {
     name: "Ballistic Ammo",
     label: "Magazine Capacity",
@@ -74,11 +91,17 @@ export let attributeMap = [
     template: "-{}%",
     color: "#ffff99"
   }, {
-    name: "UAC Jam Chance",
-    label: "UAX Jam Chance",
-    value: "2,5",
+    name: "Enhanced UAC / RAC",
+    label: "Enhanced UAC",
+    value: "2.5",
     template: "-{}%",
     color: "#b2df8a"
+  }, {
+    name: "Flamer Ventilation",
+    label: "Flamer Ventilation",
+    value: "7.5",
+    template: "-{}%",
+    color: "#ffff99"
   },
   /*
   ==========================================
@@ -94,7 +117,7 @@ export let attributeMap = [
   }, {
     name: "AMS Effectiveness",
     label: "AMS Overload",
-    value: "1.25",
+    value: "0.75",
     template: "+{}%",
     color: "#377eb8"
   }, {
@@ -290,8 +313,8 @@ export let attributeMap = [
     template: "{} m.",
     color: "#a65628"
   }, {
-    name: "ECM Range",
-    label: "Enchanced ECM",
+    name: "Enhanced ECM Systems",
+    label: "Enhanced ECM",
     value: "22.5",
     template: "+{}%",
     color: "#f781bf"
@@ -322,7 +345,7 @@ export let attributeMap = [
   }, {
     name: "Coolshot Effectiveness",
     label: "Enhanced Coolshot",
-    value: "25",
+    value: "15",
     template: "+{}%",
     color: "#fb9a99"
   }, {

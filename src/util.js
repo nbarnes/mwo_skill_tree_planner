@@ -19,14 +19,14 @@ export const treeNameToId = treeName => {
   return stringToCss(treeName) + "-skill-tree";
 }
 
-export const getValueTemplate = attribute => {
-  const template = getAttribute(attribute).template.split("{}");
+export const getValueTemplate = attributeName => {
+  const template = getAttribute(attributeName).template.split("{}");
   return [ template[0], template[1] ];
 }
 
-export const getAttribute  = name => {
+export const getAttribute  = attributeName => {
   for (let attribute of attributeMap) {
-    if (attribute.name == name) {
+    if (attribute.name == attributeName) {
       return attribute;
     }
   }

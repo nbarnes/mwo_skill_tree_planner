@@ -68,10 +68,12 @@ export let treeSource = [
       },
       { name: "Cooldown 4",
         attribute: "Weapon Cooldown",
-        centerChildId: "cooldown-6"
+        centerChildId: "cooldown-6",
+        rightChildId: "flamer-ventilation-1",
       },
       { name: "Gauss Charge 1",
         attribute: "Gauss Held Time",
+        leftChildId: "flamer-ventilation-1",
         rightChildId: "heat-gen-2"
       },
       { name: "Cooldown 5",
@@ -88,6 +90,9 @@ export let treeSource = [
         attribute: "Weapon Heat Gen",
         leftChildId: "missile-spread-1",
         rightChildId: "heat-gen-3"
+      },
+      { name: "Flamer Ventilation 1",
+        attribute: "Flamer Ventilation"
       },
       { name: "Heat Gen 2",
         attribute: "Weapon Heat Gen",
@@ -129,7 +134,7 @@ export let treeSource = [
 	  { name: "Range 10",
         attribute: "Weapon Range",
         leftChildId: "cooldown-8",
-        rightChildId: "uac-jam-chance-1"
+        rightChildId: "enhanced-uac-rac-1"
       },
       { name: "Cooldown 7",
         attribute: "Weapon Cooldown",
@@ -160,8 +165,8 @@ export let treeSource = [
         centerChildId: "gauss-charge-2",
         rightChildId: "heat-gen-7"
       },
-      { name: "UAC Jam Chance 1",
-        attribute: "UAC Jam Chance",
+      { name: "Enhanced UAC / RAC 1",
+        attribute: "Enhanced UAC / RAC",
       },
       { name: "Heat Gen 5",
         attribute: "Weapon Heat Gen",
@@ -176,6 +181,7 @@ export let treeSource = [
       { name: "Range 13",
         attribute: "Weapon Range",
         leftChildId: "heat-gen-8",
+        centerChildId: "flamer-ventilation-2",
         rightChildId: "missile-rack-1"
       },
       { name: "Laser Duration 1",
@@ -215,29 +221,32 @@ export let treeSource = [
         rightChildId: "cooldown-12"
       },
 	  { name: "Magazine Capacity 1",
-        attribute: "Ballistic Ammo",
-        leftChildId: "cooldown-12"
-      },
+      attribute: "Ballistic Ammo",
+      leftChildId: "cooldown-12"
+    },
 	  { name: "Heat Gen 9",
-        attribute: "Weapon Heat Gen",
-        centerChildId: "cooldown-14",
-        rightChildId: "laser-duration-3"
-      },
+      attribute: "Weapon Heat Gen",
+      centerChildId: "cooldown-14",
+      rightChildId: "laser-duration-3"
+    },
 	  { name: "Gauss Charge 2",
-        attribute: "Gauss Held Time",
-        leftChildId: "laser-duration-3"
-      },
+      attribute: "Gauss Held Time",
+      leftChildId: "laser-duration-3"
+    },
 	  { name: "Cooldown 11",
-        attribute: "Weapon Cooldown",
-        leftChildId: "magazine-capacity-2"
-      },
+      attribute: "Weapon Cooldown",
+      leftChildId: "magazine-capacity-2"
+    },
 	  { name: "Missile Rack 2",
-        attribute: "Missile Ammo",
-      },
+      attribute: "Missile Ammo",
+    },
 	  { name: "Laser Duration 2",
-        attribute: "Laser Duration",
-        rightChildId: "cooldown-13"
-      },
+      attribute: "Laser Duration",
+      rightChildId: "cooldown-13"
+    },
+    { name: "Flamer Ventilation 2",
+      attribute: "Flamer Ventilation"
+    },
 	  { name: "Cooldown 12",
         attribute: "Weapon Cooldown",
         leftChildId: "range-15",
@@ -281,7 +290,7 @@ export let treeSource = [
         attribute: "Weapon Cooldown",
         leftChildId: "missile-spread-2",
         centerChildId: "laser-duration-4",
-        rightChildId: "uac-jam-chance-2"
+        rightChildId: "enhanced-uac-rac-2"
       },
 	  { name: "Heat Gen 12",
         attribute: "Weapon Heat Gen",
@@ -295,8 +304,8 @@ export let treeSource = [
       { name: "Missile Spread 2",
         attribute: "Missile Spread",
       },
-      { name: "UAC Jam Chance 2",
-        attribute: "UAC Jam Chance",
+      { name: "Enhanced UAC / RAC 2",
+        attribute: "Enhanced UAC / RAC",
       },
       { name: "LBX Spread 2",
         attribute: "LBX Spread",
@@ -989,7 +998,7 @@ export let treeSource = [
         rightChildId: "enhanced-ecm-2"
       },
       { name: "Enhanced ECM 1",
-        attribute: "ECM Range",
+        attribute: "Enhanced ECM Systems",
       },
       { name: "Target Info Gathering 5",
         attribute: "Target Info Speed",
@@ -1001,7 +1010,7 @@ export let treeSource = [
         rightChildId: "radar-deprivation-5"
       },
       { name: "Enhanced ECM 2",
-        attribute: "ECM Range",
+        attribute: "Enhanced ECM Systems",
       },
       { name: "Seismic Sensor 2",
         attribute: "Seismic Sensor",

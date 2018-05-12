@@ -67,17 +67,17 @@ export default function wireEvents(skillTree) {
   PubSub.subscribe("toggleChassisWeight", data => {
     let toggle = findById("chassis-weight-toggle");
     weightTogglePosition == 3 ? weightTogglePosition = 0 : weightTogglePosition++
-    toggle.innerHTML = weightToggleLabels[weightTogglePosition];
+    toggle.textContent = weightToggleLabels[weightTogglePosition];
     skillTree.setChassisWeight(weightToggleLabels[weightTogglePosition].toLowerCase());
   });
 
   PubSub.subscribe("chassisWeightUpdated", data => {
-    updateHexValues(data.attributeMap, data.weight);
+    updateHexValues(data.attributeMap);
     updateBonuses();
   });
 
-  PubSub.subscribe("toggleChassisTech", data => {
-    updateHexValues(data.attributeMap, data.tech);
+  PubSub.subscribe("chassisTechUpdated", data => {
+    updateHexValues(data.attributeMap);
     updateBonuses();
   });
 
@@ -140,6 +140,20 @@ export default function wireEvents(skillTree) {
   }
 
   function updateHexValues(attributeMap) {
+    for (let attribute of attributeMap) {
+      if (attribute.chassisValues != undefined) {
+        let nodes = findByClass(`.${Util.stringToCss(attribute.name)}`);
+        let chassisWeight = skillTree.getChassisWeight();
+        let chassisTech = skillTree.getChassisTech();
+        for (let node of nodes) {
+          let newValue = attribute.chassisValues[chassisWeight][chassisTech];
+          let newFormattedValue = Util.getValueTemplate(attribute.name)[0] + newValue + Util.getValueTemplate(attribute.name)[1];
+          node.querySelector(`#${Util.stringToCss(attribute.name)}`);
+          node.querySelector('.hex-value').textContent = newFormattedValue;
+        }
+      }
+    }
+
   }
 
   function updateBonuses() {
