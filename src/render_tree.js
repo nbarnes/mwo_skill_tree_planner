@@ -138,8 +138,8 @@ export default function renderTree(skillTree) {
 
     nodeFrameElement.id = node.id;
     nodeFrameElement.classList.add("graph-node");
-    nodeFrameElement.classList.add(`${Util.stringToCss(node.attribute)}`);
-    nodeFrameElement.dataset.attribute = Util.stringToCss(node.attribute);
+    nodeFrameElement.classList.add(`${Util.stringToCss(node.attribute.name)}`);
+    nodeFrameElement.dataset.attribute = Util.stringToCss(node.attribute.name);
 
     hexTopElement.classList.add("hex-top");
     hexTopElement.classList.add("hex-component");
@@ -153,8 +153,7 @@ export default function renderTree(skillTree) {
     hexTopShadowElement.classList.add("hex-shadow-top");
     hexBottomShadowElement.classList.add("hex-shadow-bottom");
 
-    nodeTextElement.textContent = node.label;
-    nodeValueElement.textContent = Util.getValueTemplate(node.attribute)[0] + node.value + Util.getValueTemplate(node.attribute)[1];
+    nodeTextElement.textContent = node.attribute.label;
 
     nodeFrameElement.append(hexTopElement);
     nodeFrameElement.append(nodeTextElement);

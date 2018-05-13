@@ -4,14 +4,12 @@
 import { stringToCss } from "./util.js";
 import { attributeMap } from "./attribute_map";
 import { PubSub } from "./pub_sub.js";
-import { getAttribute } from "./util.js";
+import * as Chassis from "./chassis.js";
 
 export default function buildSkillTree(treeSource) {
 
   var activeTreeName = treeSource[0].name;
   let skillTrees = buildSkillTrees(treeSource);
-  let chassisWeight = 'light';
-  let chassisTech = 'is';
 
   function buildSkillTrees(treeSource) {
     let skillTrees = [];
@@ -160,24 +158,6 @@ export default function buildSkillTree(treeSource) {
     PubSub.publish("treeChanged", {treeName: treeName});
   }
 
-  function setChassisWeight(newWeight) {
-    chassisWeight = newWeight;
-    PubSub.publish("chassisWeightUpdated", { weight: newWeight, attributeMap: attributeMap } );
-  }
-
-  function getChassisWeight() {
-    return chassisWeight;
-  }
-
-  function setChassisTech(newTech) {
-    chassisTech = newTech;
-    PubSub.publish("chassisTechUpdated", { tech: newTech, attributeMap: attributeMap } );
-  }
-
-  function getChassisTech() {
-    return chassisTech;
-  }
-
   function pushIfDefined(collection, node) {
     if (node !== undefined) {
       collection.push(node);
@@ -197,11 +177,7 @@ export default function buildSkillTree(treeSource) {
     parentsOf: parentsOf,
     childrenOf: childrenOf,
     resetTree: resetTree,
-    selectTree: selectTree,
-    getChassisWeight: getChassisWeight,
-    setChassisWeight: setChassisWeight,
-    getChassisTech: getChassisTech,
-    setChassisTech: setChassisTech
+    selectTree: selectTree
   }
 
 }
@@ -223,6 +199,23 @@ function buildNode(nodeDef) {
     }
   }
 
+  let lookupAttribute = attributeName => {
+    for (let attribute of attributeMap) {
+      if (attribute.name == attributeName) {
+        return attribute;
+      }
+    }
+  }
+
+  let value = () => {
+    let attribute = lookupAttribute(nodeDef.attribute);
+    if (attribute.chassisValues != undefined) {
+      return attribute.chassisValues[Chassis.weightClass()][Chassis.techLevel()];
+    } else {
+      return attribute.value;
+    }
+  }
+
   return {
     // selectWithoutEvent used for bulk / batch updating of nodes while
     //  avoiding event cascades
@@ -230,9 +223,8 @@ function buildNode(nodeDef) {
     selected: selected,
     name: nodeDef.name,
     id: stringToCss(nodeDef.name),
-    attribute: nodeDef.attribute,
-    label: getAttribute(nodeDef.attribute).label,
-    value: parseFloat(getAttribute(nodeDef.attribute).value),
+    attribute: lookupAttribute(nodeDef.attribute),
+    value: value,
     leftChildId: nodeDef.leftChildId,
     centerChildId: nodeDef.centerChildId,
     rightChildId: nodeDef.rightChildId

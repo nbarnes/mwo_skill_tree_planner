@@ -2,11 +2,11 @@
 import { attributeMap } from "./attribute_map";
 import { findById } from "./dom.js";
 
-export let maxSkillNodes = 91; // total allowed number of selected skill nodes, per MWO
-export let cbillsPerNode = 60000;
-export let xpPerNode = 800;
+export const maxSkillNodes = 91; // total allowed number of selected skill nodes, per MWO
+export const cbillsPerNode = 60000;
+export const xpPerNode = 800;
 
-export let stringToCss = string => {
+export const stringToCss = string => {
   return string.replace(/ \/ | /g, "-").replace(/\./g, "").toLowerCase();
 }
 
@@ -19,17 +19,9 @@ export const treeNameToId = treeName => {
   return stringToCss(treeName) + "-skill-tree";
 }
 
-export const getValueTemplate = attributeName => {
-  const template = getAttribute(attributeName).template.split("{}");
-  return [ template[0], template[1] ];
-}
-
-export const getAttribute  = attributeName => {
-  for (let attribute of attributeMap) {
-    if (attribute.name == attributeName) {
-      return attribute;
-    }
-  }
+export const formatValue = (attribute, value) => {
+  const template = attribute.template.split("{}");
+  return `${template[0]}${value}${template[1]}`;
 }
 
 export const showModal = message => {

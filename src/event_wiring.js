@@ -4,7 +4,7 @@
 import { PubSub } from "./pub_sub.js";
 import * as Util from "./util.js";
 import { findById, findByClass } from "./dom.js";
-import { updateHexValues } from "./render_tree.js";
+import * as Chassis from "./chassis.js";
 
 export default function wireEvents(skillTree) {
 
@@ -61,33 +61,23 @@ export default function wireEvents(skillTree) {
 
   PubSub.subscribe("toggleNodeColorization", data => toggleNodeColorization());
 
-  const weightToggleLabels = ["Light", "Medium", "Heavy", "Assault"];
-  let weightTogglePosition = 3;
-
   PubSub.subscribe("toggleChassisWeight", data => {
-    let toggle = findById("chassis-weight-toggle");
-    weightTogglePosition == 3 ? weightTogglePosition = 0 : weightTogglePosition++
-    toggle.textContent = weightToggleLabels[weightTogglePosition];
-    skillTree.setChassisWeight(Util.stringToCss(weightToggleLabels[weightTogglePosition]));
+    let toggleElement = findById("chassis-weight-toggle");
+    toggleElement.textContent = Chassis.displayString(Chassis.incrementWeightClass());
   });
 
-  const techToggleLabels = ["I.S.", "Clan"];
-  let techTogglePosition = 1;
-
   PubSub.subscribe("toggleChassisTech", data => {
-    let toggle = findById("chassis-tech-toggle");
-    techTogglePosition == 1 ? techTogglePosition = 0 : techTogglePosition++
-    toggle.textContent = techToggleLabels[techTogglePosition];
-    skillTree.setChassisTech(Util.stringToCss(techToggleLabels[techTogglePosition]));
+    let toggleElement = findById("chassis-tech-toggle");
+    toggleElement.textContent = Chassis.displayString(Chassis.incrementTechLevel());
   });
 
   PubSub.subscribe("chassisWeightUpdated", data => {
-    updateHexValues(data.attributeMap);
+    updateHexValues();
     updateBonuses();
   });
 
   PubSub.subscribe("chassisTechUpdated", data => {
-    updateHexValues(data.attributeMap);
+    updateHexValues();
     updateBonuses();
   });
 
@@ -149,19 +139,13 @@ export default function wireEvents(skillTree) {
     return isRootNode || legalParentIsSelected;
   }
 
-  function updateHexValues(attributeMap) {
-    for (let attribute of attributeMap) {
-      if (attribute.chassisValues != undefined) {
-        let nodes = findByClass(`.${Util.stringToCss(attribute.name)}`);
-        let chassisWeight = skillTree.getChassisWeight();
-        let chassisTech = skillTree.getChassisTech();
-        for (let node of nodes) {
-          let newValue = attribute.chassisValues[chassisWeight][chassisTech];
-          let newFormattedValue = Util.getValueTemplate(attribute.name)[0] + newValue + Util.getValueTemplate(attribute.name)[1];
-          node.querySelector(`#${Util.stringToCss(attribute.name)}`);
-          node.querySelector('.hex-value').textContent = newFormattedValue;
-        }
+  function updateHexValues() {
+    let nodeElements = findByClass('.graph-node');
+    for (let nodeElement of nodeElements) {
+      let node = skillTree.getNode(nodeElement.id);
+      if (node.attribute.name == 'Weapon Heat Gen') {
       }
+      nodeElement.querySelector('.hex-value').textContent = Util.formatValue(node.attribute, node.value());
     }
   }
 
@@ -172,9 +156,9 @@ export default function wireEvents(skillTree) {
       if (nodeLegal(node)) {
         let bonusForAttribute = getBonusForAttribute(bonuses, node.attribute);
         if (bonusForAttribute != undefined) {
-          bonusForAttribute.value = ((bonusForAttribute.value * 10) + (nodeValue(node) * 10)) / 10;
+          bonusForAttribute.value = ((bonusForAttribute.value * 10) + (node.value * 10)) / 10;
         } else {
-          bonuses.push({attribute: node.attribute, value: nodeValue(node), valueTemplate: node.valueTemplate});
+          bonuses.push({attribute: node.attribute, value: node.value});
         }
       }
     }
@@ -183,7 +167,7 @@ export default function wireEvents(skillTree) {
     bonuses.forEach((bonus, index) => {
       let bonusDisplayElement = document.createElement("div");
       bonusDisplayElement.classList.add("bonus-display");
-      bonusDisplayElement.textContent = bonus.attribute + " " + Util.getValueTemplate(bonus.attribute)[0] + bonus.value + Util.getValueTemplate(bonus.attribute)[1];
+      bonusDisplayElement.textContent = bonus.attribute + " " + Util.formatValue(bonus.attribute, bonus.value);;
       bonusFrame.append(bonusDisplayElement);
     });
     findById("bonuses-display").append(bonusFrame);
@@ -199,15 +183,6 @@ export default function wireEvents(skillTree) {
       if (bonus.attribute == attribute) {
         return bonus;
       }
-    }
-  }
-
-  function nodeValue(node) {
-    let attribute = Util.getAttribute(node.attribute);
-    if (attribute.chassisValues != undefined) {
-      return attribute.chassisValues[skillTree.getChassisWeight()][skillTree.getChassisTech()];
-    } else {
-      return attribute.value;
     }
   }
 
