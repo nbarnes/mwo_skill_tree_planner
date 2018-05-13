@@ -33,6 +33,18 @@ export const displayString = (input) => {
   return displayStrings[input];
 }
 
+export const exportRemote = () => {
+  return {
+    weightClass: theWeightClass,
+    techLevel: theTechLevel
+  }
+}
+
+export const importRemote = (weightClass, techLevel) => {
+  theWeightClass = weightClass;
+  theTechLevel = techLevel;
+}
+
 const displayStrings = {
   "is": "I.S.",
   "clan": "Clan",

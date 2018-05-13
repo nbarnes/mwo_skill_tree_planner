@@ -40,7 +40,9 @@ export default function wireEvents(skillTree) {
     updatePerTreeNodeCountDisplay();
     updateTreeColors();
     updateBonuses();
-    PubSub.publish("treeTabClicked", { treeName: data.activeTreeName });
+    PubSub.publish("treeTabClicked", { treeName: data.activeTreeName } );
+    PubSub.publish("toggleChassisWeight", {} );
+    PubSub.publish("toggleChassisTech", {} );
   });
 
   PubSub.subscribe("treeTabClicked", data => {
@@ -223,9 +225,9 @@ export default function wireEvents(skillTree) {
     if (treeName == undefined) {
       for (let tree of skillTree.getTrees()) {
         let treeTabName = `${Util.stringToCss(tree.name)}-tab-counter`;
+        let nodeCountDisplay = findById(treeTabName);
         let selectedCount = skillTree.getSelectedNodes(tree.name).length;
         let totalCount = skillTree.getNodeCount(tree.name);
-        let nodeCountDisplay = findById(treeTabName);
         nodeCountDisplay.textContent = `${selectedCount} / ${totalCount}`;
       }
     } else {

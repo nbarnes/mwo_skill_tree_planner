@@ -4,6 +4,7 @@
 import { PubSub } from "./pub_sub.js";
 import * as Util from "./util.js";
 import { findById } from "./dom.js";
+import * as Chassis from "./chassis.js";
 
 export const loadFromRemoteId = function(skillTree) {
   let regex = /([^//?]*)$/;
@@ -27,6 +28,7 @@ export const loadFromRemoteId = function(skillTree) {
     })
     .then(function(json) {
       skillTree.importJson(json);
+      Chassis.importRemote(json.weightClass, json.techLevel);
       findById("modal-overlay").classList.add("hide");
     });
   } else {
@@ -59,6 +61,8 @@ function serializeTrees(skillTree) {
   let serializedTrees = {};
   serializedTrees.trees = [];
   serializedTrees.activeTreeName = skillTree.getActiveTreeName();
+  serializedTrees.weightClass = Chassis.exportRemote().weightClass;
+  serializedTrees.techLevel = Chassis.exportRemote().techLevel;
   for (let tree of trees) {
     let serializedTree = {
       name: tree.name,
