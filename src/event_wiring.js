@@ -143,8 +143,6 @@ export default function wireEvents(skillTree) {
     let nodeElements = findByClass('.graph-node');
     for (let nodeElement of nodeElements) {
       let node = skillTree.getNode(nodeElement.id);
-      if (node.attribute.name == 'Weapon Heat Gen') {
-      }
       nodeElement.querySelector('.hex-value').textContent = Util.formatValue(node.attribute, node.value());
     }
   }
@@ -156,9 +154,9 @@ export default function wireEvents(skillTree) {
       if (nodeLegal(node)) {
         let bonusForAttribute = getBonusForAttribute(bonuses, node.attribute);
         if (bonusForAttribute != undefined) {
-          bonusForAttribute.value = ((bonusForAttribute.value * 10) + (node.value * 10)) / 10;
+          bonusForAttribute.value = ((bonusForAttribute.value * 10) + (node.value() * 10)) / 10;
         } else {
-          bonuses.push({attribute: node.attribute, value: node.value});
+          bonuses.push({attribute: node.attribute, value: node.value()});
         }
       }
     }
@@ -167,7 +165,7 @@ export default function wireEvents(skillTree) {
     bonuses.forEach((bonus, index) => {
       let bonusDisplayElement = document.createElement("div");
       bonusDisplayElement.classList.add("bonus-display");
-      bonusDisplayElement.textContent = bonus.attribute + " " + Util.formatValue(bonus.attribute, bonus.value);;
+      bonusDisplayElement.textContent = bonus.attribute.name + " " + Util.formatValue(bonus.attribute, bonus.value);;
       bonusFrame.append(bonusDisplayElement);
     });
     findById("bonuses-display").append(bonusFrame);

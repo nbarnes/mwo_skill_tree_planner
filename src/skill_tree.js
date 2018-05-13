@@ -208,12 +208,14 @@ function buildNode(nodeDef) {
   }
 
   let value = () => {
+    let value = undefined;
     let attribute = lookupAttribute(nodeDef.attribute);
     if (attribute.chassisValues != undefined) {
-      return attribute.chassisValues[Chassis.weightClass()][Chassis.techLevel()];
+      value = attribute.chassisValues[Chassis.weightClass()][Chassis.techLevel()];
     } else {
-      return attribute.value;
+      value = attribute.value;
     }
+    return parseFloat(value);
   }
 
   return {
