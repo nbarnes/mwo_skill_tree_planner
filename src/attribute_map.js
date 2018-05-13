@@ -17,7 +17,25 @@ export let attributeMap = [
     label: "Laser Duration",
     value: "3.75",
     template: "-{}%",
-    color: "#1f78b4"
+    color: "#1f78b4",
+    chassisValues: {
+      light: {
+        is: '3.75',
+        clan: '2.50'
+      },
+      medium: {
+        is: '3.75',
+        clan: '2.50'
+      },
+      heavy: {
+        is: '3.75',
+        clan: '2.50'
+      },
+      assault: {
+        is: '3.75',
+        clan: '2.50'
+      },
+    }
   }, {
     name: "Weapon Velocity",
     label: "Velocity",
@@ -29,7 +47,25 @@ export let attributeMap = [
     label: "Cooldown",
     value: "0.75",
     template: "-{}%",
-    color: "#33a02c"
+    color: "#33a02c",
+    chassisValues: {
+      light: {
+        is: '0.75',
+        clan: '0.6'
+      },
+      medium: {
+        is: '0.75',
+        clan: '0.6'
+      },
+      heavy: {
+        is: '0.75',
+        clan: '0.6'
+      },
+      assault: {
+        is: '0.75',
+        clan: '0.6'
+      },
+    }
   }, {
     name: "Missile Crit Damage",
     label: "High Explosive",
@@ -114,6 +150,24 @@ export let attributeMap = [
     value: "1.6",
     template: "+{}%",
     color: "#e41a1c",
+    chassisValues: {
+      light: {
+        is: '2.5',
+        clan: '2.5'
+      },
+      medium: {
+        is: '2.0',
+        clan: '2.0'
+      },
+      heavy: {
+        is: '1.5',
+        clan: '1.5'
+      },
+      assault: {
+        is: '1.0',
+        clan: '1.0'
+      },
+    }
   }, {
     name: "AMS Effectiveness",
     label: "AMS Overload",
@@ -131,7 +185,25 @@ export let attributeMap = [
     label: "Skeletal Density",
     value: "3.1",
     template: "+{}%",
-    color: "#984ea3"
+    color: "#984ea3",
+    chassisValues: {
+      light: {
+        is: '4',
+        clan: '4'
+      },
+      medium: {
+        is: '3.5',
+        clan: '3.5'
+      },
+      heavy: {
+        is: '2.5',
+        clan: '2.5'
+      },
+      assault: {
+        is: '1.5',
+        clan: '1.5'
+      },
+    }
   }, {
     name: "Fall Damage",
     label: "Shock Absorbtion",
@@ -141,7 +213,7 @@ export let attributeMap = [
   },
   /*
   ==========================================
-                    MOBiLITY
+                    MOBILITY
   ==========================================
   */
   {
@@ -173,7 +245,25 @@ export let attributeMap = [
     label: "Torso Speed",
     value: "3.5",
     template: "+{}%",
-    color: "#ff7f00"
+    color: "#ff7f00",
+    chassisValues: {
+      light: {
+        is: '5',
+        clan: '5'
+      },
+      medium: {
+        is: '4',
+        clan: '4'
+      },
+      heavy: {
+        is: '3.5',
+        clan: '3.5'
+      },
+      assault: {
+        is: '3.5',
+        clan: '3.5'
+      },
+    }
   }, {
     name: "Max Torso Twist",
     label: "Torso Yaw",
