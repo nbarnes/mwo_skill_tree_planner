@@ -321,3 +321,36 @@ footer a:link {
 footer a:hover {
   color: lightgrey;
 }
+
+#tooltip {
+  position: absolute;
+  margin: 5px;
+  background-color: red;
+  z-index: 3;
+  overflow: hidden;
+  max-height: 100px;
+  pointer-events: none;
+}
+
+#tooltip-description {
+  text-align: left;
+}
+
+#tooltip.full-tooltip {
+  width: 200px;
+  height: 100px;
+  -webkit-transition: width 0.6s 0s, height 0.6s 0.6s;
+  -moz-transition: width 0.6s 0s, height 0.6s 0.6s;
+  -o-transition: width 0.6s 0s, height 0.6s 0.6s;
+  transition: width 0.6s 0s, height 0.6s 0.6s;
+}
+
+#tooltip.zero-tooltip {
+  width: 0px;
+  height: 20px;
+	max-height: 0;
+}
+
+#tooltip.hide-tooltip {
+  /* display: none; */
+}

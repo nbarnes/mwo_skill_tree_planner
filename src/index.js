@@ -4,7 +4,7 @@
 import { treeSource } from "./tree_source";
 import { attributeMap } from "./attribute_map";
 import buildSkillTree from "./skill_tree";
-import * as Util from "./util.js";
+import { debounce, dimensionAsNumber, stringToCss } from "./util.js";
 import { PubSub } from "./pub_sub.js";
 import renderTree from "./render_tree.js";
 import wireEvents from "./event_wiring.js";
@@ -63,6 +63,40 @@ document.addEventListener("DOMContentLoaded", function() {
     node.addEventListener("mouseleave", function(event) {
       PubSub.publish("nodeMouseLeft", {attribute: this.dataset.attribute, treeName: skillTree.getActiveTreeName()} );
     });
+  }
+
+  findById("graph-view").addEventListener("mousemove", debounce(function(event) {
+    let tooltip = findById('tooltip');
+    let node = event.target.closest('.graph-node');
+    if (node == undefined) {
+      tooltip.classList.remove('full-tooltip');
+      tooltip.classList.add('hide-tooltip');
+      tooltip.classList.add('zero-tooltip');
+    } else {
+      styleTooltip(tooltip, node, event);
+      tooltip.classList.remove('hide-tooltip');
+      setTimeout(() => {
+        tooltip.classList.remove('zero-tooltip');
+        tooltip.classList.add('full-tooltip');
+      }, 10);
+    }
+  }, 800));
+
+  function styleTooltip(tooltip, nodeElement, event) {
+    tooltip.style.top = dimensionAsNumber(nodeElement.style.top) + 50 +"px";
+    tooltip.style.left = dimensionAsNumber(nodeElement.style.left) + 202 + "px";
+    let attribute = getAttribute(nodeElement.dataset.attribute);
+    let node = skillTree.getNode(nodeElement.id);
+    findById("tooltip-name-bar").textContent = node.name;
+    findById("tooltip-description").textContent = attribute.description;
+  }
+
+  function getAttribute(attributeCss) {
+    for (let attribute of attributeMap) {
+      if (stringToCss(attribute.name) == attributeCss) {
+        return attribute;
+      }
+    }
   }
 
   findById("permalink-display").addEventListener("click", function(event) {
