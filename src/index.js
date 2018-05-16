@@ -65,14 +65,21 @@ document.addEventListener("DOMContentLoaded", function() {
     });
   }
 
-  findById("graph-view").addEventListener("mousemove", debounce(function(event) {
+  var lastTooltipTarget = undefined;
+  findById("graph-view").addEventListener("mousemove", function(event) {
     let tooltip = findById('tooltip');
     let node = event.target.closest('.graph-node');
-    if (node == undefined) {
+    if (node == undefined || node != lastTooltipTarget) {
       tooltip.classList.remove('full-tooltip');
       tooltip.classList.add('hide-tooltip');
       tooltip.classList.add('zero-tooltip');
-    } else {
+    }
+    debouncedMouseMove(tooltip, node, event);
+    lastTooltipTarget = node;
+  });
+
+  var debouncedMouseMove = debounce(function(tooltip, node, event) {
+    if (node != undefined) {
       styleTooltip(tooltip, node, event);
       tooltip.classList.remove('hide-tooltip');
       setTimeout(() => {
@@ -80,7 +87,7 @@ document.addEventListener("DOMContentLoaded", function() {
         tooltip.classList.add('full-tooltip');
       }, 10);
     }
-  }, 800));
+  }, 800);
 
   function styleTooltip(tooltip, nodeElement, event) {
     tooltip.style.top = dimensionAsNumber(nodeElement.style.top) + 50 +"px";
