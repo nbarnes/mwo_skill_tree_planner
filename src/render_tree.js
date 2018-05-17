@@ -94,9 +94,6 @@ export default function renderTree(skillTree) {
 
       treeElement.appendChild(nodeFrameElement);
 
-      nodeFrameElement.addEventListener("click", function() {
-        PubSub.publish("nodeClicked", { node: node });
-      });
     }
 
     let nodeWidth = 52; // width of a graph node, per planner.css

@@ -74,6 +74,11 @@ document.addEventListener("DOMContentLoaded", function() {
     });
   }
 
+  findById("graph-view").addEventListener("click", function(event) {
+    let node = event.target.closest('.graph-node');
+    PubSub.publish("nodeClicked", { node: skillTree.getNode(node.id) } );
+  });
+
   var lastTooltipTarget = undefined;
   findById("graph-view").addEventListener("mousemove", function(event) {
     let tooltip = findById('tooltip');
