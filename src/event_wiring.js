@@ -163,6 +163,7 @@ export default function wireEvents(skillTree) {
         if (skillTree.getLegalNodes(treeName).length > 0) {
           let treeNameElement = document.createElement("div");
           treeNameElement.classList.add("bonus-tree-name");
+          treeNameElement.classList.add("bonus-list-element");
           treeNameElement.textContent = treeName;
           bonusFrame.append(treeNameElement);
           appendBonuses(aggregateBonuses(skillTree.getLegalNodes(treeName)), bonusFrame);
@@ -174,8 +175,12 @@ export default function wireEvents(skillTree) {
 
     findById("bonuses-display").append(bonusFrame);
     if (findById("bonuses-display").offsetHeight > 560) {
-      findByClass(".bonus-display").forEach(function (el) {
-        el.style.fontSize= "12px";
+      findByClass(".bonus-list-element").forEach(function (el) {
+        el.classList.add("min");
+      });
+    } else {
+      findByClass(".bonus-list-element").forEach(function (el) {
+        el.classList.remove("min");
       });
     }
 
@@ -185,6 +190,7 @@ export default function wireEvents(skillTree) {
     bonuses.forEach((bonus, index) => {
       let bonusDisplayElement = document.createElement("div");
       bonusDisplayElement.classList.add("bonus-display");
+      bonusDisplayElement.classList.add("bonus-list-element");
       bonusDisplayElement.textContent = bonus.attribute.name + " " + Util.formatValue(bonus.attribute, bonus.value);;
       bonusFrame.append(bonusDisplayElement);
     });

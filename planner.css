@@ -54,11 +54,20 @@
   border-color: black;
 }
 
+.bonus-tree-name.min {
+  font-size: 42%;
+  line-height: 20px;
+}
+
 .bonus-display {
   padding: 5px 10px 5px 10px;
   text-align: left;
-  font-size: 15px;
+  font-size: 40%;
   line-height: 10px;
+}
+
+.bonus-display.min {
+  font-size: 30%;
 }
 
 #bonus-sort-button {
