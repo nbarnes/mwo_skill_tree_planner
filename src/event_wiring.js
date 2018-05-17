@@ -208,11 +208,6 @@ export default function wireEvents(skillTree) {
     });
     let treeElement = findById(Util.treeNameToId(treeName));
     treeElement.classList.remove("hide");
-
-    // Reize the app to fit the new tree
-    let treeDisplayWidth = Util.dimensionAsNumber(treeElement.style.width);
-    let totalWidth = (treeDisplayWidth + 294) + "px"
-    findById("modal-overlay").style.width = totalWidth;
   }
 
   function getTabForTreeName(treeName) {
