@@ -8,6 +8,8 @@
 }
 
 #main {
+  background-color: #43464b;
+  border: 1px solid black;
   display: flex;
   flex-direction: row;
   max-width: fit-content;
@@ -187,11 +189,8 @@
 }
 
 .skill-tree {
-  border: 1px solid black;
   position: relative;
-  width: 500px;
   height: 628px;
-  background-color: #43464b;
 }
 
 .graph-node {
