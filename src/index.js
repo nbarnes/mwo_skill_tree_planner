@@ -74,9 +74,20 @@ document.addEventListener("DOMContentLoaded", function() {
     });
   }
 
+  var isMouseDragging = false;
+  findById("graph-view").addEventListener("mousedown", function(event) {
+    isMouseDragging = true;
+  });
+
+  findById("graph-view").addEventListener("mouseup", function(event) {
+    isMouseDragging = false;
+  });
+
   findById("graph-view").addEventListener("click", function(event) {
     let node = event.target.closest('.graph-node');
-    PubSub.publish("nodeClicked", { node: skillTree.getNode(node.id) } );
+    if (node != undefined) {
+      PubSub.publish("nodeClicked", { node: skillTree.getNode(node.id) } );
+    };
   });
 
   var lastTooltipTarget = undefined;
@@ -102,8 +113,8 @@ document.addEventListener("DOMContentLoaded", function() {
   }, 800);
 
   function styleTooltip(tooltip, nodeElement, event) {
-    tooltip.style.top = dimensionAsNumber(nodeElement.style.top) + 50 +"px";
-    tooltip.style.left = dimensionAsNumber(nodeElement.style.left) + 202 + "px";
+    tooltip.style.top = dimensionAsNumber(nodeElement.style.top) + 35 +"px";
+    tooltip.style.left = dimensionAsNumber(nodeElement.style.left) + 190 + "px";
     let attribute = getAttribute(nodeElement.dataset.attribute);
     tooltip.classList.remove(tooltip.dataset.attribute);
     tooltip.classList.add(nodeElement.dataset.attribute);
