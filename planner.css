@@ -57,6 +57,13 @@
   width: 150px;
   background-color: #737882;
   cursor: pointer;
+
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none;
 }
 
 .treeTab.selected {
@@ -96,6 +103,13 @@
   border: 1px solid black;
   border-radius: 5px;
   cursor: pointer;
+
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none;
 }
 
 .action-button:hover {
@@ -199,6 +213,13 @@
   left: 1px;
   z-index: 1;
   background-color: none;
+
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none;
 }
 
 .hex-value {
