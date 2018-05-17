@@ -16,6 +16,11 @@ export default function insertAttributeColors(attributeMap) {
     // unselected
     colorizationStyles.insertRule(`.colorize-nodes .${Util.stringToCss(attribute.name)} .hex-component { background-color: ${ Util.shadeColor(attribute.color, -0.55) }`);
 
+
+    colorizationStyles.insertRule(`.colorize-nodes ` +
+     `.${Util.stringToCss(attribute.name)} ` +
+     `.hex-text { color: ${ Util.shadeColor(attribute.color, 0.9) }`);
+
     // box shadow
     // selected, mouse over
     colorizationStyles.insertRule(`.colorize-nodes ` +
@@ -73,7 +78,7 @@ export default function insertAttributeColors(attributeMap) {
     // tooltip namebar text
     colorizationStyles.insertRule(`.colorize-nodes ` +
     `#tooltip.${Util.stringToCss(attribute.name)} #tooltip-name-bar ` +
-    `{ color: ${ Util.shadeColor(attribute.color, 0.5) }; }`);
+    `{ color: ${ Util.shadeColor(attribute.color, 0.9) }; }`);
 
   }
 }
