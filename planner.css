@@ -346,6 +346,7 @@ footer a:hover {
 }
 
 #tooltip-description {
+  font-size: 120%;
   color: black;
   padding: 5px;
   text-align: left;
