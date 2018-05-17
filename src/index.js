@@ -71,7 +71,6 @@ document.addEventListener("DOMContentLoaded", function() {
     let node = event.target.closest('.graph-node');
     if (node == undefined || node != lastTooltipTarget) {
       tooltip.classList.remove('full-tooltip');
-      tooltip.classList.add('hide-tooltip');
       tooltip.classList.add('zero-tooltip');
     }
     debouncedMouseMove(tooltip, node, event);
@@ -81,7 +80,6 @@ document.addEventListener("DOMContentLoaded", function() {
   var debouncedMouseMove = debounce(function(tooltip, node, event) {
     if (node != undefined) {
       styleTooltip(tooltip, node, event);
-      tooltip.classList.remove('hide-tooltip');
       setTimeout(() => {
         tooltip.classList.remove('zero-tooltip');
         tooltip.classList.add('full-tooltip');

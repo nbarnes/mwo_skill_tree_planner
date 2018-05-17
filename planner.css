@@ -325,14 +325,27 @@ footer a:hover {
 #tooltip {
   position: absolute;
   margin: 5px;
-  background-color: red;
+  background-color: #6dd9ff;
   z-index: 3;
   overflow: hidden;
   max-height: 100px;
   pointer-events: none;
 }
 
+#tooltip-name-bar {
+  color: #d3f3ff;
+  background-color: #008DCD;
+  font-size: 140%;
+  padding-top: 6px;
+  padding-bottom: 4px;
+  border-width: 0 0 3px 0;
+  border-style: solid;
+  border-color: #003D7D;
+}
+
 #tooltip-description {
+  color: black;
+  padding: 5px;
   text-align: left;
 }
 
@@ -343,14 +356,13 @@ footer a:hover {
   -moz-transition: width 0.6s 0s, height 0.6s 0.6s;
   -o-transition: width 0.6s 0s, height 0.6s 0.6s;
   transition: width 0.6s 0s, height 0.6s 0.6s;
+
+  border: 3px solid #003D7D;
+  border-radius: 5px;
 }
 
 #tooltip.zero-tooltip {
   width: 0px;
-  height: 20px;
+  height: 28px;
 	max-height: 0;
-}
-
-#tooltip.hide-tooltip {
-  /* display: none; */
 }
