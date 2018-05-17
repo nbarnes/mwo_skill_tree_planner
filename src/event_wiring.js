@@ -174,6 +174,7 @@ export default function wireEvents(skillTree) {
     }
 
     findById("bonuses-display").append(bonusFrame);
+
     if (findById("bonuses-display").offsetHeight > 560) {
       findByClass(".bonus-list-element").forEach(function (el) {
         el.classList.add("min");

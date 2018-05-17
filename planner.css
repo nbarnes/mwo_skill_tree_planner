@@ -105,6 +105,10 @@
   line-height: 10px;
 }
 
+.bonus-display:nth-child(odd) {
+  background-color: lightgrey;
+}
+
 .bonus-display.min {
   font-size: 30%;
 }
