@@ -16,10 +16,12 @@ export default function insertAttributeColors(attributeMap) {
     // unselected
     colorizationStyles.insertRule(`.colorize-nodes .${Util.stringToCss(attribute.name)} .hex-component { background-color: ${ Util.shadeColor(attribute.color, -0.55) }`);
 
-
     colorizationStyles.insertRule(`.colorize-nodes ` +
      `.${Util.stringToCss(attribute.name)} ` +
      `.hex-text { color: ${ Util.shadeColor(attribute.color, 0.9) }`);
+     colorizationStyles.insertRule(`.colorize-nodes ` +
+      `.${Util.stringToCss(attribute.name)}.selected ` +
+      `.hex-text { color: ${ Util.shadeColor(attribute.color, -0.8) }`);
 
     // box shadow
     // selected, mouse over
