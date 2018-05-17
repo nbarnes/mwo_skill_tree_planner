@@ -11,6 +11,7 @@ import wireEvents from "./event_wiring.js";
 import { loadFromRemoteId } from "./cold_storage.js";
 import { findById, findByClass } from "./dom.js";
 import insertAttributeColors from "./attribute_colors.js";
+import { incrementBonusSort } from "./bonuses.js";
 
 document.addEventListener("DOMContentLoaded", function() {
 
@@ -51,6 +52,14 @@ document.addEventListener("DOMContentLoaded", function() {
 
   findById("chassis-tech-toggle").addEventListener("click", function(event) {
     PubSub.publish("toggleChassisTech");
+  });
+
+  findById("chassis-tech-toggle").addEventListener("click", function(event) {
+    PubSub.publish("toggleChassisTech");
+  });
+
+  findById("bonus-sort-button").addEventListener("click", function(even) {
+    incrementBonusSort();
   });
 
   for (let node of findByClass(".graph-node")) {

@@ -90,6 +90,15 @@ export default function buildSkillTree(treeSource) {
     }
   }
 
+  function nodeLegal(node) {
+    let isRootNode = parentsOf(node).length === 0;
+    let legalParentIsSelected = false;
+    for (let parent of parentsOf(node)) {
+      legalParentIsSelected = ( parent.selected() && nodeLegal(parent) ) || legalParentIsSelected;
+    }
+    return isRootNode || legalParentIsSelected;
+  }
+
   function getNodeCount(treeName) {
     var nodeCount = 0;
     if (treeName != undefined) {
@@ -116,6 +125,22 @@ export default function buildSkillTree(treeSource) {
       }
     }
     return selectedNodes;
+  }
+
+  function getLegalNodes(treeName) {
+    let legalNodes = [];
+    if (treeName != undefined) {
+      let selectedNodes = getSelectedNodes(treeName);
+      selectedNodes.filter( node => {
+        nodeLegal(node);
+      });
+      legalNodes = legalNodes.concat(selectedNodes);
+    } else {
+      for (let skillTree of skillTrees) {
+        legalNodes = legalNodes.concat(getLegalNodes(skillTree.name));
+      }
+    }
+    return legalNodes;
   }
 
   function childrenOf(node) {
@@ -172,8 +197,10 @@ export default function buildSkillTree(treeSource) {
     getTree: getTree,
     getTrees: getTrees,
     getNode: getNode,
+    nodeLegal: nodeLegal,
     getNodeCount: getNodeCount,
     getSelectedNodes: getSelectedNodes,
+    getLegalNodes: getLegalNodes,
     parentsOf: parentsOf,
     childrenOf: childrenOf,
     resetTree: resetTree,

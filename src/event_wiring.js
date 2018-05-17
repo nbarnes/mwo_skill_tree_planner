@@ -5,6 +5,7 @@ import { PubSub } from "./pub_sub.js";
 import * as Util from "./util.js";
 import { findById, findByClass } from "./dom.js";
 import * as Chassis from "./chassis.js";
+import { bonusSort, aggregateBonuses } from "./bonuses.js";
 
 export default function wireEvents(skillTree) {
 
@@ -83,6 +84,13 @@ export default function wireEvents(skillTree) {
     updateBonuses();
   });
 
+  PubSub.subscribe("bonusSortChanged", data => {
+    updateBonusSortButton(data.label);
+    // don't really need to do a full recalc here, just re-render with the new
+    // sort display, but it's quick anyway
+    updateBonuses();
+  });
+
   PubSub.subscribe("nodeMouseEnter", data => {
     for (let node of findById(`${Util.treeNameToId(data.treeName)}`).querySelectorAll(".graph-node")) {
       if (node.dataset.attribute == data.attribute) {
@@ -115,10 +123,10 @@ export default function wireEvents(skillTree) {
         let childEdges = findByClass(`.${node.id}`);
         if (node.selected()) {
           nodeElement.classList.add("selected");
-          nodeLegal(node) ? nodeElement.classList.remove("illegal") : nodeElement.classList.add("illegal");
+          skillTree.nodeLegal(node) ? nodeElement.classList.remove("illegal") : nodeElement.classList.add("illegal");
           for (let edge of childEdges) {
             edge.classList.add("selected");
-            nodeLegal(node) ? edge.classList.remove("illegal") : edge.classList.add("illegal");
+            skillTree.nodeLegal(node) ? edge.classList.remove("illegal") : edge.classList.add("illegal");
           }
         } else {
           nodeElement.classList.remove("selected");
@@ -132,15 +140,6 @@ export default function wireEvents(skillTree) {
     }
   }
 
-  function nodeLegal(node) {
-    let isRootNode = skillTree.parentsOf(node).length === 0;
-    let legalParentIsSelected = false;
-    for (let parent of skillTree.parentsOf(node)) {
-      legalParentIsSelected = ( parent.selected() && nodeLegal(parent) ) || legalParentIsSelected;
-    }
-    return isRootNode || legalParentIsSelected;
-  }
-
   function updateHexValues() {
     let nodeElements = findByClass('.graph-node');
     for (let nodeElement of nodeElements) {
@@ -149,41 +148,46 @@ export default function wireEvents(skillTree) {
     }
   }
 
+
+  function updateBonusSortButton(newLabel) {
+    findById("bonus-sort-button").textContent = newLabel;
+  }
+
   function updateBonuses() {
-    let bonuses = [];
-    let nodes = skillTree.getSelectedNodes();
-    for (let node of nodes) {
-      if (nodeLegal(node)) {
-        let bonusForAttribute = getBonusForAttribute(bonuses, node.attribute);
-        if (bonusForAttribute != undefined) {
-          bonusForAttribute.value = ((bonusForAttribute.value * 10) + (node.value() * 10)) / 10;
-        } else {
-          bonuses.push({attribute: node.attribute, value: node.value()});
-        }
-      }
-    }
     findById("bonuses-display").innerHTML = "";
     let bonusFrame = document.createDocumentFragment();
-    bonuses.forEach((bonus, index) => {
-      let bonusDisplayElement = document.createElement("div");
-      bonusDisplayElement.classList.add("bonus-display");
-      bonusDisplayElement.textContent = bonus.attribute.name + " " + Util.formatValue(bonus.attribute, bonus.value);;
-      bonusFrame.append(bonusDisplayElement);
-    });
+    if (bonusSort() === 'tree') {
+      let trees = skillTree.getTrees();
+      for (let tree of trees) {
+        let treeName = tree.name;
+        if (skillTree.getLegalNodes(treeName).length > 0) {
+          let treeNameElement = document.createElement("div");
+          treeNameElement.classList.add("bonus-tree-name");
+          treeNameElement.textContent = treeName;
+          bonusFrame.append(treeNameElement);
+          appendBonuses(aggregateBonuses(skillTree.getLegalNodes(treeName)), bonusFrame);
+        }
+      }
+    } else if (bonusSort() == 'alpha') {
+      appendBonuses(aggregateBonuses(skillTree.getLegalNodes()), bonusFrame);
+    }
+
     findById("bonuses-display").append(bonusFrame);
     if (findById("bonuses-display").offsetHeight > 560) {
       findByClass(".bonus-display").forEach(function (el) {
         el.style.fontSize= "12px";
       });
     }
+
   }
 
-  function getBonusForAttribute(bonuses, attribute) {
-    for (let bonus of bonuses) {
-      if (bonus.attribute == attribute) {
-        return bonus;
-      }
-    }
+  function appendBonuses(bonuses, bonusFrame) {
+    bonuses.forEach((bonus, index) => {
+      let bonusDisplayElement = document.createElement("div");
+      bonusDisplayElement.classList.add("bonus-display");
+      bonusDisplayElement.textContent = bonus.attribute.name + " " + Util.formatValue(bonus.attribute, bonus.value);;
+      bonusFrame.append(bonusDisplayElement);
+    });
   }
 
   function changeSkillTree(treeName) {

@@ -20,10 +20,6 @@
   color: red;
 }
 
-#right-sidebar {
-  border-width: 1px 1px 1px 0px;
-}
-
 .sidebar {
   border-color: black;
   border-style: solid;
@@ -33,9 +29,29 @@
   line-height: 50px;
 }
 
+#right-sidebar {
+  border-width: 1px 1px 1px 0px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-content: space-around;
+}
+
 #bonuses-header {
   font-size: 80%;
   text-decoration: underline
+}
+
+.bonus-tree-name {
+  width: 100%;
+  font-weight: bold;
+  font-size: 50%;
+  line-height: 25px;
+  margin-bottom: 5px;
+  border-width: 0 0 1px 0;
+  border-style: solid;
+  border-color: black;
 }
 
 .bonus-display {
@@ -43,6 +59,11 @@
   text-align: left;
   font-size: 15px;
   line-height: 10px;
+}
+
+#bonus-sort-button {
+  margin: auto;
+  margin-bottom: 8px;
 }
 
 .treeTab {
