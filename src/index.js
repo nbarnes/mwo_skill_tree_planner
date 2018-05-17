@@ -91,6 +91,9 @@ document.addEventListener("DOMContentLoaded", function() {
     tooltip.style.top = dimensionAsNumber(nodeElement.style.top) + 50 +"px";
     tooltip.style.left = dimensionAsNumber(nodeElement.style.left) + 202 + "px";
     let attribute = getAttribute(nodeElement.dataset.attribute);
+    tooltip.classList.remove(tooltip.dataset.attribute);
+    tooltip.classList.add(nodeElement.dataset.attribute);
+    tooltip.dataset.attribute = nodeElement.dataset.attribute;
     let node = skillTree.getNode(nodeElement.id);
     findById("tooltip-name-bar").textContent = node.name;
     findById("tooltip-description").textContent = attribute.description;

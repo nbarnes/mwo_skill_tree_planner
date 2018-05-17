@@ -57,5 +57,23 @@ export default function insertAttributeColors(attributeMap) {
       `.${Util.stringToCss(attribute.name)}.mouse-over .hex-component ` +
       `{ border-color: ${ Util.shadeColor(attribute.color, -0.65) }`);
 
+    // tooltip
+    // tooltip border
+    colorizationStyles.insertRule(`.colorize-nodes ` +
+    `#tooltip.${Util.stringToCss(attribute.name)} ` +
+    `{ border-color: ${ Util.shadeColor(attribute.color, -0.75) }`);
+    // tooltip description background
+    colorizationStyles.insertRule(`.colorize-nodes ` +
+    `#tooltip.${Util.stringToCss(attribute.name)} ` +
+    `{ background-color: ${ Util.shadeColor(attribute.color, 0.2) }`);
+    // tooltip namebar background
+    colorizationStyles.insertRule(`.colorize-nodes ` +
+    `#tooltip.${Util.stringToCss(attribute.name)} #tooltip-name-bar ` +
+    `{ background-color: ${ Util.shadeColor(attribute.color, -0.55) }`);
+    // tooltip namebar text
+    colorizationStyles.insertRule(`.colorize-nodes ` +
+    `#tooltip.${Util.stringToCss(attribute.name)} #tooltip-name-bar ` +
+    `{ color: ${ Util.shadeColor(attribute.color, 0.5) }; }`);
+
   }
 }

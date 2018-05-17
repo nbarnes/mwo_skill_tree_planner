@@ -329,6 +329,7 @@ footer a:hover {
   z-index: 3;
   overflow: hidden;
   max-height: 100px;
+  border-color: #003D7D;
   pointer-events: none;
 }
 
@@ -340,7 +341,7 @@ footer a:hover {
   padding-bottom: 4px;
   border-width: 0 0 3px 0;
   border-style: solid;
-  border-color: #003D7D;
+  border-color: inherit;
   white-space: nowrap
 }
 
@@ -357,8 +358,8 @@ footer a:hover {
   -moz-transition: width 0.6s 0s, height 0.6s 0.6s;
   -o-transition: width 0.6s 0s, height 0.6s 0.6s;
   transition: width 0.6s 0s, height 0.6s 0.6s;
-
-  border: 3px solid #003D7D;
+  border-width: 3px;
+  border-style: solid;
   border-radius: 5px;
 }
 
