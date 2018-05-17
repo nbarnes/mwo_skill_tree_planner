@@ -14,12 +14,9 @@ export default function renderTree(skillTree) {
   findById("node-total").textContent = Util.maxSkillNodes;
 
   function buildTab(tree, index) {
-    let tabHeight = 40; // matches element height defined in planner.css
-    let topOffset = 50;
     let tabElement = document.createElement("div");
     tabElement.id = Util.stringToCss(tree.name + "-tab");
     tabElement.classList.add("treeTab");
-    tabElement.style.top = (40 * index) + 55 + "px";
     tabElement.textContent = tree.name;
 
     let counterElement = document.createElement("div");
@@ -32,7 +29,7 @@ export default function renderTree(skillTree) {
       PubSub.publish("treeTabClicked", {treeName: tree.name});
     });
 
-    findById("total-nodes-display").after(tabElement);
+    findById("tabs-pane").append(tabElement);
   }
 
   function buildTreeDisplay(tree) {
