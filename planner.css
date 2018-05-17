@@ -341,6 +341,7 @@ footer a:hover {
   border-width: 0 0 3px 0;
   border-style: solid;
   border-color: #003D7D;
+  white-space: nowrap
 }
 
 #tooltip-description {
