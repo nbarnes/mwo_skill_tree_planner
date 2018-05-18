@@ -130,6 +130,9 @@ export default function renderTree(skillTree) {
     hexTopShadowElement.classList.add("node-element");
     hexBottomShadowElement.classList.add("node-element");
 
+    nodeTextElement.setAttribute('draggable', false);
+    nodeValueElement.setAttribute('draggable', false);
+
     nodeFrameElement.id = node.id;
     nodeFrameElement.classList.add("graph-node");
     nodeFrameElement.classList.add(`${Util.stringToCss(node.attribute.name)}`);
