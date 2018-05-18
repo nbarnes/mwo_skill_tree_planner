@@ -17,7 +17,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
   let skillTree = buildSkillTree(treeSource);
 
-
   insertAttributeColors(attributeMap);
   renderTree(skillTree);
   wireEvents(skillTree);
@@ -81,6 +80,18 @@ document.addEventListener("DOMContentLoaded", function() {
 
   findById("graph-view").addEventListener("mouseup", function(event) {
     isMouseDragging = false;
+  });
+
+  var previousNode = undefined;
+  findById("graph-view").addEventListener("mousemove", function(event) {
+    if (isMouseDragging) {
+      let nodeElement = event.target.closest('.graph-node');
+      if (nodeElement != undefined && nodeElement != previousNode) {
+        let node = skillTree.getNode(nodeElement.id)
+        node.selected(!node.selected());
+        previousNode = nodeElement;
+      };
+    }
   });
 
   findById("graph-view").addEventListener("click", function(event) {

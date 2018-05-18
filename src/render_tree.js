@@ -134,6 +134,7 @@ export default function renderTree(skillTree) {
     nodeFrameElement.classList.add("graph-node");
     nodeFrameElement.classList.add(`${Util.stringToCss(node.attribute.name)}`);
     nodeFrameElement.dataset.attribute = Util.stringToCss(node.attribute.name);
+    nodeFrameElement.setAttribute('draggable', false);
 
     hexTopElement.classList.add("hex-top");
     hexTopElement.classList.add("hex-component");
