@@ -53,10 +53,6 @@ document.addEventListener("DOMContentLoaded", function() {
     PubSub.publish("toggleChassisTech");
   });
 
-  findById("chassis-tech-toggle").addEventListener("click", function(event) {
-    PubSub.publish("toggleChassisTech");
-  });
-
   findById("bonus-sort-button").addEventListener("click", function(even) {
     incrementBonusSort();
   });

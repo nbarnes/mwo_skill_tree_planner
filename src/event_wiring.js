@@ -148,7 +148,6 @@ export default function wireEvents(skillTree) {
     }
   }
 
-
   function updateBonusSortButton(newLabel) {
     findById("bonus-sort-button").textContent = newLabel;
   }
