@@ -1,3 +1,10 @@
+body {
+  background-color: #fff;
+  color: #333;
+  font-size: 16px;
+  line-height: 18px;
+  font-family: 'PT Sans Narrow', sans-serif;
+}
 
 #pane {
   position: relative;
@@ -20,7 +27,6 @@
   border-style: solid;
   min-width: 150px;
   background-color: grey;
-  font-size: 300%;
   line-height: 50px;
   display: flex;
   flex-direction: column;
@@ -30,6 +36,10 @@
   border-width: 1px 0px 1px 1px;
   justify-content: flex-start;
   align-content: space-around;
+}
+
+#node-count-display {
+  font-size: 300%;
 }
 
 #node-selection-counter.exceeded-max-nodes {
@@ -44,7 +54,6 @@
 }
 
 .treeTab {
-  font-size: 16px;
   line-height: 20px;
   border-width: 1px 0px 1px 0px;
   border-color: black;
@@ -78,7 +87,7 @@
 }
 
 #bonuses-header {
-  font-size: 80%;
+  font-size: 200%;
   text-decoration: underline
 }
 
@@ -118,7 +127,6 @@
 }
 
 #cost-totals-display {
-  font-size: 16px;
   line-height: 20px;
 }
 
@@ -132,11 +140,11 @@
 }
 
 .action-button {
-  height: 20px;
+  height: 24px;
   margin: 3px;
   width: 120px;
-  font-size: 18px;
-  line-height: 21px;
+  font-size: 110%;
+  line-height: 26px;
   text-align: center;
   background-color: #737882;
   border: 1px solid black;
@@ -164,8 +172,8 @@
 
 .chassis-toggle-button {
   height: 20px;
-  width: 61px;
-  font-size: 18px;
+  width: 58px;
+  font-size: 110%;
   line-height: 21px;
   text-align: center;
   background-color: #737882;
@@ -204,7 +212,7 @@
   position: absolute;
   height: 52px;
   width: 52px;
-  font-size: 13px;
+  font-size: 80%;
   line-height: 13px;
   z-index: 1;
   cursor: pointer;
@@ -327,7 +335,7 @@
 .node-connect-line.illegal { background: red; }
 
 #permalink-display {
-  font-size: 20px;
+  font-size: 140%;
   background-color: #43464b;
   border-radius: 5px;
   padding: 9px 6px 6px 6px;
@@ -430,4 +438,8 @@ footer a:hover {
   padding: 20px;
   border: 1px solid #888;
   border-radius: 15px;
+}
+
+.hide {
+  display: none;
 }

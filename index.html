@@ -8,7 +8,6 @@
     <meta name="description" content="A skill tree planner for Mechwarrior Online">
     <meta name="keywords" content="mechwarrior, skilltree">
     <link href="https://fonts.googleapis.com/css?family=PT+Sans+Narrow" rel="stylesheet">
-    <link rel="stylesheet" href="scaffold.css" type="text/css">
     <link rel="stylesheet" href="planner.css" type="text/css">
   </head>
   <body>
@@ -21,9 +20,11 @@
         <div id='left-sidebar' class='sidebar'>
 
           <div id='tabs-and-total-pane'>
-            <span id='node-selection-counter'></span>
-            <span> / <span>
-            <span id='node-total'></span>
+            <div id="node-count-display">
+              <span id='node-selection-counter'></span>
+              <span> / </span>
+              <span id='node-total'></span>
+            </div>
             <div id='tabs-pane'></div>
           </div>
 
