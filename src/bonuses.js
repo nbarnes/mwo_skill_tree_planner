@@ -3,7 +3,7 @@
 
 import { PubSub } from "./pub_sub.js";
 
-let sort = 0;
+let sort = 1;
 
 const sorts = ["tree", "alpha"];
 
@@ -14,7 +14,7 @@ export const bonusSort = () => {
 export const incrementBonusSort = () => {
   sort == 1 ? sort = 0 : sort++;
   PubSub.publish("bonusSortChanged", {bonusSort: sorts[sort], label: displayStrings[sorts[sort]]});
-  return sort;
+  return sorts[sort];
 }
 
 export const aggregateBonuses = (nodes) => {
@@ -45,7 +45,10 @@ export const displayString = (input) => {
   return displayStrings[input];
 }
 
+// Note: the TYPE of sort is correlated with a button label that lists the OTHER
+// sort, as the button is claiming to CHANGE the sorting type to the non-active
+// one
 const displayStrings = {
-  "tree": "Sort by Tree",
-  "alpha": "Sort by Alpha"
+  "tree": "Sort by Alpha",
+  "alpha": "Sort by Tree"
 }

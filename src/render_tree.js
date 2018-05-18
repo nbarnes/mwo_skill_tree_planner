@@ -94,9 +94,6 @@ export default function renderTree(skillTree) {
 
       treeElement.appendChild(nodeFrameElement);
 
-      nodeFrameElement.addEventListener("click", function() {
-        PubSub.publish("nodeClicked", { node: node });
-      });
     }
 
     let nodeWidth = 52; // width of a graph node, per planner.css
@@ -133,10 +130,14 @@ export default function renderTree(skillTree) {
     hexTopShadowElement.classList.add("node-element");
     hexBottomShadowElement.classList.add("node-element");
 
+    nodeTextElement.setAttribute('draggable', false);
+    nodeValueElement.setAttribute('draggable', false);
+
     nodeFrameElement.id = node.id;
     nodeFrameElement.classList.add("graph-node");
     nodeFrameElement.classList.add(`${Util.stringToCss(node.attribute.name)}`);
     nodeFrameElement.dataset.attribute = Util.stringToCss(node.attribute.name);
+    nodeFrameElement.setAttribute('draggable', false);
 
     hexTopElement.classList.add("hex-top");
     hexTopElement.classList.add("hex-component");
