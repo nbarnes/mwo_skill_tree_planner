@@ -12,9 +12,7 @@ export const bonusSort = () => {
 }
 
 export const incrementBonusSort = () => {
-  console.log(`sort is ${sorts[sort]}`);
   sort == 1 ? sort = 0 : sort++;
-  console.log(`new sort is ${sorts[sort]}`);
   PubSub.publish("bonusSortChanged", {bonusSort: sorts[sort], label: displayStrings[sorts[sort]]});
   return sorts[sort];
 }

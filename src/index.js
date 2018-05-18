@@ -23,6 +23,7 @@ document.addEventListener("DOMContentLoaded", function() {
   loadFromRemoteId(skillTree);
   PubSub.publish("toggleChassisWeight");
   PubSub.publish("toggleChassisTech");
+  PubSub.publish("bonusSortChanged", {bonusSort: "tree", label: "Sort By Alpha"});
   PubSub.publish("treeTabClicked", {treeName: skillTree.getTrees()[0].name});
 
   findById("reset-tree-button").addEventListener("click", () => {
