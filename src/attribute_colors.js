@@ -74,20 +74,26 @@ export default function insertAttributeColors(attributeMap) {
     colorizationStyles.insertRule(`.colorize-nodes ` +
     `#tooltip.${Util.stringToCss(attribute.name)} ` +
     `{ background-color: ${ Util.shadeColor(attribute.color, 0.2) }CC`);
-    // tooltip namebar background
-    colorizationStyles.insertRule(`.colorize-nodes ` +
-    `#tooltip.${Util.stringToCss(attribute.name)} #tooltip-name-bar ` +
-    `{ background-color: ${ Util.shadeColor(attribute.color, -0.55) }DD`);
+    // // tooltip namebar background
+    // colorizationStyles.insertRule(`.colorize-nodes ` +
+    // `#tooltip.${Util.stringToCss(attribute.name)} #tooltip-name-bar ` +
+    // `{ background-color: ${ Util.shadeColor(attribute.color, -0.55) }DD`);
     // tooltip namebar text
     colorizationStyles.insertRule(`.colorize-nodes ` +
     `#tooltip.${Util.stringToCss(attribute.name)} #tooltip-name-bar ` +
     `{ color: ${ Util.shadeColor(attribute.color, 0.9) }; }`);
 
-    // // tooltip namebar background
-    // colorizationStyles.insertRule(`.colorize-nodes ` +
-    // `#tooltip.${Util.stringToCss(attribute.name)} #tooltip-name-bar ` +
-    // `{ background: linear-gradient( ${ Util.shadeColor(attribute.color, -0.55) } ` +
-    // `${ Util.shadeColor(attribute.color, 0.2) } );`);
+    // tooltip namebar background
+    colorizationStyles.insertRule(`.colorize-nodes ` +
+    `#tooltip.${Util.stringToCss(attribute.name)} #tooltip-name-bar ` +
+    `{ background: linear-gradient(135deg, ${ Util.shadeColor(attribute.color, -0.75) }88, ` +
+    `${ Util.shadeColor(attribute.color, -0.4) }88); }`);
+
+    // tooltip namebar background
+    colorizationStyles.insertRule(`.colorize-nodes ` +
+    `#tooltip.${Util.stringToCss(attribute.name)} ` +
+    `{ background: linear-gradient(135deg, ${ Util.shadeColor(attribute.color, 0.2) }22, ` +
+    `${ Util.shadeColor(attribute.color, 0.5) }22); }`);
 
   }
 }
