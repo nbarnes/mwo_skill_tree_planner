@@ -15,7 +15,7 @@ body {
 }
 
 #main {
-  background-color: #43464b;
+  background: linear-gradient(to bottom right, #43464b, grey, #43464b);
   border: 1px solid black;
   display: flex;
   flex-direction: row;
@@ -36,14 +36,19 @@ body {
   border-width: 1px 0px 1px 1px;
   justify-content: flex-start;
   align-content: space-around;
+  background-color: transparent;
 }
 
 #node-count-display {
   font-size: 300%;
+  color: #eeeeee;
+  text-shadow: 0 0 2px #eeeeee;
+  background-color: #2b2d30;
 }
 
 #node-selection-counter.exceeded-max-nodes {
   color: red;
+  text-shadow: 0 0 1px red;
 }
 
 #tabs-pane {
@@ -60,7 +65,9 @@ body {
   border-style: solid;
   height: 40px;
   width: 150px;
-  background-color: #737882;
+  color: #eeeeee;
+  text-shadow: 0 0 1px #eeeeee;
+  background-color: #2b2d30;
   cursor: pointer;
 
   -webkit-touch-callout: none; /* iOS Safari */
@@ -73,13 +80,94 @@ body {
 
 .treeTab.selected {
   z-index: 2;
-  border-width: 1px 1px 1px 0px;
+  border-width: 1px 0px 1px 0px;
   color: white;
+  text-shadow: 0 0 2px black;
   border-right-color: #43464b;
-  background-color: #43464b;
+  background-color: transparent;
+}
+
+#costs-and-buttons-pane {
+  background-color: #2b2d30;
+  height: 100%;
+}
+
+#buttons-pane {
+  width: 100%;
+  padding-top: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#cost-totals-display {
+  color: white;
+  text-shadow: 0 0 1px #eeeeee;
+  line-height: 20px;
+}
+
+.option-button {
+  color: black;
+  font-size: 110%;
+  text-align: center;
+  background-color: grey;
+  cursor: pointer;
+
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none;
+}
+
+.option-button:hover {
+  color: #eeeeee;
+  text-shadow: 0 0 1px black;
+  background-color: #191919;
+}
+
+.solo-button {
+  height: 24px;
+  margin: 3px;
+  width: 120px;
+  line-height: 26px;
+  border: 1px solid black;
+  border-radius: 5px;
+}
+
+#chassis-toggles {
+  display: flex;
+  flex-direction: row;
+  align-items: space-between;
+}
+
+.duo-button {
+  height: 20px;
+  width: 58px;
+  line-height: 21px;
+}
+
+#chassis-weight-toggle {
+  margin: 3px 0px 3px 3px;
+  padding: 2px 0px 2px 2px;
+  border-radius: 5px 0px 0px 5px;
+  border: 1px solid black;
+}
+
+#chassis-tech-toggle {
+  margin: 3px 3px 3px 0px;
+  padding: 2px 2px 2px 0px;
+  border-width: 1px 1px 1px 0px;
+  border-style: solid;
+  border-color: black;
+  border-radius: 0px 5px 5px 0px;
 }
 
 #right-sidebar {
+  color: #eeeeee;
+  text-shadow: 0 0 1px white;
+  background-color: #2b2d30;
   border-width: 1px 1px 1px 0px;
   width: 100%;
   justify-content: space-between;
@@ -96,7 +184,6 @@ body {
   font-weight: bold;
   font-size: 110%;
   line-height: 25px;
-  margin-bottom: 5px;
   border-width: 0 0 1px 0;
   border-style: solid;
   border-color: black;
@@ -114,7 +201,12 @@ body {
   line-height: 10px;
 }
 
+.bonus-display:nth-child(even) {
+  background-color: #191919;
+}
+
 .bonus-display:nth-child(odd) {
+  color: black;
   background-color: lightgrey;
 }
 
@@ -123,84 +215,8 @@ body {
 }
 
 #bonus-sort-button {
+  text-shadow: none;
   margin: 8px;
-}
-
-#cost-totals-display {
-  line-height: 20px;
-}
-
-#buttons-pane {
-  width: 100%;
-  height: 100%;
-  padding-top: 8px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.action-button {
-  height: 24px;
-  margin: 3px;
-  width: 120px;
-  font-size: 110%;
-  line-height: 26px;
-  text-align: center;
-  background-color: #737882;
-  border: 1px solid black;
-  border-radius: 5px;
-  cursor: pointer;
-
-  -webkit-touch-callout: none; /* iOS Safari */
-    -webkit-user-select: none; /* Safari */
-     -khtml-user-select: none; /* Konqueror HTML */
-       -moz-user-select: none; /* Firefox */
-        -ms-user-select: none; /* Internet Explorer/Edge */
-            user-select: none;
-}
-
-.action-button:hover {
-  color: white;
-  background-color: #43464b;
-}
-
-#chassis-toggles {
-  display: flex;
-  flex-direction: row;
-  align-items: space-between;
-}
-
-.chassis-toggle-button {
-  height: 20px;
-  width: 58px;
-  font-size: 110%;
-  line-height: 21px;
-  text-align: center;
-  background-color: #737882;
-  cursor: pointer;
-
-  -webkit-touch-callout: none; /* iOS Safari */
-    -webkit-user-select: none; /* Safari */
-     -khtml-user-select: none; /* Konqueror HTML */
-       -moz-user-select: none; /* Firefox */
-        -ms-user-select: none; /* Internet Explorer/Edge */
-            user-select: none;
-}
-
-#chassis-weight-toggle {
-  margin: 3px 0px 3px 3px;
-  padding: 2px 0px 2px 2px;
-  border-radius: 5px 0px 0px 5px;
-  border: 1px solid black;
-}
-
-#chassis-tech-toggle {
-  margin: 3px 3px 3px 0px;
-  padding: 2px 2px 2px 0px;
-  border-width: 1px 1px 1px 0px;
-  border-style: solid;
-  border-color: black;
-  border-radius: 0px 5px 5px 0px;
 }
 
 .skill-tree {
@@ -346,7 +362,7 @@ footer {
   padding: 5px;
   clear: both;
   text-align: center;
-  color: white;
+  color: #eeeeee;
   background-color: #191919;
 }
 
