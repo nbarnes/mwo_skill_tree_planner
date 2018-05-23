@@ -7,13 +7,13 @@ import { findById } from "./dom.js";
 
 export default function renderTree(skillTree) {
 
-  skillTree.getTrees().forEach( (tree, index) => {
-    buildTab(tree, index);
+  skillTree.getTrees().forEach( (tree) => {
+    buildTab(tree);
     buildTreeDisplay(tree);
   });
   findById("node-total").textContent = Util.maxSkillNodes;
 
-  function buildTab(tree, index) {
+  function buildTab(tree) {
     let tabElement = document.createElement("div");
     tabElement.id = Util.stringToCss(tree.name + "-tab");
     tabElement.classList.add("treeTab");
