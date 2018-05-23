@@ -243,9 +243,48 @@ body {
 }
 
 .hex-graphic {
+  stroke-width: 15;
   position: relative;
   left: -12px;
-  top: -10px;
+  top: -8px;
+}
+
+#graph-view .node.selected.illegal .hex-graphic {
+  stroke: red;
+  stroke-width: 20;
+  /*
+    // Adapted from Andrew Willems' work at
+    // https://stackoverflow.com/a/41517797/1720976
+
+    // If I were using SCSS or something I could probably make a SCSS function
+    // that would do this based on a variable defining the side length of the
+    // hex
+
+    let polygon = nodeElement.querySelector('.hex');
+    let aveDashSize = 30;
+    let noneFlag = undefined;
+
+    const c = polygon.getAttribute('points').replace(/,| +/g, ' ')
+      .trim().split(' ').map(n => +n); // extract points' coordinates from polygon
+    c.push(c[0], c[1]); // repeat the 1st point's coordinates at the end
+    const d = noneFlag ? [0, 0] : [0]; // if noneFlag, prepend extra zero
+    for (let s = 0; s < c.length - 2; s += 2) { // s is line segment number * 2
+      const dx = c[s] - c[s + 2];
+      const dy = c[s + 1] - c[s + 3];
+      const segLen = Math.sqrt(dx * dx + dy * dy);
+      const n = Math.floor(0.5 + segLen / aveDashSize / 2);
+      const len = segLen / n / 2; // calculate # of dashes & dash length
+      d.push((d.pop() + len) / 2); // join prev seg's last dash, this seg's 1st dash
+      (i => {
+        while (i--) {
+          d.push(len, len)
+        }
+      })(n); // fill out line with gaps & dashes
+    }
+    console.log(d.join(' '));
+    polygon.setAttribute('stroke-dasharray', d.join(' '));
+  */
+  stroke-dasharray: 12.50694251650303 25.01388503300606 25.01388503300606 25.01388503300606 25.01388503300606 25.01388503300606 25.00694251650303 25 25 25 25 25 25.00694251650303 25.01388503300606 25.01388503300606 25.01388503300606 25.01388503300606 25.01388503300606 25.01388503300606 25.01388503300606 25.01388503300606 25.01388503300606 25.01388503300606 25.01388503300606 25.00694251650303 25 25 25 25 25 25.00694251650303 25.01388503300606 25.01388503300606 25.01388503300606 25.01388503300606 25.01388503300606 25.01388503300606;
 }
 
 .node.selected .hex-text { color: black; }
