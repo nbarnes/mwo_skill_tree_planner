@@ -39,8 +39,8 @@ export default function renderTree(skillTree) {
     treeElement.classList.add("hide");
 
     // these control the spacing between nodes
-    let xSpacing = 65;
-    let ySpacing = 38;
+    let xSpacing = 90;
+    let ySpacing = 55;
 
     var leftmostNodeElement = 0;
     var rightmostNodeElement = 0;
@@ -98,7 +98,7 @@ export default function renderTree(skillTree) {
 
     }
 
-    let nodeWidth = 76; // width of a graph node, per planner.css
+    let nodeWidth = 100; // width of a graph node, per planner.css
     let horzPadding = 25; // horizontal padding on either side of the assembled tree
     let treeWidth = rightmostNodeElement - leftmostNodeElement + nodeWidth + (horzPadding * 2);
     treeElement.style.width = treeWidth + "px";
@@ -156,8 +156,8 @@ export default function renderTree(skillTree) {
       }
 
       lineElement.style.transform = transform;
-      lineElement.style.top = (parentY + 30) + "px";
-      lineElement.style.left = (parentX + 38) + "px";
+      lineElement.style.top = (parentY + 47) + "px";
+      lineElement.style.left = (parentX + 55) + "px";
 
       treeElement.appendChild(lineElement);
     }
