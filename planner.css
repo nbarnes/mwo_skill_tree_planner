@@ -208,45 +208,15 @@ body {
   height: 628px;
 }
 
-.graph-node {
+.node {
   position: absolute;
-  height: 52px;
-  width: 52px;
+  height: 76px;
+  width: 76px;
   font-size: 80%;
   line-height: 13px;
   z-index: 1;
   cursor: pointer;
 }
-
-.hex-component {
-  border-style: solid;
-  border-color: #191919;
-  box-sizing: border-box;
-  position: absolute;
-  width: 52px;
-  height: 44px;
-  left: 1px;
-  background-color: blue;
-  z-index: 0;
-}
-
-.hex-top {
-  border-width: 4px 2px 0px 2px;
-  top: -15px;
-  transform: perspective(55px) rotateX(45deg);
-}
-.hex-bottom {
-  border-width: 0px 2px 4px 2px;
-  top: 28px;
-  transform: perspective(55px) rotateX(-45deg);
-}
-
-#graph-view .graph-node.illegal .hex-component {
-  border-style: dashed;
-  border-color: red;
-}
-.graph-node.illegal .hex-top { border-width: 8px 4px 0px 4px; }
-.graph-node.illegal .hex-bottom { border-width: 0px 4px 8px 4px; }
 
 .hex-text {
   font-weight: 700;
@@ -267,62 +237,19 @@ body {
 }
 
 .hex-value {
-  position: relative;
+  position: absolute;
   top: 43px;
   z-index: 1;
 }
 
-.graph-node.mouse-over .hex-component {
-  border-color: rgb(70, 70, 70);
+.hex-graphic {
+  position: relative;
+  left: -12px;
+  top: -10px;
 }
 
-.graph-node.mouse-over .hex-shadow-top {
-  box-shadow: -1px -6px 15px 8px rgba(255, 255, 255, 0.8);
-}
-.graph-node.mouse-over .hex-shadow-bottom {
-  box-shadow: 0px 3px 15px 8px rgba(255, 255, 255, 0.8);
-}
-
-.hex-shadow {
-  color: none;
-  background-color: none;
-  position: absolute;
-  width: 40px;
-  height: 42px;
-  left: 7px;
-  z-index: -1;
-}
-
-.hex-shadow-top {
-  top: -13px;
-  transform: perspective(55px) rotateX(45deg);
-}
-
-.hex-shadow-bottom {
-  top: 28px;
-  transform: perspective(55px) rotateX(-45deg);
-}
-
-.graph-node .hex-component {
-  background-color: grey;
-}
-.graph-node.selected .hex-component {
-  border-color: #003D7D;
-  background-color: #00b5f5;
-}
-.graph-node.mouse-over.selected .hex-component {
-  border-color: #008DCD;
-}
-
-.graph-node.mouse-over.selected .hex-shadow-top {
-  box-shadow: -1px -6px 15px 8px #50FFFF;
-}
-.graph-node.mouse-over.selected .hex-shadow-bottom {
-  box-shadow: 0px 3px 15px 8px #50FFFF;
-}
-
-.graph-node.selected .hex-text { color: black; }
-.graph-node .hex-text { color: white; }
+.node.selected .hex-text { color: black; }
+.node .hex-text { color: white; }
 
 .node-connect-line {
   position: absolute;

@@ -101,7 +101,7 @@ export default function renderTree(skillTree) {
                         // node elements throws off alignment of css padding
     let treeWidth = rightmostNodeElement - leftmostNodeElement + nodeWidth + (padding * 2);
     treeElement.style.width = treeWidth + "px";
-    treeElement.querySelectorAll(".graph-node").forEach( el => {
+    treeElement.querySelectorAll(".node").forEach( el => {
       let newLeft = Util.dimensionAsNumber(el.style.left) + (-leftmostNodeElement) + padding + "px";
       el.style.left = newLeft;
     });
@@ -114,54 +114,19 @@ export default function renderTree(skillTree) {
   }
 
   function buildNodeElement(node) {
-    let nodeFrameElement = document.createElement("div");
-    let hexTopElement = document.createElement("div");
-    let nodeTextElement = document.createElement("div");
-    let nodeValueElement = document.createElement("div");
-    let hexBottomElement = document.createElement("div");
-    let hexTopShadowElement = document.createElement("div");
-    let hexBottomShadowElement = document.createElement("div");
+    let nodeElement = findById("hex-template").content.cloneNode(true).firstElementChild;
+    nodeElement.id = node.id;
+    nodeElement.classList.add(`${Util.stringToCss(node.attribute.name)}`);
+    nodeElement.dataset.attribute = Util.stringToCss(node.attribute.name);
 
-    nodeFrameElement.classList.add("node-element");
-    hexTopElement.classList.add("node-element");
-    nodeTextElement.classList.add("node-element");
-    nodeValueElement.classList.add("node-element");
-    hexBottomElement.classList.add("node-element");
-    hexTopShadowElement.classList.add("node-element");
-    hexBottomShadowElement.classList.add("node-element");
+    nodeElement.querySelector(".hex-text").textContent = node.attribute.label;
 
-    nodeTextElement.setAttribute('draggable', false);
-    nodeValueElement.setAttribute('draggable', false);
-
-    nodeFrameElement.id = node.id;
-    nodeFrameElement.classList.add("graph-node");
-    nodeFrameElement.classList.add(`${Util.stringToCss(node.attribute.name)}`);
-    nodeFrameElement.dataset.attribute = Util.stringToCss(node.attribute.name);
-    nodeFrameElement.setAttribute('draggable', false);
-
-    hexTopElement.classList.add("hex-top");
-    hexTopElement.classList.add("hex-component");
-    nodeTextElement.classList.add("hex-text");
-    nodeValueElement.classList.add("hex-text");
-    nodeValueElement.classList.add("hex-value");
-    hexBottomElement.classList.add("hex-bottom");
-    hexBottomElement.classList.add("hex-component");
-    hexTopShadowElement.classList.add("hex-shadow");
-    hexBottomShadowElement.classList.add("hex-shadow");
-    hexTopShadowElement.classList.add("hex-shadow-top");
-    hexBottomShadowElement.classList.add("hex-shadow-bottom");
-
-    nodeTextElement.textContent = node.attribute.label;
-
-    nodeFrameElement.append(hexTopElement);
-    nodeFrameElement.append(nodeTextElement);
-    nodeFrameElement.append(nodeValueElement);
-    nodeFrameElement.append(hexBottomElement);
-    nodeFrameElement.append(hexTopShadowElement);
-    nodeFrameElement.append(hexBottomShadowElement);
-
-    return nodeFrameElement;
+    return nodeElement;
   }
+
+  // TODO: childrenOf is slow and probably doesn't need to be called here, just
+  // to get the ids of the children.  Is it possible to get the child IDs out of
+  // the parentNode without calling childrenOf?
 
   function drawNodeEdges(parentNode, treeElement) {
     let parentElement = treeElement.querySelector(`#${parentNode.id}`);

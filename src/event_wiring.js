@@ -92,7 +92,7 @@ export default function wireEvents(skillTree) {
   });
 
   PubSub.subscribe("nodeMouseEnter", data => {
-    for (let node of findById(`${Util.treeNameToId(data.treeName)}`).querySelectorAll(".graph-node")) {
+    for (let node of findById(`${Util.treeNameToId(data.treeName)}`).querySelectorAll(".node")) {
       if (node.dataset.attribute == data.attribute) {
         node.classList.add("mouse-over");
       } else {
@@ -102,7 +102,7 @@ export default function wireEvents(skillTree) {
   });
 
   PubSub.subscribe("nodeMouseLeft", data => {
-    for (let node of findById(`${Util.treeNameToId(data.treeName)}`).querySelectorAll(".graph-node")) {
+    for (let node of findById(`${Util.treeNameToId(data.treeName)}`).querySelectorAll(".node")) {
       node.classList.remove("mouse-over");
     }
   });
@@ -141,7 +141,7 @@ export default function wireEvents(skillTree) {
   }
 
   function updateHexValues() {
-    let nodeElements = findByClass('.graph-node');
+    let nodeElements = findByClass('.node');
     for (let nodeElement of nodeElements) {
       let node = skillTree.getNode(nodeElement.id);
       nodeElement.querySelector('.hex-value').textContent = Util.formatValue(node.attribute, node.value());
