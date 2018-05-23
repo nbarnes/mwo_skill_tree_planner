@@ -38,14 +38,16 @@ export default function renderTree(skillTree) {
     treeElement.classList.add("skill-tree");
     treeElement.classList.add("hide");
 
+    // these control the spacing between nodes
+    let xSpacing = 65;
+    let ySpacing = 38;
+
+    var leftmostNodeElement = 0;
+    var rightmostNodeElement = 0;
+
     // TODO: need to do something here to sort the node array.  Probably search
     // it each time you add a node and add the children of that node to a queue
     // to be the next loaded
-
-    let xOffset = 65;
-    let yOffset = 38;
-    var leftmostNodeElement = 0;
-    var rightmostNodeElement = 0;
 
     // Create graph nodes and insert them into the tree
     for (let node of tree.nodes) {
@@ -69,19 +71,19 @@ export default function renderTree(skillTree) {
         // derive the offsets from the parent's position in the pane to the
         // child's
         if (relativeChildPostiion == "left") {
-          nodeFrameElement.style.top = parentTop + yOffset + "px";
-          nodeFrameElement.style.left = parentLeft - xOffset + "px";
+          nodeFrameElement.style.top = parentTop + ySpacing + "px";
+          nodeFrameElement.style.left = parentLeft - xSpacing + "px";
         } else if (relativeChildPostiion == "right") {
-          nodeFrameElement.style.top = parentTop + yOffset + "px";
-          nodeFrameElement.style.left = parentLeft + xOffset + "px";
+          nodeFrameElement.style.top = parentTop + ySpacing + "px";
+          nodeFrameElement.style.left = parentLeft + xSpacing + "px";
         } else {
-          nodeFrameElement.style.top = parentTop + (yOffset * 2) + "px";
+          nodeFrameElement.style.top = parentTop + (ySpacing * 2) + "px";
           nodeFrameElement.style.left = parentLeft + "px";
         }
 
       } else {
         nodeFrameElement.style.top = "25px";
-        nodeFrameElement.style.left = "26px";
+        nodeFrameElement.style.left = "36px";
       }
 
       let leftPosition = Util.dimensionAsNumber(nodeFrameElement.style.left);
@@ -96,13 +98,12 @@ export default function renderTree(skillTree) {
 
     }
 
-    let nodeWidth = 52; // width of a graph node, per planner.css
-    let padding = 25;   // "padding" here rather than in css because "absolute" positioning of the
-                        // node elements throws off alignment of css padding
-    let treeWidth = rightmostNodeElement - leftmostNodeElement + nodeWidth + (padding * 2);
+    let nodeWidth = 76; // width of a graph node, per planner.css
+    let horzPadding = 25; // horizontal padding on either side of the assembled tree
+    let treeWidth = rightmostNodeElement - leftmostNodeElement + nodeWidth + (horzPadding * 2);
     treeElement.style.width = treeWidth + "px";
     treeElement.querySelectorAll(".node").forEach( el => {
-      let newLeft = Util.dimensionAsNumber(el.style.left) + (-leftmostNodeElement) + padding + "px";
+      let newLeft = Util.dimensionAsNumber(el.style.left) + (-leftmostNodeElement) + horzPadding + "px";
       el.style.left = newLeft;
     });
 
@@ -155,8 +156,8 @@ export default function renderTree(skillTree) {
       }
 
       lineElement.style.transform = transform;
-      lineElement.style.top = (parentY + 22) + "px";
-      lineElement.style.left = (parentX + 26) + "px";
+      lineElement.style.top = (parentY + 30) + "px";
+      lineElement.style.left = (parentX + 38) + "px";
 
       treeElement.appendChild(lineElement);
     }

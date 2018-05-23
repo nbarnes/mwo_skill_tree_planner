@@ -205,12 +205,11 @@ body {
 
 .skill-tree {
   position: relative;
-  height: 628px;
+  height: 658px;
 }
 
 .node {
   position: absolute;
-  height: 76px;
   width: 76px;
   font-size: 80%;
   line-height: 13px;
@@ -244,9 +243,6 @@ body {
 
 .hex-graphic {
   stroke-width: 15;
-  position: relative;
-  left: -12px;
-  top: -8px;
 }
 
 #graph-view .node.selected.illegal .hex-graphic {
