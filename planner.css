@@ -11,6 +11,7 @@ body {
   display: flex;
   flex-direction: column;
   text-align: center;
+  min-width: fit-content;
   max-width: fit-content;
 }
 
@@ -19,7 +20,6 @@ body {
   border: 1px solid black;
   display: flex;
   flex-direction: row;
-  max-width: fit-content;
 }
 
 .sidebar {
@@ -205,56 +205,24 @@ body {
 
 .skill-tree {
   position: relative;
-  height: 628px;
+  height: 900px;
 }
 
-.graph-node {
+.node {
   position: absolute;
-  height: 52px;
-  width: 52px;
-  font-size: 80%;
-  line-height: 13px;
+  width: 110px;
+  font-size: 110%;
+  line-height: 20px;
   z-index: 1;
   cursor: pointer;
 }
 
-.hex-component {
-  border-style: solid;
-  border-color: #191919;
-  box-sizing: border-box;
-  position: absolute;
-  width: 52px;
-  height: 44px;
-  left: 1px;
-  background-color: blue;
-  z-index: 0;
-}
-
-.hex-top {
-  border-width: 4px 2px 0px 2px;
-  top: -15px;
-  transform: perspective(55px) rotateX(45deg);
-}
-.hex-bottom {
-  border-width: 0px 2px 4px 2px;
-  top: 28px;
-  transform: perspective(55px) rotateX(-45deg);
-}
-
-#graph-view .graph-node.illegal .hex-component {
-  border-style: dashed;
-  border-color: red;
-}
-.graph-node.illegal .hex-top { border-width: 8px 4px 0px 4px; }
-.graph-node.illegal .hex-bottom { border-width: 0px 4px 8px 4px; }
-
 .hex-text {
   font-weight: 700;
   position: absolute;
-  width: 52px;
-  height: 26px;
-  top: 10px;
-  left: 1px;
+  width: 70px;
+  top: 20px;
+  left: 19px;
   z-index: 1;
   background-color: none;
 
@@ -267,62 +235,69 @@ body {
 }
 
 .hex-value {
-  position: relative;
-  top: 43px;
+  position: absolute;
+  top: 65px;
   z-index: 1;
 }
 
-.graph-node.mouse-over .hex-component {
-  border-color: rgb(70, 70, 70);
+.hex-graphic {
+  stroke-width: 15;
 }
 
-.graph-node.mouse-over .hex-shadow-top {
-  box-shadow: -1px -6px 15px 8px rgba(255, 255, 255, 0.8);
-}
-.graph-node.mouse-over .hex-shadow-bottom {
-  box-shadow: 0px 3px 15px 8px rgba(255, 255, 255, 0.8);
+#graph-view .node.selected.illegal .hex-graphic {
+  stroke: red;
+  stroke-width: 20;
+  /*
+    // Adapted from Andrew Willems' work at
+    // https://stackoverflow.com/a/41517797/1720976
+
+    // If I were using SCSS or something I could probably make a SCSS function
+    // that would do this based on a variable defining the side length of the
+    // hex
+
+    let polygon = nodeElement.querySelector('.hex');
+    let aveDashSize = 30;
+    let noneFlag = undefined;
+
+    const c = polygon.getAttribute('points').replace(/,| +/g, ' ')
+      .trim().split(' ').map(n => +n); // extract points' coordinates from polygon
+    c.push(c[0], c[1]); // repeat the 1st point's coordinates at the end
+    const d = noneFlag ? [0, 0] : [0]; // if noneFlag, prepend extra zero
+    for (let s = 0; s < c.length - 2; s += 2) { // s is line segment number * 2
+      const dx = c[s] - c[s + 2];
+      const dy = c[s + 1] - c[s + 3];
+      const segLen = Math.sqrt(dx * dx + dy * dy);
+      const n = Math.floor(0.5 + segLen / aveDashSize / 2);
+      const len = segLen / n / 2; // calculate # of dashes & dash length
+      d.push((d.pop() + len) / 2); // join prev seg's last dash, this seg's 1st dash
+      (i => {
+        while (i--) {
+          d.push(len, len)
+        }
+      })(n); // fill out line with gaps & dashes
+    }
+    console.log(d.join(' '));
+    polygon.setAttribute('stroke-dasharray', d.join(' '));
+  */
+  stroke-dasharray: 12.50694251650303 25.01388503300606 25.01388503300606 25.01388503300606 25.01388503300606 25.01388503300606 25.00694251650303 25 25 25 25 25 25.00694251650303 25.01388503300606 25.01388503300606 25.01388503300606 25.01388503300606 25.01388503300606 25.01388503300606 25.01388503300606 25.01388503300606 25.01388503300606 25.01388503300606 25.01388503300606 25.00694251650303 25 25 25 25 25 25.00694251650303 25.01388503300606 25.01388503300606 25.01388503300606 25.01388503300606 25.01388503300606 25.01388503300606;
 }
 
-.hex-shadow {
-  color: none;
-  background-color: none;
-  position: absolute;
-  width: 40px;
-  height: 42px;
-  left: 7px;
-  z-index: -1;
+.node .hex-graphic {
+  fill: grey;
+  stroke: #333333;
+}
+.node.selected .hex-graphic {
+  stroke: #006FAF;
+  fill: #00b5f5;
+}
+.node.mouse-over.selected .hex-graphic {
+  stroke: #008DCD;
+  -webkit-filter: drop-shadow(0px 0px 8px #50FFFF);
+  filter:         drop-shadow(0px 0px 8px #50FFFF);
 }
 
-.hex-shadow-top {
-  top: -13px;
-  transform: perspective(55px) rotateX(45deg);
-}
-
-.hex-shadow-bottom {
-  top: 28px;
-  transform: perspective(55px) rotateX(-45deg);
-}
-
-.graph-node .hex-component {
-  background-color: grey;
-}
-.graph-node.selected .hex-component {
-  border-color: #003D7D;
-  background-color: #00b5f5;
-}
-.graph-node.mouse-over.selected .hex-component {
-  border-color: #008DCD;
-}
-
-.graph-node.mouse-over.selected .hex-shadow-top {
-  box-shadow: -1px -6px 15px 8px #50FFFF;
-}
-.graph-node.mouse-over.selected .hex-shadow-bottom {
-  box-shadow: 0px 3px 15px 8px #50FFFF;
-}
-
-.graph-node.selected .hex-text { color: black; }
-.graph-node .hex-text { color: white; }
+.node.selected .hex-text { color: black; }
+.node .hex-text { color: white; }
 
 .node-connect-line {
   position: absolute;
@@ -344,7 +319,6 @@ body {
 
 footer {
   padding: 5px;
-  clear: both;
   text-align: center;
   color: white;
   background-color: #191919;
@@ -369,7 +343,7 @@ footer a:hover {
 #tooltip {
   position: absolute;
   margin: 5px;
-  background-color: #6dd9ff;
+  background-color: #6dd9ffbb;
   z-index: 3;
   overflow: hidden;
   max-height: 110px;
@@ -380,7 +354,7 @@ footer a:hover {
 #tooltip-name-bar {
   color: #d3f3ff;
   text-shadow: 0 0 1px black;
-  background-color: #008DCD;
+  background-color: #008DCDbb;
   font-size: 140%;
   padding-top: 6px;
   padding-bottom: 4px;

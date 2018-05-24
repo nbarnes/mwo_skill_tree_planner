@@ -58,13 +58,13 @@ document.addEventListener("DOMContentLoaded", function() {
     incrementBonusSort();
   });
 
-  for (let node of findByClass(".graph-node")) {
+  for (let node of findByClass(".node")) {
     node.addEventListener("mouseenter", function(event) {
       PubSub.publish("nodeMouseEnter", {attribute: this.dataset.attribute, treeName: skillTree.getActiveTreeName()} );
     });
   }
 
-  for (let node of findByClass(".graph-node")) {
+  for (let node of findByClass(".node")) {
     node.addEventListener("mouseleave", function(event) {
       PubSub.publish("nodeMouseLeft", {attribute: this.dataset.attribute, treeName: skillTree.getActiveTreeName()} );
     });
@@ -82,7 +82,7 @@ document.addEventListener("DOMContentLoaded", function() {
   var previousNode = undefined;
   findById("graph-view").addEventListener("mousemove", function(event) {
     if (isMouseDragging) {
-      let nodeElement = event.target.closest('.graph-node');
+      let nodeElement = event.target.closest('.node');
       if (nodeElement != undefined && nodeElement != previousNode) {
         let node = skillTree.getNode(nodeElement.id)
         node.selected(!node.selected());
@@ -92,7 +92,7 @@ document.addEventListener("DOMContentLoaded", function() {
   });
 
   findById("graph-view").addEventListener("click", function(event) {
-    let node = event.target.closest('.graph-node');
+    let node = event.target.closest('.node');
     if (node != undefined) {
       PubSub.publish("nodeClicked", { node: skillTree.getNode(node.id) } );
     };
@@ -101,7 +101,7 @@ document.addEventListener("DOMContentLoaded", function() {
   var lastTooltipTarget = undefined;
   findById("graph-view").addEventListener("mousemove", function(event) {
     let tooltip = findById('tooltip');
-    let node = event.target.closest('.graph-node');
+    let node = event.target.closest('.node');
     if (node == undefined || node != lastTooltipTarget) {
       tooltip.classList.remove('full-tooltip');
       tooltip.classList.add('zero-tooltip');

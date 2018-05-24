@@ -38,14 +38,16 @@ export default function renderTree(skillTree) {
     treeElement.classList.add("skill-tree");
     treeElement.classList.add("hide");
 
+    // these control the spacing between nodes
+    let xSpacing = 90;
+    let ySpacing = 55;
+
+    var leftmostNodeElement = 0;
+    var rightmostNodeElement = 0;
+
     // TODO: need to do something here to sort the node array.  Probably search
     // it each time you add a node and add the children of that node to a queue
     // to be the next loaded
-
-    let xOffset = 65;
-    let yOffset = 38;
-    var leftmostNodeElement = 0;
-    var rightmostNodeElement = 0;
 
     // Create graph nodes and insert them into the tree
     for (let node of tree.nodes) {
@@ -69,19 +71,19 @@ export default function renderTree(skillTree) {
         // derive the offsets from the parent's position in the pane to the
         // child's
         if (relativeChildPostiion == "left") {
-          nodeFrameElement.style.top = parentTop + yOffset + "px";
-          nodeFrameElement.style.left = parentLeft - xOffset + "px";
+          nodeFrameElement.style.top = parentTop + ySpacing + "px";
+          nodeFrameElement.style.left = parentLeft - xSpacing + "px";
         } else if (relativeChildPostiion == "right") {
-          nodeFrameElement.style.top = parentTop + yOffset + "px";
-          nodeFrameElement.style.left = parentLeft + xOffset + "px";
+          nodeFrameElement.style.top = parentTop + ySpacing + "px";
+          nodeFrameElement.style.left = parentLeft + xSpacing + "px";
         } else {
-          nodeFrameElement.style.top = parentTop + (yOffset * 2) + "px";
+          nodeFrameElement.style.top = parentTop + (ySpacing * 2) + "px";
           nodeFrameElement.style.left = parentLeft + "px";
         }
 
       } else {
         nodeFrameElement.style.top = "25px";
-        nodeFrameElement.style.left = "26px";
+        nodeFrameElement.style.left = "36px";
       }
 
       let leftPosition = Util.dimensionAsNumber(nodeFrameElement.style.left);
@@ -96,13 +98,12 @@ export default function renderTree(skillTree) {
 
     }
 
-    let nodeWidth = 52; // width of a graph node, per planner.css
-    let padding = 25;   // "padding" here rather than in css because "absolute" positioning of the
-                        // node elements throws off alignment of css padding
-    let treeWidth = rightmostNodeElement - leftmostNodeElement + nodeWidth + (padding * 2);
+    let nodeWidth = 100; // width of a graph node, per planner.css
+    let horzPadding = 25; // horizontal padding on either side of the assembled tree
+    let treeWidth = rightmostNodeElement - leftmostNodeElement + nodeWidth + (horzPadding * 2);
     treeElement.style.width = treeWidth + "px";
-    treeElement.querySelectorAll(".graph-node").forEach( el => {
-      let newLeft = Util.dimensionAsNumber(el.style.left) + (-leftmostNodeElement) + padding + "px";
+    treeElement.querySelectorAll(".node").forEach( el => {
+      let newLeft = Util.dimensionAsNumber(el.style.left) + (-leftmostNodeElement) + horzPadding + "px";
       el.style.left = newLeft;
     });
 
@@ -114,54 +115,19 @@ export default function renderTree(skillTree) {
   }
 
   function buildNodeElement(node) {
-    let nodeFrameElement = document.createElement("div");
-    let hexTopElement = document.createElement("div");
-    let nodeTextElement = document.createElement("div");
-    let nodeValueElement = document.createElement("div");
-    let hexBottomElement = document.createElement("div");
-    let hexTopShadowElement = document.createElement("div");
-    let hexBottomShadowElement = document.createElement("div");
+    let nodeElement = findById("hex-template").content.cloneNode(true).firstElementChild;
+    nodeElement.id = node.id;
+    nodeElement.classList.add(`${Util.stringToCss(node.attribute.name)}`);
+    nodeElement.dataset.attribute = Util.stringToCss(node.attribute.name);
 
-    nodeFrameElement.classList.add("node-element");
-    hexTopElement.classList.add("node-element");
-    nodeTextElement.classList.add("node-element");
-    nodeValueElement.classList.add("node-element");
-    hexBottomElement.classList.add("node-element");
-    hexTopShadowElement.classList.add("node-element");
-    hexBottomShadowElement.classList.add("node-element");
+    nodeElement.querySelector(".hex-text").textContent = node.attribute.label;
 
-    nodeTextElement.setAttribute('draggable', false);
-    nodeValueElement.setAttribute('draggable', false);
-
-    nodeFrameElement.id = node.id;
-    nodeFrameElement.classList.add("graph-node");
-    nodeFrameElement.classList.add(`${Util.stringToCss(node.attribute.name)}`);
-    nodeFrameElement.dataset.attribute = Util.stringToCss(node.attribute.name);
-    nodeFrameElement.setAttribute('draggable', false);
-
-    hexTopElement.classList.add("hex-top");
-    hexTopElement.classList.add("hex-component");
-    nodeTextElement.classList.add("hex-text");
-    nodeValueElement.classList.add("hex-text");
-    nodeValueElement.classList.add("hex-value");
-    hexBottomElement.classList.add("hex-bottom");
-    hexBottomElement.classList.add("hex-component");
-    hexTopShadowElement.classList.add("hex-shadow");
-    hexBottomShadowElement.classList.add("hex-shadow");
-    hexTopShadowElement.classList.add("hex-shadow-top");
-    hexBottomShadowElement.classList.add("hex-shadow-bottom");
-
-    nodeTextElement.textContent = node.attribute.label;
-
-    nodeFrameElement.append(hexTopElement);
-    nodeFrameElement.append(nodeTextElement);
-    nodeFrameElement.append(nodeValueElement);
-    nodeFrameElement.append(hexBottomElement);
-    nodeFrameElement.append(hexTopShadowElement);
-    nodeFrameElement.append(hexBottomShadowElement);
-
-    return nodeFrameElement;
+    return nodeElement;
   }
+
+  // TODO: childrenOf is slow and probably doesn't need to be called here, just
+  // to get the ids of the children.  Is it possible to get the child IDs out of
+  // the parentNode without calling childrenOf?
 
   function drawNodeEdges(parentNode, treeElement) {
     let parentElement = treeElement.querySelector(`#${parentNode.id}`);
@@ -190,8 +156,8 @@ export default function renderTree(skillTree) {
       }
 
       lineElement.style.transform = transform;
-      lineElement.style.top = (parentY + 22) + "px";
-      lineElement.style.left = (parentX + 26) + "px";
+      lineElement.style.top = (parentY + 47) + "px";
+      lineElement.style.left = (parentX + 55) + "px";
 
       treeElement.appendChild(lineElement);
     }
