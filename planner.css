@@ -41,6 +41,9 @@ body {
 #node-count-display {
   background-color: grey;
   font-size: 300%;
+  border-width: 0px 0px 1px 0px;
+  border-color: black;
+  border-style: solid;
 }
 
 #node-selection-counter.exceeded-max-nodes {
@@ -74,7 +77,6 @@ body {
 
 .treeTab.selected {
   z-index: 2;
-  border-width: 1px 0px 1px 0px;
   color: white;
   border-right-color: #43464b;
   background-color: transparent;
