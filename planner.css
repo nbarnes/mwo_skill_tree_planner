@@ -343,7 +343,7 @@ footer a:hover {
 #tooltip {
   position: absolute;
   margin: 5px;
-  background-color: #6dd9ff;
+  background-color: #6dd9ffbb;
   z-index: 3;
   overflow: hidden;
   max-height: 110px;
@@ -354,7 +354,7 @@ footer a:hover {
 #tooltip-name-bar {
   color: #d3f3ff;
   text-shadow: 0 0 1px black;
-  background-color: #008DCD;
+  background-color: #008DCDbb;
   font-size: 140%;
   padding-top: 6px;
   padding-bottom: 4px;
