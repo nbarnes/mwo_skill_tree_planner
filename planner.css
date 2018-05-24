@@ -211,8 +211,8 @@ body {
 .node {
   position: absolute;
   width: 110px;
-  font-size: 80%;
-  line-height: 13px;
+  font-size: 110%;
+  line-height: 20px;
   z-index: 1;
   cursor: pointer;
 }
@@ -220,10 +220,9 @@ body {
 .hex-text {
   font-weight: 700;
   position: absolute;
-  width: 52px;
-  height: 26px;
-  top: 10px;
-  left: 1px;
+  width: 70px;
+  top: 20px;
+  left: 19px;
   z-index: 1;
   background-color: none;
 
@@ -237,7 +236,7 @@ body {
 
 .hex-value {
   position: absolute;
-  top: 43px;
+  top: 65px;
   z-index: 1;
 }
 
