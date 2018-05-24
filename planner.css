@@ -17,6 +17,7 @@ body {
 
 #main {
   background-color: #43464b;
+  /* background: linear-gradient(to bottom right, #43464b, grey, #43464b); */
   border: 1px solid black;
   display: flex;
   flex-direction: row;
@@ -26,19 +27,19 @@ body {
   border-color: black;
   border-style: solid;
   min-width: 150px;
-  background-color: grey;
   line-height: 50px;
   display: flex;
   flex-direction: column;
 }
 
 #left-sidebar {
-  border-width: 1px 0px 1px 1px;
+  border-width: 1px 0px 0px 1px;
   justify-content: flex-start;
   align-content: space-around;
 }
 
 #node-count-display {
+  background-color: grey;
   font-size: 300%;
 }
 
@@ -55,7 +56,7 @@ body {
 
 .treeTab {
   line-height: 20px;
-  border-width: 1px 0px 1px 0px;
+  border-width: 0px 0px 1px 0px;
   border-color: black;
   border-style: solid;
   height: 40px;
@@ -73,14 +74,15 @@ body {
 
 .treeTab.selected {
   z-index: 2;
-  border-width: 1px 1px 1px 0px;
+  border-width: 1px 0px 1px 0px;
   color: white;
   border-right-color: #43464b;
-  background-color: #43464b;
+  background-color: transparent;
 }
 
 #right-sidebar {
-  border-width: 1px 1px 1px 0px;
+  background-color: grey;
+  border-width: 1px 1px 0px 0px;
   width: 100%;
   justify-content: space-between;
   align-items: center;
@@ -124,6 +126,11 @@ body {
 
 #bonus-sort-button {
   margin: 8px;
+}
+
+#costs-and-buttons-pane {
+  height: 100%;
+  background-color: grey;
 }
 
 #cost-totals-display {
