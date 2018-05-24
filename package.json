@@ -4,6 +4,7 @@
   "description": "Skill Tree Planning Tool for PGI's Mechwarrior Online",
   "private": true,
   "dependencies": {
+    "dom-to-image": "^2.6.0",
     "npm": "^6.0.0"
   },
   "devDependencies": {

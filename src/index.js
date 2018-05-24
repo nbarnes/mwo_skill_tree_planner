@@ -12,6 +12,7 @@ import { loadFromRemoteId } from "./cold_storage.js";
 import { findById, findByClass } from "./dom.js";
 import insertAttributeColors from "./attribute_colors.js";
 import { incrementBonusSort } from "./bonuses.js";
+import { saveToFile } from "./export_to_image.js";
 
 document.addEventListener("DOMContentLoaded", function() {
 
@@ -44,6 +45,10 @@ document.addEventListener("DOMContentLoaded", function() {
 
   findById("colorize-nodes-button").addEventListener("click", function(event) {
     PubSub.publish("toggleNodeColorization");
+  });
+
+  findById("save-to-file-button").addEventListener("click", function(event) {
+    saveToFile(findById("graph-view"));
   });
 
   findById("chassis-weight-toggle").addEventListener("click", function(event) {
