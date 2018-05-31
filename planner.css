@@ -4,6 +4,7 @@ body {
   font-size: 16px;
   line-height: 18px;
   font-family: 'PT Sans Narrow', sans-serif;
+  /* font-family: 'Lato', sans-serif; */
 }
 
 #pane {
@@ -227,7 +228,8 @@ body {
 }
 
 .hex-text {
-  font-weight: 700;
+  font-size: 90%;
+  font-weight: 900;
   position: absolute;
   width: 70px;
   top: 20px;
@@ -426,4 +428,14 @@ footer a:hover {
 
 .hide {
   display: none;
+}
+
+.tree-view {
+  position: absolute;
+  height: 0;
+  width: 3400px;
+  background-color: #43464b;
+  display: flex;
+  flex-flow: row wrap;
+  z-index: -99;
 }
