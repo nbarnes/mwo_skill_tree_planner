@@ -8,22 +8,16 @@ import { treeNameToId } from "./util.js";
 
 export let saveToFile = function (rootNode) {
 
-  domtoimage.toPng(findById('graph-view'))
-  // domtoimage.toJpeg(findById('graph-view'), { quality: 0.7 })
+  let treeView = buildTreeView();
+  document.body.appendChild(treeView);
+  domtoimage.toPng(treeView)
   .then( dataUrl => {
-
-    var img = new Image();
-    img.src = dataUrl;
-    findById('graph-view').appendChild(img);
-
-  // var link = document.createElement('a');
-  // link.download = 'skill_tree.jpeg';
-  // link.href = dataUrl;
-  // link.click();
-
+    document.body.removeChild(treeView);
+    var link = document.createElement('a');
+    link.download = 'skill_tree';
+    link.href = dataUrl;
+    link.click();
   });
-
-  // findById('graph-view').appendChild( buildTreeView() );
 
 }
 

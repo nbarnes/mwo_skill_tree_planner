@@ -255,7 +255,12 @@ body {
   stroke-width: 15;
 }
 
-#graph-view .node.selected.illegal .hex-graphic {
+/*
+  The long selector here increases the specificity enough to overcome the
+  high priority defined for the per-bonus border color defined in
+  attribute_colors.js
+*/
+ body .skill-tree .node.selected.illegal .hex-graphic {
   stroke: red;
   stroke-width: 20;
   /*
@@ -431,10 +436,10 @@ footer a:hover {
 }
 
 .tree-view {
-  position: absolute;
-  height: 0;
   width: 3400px;
+  height: 0;
   background-color: #43464b;
+  text-align: center;
   display: flex;
   flex-flow: row wrap;
   z-index: -99;

@@ -246,7 +246,7 @@ export default function wireEvents(skillTree) {
   }
 
   function toggleNodeColorization() {
-    findById("graph-view").classList.toggle("colorize-nodes");
+    document.body.classList.toggle("colorize-nodes");
   }
 
 }
