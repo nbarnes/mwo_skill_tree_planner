@@ -58,7 +58,7 @@ export default function insertAttributeColors(attributeMap) {
       `filter:         drop-shadow(0px 0px 8px ${ Util.shadeColor(attribute.color, 0.3) }); ` +
       `}`);
     // illegal, mouse over
-    colorizationStyles.insertRule(`#graph-view.colorize-nodes ` +
+    colorizationStyles.insertRule(`body.colorize-nodes ` +
       `.${Util.stringToCss(attribute.name)}.mouse-over.illegal ` +
       `.hex-graphic { ` +
       `-webkit-filter: drop-shadow(0px 0px 8px red); ` +
