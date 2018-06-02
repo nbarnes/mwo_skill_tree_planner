@@ -435,12 +435,25 @@ footer a:hover {
   display: none;
 }
 
-.tree-view {
+.trees-view {
   width: 3400px;
-  height: 0;
-  background-color: #43464b;
+  background: linear-gradient(to bottom right, #43464b, grey, #43464b);
   text-align: center;
   display: flex;
   flex-flow: row wrap;
-  z-index: -99;
+}
+
+.labeled-tree {
+  display: flex;
+  flex-direction: column;
+}
+
+.tree-label {
+  height: 50px;
+  line-height: 50px;
+  width: 100%;
+  font-size: 200%;
+  color: black;
+  text-decoration: underline;
+  text-align: center;
 }
