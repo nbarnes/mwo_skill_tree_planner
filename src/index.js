@@ -47,6 +47,10 @@ document.addEventListener("DOMContentLoaded", function() {
     PubSub.publish("toggleNodeColorization");
   });
 
+  findById("save-to-file-button").addEventListener("click", function(event) {
+    saveToFile(findById("graph-view"));
+  });
+
   findById("chassis-weight-toggle").addEventListener("click", function(event) {
     PubSub.publish("toggleChassisWeight");
   });
