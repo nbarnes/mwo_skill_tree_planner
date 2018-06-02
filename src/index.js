@@ -126,8 +126,8 @@ document.addEventListener("DOMContentLoaded", function() {
   }, 800);
 
   function styleTooltip(tooltip, nodeElement, event) {
-    tooltip.style.top = dimensionAsNumber(nodeElement.style.top) + 35 +"px";
-    tooltip.style.left = dimensionAsNumber(nodeElement.style.left) + 190 + "px";
+    tooltip.style.top = dimensionAsNumber(nodeElement.style.top) + 65 +"px";
+    tooltip.style.left = dimensionAsNumber(nodeElement.style.left) + 225 + "px";
     let attribute = getAttribute(nodeElement.dataset.attribute);
     tooltip.classList.remove(tooltip.dataset.attribute);
     tooltip.classList.add(nodeElement.dataset.attribute);
