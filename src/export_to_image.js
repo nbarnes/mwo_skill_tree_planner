@@ -10,29 +10,39 @@ export let saveToFile = function (rootNode) {
 
   let treeView = buildTreeView();
   document.body.appendChild(treeView);
-  domtoimage.toPng(treeView)
+  domtoimage.toJpeg(treeView, { quality: 0.9 } )
   .then( dataUrl => {
     document.body.removeChild(treeView);
+
+    // let image = new Image();
+    // image.src = dataUrl;
+    // document.body.appendChild(image);
+
     var link = document.createElement('a');
     link.download = 'skill_tree';
     link.href = dataUrl;
     link.click();
+
+
   });
+
 
 }
 
 function buildTreeView() {
 
-  let treeView = findById("tree-view-template").content.cloneNode(true).firstElementChild;
-  treeView.id = 'tree-view';
+  let treesView = findById("trees-view-template").content.cloneNode(true).firstElementChild;
 
   for (let tree of treeSource) {
+    let labeledTree = findById("labeled-tree-template").content.cloneNode(true).firstElementChild;
+    labeledTree.querySelector('.tree-label').textContent = tree.treeName;
     let treeElement = findById(treeNameToId(tree.treeName)).cloneNode(true);
     treeElement.id = '';
     treeElement.classList.remove('hide');
-    treeView.appendChild(treeElement);
+    labeledTree.appendChild(treeElement);
+    treesView.appendChild(labeledTree);
   }
 
-  return treeView;
+  return treesView;
 
 }
