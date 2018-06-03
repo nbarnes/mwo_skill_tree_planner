@@ -1,4 +1,53 @@
 
+#tooltip {
+  position: absolute;
+  margin: 5px;
+  background-color: #6dd9ffbb;
+  z-index: 3;
+  overflow: hidden;
+  max-height: 110px;
+  border-color: #003D7D;
+  pointer-events: none;
+}
+
+#tooltip-name-bar {
+  color: #d3f3ff;
+  text-shadow: 0 0 1px black;
+  background-color: #008DCDbb;
+  font-size: 140%;
+  padding-top: 6px;
+  padding-bottom: 4px;
+  border-width: 0 0 0 0;
+  border-style: solid;
+  border-color: inherit;
+  white-space: nowrap
+}
+
+#tooltip-description {
+  font-size: 120%;
+  color: black;
+  text-shadow: 0 0 1px white;
+  padding: 5px;
+  text-align: left;
+}
+
+#tooltip.full-tooltip {
+  width: 200px;
+  height: 110px;
+  -webkit-transition: width 0.3s 0s, height 0.3s 0.3s;
+  -moz-transition: width 0.3s 0s, height 0.3s 0.3s;
+  -o-transition: width 0.3s 0s, height 0.3s 0.3s;
+  transition: width 0.3s 0s, height 0.3s 0.3s;
+  border-width: 3px 0 3px 0;
+  border-style: solid;
+}
+
+#tooltip.zero-tooltip {
+  width: 0px;
+  height: 28px;
+	max-height: 0;
+}
+
 body {
   background-color: #fff;
   color: #333;
@@ -406,53 +455,4 @@ footer a:hover {
   color: black;
   text-decoration: underline;
   text-align: center;
-}
-
-#tooltip {
-  position: absolute;
-  margin: 5px;
-  background-color: #6dd9ffbb;
-  z-index: 3;
-  overflow: hidden;
-  max-height: 110px;
-  border-color: #003D7D;
-  pointer-events: none;
-}
-
-#tooltip-name-bar {
-  color: #d3f3ff;
-  text-shadow: 0 0 1px black;
-  background-color: #008DCDbb;
-  font-size: 140%;
-  padding-top: 6px;
-  padding-bottom: 4px;
-  border-width: 0 0 0 0;
-  border-style: solid;
-  border-color: inherit;
-  white-space: nowrap
-}
-
-#tooltip-description {
-  font-size: 120%;
-  color: black;
-  text-shadow: 0 0 1px white;
-  padding: 5px;
-  text-align: left;
-}
-
-#tooltip.full-tooltip {
-  width: 200px;
-  height: 110px;
-  -webkit-transition: width 0.3s 0s, height 0.3s 0.3s;
-  -moz-transition: width 0.3s 0s, height 0.3s 0.3s;
-  -o-transition: width 0.3s 0s, height 0.3s 0.3s;
-  transition: width 0.3s 0s, height 0.3s 0.3s;
-  border-width: 3px 0 3px 0;
-  border-style: solid;
-}
-
-#tooltip.zero-tooltip {
-  width: 0px;
-  height: 28px;
-	max-height: 0;
 }

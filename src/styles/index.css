@@ -1,4 +1,7 @@
 
+@import 'footer.css';
+@import 'tooltip.css';
+
 body {
   background-color: #fff;
   color: #333;

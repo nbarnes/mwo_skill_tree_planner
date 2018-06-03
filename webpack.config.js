@@ -21,7 +21,7 @@ module.exports = {
     ]
   },
   plugins: [
-    new ExtractTextPlugin({ filename: 'app_bundle.css' }),
+    new ExtractTextPlugin({ filename: 'bundle.css' }),
   ],
   watch: false,
   watchOptions: {
