@@ -1,6 +1,9 @@
 
 "use strict";
 
+import './styles/planner.css';
+import './styles/tooltip.css';
+
 import { treeSource } from "./tree_source";
 import { attributeMap } from "./attribute_map";
 import buildSkillTree from "./skill_tree";
