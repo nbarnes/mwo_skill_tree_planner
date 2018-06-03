@@ -23,7 +23,7 @@ module.exports = {
   plugins: [
     new ExtractTextPlugin({ filename: 'bundle.css' }),
   ],
-  watch: false,
+  watch: true,
   watchOptions: {
     ignored: /node_modules/
   }
