@@ -1,3 +1,25 @@
+footer {
+  padding: 5px;
+  text-align: center;
+  color: white;
+  background-color: #191919;
+}
+
+footer a:link {
+  color: grey;
+}
+
+footer a:visited {
+  color: darkgrey;
+}
+
+footer a:link {
+  color: grey;
+}
+
+footer a:hover {
+  color: lightgrey;
+}
 
 #tooltip {
   position: absolute;
@@ -47,6 +69,117 @@
   height: 28px;
 	max-height: 0;
 }
+.skill-tree {
+  position: relative;
+  height: 900px;
+}
+
+.node {
+  position: absolute;
+  width: 110px;
+  font-size: 110%;
+  line-height: 20px;
+  z-index: 1;
+  cursor: pointer;
+}
+
+.hex-text {
+  font-size: 90%;
+  font-weight: 900;
+  position: absolute;
+  width: 70px;
+  top: 20px;
+  left: 19px;
+  z-index: 1;
+  background-color: none;
+
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none;
+}
+
+.hex-value {
+  position: absolute;
+  top: 65px;
+  z-index: 1;
+}
+
+.hex-graphic {
+  stroke-width: 15;
+}
+
+/*
+  The long selector here increases the specificity enough to overcome the
+  high priority defined for the per-bonus border color defined in
+  attribute_colors.js
+*/
+ body .skill-tree .node.selected.illegal .hex-graphic {
+  stroke: red;
+  stroke-width: 20;
+  /*
+    // Adapted from Andrew Willems' work at
+    // https://stackoverflow.com/a/41517797/1720976
+
+    // If I were using SCSS or something I could probably make a SCSS function
+    // that would do this based on a variable defining the side length of the
+    // hex
+
+    let polygon = nodeElement.querySelector('.hex');
+    let aveDashSize = 30;
+    let noneFlag = undefined;
+
+    const c = polygon.getAttribute('points').replace(/,| +/g, ' ')
+      .trim().split(' ').map(n => +n); // extract points' coordinates from polygon
+    c.push(c[0], c[1]); // repeat the 1st point's coordinates at the end
+    const d = noneFlag ? [0, 0] : [0]; // if noneFlag, prepend extra zero
+    for (let s = 0; s < c.length - 2; s += 2) { // s is line segment number * 2
+      const dx = c[s] - c[s + 2];
+      const dy = c[s + 1] - c[s + 3];
+      const segLen = Math.sqrt(dx * dx + dy * dy);
+      const n = Math.floor(0.5 + segLen / aveDashSize / 2);
+      const len = segLen / n / 2; // calculate # of dashes & dash length
+      d.push((d.pop() + len) / 2); // join prev seg's last dash, this seg's 1st dash
+      (i => {
+        while (i--) {
+          d.push(len, len)
+        }
+      })(n); // fill out line with gaps & dashes
+    }
+    console.log(d.join(' '));
+    polygon.setAttribute('stroke-dasharray', d.join(' '));
+  */
+  stroke-dasharray: 12.50694251650303 25.01388503300606 25.01388503300606 25.01388503300606 25.01388503300606 25.01388503300606 25.00694251650303 25 25 25 25 25 25.00694251650303 25.01388503300606 25.01388503300606 25.01388503300606 25.01388503300606 25.01388503300606 25.01388503300606 25.01388503300606 25.01388503300606 25.01388503300606 25.01388503300606 25.01388503300606 25.00694251650303 25 25 25 25 25 25.00694251650303 25.01388503300606 25.01388503300606 25.01388503300606 25.01388503300606 25.01388503300606 25.01388503300606;
+}
+
+.node .hex-graphic {
+  fill: grey;
+  stroke: #333333;
+}
+.node.selected .hex-graphic {
+  stroke: #006FAF;
+  fill: #00b5f5;
+}
+.node.mouse-over.selected .hex-graphic {
+  stroke: #008DCD;
+  -webkit-filter: drop-shadow(0px 0px 8px #50FFFF);
+  filter:         drop-shadow(0px 0px 8px #50FFFF);
+}
+
+.node.selected .hex-text { color: black; }
+.node .hex-text { color: white; }
+
+.node-connect-line {
+  position: absolute;
+  height: 10px;
+  background: #191919;
+  z-index: 0;
+  transform-origin: left center;
+}
+.node-connect-line.selected { background: white; }
+.node-connect-line.illegal { background: red; }
 
 body {
   background-color: #fff;
@@ -261,147 +394,12 @@ body {
   border-radius: 0px 5px 5px 0px;
 }
 
-.skill-tree {
-  position: relative;
-  height: 900px;
-}
-
-.node {
-  position: absolute;
-  width: 110px;
-  font-size: 110%;
-  line-height: 20px;
-  z-index: 1;
-  cursor: pointer;
-}
-
-.hex-text {
-  font-size: 90%;
-  font-weight: 900;
-  position: absolute;
-  width: 70px;
-  top: 20px;
-  left: 19px;
-  z-index: 1;
-  background-color: none;
-
-  -webkit-touch-callout: none; /* iOS Safari */
-    -webkit-user-select: none; /* Safari */
-     -khtml-user-select: none; /* Konqueror HTML */
-       -moz-user-select: none; /* Firefox */
-        -ms-user-select: none; /* Internet Explorer/Edge */
-            user-select: none;
-}
-
-.hex-value {
-  position: absolute;
-  top: 65px;
-  z-index: 1;
-}
-
-.hex-graphic {
-  stroke-width: 15;
-}
-
-/*
-  The long selector here increases the specificity enough to overcome the
-  high priority defined for the per-bonus border color defined in
-  attribute_colors.js
-*/
- body .skill-tree .node.selected.illegal .hex-graphic {
-  stroke: red;
-  stroke-width: 20;
-  /*
-    // Adapted from Andrew Willems' work at
-    // https://stackoverflow.com/a/41517797/1720976
-
-    // If I were using SCSS or something I could probably make a SCSS function
-    // that would do this based on a variable defining the side length of the
-    // hex
-
-    let polygon = nodeElement.querySelector('.hex');
-    let aveDashSize = 30;
-    let noneFlag = undefined;
-
-    const c = polygon.getAttribute('points').replace(/,| +/g, ' ')
-      .trim().split(' ').map(n => +n); // extract points' coordinates from polygon
-    c.push(c[0], c[1]); // repeat the 1st point's coordinates at the end
-    const d = noneFlag ? [0, 0] : [0]; // if noneFlag, prepend extra zero
-    for (let s = 0; s < c.length - 2; s += 2) { // s is line segment number * 2
-      const dx = c[s] - c[s + 2];
-      const dy = c[s + 1] - c[s + 3];
-      const segLen = Math.sqrt(dx * dx + dy * dy);
-      const n = Math.floor(0.5 + segLen / aveDashSize / 2);
-      const len = segLen / n / 2; // calculate # of dashes & dash length
-      d.push((d.pop() + len) / 2); // join prev seg's last dash, this seg's 1st dash
-      (i => {
-        while (i--) {
-          d.push(len, len)
-        }
-      })(n); // fill out line with gaps & dashes
-    }
-    console.log(d.join(' '));
-    polygon.setAttribute('stroke-dasharray', d.join(' '));
-  */
-  stroke-dasharray: 12.50694251650303 25.01388503300606 25.01388503300606 25.01388503300606 25.01388503300606 25.01388503300606 25.00694251650303 25 25 25 25 25 25.00694251650303 25.01388503300606 25.01388503300606 25.01388503300606 25.01388503300606 25.01388503300606 25.01388503300606 25.01388503300606 25.01388503300606 25.01388503300606 25.01388503300606 25.01388503300606 25.00694251650303 25 25 25 25 25 25.00694251650303 25.01388503300606 25.01388503300606 25.01388503300606 25.01388503300606 25.01388503300606 25.01388503300606;
-}
-
-.node .hex-graphic {
-  fill: grey;
-  stroke: #333333;
-}
-.node.selected .hex-graphic {
-  stroke: #006FAF;
-  fill: #00b5f5;
-}
-.node.mouse-over.selected .hex-graphic {
-  stroke: #008DCD;
-  -webkit-filter: drop-shadow(0px 0px 8px #50FFFF);
-  filter:         drop-shadow(0px 0px 8px #50FFFF);
-}
-
-.node.selected .hex-text { color: black; }
-.node .hex-text { color: white; }
-
-.node-connect-line {
-  position: absolute;
-  height: 10px;
-  background: #191919;
-  z-index: 0;
-  transform-origin: left center;
-}
-.node-connect-line.selected { background: white; }
-.node-connect-line.illegal { background: red; }
-
 #permalink-display {
   font-size: 140%;
   background-color: #43464b;
   border-radius: 5px;
   padding: 9px 6px 6px 6px;
   cursor: text;
-}
-
-footer {
-  padding: 5px;
-  text-align: center;
-  color: white;
-  background-color: #191919;
-}
-
-footer a:link {
-  color: grey;
-}
-
-footer a:visited {
-  color: darkgrey;
-}
-
-footer a:link {
-  color: grey;
-}
-
-footer a:hover {
-  color: lightgrey;
 }
 
 #modal-overlay {

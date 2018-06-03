@@ -1,8 +1,6 @@
 
 "use strict";
 
-import './styles/index.css';
-
 import { treeSource } from "./tree_source";
 import { attributeMap } from "./attribute_map";
 import buildSkillTree from "./skill_tree";
