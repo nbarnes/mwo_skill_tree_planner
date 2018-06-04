@@ -1,6 +1,8 @@
 
 "use strict";
 
+import "./styles/index.css";
+
 import { treeSource } from "./tree_source";
 import { attributeMap } from "./attribute_map";
 import buildSkillTree from "./skill_tree";
@@ -62,6 +64,15 @@ document.addEventListener("DOMContentLoaded", function() {
   findById("bonus-sort-button").addEventListener("click", function(even) {
     incrementBonusSort();
   });
+
+  findById("toggle-ui-colors").addEventListener("click", function(even) {
+    document.body.classList.toggle("alt-colors");
+  });
+
+  findById("toggle-font").addEventListener("click", function(even) {
+    document.body.classList.toggle("alt-font");
+  });
+
 
   for (let node of findByClass(".node")) {
     node.addEventListener("mouseenter", function(event) {

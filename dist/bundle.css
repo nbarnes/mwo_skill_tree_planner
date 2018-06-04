@@ -21,6 +21,7 @@ footer a:hover {
   color: lightgrey;
 }
 
+
 #tooltip {
   position: absolute;
   margin: 5px;
@@ -69,29 +70,22 @@ footer a:hover {
   height: 28px;
 	max-height: 0;
 }
-.skill-tree {
-  position: relative;
-  height: 900px;
+
+.sidebar {
+  border-color: black;
+  border-style: solid;
+  min-width: 150px;
+  line-height: 50px;
+  display: flex;
+  flex-direction: column;
 }
 
-.node {
-  position: absolute;
-  width: 110px;
+.option-button {
   font-size: 110%;
-  line-height: 20px;
-  z-index: 1;
+  text-align: center;
+  background-color: #737882;
+  border: 1px solid black;
   cursor: pointer;
-}
-
-.hex-text {
-  font-size: 90%;
-  font-weight: 900;
-  position: absolute;
-  width: 70px;
-  top: 20px;
-  left: 19px;
-  z-index: 1;
-  background-color: none;
 
   -webkit-touch-callout: none; /* iOS Safari */
     -webkit-user-select: none; /* Safari */
@@ -101,119 +95,24 @@ footer a:hover {
             user-select: none;
 }
 
-.hex-value {
-  position: absolute;
-  top: 65px;
-  z-index: 1;
-}
-
-.hex-graphic {
-  stroke-width: 15;
-}
-
-/*
-  The long selector here increases the specificity enough to overcome the
-  high priority defined for the per-bonus border color defined in
-  attribute_colors.js
-*/
- body .skill-tree .node.selected.illegal .hex-graphic {
-  stroke: red;
-  stroke-width: 20;
-  /*
-    // Adapted from Andrew Willems' work at
-    // https://stackoverflow.com/a/41517797/1720976
-
-    // If I were using SCSS or something I could probably make a SCSS function
-    // that would do this based on a variable defining the side length of the
-    // hex
-
-    let polygon = nodeElement.querySelector('.hex');
-    let aveDashSize = 30;
-    let noneFlag = undefined;
-
-    const c = polygon.getAttribute('points').replace(/,| +/g, ' ')
-      .trim().split(' ').map(n => +n); // extract points' coordinates from polygon
-    c.push(c[0], c[1]); // repeat the 1st point's coordinates at the end
-    const d = noneFlag ? [0, 0] : [0]; // if noneFlag, prepend extra zero
-    for (let s = 0; s < c.length - 2; s += 2) { // s is line segment number * 2
-      const dx = c[s] - c[s + 2];
-      const dy = c[s + 1] - c[s + 3];
-      const segLen = Math.sqrt(dx * dx + dy * dy);
-      const n = Math.floor(0.5 + segLen / aveDashSize / 2);
-      const len = segLen / n / 2; // calculate # of dashes & dash length
-      d.push((d.pop() + len) / 2); // join prev seg's last dash, this seg's 1st dash
-      (i => {
-        while (i--) {
-          d.push(len, len)
-        }
-      })(n); // fill out line with gaps & dashes
-    }
-    console.log(d.join(' '));
-    polygon.setAttribute('stroke-dasharray', d.join(' '));
-  */
-  stroke-dasharray: 12.50694251650303 25.01388503300606 25.01388503300606 25.01388503300606 25.01388503300606 25.01388503300606 25.00694251650303 25 25 25 25 25 25.00694251650303 25.01388503300606 25.01388503300606 25.01388503300606 25.01388503300606 25.01388503300606 25.01388503300606 25.01388503300606 25.01388503300606 25.01388503300606 25.01388503300606 25.01388503300606 25.00694251650303 25 25 25 25 25 25.00694251650303 25.01388503300606 25.01388503300606 25.01388503300606 25.01388503300606 25.01388503300606 25.01388503300606;
-}
-
-.node .hex-graphic {
-  fill: grey;
-  stroke: #333333;
-}
-.node.selected .hex-graphic {
-  stroke: #006FAF;
-  fill: #00b5f5;
-}
-.node.mouse-over.selected .hex-graphic {
-  stroke: #008DCD;
-  -webkit-filter: drop-shadow(0px 0px 8px #50FFFF);
-  filter:         drop-shadow(0px 0px 8px #50FFFF);
-}
-
-.node.selected .hex-text { color: black; }
-.node .hex-text { color: white; }
-
-.node-connect-line {
-  position: absolute;
-  height: 10px;
-  background: #191919;
-  z-index: 0;
-  transform-origin: left center;
-}
-.node-connect-line.selected { background: white; }
-.node-connect-line.illegal { background: red; }
-
-body {
-  background-color: #fff;
-  color: #333;
-  font-size: 16px;
-  line-height: 18px;
-  font-family: 'PT Sans Narrow', sans-serif;
-  /* font-family: 'Lato', sans-serif; */
-}
-
-#pane {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-  min-width: fit-content;
-  max-width: fit-content;
-}
-
-#main {
+.option-button:hover {
+  color: white;
   background-color: #43464b;
-  /* background: linear-gradient(to bottom right, #43464b, grey, #43464b); */
-  border: 1px solid black;
-  display: flex;
-  flex-direction: row;
 }
 
-.sidebar {
-  border-color: black;
-  border-style: solid;
-  min-width: 150px;
-  line-height: 50px;
-  display: flex;
-  flex-direction: column;
+.solo-button {
+  height: 24px;
+  margin: 3px;
+  width: 120px;
+  line-height: 26px;
+  border: 1px solid black;
+  border-radius: 5px;
+}
+
+.duo-button {
+  height: 20px;
+  width: 58px;
+  line-height: 21px;
 }
 
 #left-sidebar {
@@ -337,45 +236,10 @@ body {
   align-items: center;
 }
 
-.option-button {
-  font-size: 110%;
-  text-align: center;
-  background-color: #737882;
-  border: 1px solid black;
-  cursor: pointer;
-
-  -webkit-touch-callout: none; /* iOS Safari */
-    -webkit-user-select: none; /* Safari */
-     -khtml-user-select: none; /* Konqueror HTML */
-       -moz-user-select: none; /* Firefox */
-        -ms-user-select: none; /* Internet Explorer/Edge */
-            user-select: none;
-}
-
-.option-button:hover {
-  color: white;
-  background-color: #43464b;
-}
-
-.solo-button {
-  height: 24px;
-  margin: 3px;
-  width: 120px;
-  line-height: 26px;
-  border: 1px solid black;
-  border-radius: 5px;
-}
-
 #chassis-toggles {
   display: flex;
   flex-direction: row;
   align-items: space-between;
-}
-
-.duo-button {
-  height: 20px;
-  width: 58px;
-  line-height: 21px;
 }
 
 #chassis-weight-toggle {
@@ -394,13 +258,117 @@ body {
   border-radius: 0px 5px 5px 0px;
 }
 
-#permalink-display {
-  font-size: 140%;
-  background-color: #43464b;
-  border-radius: 5px;
-  padding: 9px 6px 6px 6px;
-  cursor: text;
+.skill-tree {
+  position: relative;
+  height: 900px;
 }
+
+.node {
+  position: absolute;
+  width: 110px;
+  font-size: 110%;
+  line-height: 20px;
+  z-index: 1;
+  cursor: pointer;
+}
+
+.hex-text {
+  font-size: 90%;
+  font-weight: 900;
+  position: absolute;
+  width: 70px;
+  top: 20px;
+  left: 19px;
+  z-index: 1;
+  background-color: none;
+
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none;
+}
+
+.node .hex-text.hex-value {
+  position: absolute;
+  top: 65px;
+  z-index: 1;
+}
+
+.hex-graphic {
+  stroke-width: 15;
+}
+
+/*
+  The long selector here increases the specificity enough to overcome the
+  high priority defined for the per-bonus border color defined in
+  attribute_colors.js
+*/
+ body .skill-tree .node.selected.illegal .hex-graphic {
+  stroke: red;
+  stroke-width: 20;
+  /*
+    // Adapted from Andrew Willems' work at
+    // https://stackoverflow.com/a/41517797/1720976
+
+    // If I were using SCSS or something I could probably make a SCSS function
+    // that would do this based on a variable defining the side length of the
+    // hex
+
+    let polygon = nodeElement.querySelector('.hex');
+    let aveDashSize = 30;
+    let noneFlag = undefined;
+
+    const c = polygon.getAttribute('points').replace(/,| +/g, ' ')
+      .trim().split(' ').map(n => +n); // extract points' coordinates from polygon
+    c.push(c[0], c[1]); // repeat the 1st point's coordinates at the end
+    const d = noneFlag ? [0, 0] : [0]; // if noneFlag, prepend extra zero
+    for (let s = 0; s < c.length - 2; s += 2) { // s is line segment number * 2
+      const dx = c[s] - c[s + 2];
+      const dy = c[s + 1] - c[s + 3];
+      const segLen = Math.sqrt(dx * dx + dy * dy);
+      const n = Math.floor(0.5 + segLen / aveDashSize / 2);
+      const len = segLen / n / 2; // calculate # of dashes & dash length
+      d.push((d.pop() + len) / 2); // join prev seg's last dash, this seg's 1st dash
+      (i => {
+        while (i--) {
+          d.push(len, len)
+        }
+      })(n); // fill out line with gaps & dashes
+    }
+    console.log(d.join(' '));
+    polygon.setAttribute('stroke-dasharray', d.join(' '));
+  */
+  stroke-dasharray: 12.50694251650303 25.01388503300606 25.01388503300606 25.01388503300606 25.01388503300606 25.01388503300606 25.00694251650303 25 25 25 25 25 25.00694251650303 25.01388503300606 25.01388503300606 25.01388503300606 25.01388503300606 25.01388503300606 25.01388503300606 25.01388503300606 25.01388503300606 25.01388503300606 25.01388503300606 25.01388503300606 25.00694251650303 25 25 25 25 25 25.00694251650303 25.01388503300606 25.01388503300606 25.01388503300606 25.01388503300606 25.01388503300606 25.01388503300606;
+}
+
+.node .hex-graphic {
+  fill: grey;
+  stroke: #333333;
+}
+.node.selected .hex-graphic {
+  stroke: #006FAF;
+  fill: #00b5f5;
+}
+.node.mouse-over.selected .hex-graphic {
+  stroke: #008DCD;
+  -webkit-filter: drop-shadow(0px 0px 8px #50FFFF);
+  filter:         drop-shadow(0px 0px 8px #50FFFF);
+}
+
+.node.selected .hex-text { color: black; }
+.node .hex-text { color: white; }
+
+.node-connect-line {
+  position: absolute;
+  height: 10px;
+  background: #191919;
+  z-index: 0;
+  transform-origin: left center;
+}
+.node-connect-line.selected { background: white; }
+.node-connect-line.illegal { background: red; }
 
 #modal-overlay {
   position: absolute;
@@ -428,8 +396,12 @@ body {
   border-radius: 15px;
 }
 
-.hide {
-  display: none;
+#permalink-display {
+  font-size: 140%;
+  background-color: #43464b;
+  border-radius: 5px;
+  padding: 9px 6px 6px 6px;
+  cursor: text;
 }
 
 .trees-view {
@@ -454,3 +426,122 @@ body {
   text-decoration: underline;
   text-align: center;
 }
+
+/* *** ALT COLOR SCHEME *** */
+
+.alt-colors #main {
+  background: linear-gradient(to bottom right, #43464b, grey, #43464b);
+}
+
+.alt-colors #node-count-display {
+  color: #eeeeee;
+  text-shadow: 0 0 2px #eeeeee;
+  background-color: #2b2d30;
+}
+
+.alt-colors #node-selection-counter.exceeded-max-nodes {
+  text-shadow: 0 0 1px red;
+}
+
+.alt-colors .treeTab {
+  color: #eeeeee;
+  text-shadow: 0 0 1px #eeeeee;
+  background-color: #2b2d30;
+}
+
+.alt-colors .treeTab.selected {
+  text-shadow: 0 0 2px black;
+  background-color: transparent;
+}
+
+.alt-colors #costs-and-buttons-pane {
+  background-color: #2b2d30;
+}
+
+.alt-colors #cost-totals-display {
+  color: #eeeeee;
+  text-shadow: 0 0 1px #eeeeee;
+}
+
+.alt-colors .option-button {
+  color: black;
+  background-color: grey;
+}
+
+.alt-colors .option-button:hover {
+  color: #eeeeee;
+  text-shadow: 0 0 1px black;
+  background-color: #191919;
+}
+
+.alt-colors #right-sidebar {
+  color: #eeeeee;
+  text-shadow: 0 0 1px white;
+  background-color: #2b2d30;
+}
+
+.alt-colors .bonus-display:nth-child(even) {
+  background-color: #191919;
+}
+
+.alt-colors .bonus-display:nth-child(odd) {
+  color: black;
+  background-color: lightgrey;
+}
+
+.alt-colors .node .hex-graphic {
+  fill: #2b2d30;
+}
+
+.alt-colors .node.selected .hex-graphic {
+  stroke: #003D7D;
+}
+
+.alt-colors .footer {
+  color: #eeeeee;
+}
+
+/* *** 'Leto' FONT *** */
+
+body.alt-font {
+  font-family: 'Lato', sans-serif;
+  font-size: 14px;
+}
+
+.alt-font .hex-text {
+  top: 25px;
+  left: 19px;
+}
+.alt-font .solo-button {
+  line-height: 24px;
+}
+
+
+body {
+  background-color: #fff;
+  color: #333;
+  font-size: 16px;
+  line-height: 18px;
+  font-family: 'PT Sans Narrow', sans-serif;
+}
+
+#pane {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  min-width: fit-content;
+  max-width: fit-content;
+}
+
+#main {
+  background-color: #43464b;
+  border: 1px solid black;
+  display: flex;
+  flex-direction: row;
+}
+
+.hide {
+  display: none;
+}
+

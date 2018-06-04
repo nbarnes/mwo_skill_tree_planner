@@ -30,7 +30,7 @@
             user-select: none;
 }
 
-.hex-value {
+.node .hex-text.hex-value {
   position: absolute;
   top: 65px;
   z-index: 1;
