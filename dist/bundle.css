@@ -369,10 +369,21 @@ footer a:hover {
   stroke: #005c7d;
 }
 
+.node.mouse-over .hex-graphic {
+  stroke: #2f2f2f;
+  -webkit-filter: drop-shadow(0px 0px 8px white);
+  filter:         drop-shadow(0px 0px 8px white);
+}
+
 .node.mouse-over.selected .hex-graphic {
   stroke: #008DCD;
   -webkit-filter: drop-shadow(0px 0px 8px #50FFFF);
   filter:         drop-shadow(0px 0px 8px #50FFFF);
+}
+
+.node.mouse-over.illegal .hex-graphic {
+  -webkit-filter: drop-shadow(0px 0px 8px red);
+  filter:         drop-shadow(0px 0px 8px red);
 }
 
 .node.selected .hex-text { color: black; }

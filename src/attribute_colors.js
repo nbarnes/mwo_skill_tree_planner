@@ -42,7 +42,7 @@ export default function insertAttributeColors(attributeMap) {
       `.${Util.stringToCss(attribute.name)}.selected ` +
       `.hex-text { color: ${ Util.shadeColor(attribute.color, -0.8) }`);
 
-    // box shadow
+    // drop shadow
     // selected, mouse over
     colorizationStyles.insertRule(`.colorize-nodes ` +
       `.${Util.stringToCss(attribute.name)}.mouse-over.selected ` +
@@ -50,19 +50,12 @@ export default function insertAttributeColors(attributeMap) {
       `-webkit-filter: drop-shadow(0px 0px 8px ${ Util.shadeColor(attribute.color, 0.5) }); ` +
       `filter:         drop-shadow(0px 0px 8px ${ Util.shadeColor(attribute.color, 0.5) }); ` +
       `}`);
-    // unselected, mouse over
+      // unselected, mouse over
     colorizationStyles.insertRule(`.colorize-nodes ` +
       `.${Util.stringToCss(attribute.name)}.mouse-over ` +
       `.hex-graphic { ` +
       `-webkit-filter: drop-shadow(0px 0px 8px ${ Util.shadeColor(attribute.color, 0.3) }); ` +
       `filter:         drop-shadow(0px 0px 8px ${ Util.shadeColor(attribute.color, 0.3) }); ` +
-      `}`);
-    // illegal, mouse over
-    colorizationStyles.insertRule(`body.colorize-nodes ` +
-      `.${Util.stringToCss(attribute.name)}.mouse-over.illegal ` +
-      `.hex-graphic { ` +
-      `-webkit-filter: drop-shadow(0px 0px 8px red); ` +
-      `filter:         drop-shadow(0px 0px 8px red); ` +
       `}`);
 
     // tooltip
