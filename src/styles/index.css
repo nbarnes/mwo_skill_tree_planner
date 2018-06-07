@@ -5,14 +5,13 @@
 @import 'graph_view.css';
 @import 'modal.css';
 @import 'trees_view.css';
-@import 'a_b_testing.css';
 
 body {
   background-color: #fff;
   color: #333;
-  font-size: 16px;
+  font-size: 14px;
   line-height: 18px;
-  font-family: 'PT Sans Narrow', sans-serif;
+  font-family: 'Lato', sans-serif;
 }
 
 #pane {
@@ -25,7 +24,7 @@ body {
 }
 
 #main {
-  background-color: #43464b;
+  background: linear-gradient(to bottom right, #43464b, grey, #43464b);
   border: 1px solid black;
   display: flex;
   flex-direction: row;

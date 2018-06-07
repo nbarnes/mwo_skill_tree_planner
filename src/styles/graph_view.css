@@ -17,7 +17,7 @@
   font-weight: 900;
   position: absolute;
   width: 70px;
-  top: 20px;
+  top: 25px;
   left: 19px;
   z-index: 1;
   background-color: none;
@@ -84,13 +84,15 @@
 }
 
 .node .hex-graphic {
-  fill: grey;
-  stroke: #333333;
+  fill: #2b2d30;
+  stroke: #191919;
 }
+
 .node.selected .hex-graphic {
-  stroke: #006FAF;
   fill: #00b5f5;
+  stroke: #005c7d;
 }
+
 .node.mouse-over.selected .hex-graphic {
   stroke: #008DCD;
   -webkit-filter: drop-shadow(0px 0px 8px #50FFFF);

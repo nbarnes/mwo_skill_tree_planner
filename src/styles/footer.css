@@ -1,8 +1,8 @@
 footer {
+  color: #eeeeee;
+  background-color: #191919;
   padding: 5px;
   text-align: center;
-  color: white;
-  background-color: #191919;
 }
 
 footer a:link {

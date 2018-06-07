@@ -8,10 +8,11 @@
 }
 
 .option-button {
+  color: black;
   font-size: 110%;
   text-align: center;
-  background-color: #737882;
-  border: 1px solid black;
+  background-color: grey;
+  border: 1px solid #191919;;
   cursor: pointer;
 
   -webkit-touch-callout: none; /* iOS Safari */
@@ -23,16 +24,17 @@
 }
 
 .option-button:hover {
-  color: white;
-  background-color: #43464b;
+  color: #eeeeee;
+  text-shadow: 0 0 1px white;
+  background-color: #191919;
 }
 
 .solo-button {
   height: 24px;
   margin: 3px;
   width: 120px;
-  line-height: 26px;
-  border: 1px solid black;
+  line-height: 24px;
+  border: 1px solid #191919;;
   border-radius: 5px;
 }
 
@@ -49,15 +51,18 @@
 }
 
 #node-count-display {
-  background-color: grey;
+  color: #eeeeee;
+  text-shadow: 0 0 2px #eeeeee;
+  background-color: #2b2d30;
   font-size: 300%;
   border-width: 0px 0px 1px 0px;
-  border-color: black;
+  border-color: #191919;;
   border-style: solid;
 }
 
 #node-selection-counter.exceeded-max-nodes {
   color: red;
+  text-shadow: 0 0 1px red;
 }
 
 #tabs-pane {
@@ -68,13 +73,14 @@
 }
 
 .treeTab {
+  color: #eeeeee;
+  background-color: #2b2d30;
   line-height: 20px;
   border-width: 0px 0px 1px 0px;
-  border-color: black;
   border-style: solid;
+  border-color: #191919;
   height: 40px;
   width: 150px;
-  background-color: #737882;
   cursor: pointer;
 
   -webkit-touch-callout: none; /* iOS Safari */
@@ -86,14 +92,16 @@
 }
 
 .treeTab.selected {
-  z-index: 2;
   color: white;
-  border-right-color: #43464b;
+  text-shadow: 0 0 2px black;
   background-color: transparent;
+  z-index: 2;
 }
 
 #right-sidebar {
-  background-color: grey;
+  color: #eeeeee;
+  background-color: #2b2d30;
+  background-color: #2b2d30;
   border-width: 1px 1px 0px 0px;
   width: 100%;
   justify-content: space-between;
@@ -102,7 +110,8 @@
 
 #bonuses-header {
   font-size: 200%;
-  text-decoration: underline
+  text-decoration: underline;
+  text-shadow: 0 0 1px white;
 }
 
 .bonus-tree-name {
@@ -110,7 +119,6 @@
   font-weight: bold;
   font-size: 110%;
   line-height: 25px;
-  margin-bottom: 5px;
   border-width: 0 0 1px 0;
   border-style: solid;
   border-color: black;
@@ -128,7 +136,12 @@
   line-height: 10px;
 }
 
+.bonus-display:nth-child(even) {
+  background-color: #191919;
+}
+
 .bonus-display:nth-child(odd) {
+  color: #191919;
   background-color: lightgrey;
 }
 
@@ -143,13 +156,16 @@
 #costs-and-buttons-pane {
   height: 100%;
   width: 100%;
-  background-color: grey;
+  background-color: #2b2d30;
+  color: #eeeeee;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
 }
 
 #cost-totals-display {
+  color: #eeeeee;
+  text-shadow: 0 0 1px #eeeeee;
   font-weight: 900;
   margin: 10px 0;
   line-height: 20px;
@@ -173,7 +189,7 @@
   margin: 3px 0px 3px 3px;
   padding: 2px 0px 2px 2px;
   border-radius: 5px 0px 0px 5px;
-  border: 1px solid black;
+  border: 1px solid #191919;;
 }
 
 #chassis-tech-toggle {
@@ -181,6 +197,6 @@
   padding: 2px 2px 2px 0px;
   border-width: 1px 1px 1px 0px;
   border-style: solid;
-  border-color: black;
+  border-color: #191919;;
   border-radius: 0px 5px 5px 0px;
 }

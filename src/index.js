@@ -65,15 +65,6 @@ document.addEventListener("DOMContentLoaded", function() {
     incrementBonusSort();
   });
 
-  findById("toggle-ui-colors").addEventListener("click", function(even) {
-    document.body.classList.toggle("alt-colors");
-  });
-
-  findById("toggle-font").addEventListener("click", function(even) {
-    document.body.classList.toggle("alt-font");
-  });
-
-
   for (let node of findByClass(".node")) {
     node.addEventListener("mouseenter", function(event) {
       PubSub.publish("nodeMouseEnter", {attribute: this.dataset.attribute, treeName: skillTree.getActiveTreeName()} );
