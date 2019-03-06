@@ -1,17 +1,17 @@
-
-@import 'footer.css';
-@import 'tooltip.css';
-@import 'sidebar.css';
-@import 'graph_view.css';
-@import 'modal.css';
-@import 'trees_view.css';
+@import "footer.css";
+@import "tooltip.css";
+@import "sidebar.css";
+@import "graph_view.css";
+@import "modal.css";
+@import "trees_view.css";
 
 body {
   background-color: #fff;
   color: #333;
   font-size: 14px;
   line-height: 18px;
-  font-family: 'Lato', sans-serif;
+  font-family: "Lato", sans-serif;
+  display: flex;
 }
 
 #pane {
@@ -19,8 +19,6 @@ body {
   display: flex;
   flex-direction: column;
   text-align: center;
-  min-width: fit-content;
-  max-width: fit-content;
 }
 
 #main {

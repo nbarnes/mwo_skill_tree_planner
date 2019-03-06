@@ -12,15 +12,15 @@
   font-size: 110%;
   text-align: center;
   background-color: grey;
-  border: 1px solid #191919;;
+  border: 1px solid #191919;
   cursor: pointer;
 
   -webkit-touch-callout: none; /* iOS Safari */
-    -webkit-user-select: none; /* Safari */
-     -khtml-user-select: none; /* Konqueror HTML */
-       -moz-user-select: none; /* Firefox */
-        -ms-user-select: none; /* Internet Explorer/Edge */
-            user-select: none;
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none;
 }
 
 .option-button:hover {
@@ -34,7 +34,7 @@
   margin: 3px;
   width: 120px;
   line-height: 24px;
-  border: 1px solid #191919;;
+  border: 1px solid #191919;
   border-radius: 5px;
 }
 
@@ -56,7 +56,7 @@
   background-color: #2b2d30;
   font-size: 300%;
   border-width: 0px 0px 1px 0px;
-  border-color: #191919;;
+  border-color: #191919;
   border-style: solid;
 }
 
@@ -84,11 +84,11 @@
   cursor: pointer;
 
   -webkit-touch-callout: none; /* iOS Safari */
-    -webkit-user-select: none; /* Safari */
-     -khtml-user-select: none; /* Konqueror HTML */
-       -moz-user-select: none; /* Firefox */
-        -ms-user-select: none; /* Internet Explorer/Edge */
-            user-select: none;
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none;
 }
 
 .treeTab.selected {
@@ -103,7 +103,6 @@
   background-color: #2b2d30;
   background-color: #2b2d30;
   border-width: 1px 1px 0px 0px;
-  width: 100%;
   justify-content: space-between;
   align-items: center;
 }
@@ -189,7 +188,7 @@
   margin: 3px 0px 3px 3px;
   padding: 2px 0px 2px 2px;
   border-radius: 5px 0px 0px 5px;
-  border: 1px solid #191919;;
+  border: 1px solid #191919;
 }
 
 #chassis-tech-toggle {
@@ -197,6 +196,6 @@
   padding: 2px 2px 2px 0px;
   border-width: 1px 1px 1px 0px;
   border-style: solid;
-  border-color: #191919;;
+  border-color: #191919;
   border-radius: 0px 5px 5px 0px;
 }
